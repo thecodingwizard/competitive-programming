@@ -2,3 +2,5 @@
 cmake-build-debug
 *.class
 *.o
+*.in
+*.out
