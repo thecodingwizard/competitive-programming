@@ -1,3 +1,5 @@
+/* Clumsy Cows, Greedy */
+
 #include <iostream>
 #include <string>
 #include <utility>
