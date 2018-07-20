@@ -6,6 +6,8 @@ USACO Training:
 - 1.1.6: Subprime Rib
 
 USACO Contests:
-None yet
+- Nov 2012
+  - clumsy (silver)
+  - distant (silver)
 
 Note: Code primarily written in C++.
