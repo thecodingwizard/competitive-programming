@@ -12,5 +12,6 @@ USACO Contests:
   - bbreeds (gold)
 - Dec 2012
   - first (gold)
+  - runaway (gold)
 
 Note: Code primarily written in C++.
