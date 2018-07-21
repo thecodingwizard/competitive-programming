@@ -11,6 +11,7 @@ USACO Contests:
   - distant (silver)
   - bbreeds (gold)
 - Dec 2012
+  - gangs (gold)
   - first (gold)
   - runaway (gold)
 
