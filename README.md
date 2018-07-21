@@ -9,6 +9,7 @@ USACO Contests:
 - Nov 2012
   - clumsy (silver)
   - distant (silver)
+  - bbreeds (gold)
 - Dec 2012
   - first (gold)
 
