@@ -9,5 +9,7 @@ USACO Contests:
 - Nov 2012
   - clumsy (silver)
   - distant (silver)
+- Dec 2012
+  - first (gold)
 
 Note: Code primarily written in C++.
