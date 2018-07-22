@@ -49,9 +49,9 @@ int dfs(int x, int y, int d) {
 bool can(int d) {
     memset(visited, false, sizeof visited);
     for (int i = 0; i < n; i++) for (int j = 0; j < n; j++) {
-        if (visited[i][j]) continue;
-        if (dfs(i, j, d) >= (n*n+1)/2) return true;
-    }
+            if (visited[i][j]) continue;
+            if (dfs(i, j, d) >= (n*n+1)/2) return true;
+        }
     return false;
 }
 

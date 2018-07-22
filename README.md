@@ -20,6 +20,7 @@ Contains some solutions to USACO training and USACO contest problems.
 | Jan 2013 | [island][island] | Island Travels | bfs | Gold | 11/11 |
 | Jan 2013 | [seating][seating] | Seating | Binary Tree, Lazy Propagation | Gold | 10/10 |
 | Feb 2013 | [perimeter][perimeter] | Perimeter | Optimized Floodfill | Silver | 10/10 |
+| Feb 2013 | [tractor][tractor] | Tractor | Binary search for answer, dfs | Silver | 10/10 |
 | Feb 2013 | [partition][partition] | Partitioning The Farm | DP | Gold | 17/17 |
 | Feb 2013 | [taxi][taxi] | Taxi | Min Cost Matching, calculate minimum distance driven without cow | Gold | 12/12 |
 
@@ -35,6 +36,7 @@ Contains some solutions to USACO training and USACO contest problems.
 [island]: usaco-contests/2013jan/gold/island.cpp
 [seating]: usaco-contests/2013jan/gold/seating.cpp
 [perimeter]: usaco-contests/2013feb/silver/perimeter.cpp
+[tractor]: usaco-contests/2013feb/silver/tractor.cpp
 [partition]: usaco-contests/2013feb/gold/partition.cpp
 [taxi]: usaco-contests/2013feb/gold/taxi.cpp
 
