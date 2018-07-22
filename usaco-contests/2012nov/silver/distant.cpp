@@ -46,24 +46,24 @@ int main() {
     int dy[4] = {1, 0, -1, 0};
     long long longest = 0;
     for (int i = 0; i < n; i++) for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) for (int l = 0; l < n; l++) dist[k][l] = LL_INF;
-            dist[i][j] = 0;
-            priority_queue<pair<long long, ii>, vector<pair<long long, ii>>, greater<pair<long long, ii>>> pq;
-            pq.push(mp(0, mp(i, j)));
-            while (!pq.empty()) {
-                pair<long long, ii> next = pq.top(); pq.pop();
-                if (dist[next.B.A][next.B.B] < next.A) continue;
-                for (int x = 0; x < 4; x++) {
-                    int a = next.B.A + dy[x], b = next.B.B + dx[x];
-                    if (a < 0 || a >= n || b < 0 || b >= n) continue;
-                    long long altCost = next.A + (isOpen[next.B.A][next.B.B] == isOpen[a][b] ? sameCost : diffCost);
-                    if (dist[a][b] <= altCost) continue;
-                    dist[a][b] = altCost;
-                    pq.push(mp(dist[a][b], mp(a, b)));
-                }
+        for (int k = 0; k < n; k++) for (int l = 0; l < n; l++) dist[k][l] = LL_INF;
+        dist[i][j] = 0;
+        priority_queue<pair<long long, ii>, vector<pair<long long, ii>>, greater<pair<long long, ii>>> pq;
+        pq.push(mp(0, mp(i, j)));
+        while (!pq.empty()) {
+            pair<long long, ii> next = pq.top(); pq.pop();
+            if (dist[next.B.A][next.B.B] < next.A) continue;
+            for (int x = 0; x < 4; x++) {
+                int a = next.B.A + dy[x], b = next.B.B + dx[x];
+                if (a < 0 || a >= n || b < 0 || b >= n) continue;
+                long long altCost = next.A + (isOpen[next.B.A][next.B.B] == isOpen[a][b] ? sameCost : diffCost);
+                if (dist[a][b] <= altCost) continue;
+                dist[a][b] = altCost;
+                pq.push(mp(dist[a][b], mp(a, b)));
             }
-            for (int k = 0; k < n; k++) for (int l = 0; l < n; l++) longest = max(longest, dist[k][l]);
         }
+        for (int k = 0; k < n; k++) for (int l = 0; l < n; l++) longest = max(longest, dist[k][l]);
+    }
     fout << longest << endl;
     return 0;
 }
