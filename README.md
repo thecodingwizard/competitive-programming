@@ -19,6 +19,7 @@ Contains some solutions to USACO training and USACO contest problems.
 | Jan 2013 | [lineup][lineup] | Cow Lineup | sweep with two pointers | Gold | 10/10 |
 | Jan 2013 | [island][island] | Island Travels | bfs | Gold | 10/10 |
 | Jan 2013 | [seating][seating] | Seating | Binary Tree, Lazy Propagation | Gold | 10/10 |
+| Feb 2013 | [partition][partition] | Partitioning The Farm | DP | Gold | 17/17 |
 
 [1.1.6]: usaco-training/Chapter%201/1.1.6%20sprime%20-%20Superprime%20Rib.cpp
 
@@ -31,5 +32,6 @@ Contains some solutions to USACO training and USACO contest problems.
 [lineup]: usaco-contests/2013jan/gold/lineup.cpp
 [island]: usaco-contests/2013jan/gold/island.cpp
 [seating]: usaco-contests/2013jan/gold/seating.cpp
+[partition]: usaco-contests/2013feb/gold/partition.cpp
 
 Note: Code primarily written in C++.

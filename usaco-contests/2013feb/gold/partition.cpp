@@ -55,12 +55,12 @@ int main() {
         int horizontalLines = k - __builtin_popcount(vertLinesMask);
         int dp[n+1][horizontalLines+1];
         for (int i = 0; i <= n; i++) for (int j = 0; j <= horizontalLines; j++) {
-            if (i == n) {
-                dp[i][j] = 0;
-            } else {
-                dp[i][j] = INF;
+                if (i == n) {
+                    dp[i][j] = 0;
+                } else {
+                    dp[i][j] = INF;
+                }
             }
-        }
         for (int i = n - 1; i >= 0; i--) {
             for (int j = 0; j <= horizontalLines; j++) {
                 if (j == 0) {
