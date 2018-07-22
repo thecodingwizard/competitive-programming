@@ -38,8 +38,8 @@ void run(int x, int y) {
         visited.insert(mp(x, y));
         bool stop = true;
         for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) {
-            if (inObject.count(mp(x+dx, y+dy))) stop = false;
-        }
+                if (inObject.count(mp(x+dx, y+dy))) stop = false;
+            }
         if (stop) return;
         run(x+1,y);
         run(x,y+1);
