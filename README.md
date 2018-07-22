@@ -14,5 +14,7 @@ USACO Contests:
   - gangs (gold)
   - first (gold)
   - runaway (gold)
+- Jan 2013
+  - Cow Lineup (gold)
 
 Note: Code primarily written in C++.
