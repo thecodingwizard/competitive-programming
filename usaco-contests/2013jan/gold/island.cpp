@@ -92,7 +92,7 @@ void dfsIsland(int i, int j, int island) {
 int main() {
     freopen("island.in", "r", stdin);
     freopen("island.out", "w", stdout);
-    
+
     cin >> r >> c;
     for (int i = 0; i < 52; i++) for (int j = 0; j < 52; j++) grid[i][j] = DEEP;
     for (int i = 1; i <= r; i++) for (int j = 1; j <= c; j++) {

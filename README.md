@@ -15,6 +15,7 @@ USACO Contests:
   - first (gold)
   - runaway (gold)
 - Jan 2013
-  - Cow Lineup (gold)
+  - lineup (gold)
+  - island (gold)
 
 Note: Code primarily written in C++.
