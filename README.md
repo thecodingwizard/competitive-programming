@@ -17,5 +17,6 @@ USACO Contests:
 - Jan 2013
   - lineup (gold)
   - island (gold)
+  - seating (gold)
 
 Note: Code primarily written in C++.
