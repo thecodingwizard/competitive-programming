@@ -25,6 +25,7 @@ Contains some solutions to USACO training and USACO contest problems.
 | Feb 2013 | [partition][partition] | Partitioning The Farm | DP | Gold | 17/17 |
 | Feb 2013 | [taxi][taxi] | Taxi | Min Cost Matching, calculate minimum distance driven without cow | Gold | 12/12 |
 | Feb 2013 | [route][route] | Route Designing | DP | Gold | 10/10 |
+| Mar 2013 | [cowrun][cowrun] | The Cow Run | DP | Gold | 14/14 |
 
 [1.1.6]: usaco-training/Chapter%201/1.1.6%20sprime%20-%20Superprime%20Rib.cpp
 
@@ -43,5 +44,6 @@ Contains some solutions to USACO training and USACO contest problems.
 [partition]: usaco-contests/2013feb/gold/partition.cpp
 [taxi]: usaco-contests/2013feb/gold/taxi.cpp
 [route]: usaco-contests/2013feb/gold/route.cpp
+[cowrun]: usaco-contests/2013mar/gold/cowrun.cpp
 
 Note: Code primarily written in C++.
