@@ -30,6 +30,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2013 | [route][route] | Route Designing | DP | Gold | 10/10 |
 | Mar 2013 | [cowrun][cowrun] | The Cow Run | DP | Gold | 14/14 |
 | Mar 2013 | [hillwalk][hillwalk] | Hill Walk | Line sweep, find a way to order hills | Gold | 12/12 |
+| Nov 2013 | [nochange][nochange] | No Change | DP, 2^k state | Gold | 13/13 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -53,5 +54,6 @@ Solutions to USACO training and USACO contest problems.
 [route]: usaco-contests/2013feb/gold/route.cpp
 [cowrun]: usaco-contests/2013mar/gold/cowrun.cpp
 [hillwalk]: usaco-contests/2013mar/gold/hillwalk.cpp
+[nochange]: usaco-contests/2013nov/gold/nochange.cpp
 
 Note: Code primarily written in C++.
