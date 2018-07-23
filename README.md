@@ -1,6 +1,6 @@
 # USACO Solutions
 
-Contains some solutions to USACO training and USACO contest problems.
+Solutions to USACO training and USACO contest problems.
 
 #### USACO Training:
 | Problem Number | Problem Name | Solution Notes |
