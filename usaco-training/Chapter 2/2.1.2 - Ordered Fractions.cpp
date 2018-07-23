@@ -41,9 +41,9 @@ int main() {
     int n; cin >> n;
     vector<pair<double, ii>> fractions;
     for (int i = 0; i <= n; i++) for (int j = i; j <= n; j++) {
-        if (i == 0 && j == 0) continue;
-        fractions.push_back(mp(double(i)/double(j), mp(i, j)));
-    }
+            if (i == 0 && j == 0) continue;
+            fractions.push_back(mp(double(i)/double(j), mp(i, j)));
+        }
     sort(fractions.begin(), fractions.end());
     double prev = -1;
     for (pair<double, ii> fraction : fractions) {

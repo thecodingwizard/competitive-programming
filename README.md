@@ -7,6 +7,7 @@ Solutions to USACO training and USACO contest problems.
 | -------------- | ------------ | -------------- |
 | 1.6.3 | [Superprime Rib][1.6.3] | Brute force |
 | 2.1.1 | [The Castle][2.1.1] | Floodfill to assign each room a number |
+| 2.1.2 | [Ordered Fractions][2.1.2] | Generate all possible fractions |
 
 #### USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Division | Score |
@@ -30,6 +31,7 @@ Solutions to USACO training and USACO contest problems.
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
+[2.1.2]: usaco-training/Chapter%202/2.1.2%20-%20Ordered%20Fractions.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
