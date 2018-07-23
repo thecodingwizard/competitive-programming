@@ -33,6 +33,7 @@ Solutions to USACO training and USACO contest problems.
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
 [2.1.2]: usaco-training/Chapter%202/2.1.2%20-%20Ordered%20Fractions.cpp
+[2.1.3]: usaco-training/Chapter%202/2.1.3%20-%20Sorting%20A%20Three-Valued%20Sequence.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
