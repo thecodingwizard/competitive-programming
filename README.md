@@ -5,7 +5,7 @@ Contains some solutions to USACO training and USACO contest problems.
 #### USACO Training:
 | Problem Number | Problem Name | Solution Notes |
 | -------------- | ------------ | -------------- |
-| 1.6.6 | [Subprime Rib][1.6.6] | Brute force |
+| 1.6.3 | [Superprime Rib][1.6.3] | Brute force |
 | 2.1.1 | [The Castle][2.1.1] | Floodfill to assign each room a number |
 
 #### USACO Contests:
@@ -28,7 +28,7 @@ Contains some solutions to USACO training and USACO contest problems.
 | Feb 2013 | [route][route] | Route Designing | DP | Gold | 10/10 |
 | Mar 2013 | [cowrun][cowrun] | The Cow Run | DP | Gold | 14/14 |
 
-[1.6.6]: usaco-training/Chapter%201/1.6.6%20sprime%20-%20Superprime%20Rib.cpp
+[1.6.3]: usaco-training/Chapter%201/1.6.6%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
