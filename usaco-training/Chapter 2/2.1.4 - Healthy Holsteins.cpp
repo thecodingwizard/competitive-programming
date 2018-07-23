@@ -43,8 +43,8 @@ int main() {
     cin >> g;
     vi feeds[g];
     for (int i = 0; i < g; i++) for (int j = 0; j < v; j++) {
-        int a; cin >> a; feeds[i].push_back(a);
-    }
+            int a; cin >> a; feeds[i].push_back(a);
+        }
     int best = INF, bestMask = -1;
     int sum[v];
     for (int i = 0; i < (1 << g); i++) {
