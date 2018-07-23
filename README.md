@@ -5,7 +5,7 @@ Contains some solutions to USACO training and USACO contest problems.
 #### USACO Training:
 | Problem Number | Problem Name | Solution Notes |
 | -------------- | ------------ | -------------- |
-| 1.1.6 | [Subprime Rib][1.1.6] | Brute force |
+| 1.6.6 | [Subprime Rib][1.6.6] | Brute force |
 
 #### USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Division | Score |
@@ -27,7 +27,7 @@ Contains some solutions to USACO training and USACO contest problems.
 | Feb 2013 | [route][route] | Route Designing | DP | Gold | 10/10 |
 | Mar 2013 | [cowrun][cowrun] | The Cow Run | DP | Gold | 14/14 |
 
-[1.1.6]: usaco-training/Chapter%201/1.1.6%20sprime%20-%20Superprime%20Rib.cpp
+[1.6.6]: usaco-training/Chapter%201/1.6.6%20sprime%20-%20Superprime%20Rib.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
