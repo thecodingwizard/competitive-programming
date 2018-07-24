@@ -41,6 +41,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra | Gold | 10/10 |
 | Feb 2014 | [dec][dec] | Cow Decathlon | DP | Gold | 10/10 |
 | Mar 2014 | [sabotage][sabotage] | Sabotage | Binary search, 1D max sum | Gold | 14/14 |
+| Mar 2014 | [fcount][fcount] | Counting Friends | Brute Force, greedily connect friends | Gold | 11/11 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -75,5 +76,6 @@ Solutions to USACO training and USACO contest problems.
 [rblock]: usaco-contests/2014feb/gold/rblock.cpp
 [dec]: usaco-contests/2014feb/gold/dec.cpp
 [sabotage]: usaco-contests/2014mar/gold/sabotage.cpp
+[fcount]: usaco-contests/2014mar/gold/fcount.cpp
 
 Note: Code primarily written in C++.
