@@ -35,6 +35,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [sight][sight] | Line of Sight | If two cows can see the same point on the silo, they can see each other | Gold | 11/11 |
 | Nov 2013 | [empty][empty] | Empty Stalls | Sweep | Gold | 11/11 |
 | Dec 2013 | [vacationgold][vacationgold] | Vacation Planning (Gold) | Dijkstra | Gold | 10/10 |
+| Dec 2013 | [optmilk][optmilk] | Optimal Milking | Binary Tree | Gold | 11/11 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -63,5 +64,6 @@ Solutions to USACO training and USACO contest problems.
 [sight]: usaco-contests/2013nov/gold/sight.cpp
 [empty]: usaco-contests/2013nov/gold/empty.cpp
 [vacationgold]: usaco-contests/2013dec/gold/vacationgold.cpp
+[optmilk]: usaco-contests/2013dec/gold/optmilk.cpp
 
 Note: Code primarily written in C++.
