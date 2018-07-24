@@ -44,8 +44,8 @@ int main() {
         reverseAdjList[b].push_back(mp(a, w));
     }
     for (int i = 1; i <= n; i++) for (int j = 1; j <= k; j++) {
-        distTo[i][j] = distFrom[i][j] = INF;
-    }
+            distTo[i][j] = distFrom[i][j] = INF;
+        }
     for (int i = 1; i <= k; i++) {
         int hub; cin >> hub;
         // dijkstra

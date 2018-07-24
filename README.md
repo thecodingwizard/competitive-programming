@@ -34,6 +34,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [nochange][nochange] | No Change | DP, 2^k state | Gold | 13/13 |
 | Nov 2013 | [sight][sight] | Line of Sight | If two cows can see the same point on the silo, they can see each other | Gold | 11/11 |
 | Nov 2013 | [empty][empty] | Empty Stalls | Sweep | Gold | 11/11 |
+| Dec 2013 | [vacationgold][vacationgold] | Vacation Planning (Gold) | Dijkstra | Gold | 10/10 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -61,5 +62,6 @@ Solutions to USACO training and USACO contest problems.
 [nochange]: usaco-contests/2013nov/gold/nochange.cpp
 [sight]: usaco-contests/2013nov/gold/sight.cpp
 [empty]: usaco-contests/2013nov/gold/empty.cpp
+[vacationgold]: usaco-contests/2013dec/gold/vacationgold.cpp
 
 Note: Code primarily written in C++.
