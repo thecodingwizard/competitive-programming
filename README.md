@@ -36,6 +36,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [empty][empty] | Empty Stalls | Sweep | Gold | 11/11 |
 | Dec 2013 | [vacationgold][vacationgold] | Vacation Planning (Gold) | Dijkstra | Gold | 10/10 |
 | Dec 2013 | [optmilk][optmilk] | Optimal Milking | Binary Tree | Gold | 11/11 |
+| Jan 2014 | [skicourse][skicourse] | Building A Ski Course | DP | Gold | 10/10 |
 | Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra | Gold | 10/10 |
 | Feb 2014 | [dec][dec] | Cow Decathlon | DP | Gold | 10/10 |
 
@@ -67,6 +68,7 @@ Solutions to USACO training and USACO contest problems.
 [empty]: usaco-contests/2013nov/gold/empty.cpp
 [vacationgold]: usaco-contests/2013dec/gold/vacationgold.cpp
 [optmilk]: usaco-contests/2013dec/gold/optmilk.cpp
+[skicourse]: usaco-contests/2014jan/gold/skicourse.cpp
 [rblock]: usaco-contests/2014feb/gold/rblock.cpp
 [dec]: usaco-contests/2014feb/gold/dec.cpp
 
