@@ -45,6 +45,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2014 | [guard][guard] | Guard Mark | DP | Gold | 12/12 |
 | Dec 2014 | [marathon][marathon] | Marathon | Segment Tree | Gold | 10/10 |
 | Dec 2014 | [cowjog][cowjog] | Cow Jog | Longest Non-Increasing Subsequence | Gold | 14/14 |
+| Jan 2015 | [cowrect][cowrect] | Cow Rectangles | Sweep, assume we have to take one of the Holsteins | Gold | 14/14 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -83,5 +84,6 @@ Solutions to USACO training and USACO contest problems.
 [guard]: usaco-contests/2014dec/gold/guard.cpp
 [marathon]: usaco-contests/2014dec/gold/marathon.cpp
 [cowjog]: usaco-contests/2014dec/gold/cowjog.cpp
+[cowrect]: usaco-contests/2015jan/gold/cowrect.cpp
 
 Note: Code primarily written in C++.
