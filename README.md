@@ -44,6 +44,7 @@ Solutions to USACO training and USACO contest problems.
 | Mar 2014 | [fcount][fcount] | Counting Friends | Brute Force, greedily connect friends | Gold | 11/11 |
 | Dec 2014 | [guard][guard] | Guard Mark | DP | Gold | 12/12 |
 | Dec 2014 | [marathon][marathon] | Marathon | Segment Tree | Gold | 10/10 |
+| Dec 2014 | [cowjog][cowjog] | Cow Jog | Longest Non-Increasing Subsequence | Gold | 14/14 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -81,5 +82,6 @@ Solutions to USACO training and USACO contest problems.
 [fcount]: usaco-contests/2014mar/gold/fcount.cpp
 [guard]: usaco-contests/2014dec/gold/guard.cpp
 [marathon]: usaco-contests/2014dec/gold/marathon.cpp
+[cowjog]: usaco-contests/2014dec/gold/cowjog.cpp
 
 Note: Code primarily written in C++.
