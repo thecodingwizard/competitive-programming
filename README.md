@@ -11,6 +11,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.1.3 | [Sorting A Three-Valued Sequence][2.1.3] | Notes written as comments in code |
 | 2.1.4 | [Healthy Holsteins][2.1.4] | Brute force |
 | 2.1.5 | [Hamming Codes][2.1.5] | Brute force |
+| 2.2.1 | [Preface Numbering][2.2.1] | Brute force |
 
 #### USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Division | Score |
@@ -55,6 +56,7 @@ Solutions to USACO training and USACO contest problems.
 [2.1.3]: usaco-training/Chapter%202/2.1.3%20-%20Sorting%20A%20Three-Valued%20Sequence.cpp
 [2.1.4]: usaco-training/Chapter%202/2.1.4%20-%20Healthy%20Holsteins.cpp
 [2.1.5]: usaco-training/Chapter%202/2.1.5%20-%20Hamming%20Codes.cpp
+[2.2.1]: usaco-training/Chapter%202/2.2.1%20-%20Preface%20Numbering.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
