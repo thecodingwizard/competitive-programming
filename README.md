@@ -14,6 +14,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.2.1 | [Preface Numbering][2.2.1] | Brute force |
 | 2.2.2 | [Subset Sums][2.2.2] | DP |
 | 2.2.3 | [Runaround Numbers][2.2.3] | Brute force |
+| 2.2.4 | [Party Lamps][2.2.4] | Brute force 2^4, doesn't matter if you press button twice |
 
 #### USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Division | Score |
@@ -61,6 +62,7 @@ Solutions to USACO training and USACO contest problems.
 [2.2.1]: usaco-training/Chapter%202/2.2.1%20-%20Preface%20Numbering.cpp
 [2.2.2]: usaco-training/Chapter%202/2.2.2%20-%20Subset%20Sums.cpp
 [2.2.3]: usaco-training/Chapter%202/2.2.3%20-%20Runaround%20Numbers.cpp
+[2.2.4]: usaco-training/Chapter%202/2.2.4%20-%20Party%20Lamps.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
