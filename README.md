@@ -52,6 +52,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2014 | [cowjog][cowjog] | Cow Jog | Longest Non-Increasing Subsequence | Gold | 14/14 |
 | Jan 2015 | [cowrect][cowrect] | Cow Rectangles | Sweep, assume we have to take one of the Holsteins | Gold | 14/14 |
 | Jan 2015 | [movie][movie] | Moovie Mooving | DP, bitmasking | Gold | 14/14 |
+| Open 2015 | [palpath][palpath] | Palindromic Paths | DP | Gold | 12/12 |
 | Open 2015 | [trapped][trapped] | Trapped in the Haybales | Sort haybales by weight | Gold | 15/15 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
@@ -98,6 +99,7 @@ Solutions to USACO training and USACO contest problems.
 [cowjog]: usaco-contests/2014dec/gold/cowjog.cpp
 [cowrect]: usaco-contests/2015jan/gold/cowrect.cpp
 [movie]: usaco-contests/2015jan/gold/movie.cpp
+[palpath]: usaco-contests/2015open/gold/palpath.cpp
 [trapped]: usaco-contests/2015open/gold/trapped.cpp
 
 Note: Code primarily written in C++.
