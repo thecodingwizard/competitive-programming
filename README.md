@@ -21,6 +21,7 @@ Solutions to USACO training and USACO contest problems.
 | ------------ | ---------- | ------------ | -------------- | -------- | ----- |
 | Nov 2012 | [clumsy][clumsy] | Clumsy Cows | Greedy | Silver | 16/16 |
 | Nov 2012 | [distant][distant] | Distant Pastures | APSP, dijkstra | Silver | 16/16 |
+| Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | Same problem as Gold | Silver | 16/16 |
 | Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | DP | Gold | 16/16 |
 | Dec 2012 | [gangs][gangs] | Gangs of Istanbull/Cowstantinople | Greedy | Gold | 12/12 |
 | Dec 2012 | [first][first] | First! | trie, checking DAG for cycles | Gold | 12/12 |

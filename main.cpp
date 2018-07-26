@@ -36,67 +36,42 @@ typedef pair<int, int> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 
-struct Haybale {
-    int pos, weight;
-    bool operator<(const Haybale &other) const {
-        return pos < other.pos;
-    }
-    bool operator==(const Haybale &other) const {
-        return pos == other.pos;
-    }
-};
-
 int main() {
-    freopen("trapped.in", "r", stdin);
-    freopen("trapped.out", "w", stdout);
+    freopen("cardgame.in", "r", stdin);
+    freopen("cardgame.out", "w", stdout);
 
     int n; cin >> n;
-    Haybale haybales[n];
-    map<int, int> posMapping;
-    int haybalePos[n];
-    F0R(i, n) {
-        cin >> haybales[i].weight >> haybales[i].pos;
-    }
-    sort(haybales, haybales+n);
-    F0R(i, n) {
-        posMapping.insert(mp(haybales[i].pos, i));
-        haybalePos[i] = haybales[i].pos;
-    }
-    sort(haybales, haybales + n, [](Haybale a, Haybale b) { return a.weight < b.weight; });
-    reverse(haybales, haybales + n);
-    bool badInterval[n-1]; memset(badInterval, false, sizeof badInterval);
+    bool taken[2*n+1]; memset(taken, false, sizeof taken);
+    int elsie[n]; F0R(i, n) { cin >> elsie[i]; taken[elsie[i]] = true; }
+    vi bessie; FOR(i, 1, 2*n+1) if (!taken[i]) bessie.push_back(i);
+    sort(bessie.begin(), bessie.end()); reverse(bessie.begin(), bessie.end());
 
-    set<Haybale> placed;
-    for (Haybale haybale : haybales) {
-        if (placed.size() == 0) {
-            placed.insert(haybale);
-            continue;
-        }
-        if (placed.rbegin()->pos > haybale.pos) {
-            auto nextOnRight = placed.upper_bound(haybale);
-            int dist = nextOnRight->pos - haybale.pos;
-            if (dist <= haybale.weight && dist <= nextOnRight->weight) {
-                int start = posMapping[haybale.pos], end = posMapping[nextOnRight->pos];
-                FOR(i, start, end) badInterval[i] = true;
+    int best = 0;
+    for (int i = 0; i < n; i++) {
+        int ans = 0;
+        set<int> high, low;
+        for (int x = 0; x < i; x++) high.insert(bessie[x]);
+        for (int x = i; x < n; x++) low.insert(bessie[x]);
+        for (int j = 0; j < n; j++) {
+            int card = elsie[j];
+            if (j >= i) {
+                // low card wins
+                auto it = low.lower_bound(card);
+                if (it == low.begin()) continue;
+                it--;
+                low.erase(it);
+                ans++;
+            } else {
+                // high card wins
+                auto it = high.upper_bound(card);
+                if (it == high.end()) continue;
+                high.erase(it);
+                ans++;
             }
         }
-        if (placed.begin()->pos < haybale.pos) {
-            auto nextOnLeft = placed.lower_bound(haybale);
-            if (nextOnLeft != placed.begin()) {
-                nextOnLeft--;
-                int dist = haybale.pos - nextOnLeft->pos;
-                if (dist <= haybale.weight && dist <= nextOnLeft->weight) {
-                    int end = posMapping[haybale.pos], start = posMapping[nextOnLeft->pos];
-                    FOR(i, start, end) badInterval[i] = true;
-                }
-            }
-        }
-        placed.insert(haybale);
+        best = max(best, ans);
     }
-
-    int ans = 0;
-    F0R(i, n-1) if (badInterval[i]) ans += haybalePos[i+1]-haybalePos[i];
-    cout << ans << endl;
+    cout << best << endl;
 
     return 0;
 }
