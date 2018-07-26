@@ -28,6 +28,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2012 | [gangs][gangs] | Gangs of Istanbull/Cowstantinople | Greedy | Gold | 12/12 |
 | Dec 2012 | [first][first] | First! | trie, checking DAG for cycles | Gold | 12/12 |
 | Dec 2012 | [runaway][runaway] | Running Away From the Barn |  | Gold | 10/10 | 
+| Jan 2013 | [paint][paint] | Painting the Fence | Coordinate Compression, Store Deltas & Sweep | Silver | 10/10 |
 | Jan 2013 | [lineup][lineup] | Cow Lineup | sweep with two pointers | Gold | 10/10 |
 | Jan 2013 | [island][island] | Island Travels | bfs | Gold | 11/11 |
 | Jan 2013 | [seating][seating] | Seating | Binary Tree, Lazy Propagation | Gold | 10/10 |
@@ -77,6 +78,7 @@ Solutions to USACO training and USACO contest problems.
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
 [first]: usaco-contests/2012dec/gold/first.cpp
 [runaway]: usaco-contests/2012dec/gold/runaway.cpp
+[paint]: usaco-contests/2013jan/silver/paint.cpp
 [lineup]: usaco-contests/2013jan/gold/lineup.cpp
 [island]: usaco-contests/2013jan/gold/island.cpp
 [seating]: usaco-contests/2013jan/gold/seating.cpp
