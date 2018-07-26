@@ -23,6 +23,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2012 | [distant][distant] | Distant Pastures | APSP, dijkstra | Silver | 16/16 |
 | Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | Same problem as Gold | Silver | 16/16 |
 | Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | DP | Gold | 16/16 |
+| Dec 2012 | [wifi][wifi] | Wifi Setup | DP | Silver | 10/10 |
 | Dec 2012 | [gangs][gangs] | Gangs of Istanbull/Cowstantinople | Greedy | Gold | 12/12 |
 | Dec 2012 | [first][first] | First! | trie, checking DAG for cycles | Gold | 12/12 |
 | Dec 2012 | [runaway][runaway] | Running Away From the Barn |  | Gold | 10/10 | 
@@ -70,6 +71,7 @@ Solutions to USACO training and USACO contest problems.
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
+[wifi]: usaco-contests/2012dec/silver/wifi.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
 [first]: usaco-contests/2012dec/gold/first.cpp
 [runaway]: usaco-contests/2012dec/gold/runaway.cpp
