@@ -70,19 +70,19 @@ int main() {
     cin >> n >> m;
     int startX, startY;
     F0R(i, n) F0R(j, m) {
-        char c; cin >> c;
-        if (c == 'C') {
-            startX = i, startY = j;
-            c = '.';
+            char c; cin >> c;
+            if (c == 'C') {
+                startX = i, startY = j;
+                c = '.';
+            }
+            if (c == '.') {
+                grid[i][j] = EMPTY;
+            } else if (c == '#') {
+                grid[i][j] = BLOCKED;
+            } else if (c == 'D') {
+                grid[i][j] = DESTINATION;
+            }
         }
-        if (c == '.') {
-            grid[i][j] = EMPTY;
-        } else if (c == '#') {
-            grid[i][j] = BLOCKED;
-        } else if (c == 'D') {
-            grid[i][j] = DESTINATION;
-        }
-    }
 
     ii startPos = getEndPosition(startX, startY, false);
     if (startPos.A == -1) {

@@ -36,6 +36,7 @@ Solutions to USACO training and USACO contest problems.
 | Mar 2013 | [poker][poker] | Poker Hands | Greedy | 10/10 |
 | Mar 2013 | [painting][painting] | Farm Painting | Sweep | 10/10 |
 | Mar 2013 | [cowrun][cowrun] | The Cow Run | DP, same as gold | 15/15 |
+| Open 2013 | [gravity][gravity] | What's Up With Gravity? | Dijkstra | 10/10 |
 
 #### USACO Contests (Gold):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
