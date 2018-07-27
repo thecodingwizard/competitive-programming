@@ -40,6 +40,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2013 | [partition][partition] | Partitioning The Farm | DP | Gold | 17/17 |
 | Feb 2013 | [taxi][taxi] | Taxi | Min Cost Matching, calculate distance driven w/o cow | Gold | 12/12 |
 | Feb 2013 | [route][route] | Route Designing | DP | Gold | 10/10 |
+| Mar 2013 | [poker][poker] | Poker Hands | Greedy | Silver | 10/10 |
 | Mar 2013 | [cowrun][cowrun] | The Cow Run | DP | Gold | 14/14 |
 | Mar 2013 | [hillwalk][hillwalk] | Hill Walk | Line sweep, find a way to order hills | Gold | 12/12 |
 | Nov 2013 | [nochange][nochange] | No Change | DP, 2^k state | Gold | 13/13 |
@@ -92,6 +93,7 @@ Solutions to USACO training and USACO contest problems.
 [partition]: usaco-contests/2013feb/gold/partition.cpp
 [taxi]: usaco-contests/2013feb/gold/taxi.cpp
 [route]: usaco-contests/2013feb/gold/route.cpp
+[poker]: usaco-contests/2013mar/silver/poker.cpp
 [cowrun]: usaco-contests/2013mar/gold/cowrun.cpp
 [hillwalk]: usaco-contests/2013mar/gold/hillwalk.cpp
 [nochange]: usaco-contests/2013nov/gold/nochange.cpp
