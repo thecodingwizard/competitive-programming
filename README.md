@@ -17,6 +17,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.2.4 | [Party Lamps][2.2.4] | Brute force 2^4, doesn't matter if you press button twice |
 | 2.3.1 | [Longest Prefix][2.3.1] | DP |
 | 2.3.2 | [Cow Pedigrees][2.3.2] | DP |
+| 2.3.3 | [Zero Sum][2.3.3] | Brute force (DFS) |
 
 #### USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Division | Score |
@@ -76,6 +77,7 @@ Solutions to USACO training and USACO contest problems.
 [2.2.4]: usaco-training/Chapter%202/2.2.4%20-%20Party%20Lamps.cpp
 [2.3.1]: usaco-training/Chapter%202/2.3.1%20-%20Longest%20Prefix.cpp
 [2.3.2]: usaco-training/Chapter%202/2.3.2%20-%20Cow%20Pedigrees.cpp
+[2.3.3]: usaco-training/Chapter%202/2.3.3%20-%20Zero%20Sum.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
