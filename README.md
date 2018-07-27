@@ -45,6 +45,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2013 | [route][route] | Route Designing | DP | Gold | 10/10 |
 | Mar 2013 | [poker][poker] | Poker Hands | Greedy | Silver | 10/10 |
 | Mar 2013 | [painting][painting] | Farm Painting | Sweep | Silver | 10/10 |
+| Mar 2013 | [cowrun][cowrun] | The Cow Run | DP, same as gold | Silver | 15/15 |
 | Mar 2013 | [cowrun][cowrun] | The Cow Run | DP | Gold | 14/14 |
 | Mar 2013 | [hillwalk][hillwalk] | Hill Walk | Line sweep, find a way to order hills | Gold | 12/12 |
 | Nov 2013 | [nochange][nochange] | No Change | DP, 2^k state | Gold | 13/13 |
