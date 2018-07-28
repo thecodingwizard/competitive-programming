@@ -53,8 +53,8 @@ int main() {
     F0R(i, v+1) dp[i][0] = 1;
 
     FOR(i, 1, v+1) FOR(j, 1, n+1) F0R(k, (j/coins[i])+1) {
-        dp[i][j] += dp[i - 1][j - k*coins[i]];
-    }
+                dp[i][j] += dp[i - 1][j - k*coins[i]];
+            }
 
     cout << dp[v][n] << endl;
 
