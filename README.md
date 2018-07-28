@@ -19,6 +19,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.3.2 | [Cow Pedigrees][2.3.2] | DP |
 | 2.3.3 | [Zero Sum][2.3.3] | Brute force (DFS) |
 | 2.3.4 | [Money Systems][2.3.4] | DP (VN) |
+| 2.3.5 | [Controlling Companies][2.3.5] | Recursion |
 
 #### USACO Contests (Silver):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -89,6 +90,7 @@ Solutions to USACO training and USACO contest problems.
 [2.3.2]: usaco-training/Chapter%202/2.3.2%20-%20Cow%20Pedigrees.cpp
 [2.3.3]: usaco-training/Chapter%202/2.3.3%20-%20Zero%20Sum.cpp
 [2.3.4]: usaco-training/Chapter%202/2.3.4%20-%20Money%20Systems.cpp
+[2.3.5]: usaco-training/Chapter%202/2.3.5%20-%20Controlling%20Companies.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
