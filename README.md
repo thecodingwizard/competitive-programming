@@ -37,6 +37,7 @@ Solutions to USACO training and USACO contest problems.
 | Mar 2013 | [painting][painting] | Farm Painting | Sweep | 10/10 |
 | Mar 2013 | [cowrun][cowrun] | The Cow Run | DP, same as gold | 15/15 |
 | Open 2013 | [gravity][gravity] | What's Up With Gravity? | Dijkstra | 10/10 |
+| Open 2013 | [fuel][fuel] | Fuel Economy | Greedy | 10/10 |
 
 #### USACO Contests (Gold):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -98,6 +99,8 @@ Solutions to USACO training and USACO contest problems.
 [msched]: usaco-contests/2013feb/silver/msched.cpp
 [poker]: usaco-contests/2013mar/silver/poker.cpp
 [painting]: usaco-contests/2013mar/silver/painting.cpp
+[gravity]: usaco-contests/2013open/silver/gravity.cpp
+[fuel]: usaco-contests/2013open/silver/fuel.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
