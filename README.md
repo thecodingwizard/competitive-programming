@@ -44,6 +44,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2013 | [fuel][fuel] | Fuel Economy | Greedy | 10/10 |
 | Open 2013 | [cruise][cruise] | Luxury River Cruise | Find where sequence repeats | 10/10 |
 | Nov 2013 | [nocow][nocow] | Farmer John has no Large Brown Cow | Solvable with a bit of math | 10/10 |
+| Nov 2013 | [crowded][crowded] | Crowded Cows | Sweep, can use multiset instead of monotonic queue | 11/11 |
 
 #### USACO Contests (Gold):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -113,6 +114,7 @@ Solutions to USACO training and USACO contest problems.
 [fuel]: usaco-contests/2013open/silver/fuel.cpp
 [cruise]: usaco-contests/2013open/silver/cruise.cpp
 [nocow]: usaco-contests/2013nov/silver/nocow.cpp
+[crowded]: usaco-contests/2013nov/silver/crowded.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
