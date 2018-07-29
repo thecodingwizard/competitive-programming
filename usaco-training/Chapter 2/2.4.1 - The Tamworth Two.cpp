@@ -73,11 +73,11 @@ int main() {
     State fj, bessie;
 
     F0R(i, 10) F0R(j, 10) {
-        char c; cin >> c;
-        grid[i][j] = c == '*' ? BLOCKED : EMPTY;
-        if (c == 'F') { fj.x = i; fj.y = j; }
-        else if (c == 'C') { bessie.x = i; bessie.y = j; }
-    }
+            char c; cin >> c;
+            grid[i][j] = c == '*' ? BLOCKED : EMPTY;
+            if (c == 'F') { fj.x = i; fj.y = j; }
+            else if (c == 'C') { bessie.x = i; bessie.y = j; }
+        }
 
     fj.direction = bessie.direction = FORWARD;
 
