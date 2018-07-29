@@ -21,6 +21,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.3.4 | [Money Systems][2.3.4] | DP (VN) |
 | 2.3.5 | [Controlling Companies][2.3.5] | Recursion |
 | 2.4.1 | [The Tamworth Two][2.4.1] | Brute force, maximum (100*4)^2 steps before "impossible" |
+| 2.4.2 | [Overfencing][2.4.2] | run shortest path BFS on two exit nodes |
 
 #### USACO Contests (Silver):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -93,6 +94,7 @@ Solutions to USACO training and USACO contest problems.
 [2.3.4]: usaco-training/Chapter%202/2.3.4%20-%20Money%20Systems.cpp
 [2.3.5]: usaco-training/Chapter%202/2.3.5%20-%20Controlling%20Companies.cpp
 [2.4.1]: usaco-training/Chapter%202/2.4.1%20-%20The%20Tamworth%20Two.cpp
+[2.4.2]: usaco-training/Chapter%202/2.4.2%20-%20Overfencing.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp

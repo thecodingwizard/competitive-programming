@@ -105,8 +105,8 @@ int main() {
     }
 
     F0R(i, h) F0R(j, w) {
-        combinedDistances[i][j] = distances[i][j];
-    }
+            combinedDistances[i][j] = distances[i][j];
+        }
 
     memset(distances, 0, sizeof distances);
     q.push(mp(0, exits[1]));
@@ -124,8 +124,8 @@ int main() {
 
     int ans = 0;
     F0R(i, h) F0R(j, w) {
-        ans = max(ans, min(combinedDistances[i][j], distances[i][j]) + 1);
-    }
+            ans = max(ans, min(combinedDistances[i][j], distances[i][j]) + 1);
+        }
     cout << ans << endl;
 
     return 0;
