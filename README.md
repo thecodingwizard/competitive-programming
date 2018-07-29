@@ -23,6 +23,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.4.1 | [The Tamworth Two][2.4.1] | Brute force, maximum (100*4)^2 steps before "impossible" |
 | 2.4.2 | [Overfencing][2.4.2] | run shortest path BFS on two exit nodes |
 | 2.4.3 | [Cow Tours][2.4.3] | Dijkstra |
+| 2.4.4 | [Bessie Come Home][2.4.4] | Dijkstra |
 
 #### USACO Contests (Silver):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -100,6 +101,7 @@ Solutions to USACO training and USACO contest problems.
 [2.4.1]: usaco-training/Chapter%202/2.4.1%20-%20The%20Tamworth%20Two.cpp
 [2.4.2]: usaco-training/Chapter%202/2.4.2%20-%20Overfencing.cpp
 [2.4.3]: usaco-training/Chapter%202/2.4.3%20-%20Cow%20Tours.cpp
+[2.4.4]: usaco-training/Chapter%202/2.4.4%20-%20Bessie%20Come%20Home.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
