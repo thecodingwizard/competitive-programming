@@ -36,27 +36,73 @@ typedef pair<int, int> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 
+vii adjList[10001];
+vii reverseAdjList[10001];
+int distTo[10001][101], distFrom[10001][101];
+
 int main() {
-    freopen("msched.in", "r", stdin);
-    freopen("msched.out", "w", stdout);
+    freopen("vacation.in", "r", stdin);
+    freopen("vacation.out", "w", stdout);
 
-    int n; cin >> n;
-    ii cows[n]; F0R(i, n) cin >> cows[i].B >> cows[i].A;
-    sort(cows, cows+n);
+    int n, m, k, q;
+    cin >> n >> m >> k >> q;
+    for (int i = 0; i < m; i++) {
+        int a, b, w; cin >> a >> b >> w;
+        adjList[a].push_back(mp(b, w));
+        reverseAdjList[b].push_back(mp(a, w));
+    }
+    for (int i = 1; i <= n; i++) for (int j = 1; j <= k; j++) {
+        distTo[i][j] = distFrom[i][j] = INF;
+    }
+    for (int i = 1; i <= k; i++) {
+        int hub = i;
+        // dijkstra
+        distTo[hub][i] = 0;
+        priority_queue<ii, vii, greater<ii>> pq; pq.push(mp(0, hub));
+        while (!pq.empty()) {
+            ii next = pq.top(); pq.pop();
+            int d = next.A, node = next.B;
+            if (d > distTo[node][i]) continue;
+            for (ii child : adjList[node]) {
+                if (distTo[node][i] + child.B < distTo[child.A][i]) {
+                    distTo[child.A][i] = distTo[node][i] + child.B;
+                    pq.push(mp(distTo[child.A][i], child.A));
+                }
+            }
+        }
 
-    priority_queue<int, vi, greater<int>> pq;
-    F0R(i, n) {
-        pq.push(cows[i].B);
-        if (pq.size() > cows[i].A) {
-            pq.pop();
+        distFrom[hub][i] = 0;
+        pq.push(mp(0, hub));
+        while (!pq.empty()) {
+            ii next = pq.top(); pq.pop();
+            int d = next.A, node = next.B;
+            if (d > distFrom[node][i]) continue;
+            for (ii child : reverseAdjList[node]) {
+                if (distFrom[node][i] + child.B < distFrom[child.A][i]) {
+                    distFrom[child.A][i] = distFrom[node][i] + child.B;
+                    pq.push(mp(distFrom[child.A][i], child.A));
+                }
+            }
         }
     }
+    long long success = 0, total = 0;
+    for (int i = 0; i < q; i++) {
+        int a, b; cin >> a >> b;
+        int minCost = INF;
 
-    int ans = 0;
-    while (!pq.empty()) {
-        ans += pq.top(); pq.pop();
+        for (int j = 1; j <= k; j++) {
+            if (distTo[b][j] != INF && distFrom[a][j] != INF) {
+                minCost = min(minCost, distTo[b][j] + distFrom[a][j]);
+            }
+        }
+
+        if (minCost == INF) continue;
+        else {
+            success++;
+            total += minCost;
+        }
     }
-    cout << ans << endl;
+    cout << success << endl << total << endl;
 
     return 0;
 }

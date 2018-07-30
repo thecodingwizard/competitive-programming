@@ -52,7 +52,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [crowded][crowded] | Crowded Cows | Sweep, can use multiset instead of monotonic queue | 11/11 |
 | Nov 2013 | [pogocow][pogocow] | Pogo-Cow | DP, note that Bessie can go either direction | 11/11 |
 | Dec 2013 | [msched][msched2] | Milk Scheduling | Greedy, sweep | 11/11 |
-
+| Dec 2013 | [vacation][vacation] | Vacation Planning | Code is slightly modified from gold version, answer is unnecessarily complicated for silver | 10/10 |
 
 ### Platinum USACO Contests:
 

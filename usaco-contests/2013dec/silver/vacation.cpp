@@ -13,8 +13,14 @@
 #include <cstring>
 #include <iomanip>
 #include <fstream>
+#include <cassert>
 
 using namespace std;
+
+#define FOR(i, a, b) for (int i=a; i<(b); i++)
+#define F0R(i, a) for (int i=0; i<(a); i++)
+#define FORd(i,a,b) for (int i = (b)-1; i >= a; i--)
+#define F0Rd(i,a) for (int i = (a)-1; i >= 0; i--)
 
 #define INF 1000000000
 #define LL_INF 4500000000000000000
@@ -23,18 +29,20 @@ using namespace std;
 #define A first
 #define B second
 #define mp make_pair
+#define pb push_back
 #define PI acos(-1.0)
+#define ll long long
 typedef pair<int, int> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 
-vii adjList[20001];
-vii reverseAdjList[20001];
-int distTo[20001][201], distFrom[20001][201];
+vii adjList[10001];
+vii reverseAdjList[10001];
+int distTo[10001][101], distFrom[10001][101];
 
 int main() {
-    freopen("vacationgold.in", "r", stdin);
-    freopen("vacationgold.out", "w", stdout);
+    freopen("vacation.in", "r", stdin);
+    freopen("vacation.out", "w", stdout);
 
     int n, m, k, q;
     cin >> n >> m >> k >> q;
@@ -44,10 +52,10 @@ int main() {
         reverseAdjList[b].push_back(mp(a, w));
     }
     for (int i = 1; i <= n; i++) for (int j = 1; j <= k; j++) {
-        distTo[i][j] = distFrom[i][j] = INF;
-    }
+            distTo[i][j] = distFrom[i][j] = INF;
+        }
     for (int i = 1; i <= k; i++) {
-        int hub; cin >> hub;
+        int hub = i;
         // dijkstra
         distTo[hub][i] = 0;
         priority_queue<ii, vii, greater<ii>> pq; pq.push(mp(0, hub));
@@ -95,5 +103,6 @@ int main() {
         }
     }
     cout << success << endl << total << endl;
+
     return 0;
 }
