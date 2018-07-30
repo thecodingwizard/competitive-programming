@@ -24,6 +24,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.4.2 | [Overfencing][2.4.2] | run shortest path BFS on two exit nodes |
 | 2.4.3 | [Cow Tours][2.4.3] | Dijkstra |
 | 2.4.4 | [Bessie Come Home][2.4.4] | Dijkstra |
+| 2.4.5 | [Fractions to Decimals][2.4.5] | Recursion |
 
 #### USACO Contests (Silver):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -102,6 +103,7 @@ Solutions to USACO training and USACO contest problems.
 [2.4.2]: usaco-training/Chapter%202/2.4.2%20-%20Overfencing.cpp
 [2.4.3]: usaco-training/Chapter%202/2.4.3%20-%20Cow%20Tours.cpp
 [2.4.4]: usaco-training/Chapter%202/2.4.4%20-%20Bessie%20Come%20Home.cpp
+[2.4.5]: usaco-training/Chapter%202/2.4.5%20-%20Fractions%20to%20Decimals.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
