@@ -130,6 +130,7 @@ Solutions to USACO training and USACO contest problems.
 [crowded]: usaco-contests/2013nov/silver/crowded.cpp
 [pogocow]: usaco-contests/2013nov/silver/pogocow.cpp
 [msched2]: usaco-contests/2013dec/silver/msched.cpp
+[vacation]: usaco-contests/2013dec/silver/vacation.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
