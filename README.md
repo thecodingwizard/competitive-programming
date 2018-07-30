@@ -49,6 +49,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [nocow][nocow] | Farmer John has no Large Brown Cow | Solvable with a bit of math | 10/10 |
 | Nov 2013 | [crowded][crowded] | Crowded Cows | Sweep, can use multiset instead of monotonic queue | 11/11 |
 | Nov 2013 | [pogocow][pogocow] | Pogo-Cow | DP, note that Bessie can go either direction | 11/11 |
+| Dec 2013 | [msched][msched2] | Milk Scheduling | Greedy, sweep | 11/11 |
 
 #### USACO Contests (Gold):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -123,6 +124,7 @@ Solutions to USACO training and USACO contest problems.
 [nocow]: usaco-contests/2013nov/silver/nocow.cpp
 [crowded]: usaco-contests/2013nov/silver/crowded.cpp
 [pogocow]: usaco-contests/2013nov/silver/pogocow.cpp
+[msched2]: usaco-contests/2013dec/silver/msched.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
