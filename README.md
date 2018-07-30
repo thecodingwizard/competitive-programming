@@ -26,7 +26,9 @@ Solutions to USACO training and USACO contest problems.
 | 2.4.4 | [Bessie Come Home][2.4.4] | Dijkstra |
 | 2.4.5 | [Fractions to Decimals][2.4.5] | Recursion |
 
-#### USACO Contests (Silver):
+### Gold USACO Contests:
+
+#### Old USACO Gold (Silver):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
 | ------------ | ---------- | ------------ | -------------- | ----- |
 | Nov 2012 | [clumsy][clumsy] | Clumsy Cows | Greedy | 16/16 |
@@ -51,7 +53,10 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [pogocow][pogocow] | Pogo-Cow | DP, note that Bessie can go either direction | 11/11 |
 | Dec 2013 | [msched][msched2] | Milk Scheduling | Greedy, sweep | 11/11 |
 
-#### USACO Contests (Gold):
+
+### Platinum USACO Contests:
+
+#### Old USACO Platinum (Gold):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
 | ------------ | ---------- | ------------ | -------------- | ----- |
 | Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | DP | 16/16 |
