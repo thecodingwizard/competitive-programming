@@ -25,6 +25,7 @@ Solutions to USACO training and USACO contest problems.
 | 2.4.3 | [Cow Tours][2.4.3] | Dijkstra |
 | 2.4.4 | [Bessie Come Home][2.4.4] | Dijkstra |
 | 2.4.5 | [Fractions to Decimals][2.4.5] | Recursion |
+| 3.1.1 | [Agri-Net][3.1.1] | Prim's (or Kruskal) |
 
 ### Gold USACO Contests:
 
@@ -110,6 +111,7 @@ Solutions to USACO training and USACO contest problems.
 [2.4.3]: usaco-training/Chapter%202/2.4.3%20-%20Cow%20Tours.cpp
 [2.4.4]: usaco-training/Chapter%202/2.4.4%20-%20Bessie%20Come%20Home.cpp
 [2.4.5]: usaco-training/Chapter%202/2.4.5%20-%20Fractions%20to%20Decimals.cpp
+[3.1.1]: usaco-training/Chapter%203/3.1.1%20-%20Agri-Net.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp

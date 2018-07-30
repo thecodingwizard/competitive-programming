@@ -60,9 +60,9 @@ int main() {
 
     cin >> n;
     F0R(i, n) F0R(j, n) {
-        int cost; cin >> cost;
-        adjList[i].push_back(mp(cost != 0 ? -cost : INF, j));
-    }
+            int cost; cin >> cost;
+            adjList[i].push_back(mp(cost != 0 ? -cost : INF, j));
+        }
     memset(visited, false, sizeof visited);
     int ans = 0;
     process(0);
