@@ -73,15 +73,15 @@ int main() {
     for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) cin >> elevations[i][j];
     vector<Edge> edges;
     for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) {
-            if (i + 1 < m) {
-                edges.emplace_back(mp(i, j), mp(i + 1, j), abs(elevations[i + 1][j] - elevations[i][j]));
-                assert(abs(elevations[i + 1][j] - elevations[i][j]) < 2*INF);
-            }
-            if (j + 1 < n) {
-                edges.emplace_back(mp(i, j), mp(i, j + 1), abs(elevations[i][j + 1] - elevations[i][j]));
-                assert(abs(elevations[i][j + 1] - elevations[i][j]) < 2*INF);
-            }
+        if (i + 1 < m) {
+            edges.emplace_back(mp(i, j), mp(i + 1, j), abs(elevations[i + 1][j] - elevations[i][j]));
+            assert(abs(elevations[i + 1][j] - elevations[i][j]) < 2*INF);
         }
+        if (j + 1 < n) {
+            edges.emplace_back(mp(i, j), mp(i, j + 1), abs(elevations[i][j + 1] - elevations[i][j]));
+            assert(abs(elevations[i][j + 1] - elevations[i][j]) < 2*INF);
+        }
+    }
     sort(edges.begin(), edges.end(), howToSort);
     assert(edges.size() == 2*m*n-m-n);
     UnionFind UF(m*n+1);
@@ -109,9 +109,9 @@ int main() {
     }
     long long total = 0;
     for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) {
-            int x; cin >> x;
-            if (x == 1) total += minD[i*n+j];
-        }
+        int x; cin >> x;
+        if (x == 1) total += minD[i*n+j];
+    }
     cout << total << endl;
     return 0;
 }
