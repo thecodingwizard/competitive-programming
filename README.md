@@ -54,6 +54,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [pogocow][pogocow] | Pogo-Cow | DP, note that Bessie can go either direction | 11/11 |
 | Dec 2013 | [msched][msched2] | Milk Scheduling | Greedy, sweep | 11/11 |
 | Dec 2013 | [vacation][vacation] | Vacation Planning | Code is slightly modified from gold version, answer is unnecessarily complicated for silver | 10/10 |
+| Jan 2014 | [slowdown][slowdown] | Bessie Slows Down | Maintain two arrays, simulation | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -133,6 +134,7 @@ Solutions to USACO training and USACO contest problems.
 [pogocow]: usaco-contests/2013nov/silver/pogocow.cpp
 [msched2]: usaco-contests/2013dec/silver/msched.cpp
 [vacation]: usaco-contests/2013dec/silver/vacation.cpp
+[slowdown]: usaco-contests/2014jan/silver/slowdown.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
