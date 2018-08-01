@@ -62,6 +62,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2014 | [auto][auto] | Auto-complete | Binary search | 10/10 |
 | Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra | 10/10 |
 | Feb 2014 | [scode][scode] | Secret Code | DP | 10/10 |
+| Mar 2014 | [irrigation][irrigation] | Watering the Fields | Kruskal/MST | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -147,6 +148,7 @@ Solutions to USACO training and USACO contest problems.
 [ccski]: usaco-contests/2014jan/silver/ccski.cpp
 [recording]: usaco-contests/2014jan/silver/recording.cpp
 [auto]: usaco-contests/2014feb/silver/auto.cpp
+[irrigation]: usaco-contests/2014mar/silver/irrigation.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
