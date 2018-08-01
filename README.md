@@ -60,6 +60,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2014 | [recording][recording] | Recording the Moolympics | Greedy | 10/10 |
 | Feb 2014 | [auto][auto] | Auto-complete | Binary search | 10/10 |
 | Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra | 10/10 |
+| Feb 2014 | [scode][scode] | Secret Code | DP | 10/10 |
 
 ### Platinum USACO Contests:
 
