@@ -58,6 +58,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2014 | [slowdown][slowdown] | Bessie Slows Down | Maintain two arrays, simulation | 10/10 |
 | Jan 2014 | [ccski][ccski] | Cross Country Skiing | Prim's | 10/10 |
 | Jan 2014 | [recording][recording] | Recording the Moolympics | Greedy | 10/10 |
+| Feb 2014 | [auto][auto] | Auto-complete | Binary search | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -141,6 +142,7 @@ Solutions to USACO training and USACO contest problems.
 [slowdown]: usaco-contests/2014jan/silver/slowdown.cpp
 [ccski]: usaco-contests/2014jan/silver/ccski.cpp
 [recording]: usaco-contests/2014jan/silver/recording.cpp
+[auto]: usaco-contests/2014feb/silver/auto.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
