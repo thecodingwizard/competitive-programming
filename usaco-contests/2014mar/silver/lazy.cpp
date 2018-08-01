@@ -48,15 +48,15 @@ int main() {
     memset(grid, 0, sizeof grid);
     memset(isValid, false, sizeof isValid);
     F0R(i, n) F0R(j, n) {
-        cin >> grid[i+j][n-i+j-1];
-        isValid[i+j][n-i+j-1] = true;
-    }
+            cin >> grid[i+j][n-i+j-1];
+            isValid[i+j][n-i+j-1] = true;
+        }
     int ans = 0;
     for (int i = 0; i < 2*n; i++) {
         int sum = 0;
         for (int a = max(i - k, 0); a <= min(i+k, 2*n); a++) for (int b = 0; b <= min(k, 2*n); b++) {
-            sum += grid[a][b];
-        }
+                sum += grid[a][b];
+            }
         if (isValid[i][0]) ans = max(ans, sum);
         for (int j = 1; j+k < 2*n; j++) {
             for (int a = max(i-k, 0); a <= min(i+k, 2*n); a++) {
