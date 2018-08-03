@@ -65,6 +65,7 @@ Solutions to USACO training and USACO contest problems.
 | Mar 2014 | [irrigation][irrigation] | Watering the Fields | Kruskal/MST | 10/10 |
 | Mar 2014 | [lazy][lazy] | The Lazy Cow | Rotate grid 45 degrees | 10/10 |
 | Mar 2014 | [mooomoo][mooomoo] | Mooo Moo | DP | 10/10 |
+| Open 2014 | [fairphoto][fairphoto] | Fair Photography | Sweep | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -154,6 +155,7 @@ Solutions to USACO training and USACO contest problems.
 [irrigation]: usaco-contests/2014mar/silver/irrigation.cpp
 [lazy]: usaco-contests/2014mar/silver/lazy.cpp
 [mooomoo]: usaco-contests/2014mar/silver/mooomoo.cpp
+[fairphoto]: usaco-contests/2014open/silver/fairphoto.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
