@@ -150,6 +150,7 @@ Solutions to USACO training and USACO contest problems.
 [ccski]: usaco-contests/2014jan/silver/ccski.cpp
 [recording]: usaco-contests/2014jan/silver/recording.cpp
 [auto]: usaco-contests/2014feb/silver/auto.cpp
+[scode]: usaco-contests/2014feb/silver/scode.cpp
 [irrigation]: usaco-contests/2014mar/silver/irrigation.cpp
 [lazy]: usaco-contests/2014mar/silver/lazy.cpp
 [mooomoo]: usaco-contests/2014mar/silver/mooomoo.cpp
