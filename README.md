@@ -67,6 +67,7 @@ Solutions to USACO training and USACO contest problems.
 | Mar 2014 | [mooomoo][mooomoo] | Mooo Moo | DP | 10/10 |
 | Open 2014 | [fairphoto][fairphoto] | Fair Photography | Sweep | 10/10 |
 | Open 2014 | [gpsduel][gpsduel] | Dueling GPSs | Dijkstra | 10/10 |
+| Open 2014 | [cowjog][cowjog] | Cow Jog | Sweep | 15/15 |
 
 ### Platinum USACO Contests:
 
@@ -158,6 +159,7 @@ Solutions to USACO training and USACO contest problems.
 [mooomoo]: usaco-contests/2014mar/silver/mooomoo.cpp
 [fairphoto]: usaco-contests/2014open/silver/fairphoto.cpp
 [gpsduel]: usaco-contests/2014open/silver/gpsduel.cpp
+[cowjogsilver]: usaco-contests/2014open/silver/cowjog.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
