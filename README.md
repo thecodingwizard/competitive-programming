@@ -67,6 +67,7 @@ Solutions to USACO training and USACO contest problems.
 | Mar 2014 | [mooomoo][mooomoo] | Mooo Moo | DP | 10/10 |
 | Open 2014 | [fairphoto][fairphoto] | Fair Photography | Sweep | 10/10 |
 | Open 2014 | [gpsduel][gpsduel] | Dueling GPSs | Dijkstra | 10/10 |
+| Dec 2014 | [piggyback][piggyback] | Piggy Back | Shortest Path on three nodes | 11/11 |
 | Dec 2014 | [cowjog][cowjog] | Cow Jog | Sweep | 15/15 |
 
 ### Platinum USACO Contests:
