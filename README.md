@@ -162,6 +162,7 @@ Solutions to USACO training and USACO contest problems.
 [fairphoto]: usaco-contests/2014open/silver/fairphoto.cpp
 [gpsduel]: usaco-contests/2014open/silver/gpsduel.cpp
 [cowjogsilver]: usaco-contests/2014dec/silver/cowjog.cpp
+[piggyback]: usaco-contests/2014dec/silver/piggyback.cpp
 [stampede]: usaco-contests/2015jan/silver/stampede.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
