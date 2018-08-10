@@ -69,6 +69,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2014 | [gpsduel][gpsduel] | Dueling GPSs | Dijkstra | 10/10 |
 | Dec 2014 | [piggyback][piggyback] | Piggy Back | Shortest Path on three nodes | 11/11 |
 | Dec 2014 | [cowjog][cowjog] | Cow Jog | Sweep | 15/15 |
+| Jan 2015 | [stampede][stampede] | Stampede | Sweep | 15/15 |
 
 ### Platinum USACO Contests:
 
@@ -161,6 +162,7 @@ Solutions to USACO training and USACO contest problems.
 [fairphoto]: usaco-contests/2014open/silver/fairphoto.cpp
 [gpsduel]: usaco-contests/2014open/silver/gpsduel.cpp
 [cowjogsilver]: usaco-contests/2014dec/silver/cowjog.cpp
+[stampede]: usaco-contests/2015jan/silver/stampede.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
