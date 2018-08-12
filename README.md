@@ -70,6 +70,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2014 | [piggyback][piggyback] | Piggy Back | Shortest Path on three nodes | 11/11 |
 | Dec 2014 | [cowjog][cowjog] | Cow Jog | Sweep | 15/15 |
 | Jan 2015 | [stampede][stampede] | Stampede | Sweep | 15/15 |
+| Jan 2015 | [cowroute][cowroute] | Cow Routing | Dijkstra | 12/12 |
 
 ### Platinum USACO Contests:
 
