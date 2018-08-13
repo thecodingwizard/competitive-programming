@@ -72,6 +72,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2015 | [stampede][stampede] | Stampede | Sweep | 15/15 |
 | Jan 2015 | [cowroute][cowroute] | Cow Routing | Dijkstra | 12/12 |
 | Jan 2015 | [meeting][meeting] | Meeting Time | DP | 15/15 |
+| Feb 2015 | [censor][censor] | Censoring | Rolling Hash | 15/15 |
 
 ### Platinum USACO Contests:
 
@@ -168,6 +169,7 @@ Solutions to USACO training and USACO contest problems.
 [stampede]: usaco-contests/2015jan/silver/stampede.cpp
 [cowroute]: usaco-contests/2015jan/silver/cowroute.cpp
 [meeting]: usaco-contests/2015jan/silver/meeting.cpp
+[censor]: usaco-contests/2015feb/silver/censor.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
