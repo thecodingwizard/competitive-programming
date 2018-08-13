@@ -71,6 +71,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2014 | [cowjog][cowjog] | Cow Jog | Sweep | 15/15 |
 | Jan 2015 | [stampede][stampede] | Stampede | Sweep | 15/15 |
 | Jan 2015 | [cowroute][cowroute] | Cow Routing | Dijkstra | 12/12 |
+| Jan 2015 | [meeting][meeting] | Meeting Time | DP | 15/15 |
 
 ### Platinum USACO Contests:
 
@@ -165,6 +166,8 @@ Solutions to USACO training and USACO contest problems.
 [cowjogsilver]: usaco-contests/2014dec/silver/cowjog.cpp
 [piggyback]: usaco-contests/2014dec/silver/piggyback.cpp
 [stampede]: usaco-contests/2015jan/silver/stampede.cpp
+[cowroute]: usaco-contests/2015jan/silver/cowroute.cpp
+[meeting]: usaco-contests/2015jan/silver/meeting.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
