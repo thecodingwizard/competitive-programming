@@ -76,6 +76,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2015 | [hopscotch][hopscotch] | Cow Hopscotch | DP | 15/15 |
 | Feb 2015 | [superbull][superbull] | Superbull | MST, Prim's O(V^2) | 10/10 |
 | Open 2015 | [bgm][bgm] | Bessie Goes Moo | Parity | 10/10 |
+| Open 2015 | [trapped][trapped] | Trapped in the Haybales (Silver) | Sort, Sweep | 14/14 |
 
 ### Platinum USACO Contests:
 
@@ -176,6 +177,7 @@ Solutions to USACO training and USACO contest problems.
 [hopscotch]: usaco-contests/2015feb/silver/hopscotch.cpp
 [superbull]: usaco-contests/2015feb/silver/superbull.cpp
 [bgm]: usaco-contests/2015open/silver/bgm.cpp
+[trapped]: usaco-contests/2015open/silver/trapped.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
