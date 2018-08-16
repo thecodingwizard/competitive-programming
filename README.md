@@ -78,6 +78,11 @@ Solutions to USACO training and USACO contest problems.
 | Open 2015 | [bgm][bgm] | Bessie Goes Moo | Parity | 10/10 |
 | Open 2015 | [trapped][trapped] | Trapped in the Haybales (Silver) | Sort, Sweep | 14/14 |
 
+#### USACO Gold (2015-now)
+| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
+| ------------ | ---------- | ------------ | -------------- | ----- |
+| Dec 2015 | [cardgame][cardgame] | High Card Low Card (Gold) | Greedy | 15/15 |
+
 ### Platinum USACO Contests:
 
 #### Old USACO Platinum (Gold):
@@ -180,6 +185,8 @@ Solutions to USACO training and USACO contest problems.
 [bgm]: usaco-contests/2015open/silver/bgm.cpp
 [trapped]: usaco-contests/2015open/silver/trapped.cpp
 [buffet]: usaco-contests/2015open/silver/buffet.cpp
+
+[cardgame]: usaco-contests/2015dec/gold/cardgame.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
