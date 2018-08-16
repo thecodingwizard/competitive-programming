@@ -83,6 +83,7 @@ Solutions to USACO training and USACO contest problems.
 | ------------ | ---------- | ------------ | -------------- | ----- |
 | Dec 2015 | [cardgame][cardgame] | High Card Low Card (Gold) | Greedy | 15/15 |
 | Dec 2015 | [feast][feast] | Fruit Feast | DP (Knapsack) | 12/12 |
+| Dec 2015 | [dream][dream] | Bessie's Dream | Dijkstra | 16/16 |
 
 ### Platinum USACO Contests:
 
@@ -189,6 +190,7 @@ Solutions to USACO training and USACO contest problems.
 
 [cardgame]: usaco-contests/2015dec/gold/cardgame.cpp
 [fruitfeast]: usaco-contests/2015dec/gold/feast.cpp
+[dream]: usaco-contests/2015dec/gold/dream.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
