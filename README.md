@@ -189,7 +189,7 @@ Solutions to USACO training and USACO contest problems.
 [buffet]: usaco-contests/2015open/silver/buffet.cpp
 
 [cardgame]: usaco-contests/2015dec/gold/cardgame.cpp
-[fruitfeast]: usaco-contests/2015dec/gold/feast.cpp
+[feast]: usaco-contests/2015dec/gold/feast.cpp
 [dream]: usaco-contests/2015dec/gold/dream.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
