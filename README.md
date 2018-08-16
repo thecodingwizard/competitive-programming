@@ -82,6 +82,7 @@ Solutions to USACO training and USACO contest problems.
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
 | ------------ | ---------- | ------------ | -------------- | ----- |
 | Dec 2015 | [cardgame][cardgame] | High Card Low Card (Gold) | Greedy | 15/15 |
+| Dec 2015 | [feast][feast] | Fruit Feast | DP (Knapsack) | 12/12 |
 
 ### Platinum USACO Contests:
 
@@ -187,6 +188,7 @@ Solutions to USACO training and USACO contest problems.
 [buffet]: usaco-contests/2015open/silver/buffet.cpp
 
 [cardgame]: usaco-contests/2015dec/gold/cardgame.cpp
+[fruitfeast]: usaco-contests/2015dec/gold/feast.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
