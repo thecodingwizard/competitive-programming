@@ -113,6 +113,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2015 | [movie][movie] | Moovie Mooving | DP, bitmasking | 14/14 |
 | Open 2015 | [palpath][palpath] | Palindromic Paths | DP | 12/12 |
 | Open 2015 | [trapped][trapped] | Trapped in the Haybales | Sort haybales by weight | 15/15 |
+| Open 2015 | [buffet][buffet] | Bessie's Birthday Buffet | DP | 15/15 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -178,6 +179,7 @@ Solutions to USACO training and USACO contest problems.
 [superbull]: usaco-contests/2015feb/silver/superbull.cpp
 [bgm]: usaco-contests/2015open/silver/bgm.cpp
 [trapped]: usaco-contests/2015open/silver/trapped.cpp
+[buffet]: usaco-contests/2015open/silver/buffet.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
