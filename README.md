@@ -85,6 +85,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2015 | [feast][feast] | Fruit Feast | DP (Knapsack) | 12/12 |
 | Dec 2015 | [dream][dream] | Bessie's Dream | Dijkstra | 16/16 |
 | Jan 2016 | [radio][radio] | Radio Contact | DP | 10/10 |
+| Feb 2016 | [cbarn][cbarn] | Circular Barn | Greedy | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -193,6 +194,7 @@ Solutions to USACO training and USACO contest problems.
 [feast]: usaco-contests/2015dec/gold/feast.cpp
 [dream]: usaco-contests/2015dec/gold/dream.cpp
 [radio]: usaco-contests/2016jan/gold/radio.cpp
+[cbarn]: usaco-contests/2016feb/gold/cbarn.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
