@@ -86,6 +86,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2015 | [dream][dream] | Bessie's Dream | Dijkstra | 16/16 |
 | Jan 2016 | [radio][radio] | Radio Contact | DP | 10/10 |
 | Feb 2016 | [cbarn][cbarn] | Circular Barn | Greedy | 10/10 |
+| Feb 2016 | [cbarn2][cbarn2] | Circular Barn (Revisited) | DP | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -195,6 +196,7 @@ Solutions to USACO training and USACO contest problems.
 [dream]: usaco-contests/2015dec/gold/dream.cpp
 [radio]: usaco-contests/2016jan/gold/radio.cpp
 [cbarn]: usaco-contests/2016feb/gold/cbarn.cpp
+[cbarn2]: usaco-contests/2016feb/gold/cbarn2.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
