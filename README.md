@@ -90,6 +90,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2016 | [fencedin][fencedin] | Fenced In | MST (Kruskal) | 10/10 |
 | Open 2016 | [split][split] | Splitting The Field | Sweep | 10/10 |
 | Open 2016 | [closing][closing] | Closing The Farm | UFDS (Note: Runs really close to time limit) | 10/10 |
+| Dec 2016 | [moocast][moocast] | Moocast | UFDS, brute force | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -203,6 +204,7 @@ Solutions to USACO training and USACO contest problems.
 [fencedin]: usaco-contests/2016feb/gold/fencedin.cpp
 [split]: usaco-contests/2016open/gold/split.cpp
 [closing]: usaco-contests/2016open/gold/closing.cpp
+[moocast]: usaco-contests/2016dec/gold/moocast.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
