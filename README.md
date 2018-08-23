@@ -30,6 +30,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.1.3 | [Humble Numbers][3.1.3] | Create size N set of possible numbers, brute force |
 | 3.1.4 | [Contact][3.1.4] | Brute force |
 | 3.1.5 | [Stamps][3.1.5] | DP |
+| 3.2.1 | [Factorials][3.2.1] | Count number of twos and fives |
 
 ### Gold USACO Contests:
 
