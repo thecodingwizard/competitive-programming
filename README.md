@@ -29,6 +29,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.1.2 | [Score Inflation][3.1.2] | Knapsack |
 | 3.1.3 | [Humble Numbers][3.1.3] | Create size N set of possible numbers, brute force |
 | 3.1.4 | [Contact][3.1.4] | Brute force |
+| 3.1.5 | [Stamps][3.1.5] | DP |
 
 ### Gold USACO Contests:
 
@@ -154,6 +155,7 @@ Solutions to USACO training and USACO contest problems.
 [3.1.2]: usaco-training/Chapter%203/3.1.2%20-%20Score%20Inflation.cpp
 [3.1.3]: usaco-training/Chapter%203/3.1.3%20-%20Humble%20Numbers.cpp
 [3.1.4]: usaco-training/Chapter%203/3.1.4%20-%20Contact.cpp
+[3.1.5]: usaco-training/Chapter%203/3.1.5%20-%20Stamps.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
