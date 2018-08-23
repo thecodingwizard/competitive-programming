@@ -157,6 +157,7 @@ Solutions to USACO training and USACO contest problems.
 [3.1.3]: usaco-training/Chapter%203/3.1.3%20-%20Humble%20Numbers.cpp
 [3.1.4]: usaco-training/Chapter%203/3.1.4%20-%20Contact.cpp
 [3.1.5]: usaco-training/Chapter%203/3.1.5%20-%20Stamps.cpp
+[3.2.1]: usaco-training/Chapter%203/3.2.1%20-%20Factorials.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
