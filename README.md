@@ -99,6 +99,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2017 | [bphoto][bphoto] | Balanced Photo | Fenwick Tree | 10/10 |
 | Jan 2017 | [hps][hps] | Hoof, Paper, Scissors | 3D DP | 10/10 |
 | Jan 2017 | [cownav][cownav] | Cow Navigation | BFS | 10/10 |
+| Feb 2017 | [visitfj][visitfj] | Why Did The Cow Cross The Road | Dijkstra | 11/11 |
 
 ### Platinum USACO Contests:
 
@@ -221,6 +222,7 @@ Solutions to USACO training and USACO contest problems.
 [bphoto]: usaco-contests/2017jan/gold/bphoto.cpp
 [hps]: usaco-contests/2017jan/gold/hps.cpp
 [cownav]: usaco-contests/2017jan/gold/cownav.cpp
+[visitfj]: usaco-contests/2017feb/gold/visitfj.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
