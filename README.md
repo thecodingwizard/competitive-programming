@@ -95,6 +95,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2016 | [closing][closing] | Closing The Farm | UFDS (Note: Runs really close to time limit) | 10/10 |
 | Dec 2016 | [moocast][moocast] | Moocast | UFDS, brute force | 10/10 |
 | Dec 2016 | [checklist][checklist] | Cow Checklist | DP | 10/10 |
+| Dec 2016 | [lasers][lasers] | Lasers and Mirrors | BFS | 11/11 |
 
 ### Platinum USACO Contests:
 
@@ -213,6 +214,7 @@ Solutions to USACO training and USACO contest problems.
 [closing]: usaco-contests/2016open/gold/closing.cpp
 [moocast]: usaco-contests/2016dec/gold/moocast.cpp
 [checklist]: usaco-contests/2016dec/gold/checklist.cpp
+[lasers]: usaco-contests/2016dec/gold/lasers.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
