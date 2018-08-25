@@ -96,6 +96,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2016 | [moocast][moocast] | Moocast | UFDS, brute force | 10/10 |
 | Dec 2016 | [checklist][checklist] | Cow Checklist | DP | 10/10 |
 | Dec 2016 | [lasers][lasers] | Lasers and Mirrors | BFS | 11/11 |
+| Jan 2017 | [bphoto][bphoto] | Balanced Photo | Fenwick Tree | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -215,6 +216,7 @@ Solutions to USACO training and USACO contest problems.
 [moocast]: usaco-contests/2016dec/gold/moocast.cpp
 [checklist]: usaco-contests/2016dec/gold/checklist.cpp
 [lasers]: usaco-contests/2016dec/gold/lasers.cpp
+[bphoto]: usaco-contests/2017jan/gold/bphoto.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
