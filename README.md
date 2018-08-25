@@ -98,6 +98,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2016 | [lasers][lasers] | Lasers and Mirrors | BFS | 11/11 |
 | Jan 2017 | [bphoto][bphoto] | Balanced Photo | Fenwick Tree | 10/10 |
 | Jan 2017 | [hps][hps] | Hoof, Paper, Scissors | 3D DP | 10/10 |
+| Jan 2017 | [cownav][cownav] | Cow Navigation | BFS | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -219,6 +220,7 @@ Solutions to USACO training and USACO contest problems.
 [lasers]: usaco-contests/2016dec/gold/lasers.cpp
 [bphoto]: usaco-contests/2017jan/gold/bphoto.cpp
 [hps]: usaco-contests/2017jan/gold/hps.cpp
+[cownav]: usaco-contests/2017jan/gold/cownav.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
