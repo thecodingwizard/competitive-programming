@@ -103,6 +103,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP | 10/10 |
 | Feb 2017 | [circlecross][circlecross] | Why Did The Cow Cross The Road III | Fenwick Tree (BIT) | 10/10 |
 | Open 2017 | [cownomics][cownomics] | Bovine Genomics | Rolling Hash | 10/10 |
+| Open 2017 | [art2][art2] | Modern Art 2 | Calculate start/end points | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -229,6 +230,7 @@ Solutions to USACO training and USACO contest problems.
 [nocross]: usaco-contests/2017feb/gold/nocross.cpp
 [circlecross]: usaco-contests/2017feb/gold/circlecross.cpp
 [cownomics]: usaco-contests/2017open/gold/cownomics.cpp
+[art2]: usaco-contests/2017open/gold/art2.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
