@@ -101,6 +101,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2017 | [cownav][cownav] | Cow Navigation | BFS | 10/10 |
 | Feb 2017 | [visitfj][visitfj] | Why Did The Cow Cross The Road | Dijkstra | 11/11 |
 | Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP | 10/10 |
+| Feb 2017 | [circlecross][circlecross] | Why Did The Cow Cross The Road III | Fenwick Tree (BIT) | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -225,6 +226,7 @@ Solutions to USACO training and USACO contest problems.
 [cownav]: usaco-contests/2017jan/gold/cownav.cpp
 [visitfj]: usaco-contests/2017feb/gold/visitfj.cpp
 [nocross]: usaco-contests/2017feb/gold/nocross.cpp
+[circlecross]: usaco-contests/2017feb/gold/circlecross.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
