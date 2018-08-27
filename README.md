@@ -233,6 +233,7 @@ Solutions to USACO training and USACO contest problems.
 [circlecross]: usaco-contests/2017feb/gold/circlecross.cpp
 [cownomics]: usaco-contests/2017open/gold/cownomics.cpp
 [art2]: usaco-contests/2017open/gold/art2.cpp
+[barnpainting]: usaco-contests/2017dec/gold/barnpainting.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
