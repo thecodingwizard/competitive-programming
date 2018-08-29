@@ -106,6 +106,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2017 | [cownomics][cownomics] | Bovine Genomics | Rolling Hash | 10/10 |
 | Open 2017 | [art2][art2] | Modern Art 2 | Calculate start/end points | 10/10 |
 | Dec 2017 | [barnpainting][barnpainting] | Barn Painting | DP | 10/10 |
+| Dec 2017 | [hayfeast][hayfeast] | Haybale Feast | Two Pointers | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -235,6 +236,7 @@ Solutions to USACO training and USACO contest problems.
 [cownomics]: usaco-contests/2017open/gold/cownomics.cpp
 [art2]: usaco-contests/2017open/gold/art2.cpp
 [barnpainting]: usaco-contests/2017dec/gold/barnpainting.cpp
+[hayfeast]: usaco-contests/2017dec/gold/hayfeast.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
