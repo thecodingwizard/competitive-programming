@@ -1,9 +1,3 @@
-/*
-ID: nathan.18
-TASK: kimbits
-LANG: C++11
-*/
-
 #include <iostream>
 #include <string>
 #include <utility>
