@@ -108,6 +108,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2017 | [piepie][piepie] | A Pie For A Pie | BFS, binary search | 10/10 |
 | Dec 2017 | [barnpainting][barnpainting] | Barn Painting | DP | 10/10 |
 | Dec 2017 | [hayfeast][hayfeast] | Haybale Feast | Two Pointers | 10/10 |
+| Jan 2018 | [mootube][mootube] | MooTube | UFDS | 10/10 |
 
 ### Platinum USACO Contests:
 
