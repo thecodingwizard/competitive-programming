@@ -110,6 +110,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2017 | [hayfeast][hayfeast] | Haybale Feast | Two Pointers | 10/10 |
 | Jan 2018 | [mootube][mootube] | MooTube | UFDS | 10/10 |
 | Jan 2018 | [atlarge][atlarge] | Cow At Large | DFS/BFS | 13/13 |
+| Jan 2018 | [spainting][spainting] | Stamp Painting | DP, recurrence | 12/12 |
 
 ### Platinum USACO Contests:
 
@@ -243,6 +244,7 @@ Solutions to USACO training and USACO contest problems.
 [hayfeast]: usaco-contests/2017dec/gold/hayfeast.cpp
 [mootube]: usaco-contests/2018jan/gold/mootube.cpp
 [atlarge]: usaco-contests/2018jan/gold/atlarge.cpp
+[spainting]: usaco-contests/2018jan/gold/spainting.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
