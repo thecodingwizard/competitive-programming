@@ -115,6 +115,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2018 | [dirtraverse][dirtraverse] | Directory Traversal | DFS | 10/10 |
 | Feb 2018 | [taming][taming] | Taming The Herd | DP | 11/11 |
 | Open 2018 | [sort][sort] | Out of Sorts | BIT | 10/10 |
+| Open 2018 | [milkorder][milkorder] | Milking Order | Topological Sort (Lexicographically earliest) | 10/10 |
 
 ### Platinum USACO Contests:
 
@@ -253,6 +254,7 @@ Solutions to USACO training and USACO contest problems.
 [dirtraverse]: usaco-contests/2018feb/gold/dirtraverse.cpp
 [taming]: usaco-contests/2018feb/gold/taming.cpp
 [sort]: usaco-contests/2018open/gold/sort.cpp
+[milkorder]: usaco-contests/2018open/gold/milkorder.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
