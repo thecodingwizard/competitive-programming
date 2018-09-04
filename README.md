@@ -155,6 +155,11 @@ Solutions to USACO training and USACO contest problems.
 | Open 2015 | [trapped][trapped] | Trapped in the Haybales | Sort haybales by weight | 15/15 |
 | Open 2015 | [buffet][buffet] | Bessie's Birthday Buffet | DP | 15/15 |
 
+#### USACO Platinum (2015-now):
+| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
+| ------------ | ---------- | ------------ | -------------- | ----- |
+| Dec 2015 | [haybales][haybales] | Counting Haybales | Seg Tree, Lazy, Min Query & Sum Query | 10/10 |
+
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
 [2.1.2]: usaco-training/Chapter%202/2.1.2%20-%20Ordered%20Fractions.cpp
@@ -288,5 +293,7 @@ Solutions to USACO training and USACO contest problems.
 [movie]: usaco-contests/2015jan/gold/movie.cpp
 [palpath]: usaco-contests/2015open/gold/palpath.cpp
 [trapped]: usaco-contests/2015open/gold/trapped.cpp
+
+[haybales]: usaco-contests/2015dec/plat/haybales.cpp
 
 Note: Code primarily written in C++.
