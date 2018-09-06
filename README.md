@@ -161,6 +161,7 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2015 | [maxflow][maxflow] | Max Flow | LCA, prefix sums | 15/15 |
 | Dec 2015 | [cardgame][cardgame] | High Card Low Card | Greedy | 15/15 |
 | Dec 2015 | [haybales][haybales] | Counting Haybales | Seg Tree, Lazy, Min Query & Sum Query | 10/10 |
+| Jan 2016 | [fortmoo][fortmoo] | Fort Moo | DP/Sliding Window | 13/13 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -299,5 +300,6 @@ Solutions to USACO training and USACO contest problems.
 [maxflow]: usaco-contests/2015dec/plat/maxflow.cpp
 [cardgame]: usaco-contests/2015dec/plat/cardgame.cpp
 [haybales]: usaco-contests/2015dec/plat/haybales.cpp
+[fortmoo]: usaco-contests/2016jan/plat/fortmoo.cpp
 
 Note: Code primarily written in C++.
