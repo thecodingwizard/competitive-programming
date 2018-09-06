@@ -158,6 +158,7 @@ Solutions to USACO training and USACO contest problems.
 #### USACO Platinum (2015-now):
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
 | ------------ | ---------- | ------------ | -------------- | ----- |
+| Dec 2015 | [maxflow][maxflow] | Max Flow | LCA, prefix sums | 15/15 |
 | Dec 2015 | [haybales][haybales] | Counting Haybales | Seg Tree, Lazy, Min Query & Sum Query | 10/10 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
@@ -294,6 +295,7 @@ Solutions to USACO training and USACO contest problems.
 [palpath]: usaco-contests/2015open/gold/palpath.cpp
 [trapped]: usaco-contests/2015open/gold/trapped.cpp
 
+[maxflow]: usaco-contests/2015dec/plat/maxflow.cpp
 [haybales]: usaco-contests/2015dec/plat/haybales.cpp
 
 Note: Code primarily written in C++.
