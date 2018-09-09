@@ -54,46 +54,46 @@ int main() {
     freopen("butter.in", "r", stdin);
     freopen("butter.out", "w", stdout);
 
-   int n, p, c; cin >> n >> p >> c;
-   int A[1500]; SET(A, 0, 1500);
-   F0R(i, n) {
-       int x; cin >> x;
-       A[--x]++;
-   }
-   SET2D(dist, INF, 800, 800);
-   vii adjList[800];
-   F0R(i, c) {
-       int a, b, w; cin >> a >> b >> w;
-       --a; --b;
-       adjList[a].push_back(mp(b, w));
-       adjList[b].push_back(mp(a, w));
-   }
+    int n, p, c; cin >> n >> p >> c;
+    int A[1500]; SET(A, 0, 1500);
+    F0R(i, n) {
+        int x; cin >> x;
+        A[--x]++;
+    }
+    SET2D(dist, INF, 800, 800);
+    vii adjList[800];
+    F0R(i, c) {
+        int a, b, w; cin >> a >> b >> w;
+        --a; --b;
+        adjList[a].push_back(mp(b, w));
+        adjList[b].push_back(mp(a, w));
+    }
 
-   F0R(i, p) {
-       priority_queue<ii, vii, greater<ii>> pq;
-       pq.push(mp(0, i));
-       dist[i][i] = 0;
-       while (!pq.empty()) {
-           ii next = pq.top(); pq.pop();
-           if (next.pA > dist[i][next.pB]) continue;
-           for (ii child : adjList[next.pB]) {
-               if (dist[i][child.pA] > dist[i][next.pB] + child.pB) {
-                   dist[i][child.pA] = dist[i][next.pB] + child.pB;
-                   pq.push(mp(dist[i][child.pA], child.pA));
-               }
-           }
-       }
-   }
+    F0R(i, p) {
+        priority_queue<ii, vii, greater<ii>> pq;
+        pq.push(mp(0, i));
+        dist[i][i] = 0;
+        while (!pq.empty()) {
+            ii next = pq.top(); pq.pop();
+            if (next.pA > dist[i][next.pB]) continue;
+            for (ii child : adjList[next.pB]) {
+                if (dist[i][child.pA] > dist[i][next.pB] + child.pB) {
+                    dist[i][child.pA] = dist[i][next.pB] + child.pB;
+                    pq.push(mp(dist[i][child.pA], child.pA));
+                }
+            }
+        }
+    }
 
-   int best = INF;
-   F0R(i, p) {
-       int sum = 0;
-       F0R(j, p) {
-           sum += dist[j][i]*A[j];
-       }
-       best = min(best, sum);
-   }
-   cout << best << endl;
+    int best = INF;
+    F0R(i, p) {
+        int sum = 0;
+        F0R(j, p) {
+            sum += dist[j][i]*A[j];
+        }
+        best = min(best, sum);
+    }
+    cout << best << endl;
 
     return 0;
 }
