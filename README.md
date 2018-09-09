@@ -167,7 +167,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2016 | [mowing][mowing] | Mowing The Field | 2D Range Tree | 10/10 |
 | Feb 2016 | [balancing][balancing] | Load Balancing | Binary Search, BIT | 15/15 |
 | Feb 2016 | [fencedinplat][fencedinplat] | Fenced In |  | 10/10 |
-| Open 2016 | [262144][262144] | 262144 | 12/12 |
+| Open 2016 | [262144][262144] | 262144 | DP | 12/12 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
