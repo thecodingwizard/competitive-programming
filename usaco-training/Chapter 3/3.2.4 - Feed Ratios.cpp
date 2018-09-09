@@ -64,16 +64,16 @@ int main() {
     }
 
     F0R(i, 100)
-    F0R(j, 100)
-    F0R(k, 100) {
-        x = A[0][0]*i + A[1][0]*j + A[2][0]*k;
-        y = A[0][1]*i + A[1][1]*j + A[2][1]*k;
-        z = A[0][2]*i + A[1][2]*j + A[2][2]*k;
-        if (valid.count(mp(mp(x, y), z))) {
-            cout << i << " " << j << " " << k << " " << valid[mp(mp(x, y), z)] << endl;
-            return 0;
-        }
-    }
+        F0R(j, 100)
+            F0R(k, 100) {
+                x = A[0][0]*i + A[1][0]*j + A[2][0]*k;
+                y = A[0][1]*i + A[1][1]*j + A[2][1]*k;
+                z = A[0][2]*i + A[1][2]*j + A[2][2]*k;
+                if (valid.count(mp(mp(x, y), z))) {
+                    cout << i << " " << j << " " << k << " " << valid[mp(mp(x, y), z)] << endl;
+                    return 0;
+                }
+            }
     cout << "NONE" << endl;
 
     return 0;
