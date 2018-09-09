@@ -32,6 +32,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.1.5 | [Stamps][3.1.5] | DP |
 | 3.2.1 | [Factorials][3.2.1] | Count number of twos and fives |
 | 3.2.2 | [Stringsobits][3.2.2] | Define `dp(i, j) = # of numbers with i bits and at most j ones` |
+| 3.2.3 | [Spinning Wheels][3.2.3] | Brute Force, max 360 seconds |
 
 ### Gold USACO Contests:
 
@@ -193,6 +194,7 @@ Solutions to USACO training and USACO contest problems.
 [3.1.5]: usaco-training/Chapter%203/3.1.5%20-%20Stamps.cpp
 [3.2.1]: usaco-training/Chapter%203/3.2.1%20-%20Factorials.cpp
 [3.2.2]: usaco-training/Chapter%203/3.2.2%20-%20Stringsobits.cpp
+[3.2.3]: usaco-training/Chapter%203/3.2.3%20-%20Spinning%20Wheels.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
