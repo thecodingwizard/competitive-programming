@@ -34,6 +34,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.2.2 | [Stringsobits][3.2.2] | Define `dp(i, j) = # of numbers with i bits and at most j ones` |
 | 3.2.3 | [Spinning Wheels][3.2.3] | Brute Force, max 360 seconds |
 | 3.2.4 | [Feed Ratios][3.2.4] | Brute force |
+| 3.2.5 | [Magic Squares][3.2.5 | BFS |
 
 ### Gold USACO Contests:
 
@@ -199,6 +200,7 @@ Solutions to USACO training and USACO contest problems.
 [3.2.2]: usaco-training/Chapter%203/3.2.2%20-%20Stringsobits.cpp
 [3.2.3]: usaco-training/Chapter%203/3.2.3%20-%20Spinning%20Wheels.cpp
 [3.2.4]: usaco-training/Chapter%203/3.2.4%20-%20Feed%20Ratios.cpp
+[3.2.5]: usaco-training/Chapter%203/3.2.5%20-%20Magic%20Squares.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
