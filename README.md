@@ -36,6 +36,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.2.4 | [Feed Ratios][3.2.4] | Brute force |
 | 3.2.5 | [Magic Squares][3.2.5] | BFS |
 | 3.2.6 | [Sweet Butter][3.2.6] | APSP |
+| 3.3.3 | [Camelot][3.3.3] | Brute force, king can take only two steps |
 
 ### Gold USACO Contests:
 
@@ -203,6 +204,7 @@ Solutions to USACO training and USACO contest problems.
 [3.2.4]: usaco-training/Chapter%203/3.2.4%20-%20Feed%20Ratios.cpp
 [3.2.5]: usaco-training/Chapter%203/3.2.5%20-%20Magic%20Squares.cpp
 [3.2.6]: usaco-training/Chapter%203/3.2.6%20-%20Sweet%20Butter.cpp
+[3.3.3]: usaco-training/Chapter%203/3.3.3%20-%20Camelot.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
