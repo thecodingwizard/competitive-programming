@@ -37,6 +37,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.2.5 | [Magic Squares][3.2.5] | BFS |
 | 3.2.6 | [Sweet Butter][3.2.6] | APSP |
 | 3.3.1 | [Riding the Fences][3.3.1] | Eulerian Path | 
+| 3.3.2 | [Shopping Offers][3.3.2] | Dijkstra |
 | 3.3.3 | [Camelot][3.3.3] | Brute force, king can take only two steps |
 
 ### Gold USACO Contests:
@@ -206,6 +207,7 @@ Solutions to USACO training and USACO contest problems.
 [3.2.5]: usaco-training/Chapter%203/3.2.5%20-%20Magic%20Squares.cpp
 [3.2.6]: usaco-training/Chapter%203/3.2.6%20-%20Sweet%20Butter.cpp
 [3.3.1]: usaco-training/Chapter%203/3.3.1%20-%20Riding%20the%20Fences.cpp
+[3.3.2]: usaco-training/Chapter%203/3.3.2%20-%20Shopping%20Offers.cpp
 [3.3.3]: usaco-training/Chapter%203/3.3.3%20-%20Camelot.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
