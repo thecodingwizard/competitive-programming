@@ -40,6 +40,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.3.2 | [Shopping Offers][3.3.2] | Dijkstra |
 | 3.3.3 | [Camelot][3.3.3] | Brute force, king can take only two steps |
 | 3.3.4 | [Home on the Range][3.3.4] | DP |
+| 3.3.5 | [A Game][3.3.5] | DP |
 
 ### Gold USACO Contests:
 
@@ -211,6 +212,7 @@ Solutions to USACO training and USACO contest problems.
 [3.3.2]: usaco-training/Chapter%203/3.3.2%20-%20Shopping%20Offers.cpp
 [3.3.3]: usaco-training/Chapter%203/3.3.3%20-%20Camelot.cpp
 [3.3.4]: usaco-training/Chapter%203/3.3.4%20-%20Home%20on%20the%20Range.cpp
+[3.3.5]: usaco-training/Chapter%203/3.3.5%20-%20A%20Game.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
