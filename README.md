@@ -42,6 +42,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.3.4 | [Home on the Range][3.3.4] | DP |
 | 3.3.5 | [A Game][3.3.5] | DP |
 | 3.4.1 | [American Heritage][3.4.1] | Recursively generate tree |
+| 3.4.2 | [Electric Fence][3.4.2] | Pick's Theorem |
 
 ### Gold USACO Contests:
 
@@ -215,6 +216,7 @@ Solutions to USACO training and USACO contest problems.
 [3.3.4]: usaco-training/Chapter%203/3.3.4%20-%20Home%20on%20the%20Range.cpp
 [3.3.5]: usaco-training/Chapter%203/3.3.5%20-%20A%20Game.cpp
 [3.4.1]: usaco-training/Chapter%203/3.4.1%20-%20American%20Heritage.cpp
+[3.4.2]: usaco-training/Chapter%203/3.4.2%20-%20Electric%20Fence.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
