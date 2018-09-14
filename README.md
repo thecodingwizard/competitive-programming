@@ -44,6 +44,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.4.1 | [American Heritage][3.4.1] | Recursively generate tree |
 | 3.4.2 | [Electric Fence][3.4.2] | Pick's Theorem |
 | 3.4.3 | [Raucous Rockers][3.4.3] | Brute Force (Bitmasking) |
+| 4.1.1 | [Beef McNuggets][4.1.1] | DP |
 
 ### Gold USACO Contests:
 
@@ -219,6 +220,7 @@ Solutions to USACO training and USACO contest problems.
 [3.4.1]: usaco-training/Chapter%203/3.4.1%20-%20American%20Heritage.cpp
 [3.4.2]: usaco-training/Chapter%203/3.4.2%20-%20Electric%20Fence.cpp
 [3.4.3]: usaco-training/Chapter%203/3.4.3%20-%20Raucous%20Rockers.cpp
+[4.1.1]: usaco-training/Chapter%204/4.1.1%20-%20Beef%20McNuggets.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
