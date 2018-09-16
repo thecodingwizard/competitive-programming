@@ -180,6 +180,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2016 | [balancing][balancing] | Load Balancing | Binary Search, BIT | 15/15 |
 | Feb 2016 | [fencedinplat][fencedinplat] | Fenced In |  | 10/10 |
 | Open 2016 | [262144][262144] | 262144 | DP | 12/12 |
+| Dec 2016 | [team][team] | Team Building | DP | 9/9 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -337,5 +338,6 @@ Solutions to USACO training and USACO contest problems.
 [balancing]: usaco-contests/2016feb/plat/balancing.cpp
 [fencedinplat]: usaco-contests/2016feb/plat/fencedin.cpp
 [262144]: usaco-contests/2016open/plat/262144.cpp
+[team]: usaco-contests/2016dec/plat/team.cpp
 
 Note: Code primarily written in C++.
