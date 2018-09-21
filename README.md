@@ -46,6 +46,7 @@ Solutions to USACO training and USACO contest problems.
 | 3.4.3 | [Raucous Rockers][3.4.3] | Brute Force (Bitmasking) |
 | 4.1.1 | [Beef McNuggets][4.1.1] | DP |
 | 4.1.2 | [Fence Loops][4.1.2] | Dijkstra |
+| 4.2.1 | [Drainage Ditches][4.2.1] | Max Flow O(V^2E) |
 
 ### Gold USACO Contests:
 
@@ -225,6 +226,7 @@ Solutions to USACO training and USACO contest problems.
 [3.4.3]: usaco-training/Chapter%203/3.4.3%20-%20Raucous%20Rockers.cpp
 [4.1.1]: usaco-training/Chapter%204/4.1.1%20-%20Beef%20McNuggets.cpp
 [4.1.2]: usaco-training/Chapter%204/4.1.2%20-%20Fence%20Loops.cpp
+[4.2.1]: usaco-training/Chapter%204/4.2.1%20-%20Drainage%20Ditches.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
