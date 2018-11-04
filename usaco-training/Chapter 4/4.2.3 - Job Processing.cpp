@@ -54,6 +54,44 @@ typedef vector<ii> vii;
 typedef vector<ll> vl;
 
 int main() {
+    freopen("job.in", "r", stdin);
+    freopen("job.out", "w", stdout);
+
+    int n, m1, m2; cin >> n >> m1 >> m2;
+    int A[m1], B[m2];
+    int nextA[m1], nextB[m2];
+    F0R(i, m1) cin >> A[i]; F0R(i, m2) cin >> B[i];
+    F0R(i, m1) nextA[i] = A[i]; F0R(i, m2) nextB[i] = B[i];
+
+    vi nextTimes;
+
+    F0R(i, n) {
+        int bestIdx = 0;
+        F0R(j, m1) {
+            if (nextA[bestIdx] > nextA[j]) {
+                bestIdx = j;
+            }
+        }
+        nextTimes.pb(nextA[bestIdx]);
+        nextA[bestIdx] += A[bestIdx];
+    }
+
+    SORT(nextTimes);
+    int ans1 = nextTimes[n-1];
+
+    int ans2 = 0;
+    F0Rd(i, n) {
+        int bestIdx = 0;
+        F0R(j, m2) {
+            if (nextTimes[i] + nextB[j] < nextTimes[i] + nextB[bestIdx]) {
+                bestIdx = j;
+            }
+        }
+        ans2 = max(ans2, nextTimes[i] + nextB[bestIdx]);
+        nextB[bestIdx] += B[bestIdx];
+    }
+
+    cout << ans1 << " " << ans2 << endl;
 
     return 0;
 }
