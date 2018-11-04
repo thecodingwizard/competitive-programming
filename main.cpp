@@ -47,71 +47,8 @@ typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<ll> vl;
 
-vi S, visited;                                    // additional global variables
-vi dfs_low, dfs_num;
-#define DFS_WHITE (-1) // normal DFS, do not change this with other values (other than 0), because we usually use memset with conjunction with DFS_WHITE
-#define DFS_BLACK 1
-vector<vi> AdjList;
-vii EdgeList;
-int numSCC;
-int dfsNumberCounter;
-int newComponent[1500];
-int inDegree[1500], outDegree[1500];
-
-void tarjanSCC(int u) {
-    dfs_low[u] = dfs_num[u] = dfsNumberCounter++;      // dfs_low[u] <= dfs_num[u]
-    S.push_back(u);           // stores u in a vector based on order of visitation
-    visited[u] = 1;
-    for (int j = 0; j < (int)AdjList[u].size(); j++) {
-        int v = AdjList[u][j];
-        if (dfs_num[v] == DFS_WHITE)
-            tarjanSCC(v);
-        if (visited[v])                                // condition for update
-            dfs_low[u] = min(dfs_low[u], dfs_low[v]);
-    }
-
-    if (dfs_low[u] == dfs_num[u]) {         // if this is a root (start) of an SCC
-        while (true) {
-            int v = S.back(); S.pop_back(); visited[v] = 0;
-            newComponent[v] = numSCC;
-            if (u == v) break;
-        }
-        numSCC++;
-    }
-}
-
 int main() {
-    int n, m; cin >> n >> m;
-    AdjList.assign(n, vi());
-    F0R(i, m) {
-        int a, b; cin >> a >> b;
-        --a; --b;
-        AdjList[a].pb(b);
-        EdgeList.pb(mp(a, b));
-    }
-    dfs_num.assign(n, DFS_WHITE); dfs_low.assign(n, 0); visited.assign(n, 0);
-    dfsNumberCounter = numSCC = 0;
-    for (int i = 0; i < n; i++)
-        if (dfs_num[i] == DFS_WHITE)
-            tarjanSCC(i);
-    if (numSCC == 1) {
-        cout << "0" << endl;
-        return 0;
-    }
-    SET(inDegree, 0, n);
-    SET(outDegree, 0, n);
-    for (ii edge : EdgeList) {
-        int a = newComponent[edge.pA], b = newComponent[edge.pB];
-        if (a == b) continue;
-        inDegree[b]++;
-        outDegree[a]++;
-    }
-    int inDegreeZero = 0, outDegreeZero = 0;
-    F0R(i, numSCC) {
-        if (inDegree[i] == 0) inDegreeZero++;
-        if (outDegree[i] == 0) outDegreeZero++;
-    }
-    cout << max(inDegreeZero, outDegreeZero) << endl;
+
 
     return 0;
 }
