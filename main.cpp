@@ -48,25 +48,7 @@ typedef vector<ii> vii;
 typedef vector<ll> vl;
 
 int main() {
-    int n, a, b; cin >> n >> a >> b;
-    int curCost = 0;
-    vii stuff;
-    F0R(i, n) {
-        int x, y, z; cin >> x >> y >> z;
-        stuff.pb(mp(y-z, x));
-        curCost += x*z;
-    }
-    SORT(stuff);
-    for (ii item : stuff) {
-        if (item.pB > a) {
-            curCost += item.pA*a;
-            break;
-        } else {
-            a -= item.pB;
-            curCost += item.pB*item.pA;
-        }
-    }
-    cout << curCost << endl;
+    cout << "Hello World!" << endl;
 
     return 0;
 }
