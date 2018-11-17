@@ -185,6 +185,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2016 | [262144][262144] | 262144 | DP | 12/12 |
 | Dec 2016 | [team][team] | Team Building | DP | 9/9 |
 | Jan 2017 | [promote][promote] | Promotion Counting | BIT on preorder of tree | 10/10 |
+| Jan 2017 | [tallbarn][tallbarn] | Building a Tall Barn | Binary Search | 12/12 |
 
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
@@ -346,5 +347,6 @@ Solutions to USACO training and USACO contest problems.
 [262144]: usaco-contests/2016open/plat/262144.cpp
 [team]: usaco-contests/2016dec/plat/team.cpp
 [promote]: usaco-contests/2017jan/plat/promote.cpp
+[tallbarn]: usaco-contests/2017jan/plat/tallbarn.cpp
 
 Note: Code primarily written in C++.
