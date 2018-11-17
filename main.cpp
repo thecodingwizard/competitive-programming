@@ -48,90 +48,51 @@ typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<ll> vl;
 
-int n;
-int dfs_low[300010], dfs_num[300010], dfsNumberCounter;
-bool visited[300010];
-int sccStack[300010], stackIdx = 0;
-#define DFS_WHITE -1
-int numSCC = 0;
-int scc[300010];
-int sccSz[300010];
-int A[300010];
+set<pll> stuff[500100];
+bool visited[500100];
 
-void tarjanSCC(int u) {
-    dfs_low[u] = dfs_num[u] = dfsNumberCounter++;      // dfs_low[u] <= dfs_num[u]
-    sccStack[stackIdx++] = u;          // stores u in a vector based on order of visitation
-    if (stackIdx > 200000) {
-        cout << "Stack size > 200000" << endl;
-        exit(0);
+bool cmp(ll a, ll b) {
+    set<pll> A = stuff[a], B = stuff[b];
+    if (A.size() != B.size()) {
+        return A.size() < B.size();
     }
-    visited[u] = 1;
-    int next = A[u];
-    if (dfs_num[next] == DFS_WHITE)
-        tarjanSCC(next);
-    if (visited[next])                                // condition for update
-        dfs_low[u] = min(dfs_low[u], dfs_low[next]);
-
-    if (dfs_low[u] == dfs_num[u]) {         // if this is a root (start) of an SCC
-        numSCC++;
-        int sz = 0;
-        while (1) {
-            int v = sccStack[--stackIdx];
-            visited[v] = 0;
-            scc[v] = numSCC;
-            sz++;
-            if (u == v) break;
-        }
-        sccSz[numSCC] = sz;
-    }
-}
-
-pll dp[300010];
-pll run(int node) {
-    if (dp[node].pA != -1) return dp[node];
-    int target = A[node];
-    int targetSCC = scc[target];
-    ll sz = sccSz[targetSCC];
-    if (scc[target] == scc[node]) {
-        // same SCC
-        return mp(sz, sz * (sz - 1) / 2);
-    }
-    pll next = run(target);
-    return dp[node] = mp(next.pA + 1, next.pB + next.pA);
+    return A < B;
 }
 
 int main() {
-    cin >> n;
+    int n; cin >> n;
+    ll A[n][3];
+    SET(visited, false, 500100);
+    vector<pll> ordered;
     F0R(i, n) {
-        cin >> A[i];
-        A[i]--;
-//        if (i < 299000) {
-//            A[i] = i+1;
-//        } else {
-//            A[i] = 3;
-//        }
-    }
-
-    SET(dfs_num, DFS_WHITE, n);
-    SET(dfs_low, 0, n);
-    SET(visited, false, n);
-
-    F0R(i, n) {
-        if (dfs_num[i] == DFS_WHITE) {
-            tarjanSCC(i);
+        F0R(j, 3) {
+            cin >> A[i][j];
         }
-        dp[i].pA = -1;
+        FOR(j, 1, 3) {
+            stuff[A[i][j]].insert(mp(A[i][0], i));
+        }
+        ordered.pb(mp(A[i][0], i));
     }
+    SORT(ordered);
+    reverse(ordered.begin(), ordered.end());
 
-    ll num = 0, tot = 0;
-    F0R(i, n) {
-        pll res = run(i);
-        num += res.pA;
-        tot += res.pB;
+    ll ans = 0;
+    for (pll item : ordered) {
+        int idx = static_cast<int>(item.pB);
+        ll a = A[idx][1], b = A[idx][2];
+        if (visited[a] && visited[b]) continue;
+        if (visited[b] || cmp(a, b)) {
+            // choose a over b
+            visited[a] = true;
+            stuff[b].erase(item);
+            ans += item.pA;
+        } else {
+            visited[b] = true;
+            stuff[a].erase(item);
+            ans += item.pA;
+        }
     }
-    num -= n;
-
-    cout << num << " " << tot << endl;
+    cout << ans << endl;
 
     return 0;
 }
