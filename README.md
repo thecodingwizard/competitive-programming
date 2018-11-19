@@ -57,6 +57,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2012 | [clumsy][clumsy] | Clumsy Cows | Greedy | 16/16 |
 | Nov 2012 | [distant][distant] | Distant Pastures | APSP, dijkstra | 16/16 |
 | Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | Same problem as Gold | 16/16 |
+| Dec 2012 | [crazy][crazy] | Crazy Fences | Computational Geometry | 10/10 |
 | Dec 2012 | [wifi][wifi] | Wifi Setup | DP | 10/10 |
 | Dec 2012 | [mroute][mroute] | Milk Routing | Dijkstra | 10/10 |
 | Jan 2013 | [paint][paint] | Painting the Fence | Coordinate Compression, Store Deltas & Sweep | 10/10 |
