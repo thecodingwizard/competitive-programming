@@ -5,6 +5,7 @@ Solutions to USACO training and USACO contest problems.
 #### USACO Training:
 | Problem Number | Problem Name | Solution Notes |
 | -------------- | ------------ | -------------- |
+| 1.5.1 | [Arithmetic Progressions][1.5.1] | Careful Brute Force |
 | 1.6.3 | [Superprime Rib][1.6.3] | Brute force |
 | 2.1.1 | [The Castle][2.1.1] | Floodfill to assign each room a number |
 | 2.1.2 | [Ordered Fractions][2.1.2] | Generate all possible fractions |
@@ -189,6 +190,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2017 | [tallbarn][tallbarn] | Building a Tall Barn | Binary Search | 12/12 |
 | Jan 2017 | [subrev][subrev] | Subsequence Reversal | DP | 10/10 |
 
+[1.5.1]: usaco-training/Chapter%201/1.5.1%20ariprog%20-%20Arithmetic%20Progressions.cpp
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
 [2.1.1]: usaco-training/Chapter%202/2.1.1%20-%20The%20Castle.cpp
 [2.1.2]: usaco-training/Chapter%202/2.1.2%20-%20Ordered%20Fractions.cpp
