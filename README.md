@@ -78,6 +78,7 @@ Solutions to USACO training and USACO contest problems.
 | Nov 2013 | [pogocow][pogocow] | Pogo-Cow | DP, note that Bessie can go either direction | 11/11 |
 | Dec 2013 | [msched][msched2] | Milk Scheduling | Greedy, sweep | 11/11 |
 | Dec 2013 | [vacation][vacation] | Vacation Planning | Code is slightly modified from gold version, answer is unnecessarily complicated for silver | 10/10 |
+| Dec 2013 | [shuffle][shuffle] | The Bessie Shuffle | Repeated Squaring, Permutations, Composing functions/permutations | 10/10 |
 | Jan 2014 | [slowdown][slowdown] | Bessie Slows Down | Maintain two arrays, simulation | 10/10 |
 | Jan 2014 | [ccski][ccski] | Cross Country Skiing | Prim's | 10/10 |
 | Jan 2014 | [recording][recording] | Recording the Moolympics | Greedy | 10/10 |
@@ -254,6 +255,7 @@ Solutions to USACO training and USACO contest problems.
 [pogocow]: usaco-contests/2013nov/silver/pogocow.cpp
 [msched2]: usaco-contests/2013dec/silver/msched.cpp
 [vacation]: usaco-contests/2013dec/silver/vacation.cpp
+[shuffle]: usaco-contests/2013dec/silver/shuffle.cpp
 [slowdown]: usaco-contests/2014jan/silver/slowdown.cpp
 [ccski]: usaco-contests/2014jan/silver/ccski.cpp
 [recording]: usaco-contests/2014jan/silver/recording.cpp
