@@ -190,6 +190,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2017 | [promote][promote] | Promotion Counting | BIT on preorder of tree | 10/10 |
 | Jan 2017 | [tallbarn][tallbarn] | Building a Tall Barn | Binary Search | 12/12 |
 | Jan 2017 | [subrev][subrev] | Subsequence Reversal | DP | 10/10 |
+| Feb 2017 | [mincross][mincross] | Why Did The Cow Cross The Road | Fenwick Tree | 10/10 |
 
 [1.5.1]: usaco-training/Chapter%201/1.5.1%20ariprog%20-%20Arithmetic%20Progressions.cpp
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
@@ -355,5 +356,6 @@ Solutions to USACO training and USACO contest problems.
 [promote]: usaco-contests/2017jan/plat/promote.cpp
 [tallbarn]: usaco-contests/2017jan/plat/tallbarn.cpp
 [subrev]: usaco-contests/2017jan/plat/subrev.cpp
+[mincross]: usaco-contests/2017feb/plat/mincross.cpp
 
 Note: Code primarily written in C++.
