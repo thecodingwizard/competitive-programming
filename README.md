@@ -368,4 +368,10 @@ Solutions to USACO training and USACO contest problems.
 [mincross]: usaco-contests/2017feb/plat/mincross.cpp
 [nocross]: usaco-contests/2017feb/plat/nocross.cpp
 
+# UVa Online Judge (Competitive Programming 3, Starred)
+Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
+
+# Codeforces
+Solutions to various Codeforces problems.
+
 Note: Code primarily written in C++.
