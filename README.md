@@ -50,6 +50,11 @@ Solutions to USACO training and USACO contest problems.
 | 4.2.1 | [Drainage Ditches][4.2.1] | Max Flow O(V^2E) |
 | 4.2.3 | [Job Processing][4.2.3] | Greedy |
 
+### Silver USACO Contests:
+| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
+| ------------ | ---------- | ------------ | -------------- | ----- |
+| Feb 2018 | [reststops][reststops] | Rest Stops | Greedy | 10/10 |
+
 ### Gold USACO Contests:
 
 #### Old USACO Gold (Silver):
@@ -236,6 +241,8 @@ Solutions to USACO training and USACO contest problems.
 [4.1.1]: usaco-training/Chapter%204/4.1.1%20-%20Beef%20McNuggets.cpp
 [4.1.2]: usaco-training/Chapter%204/4.1.2%20-%20Fence%20Loops.cpp
 [4.2.1]: usaco-training/Chapter%204/4.2.1%20-%20Drainage%20Ditches.cpp
+
+[reststops]: usaco-contests/2018feb/silver/reststops.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
