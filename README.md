@@ -246,6 +246,7 @@ Solutions to USACO training and USACO contest problems.
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
+[crazy]: usaco-contests/2012dec/silver/crazy.cpp
 [wifi]: usaco-contests/2012dec/silver/wifi.cpp
 [mroute]: usaco-contests/2012dec/silver/mroute.cpp
 [paint]: usaco-contests/2013jan/silver/paint.cpp
