@@ -241,6 +241,7 @@ Solutions to USACO training and USACO contest problems.
 [4.1.1]: usaco-training/Chapter%204/4.1.1%20-%20Beef%20McNuggets.cpp
 [4.1.2]: usaco-training/Chapter%204/4.1.2%20-%20Fence%20Loops.cpp
 [4.2.1]: usaco-training/Chapter%204/4.2.1%20-%20Drainage%20Ditches.cpp
+[4.2.3]: usaco-training/Chapter%204/4.2.3%20-%20Job%20Processing.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 
