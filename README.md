@@ -48,6 +48,7 @@ Solutions to USACO training and USACO contest problems.
 | 4.1.1 | [Beef McNuggets][4.1.1] | DP |
 | 4.1.2 | [Fence Loops][4.1.2] | Dijkstra |
 | 4.2.1 | [Drainage Ditches][4.2.1] | Max Flow O(V^2E) |
+| 4.2.2 | [The Perfect Stall][4.2.2] | Max Bipartite Matching |
 | 4.2.3 | [Job Processing][4.2.3] | Greedy |
 
 ### Silver USACO Contests:
@@ -241,6 +242,7 @@ Solutions to USACO training and USACO contest problems.
 [4.1.1]: usaco-training/Chapter%204/4.1.1%20-%20Beef%20McNuggets.cpp
 [4.1.2]: usaco-training/Chapter%204/4.1.2%20-%20Fence%20Loops.cpp
 [4.2.1]: usaco-training/Chapter%204/4.2.1%20-%20Drainage%20Ditches.cpp
+[4.2.2]: usaco-training/Chapter%204/4.2.2%20-%20The%20Perfect%20Stall.cpp
 [4.2.3]: usaco-training/Chapter%204/4.2.3%20-%20Job%20Processing.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
