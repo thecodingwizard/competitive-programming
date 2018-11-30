@@ -1,3 +1,9 @@
+/*
+ID: nathan.18
+TASK: stall4
+LANG: C++11
+*/
+
 #include <iostream>
 #include <string>
 #include <utility>
@@ -50,32 +56,60 @@ typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<ll> vl;
 
+#define MAX_V 500
+
+int res[MAX_V][MAX_V], mf, f, s, t;                          // global variables
+vi p;
+
+void augment(int v, int minEdge) {     // traverse BFS spanning tree from s to t
+    if (v == s) { f = minEdge; return; }  // record minEdge in a global variable f
+    else if (p[v] != -1) { augment(p[v], min(minEdge, res[p[v]][v])); // recursive
+        res[p[v]][v] -= f; res[v][p[v]] += f; }       // update
+}
+
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    freopen("reststops.in", "r", stdin);
-    freopen("reststops.out", "w", stdout);
+//    freopen("stall4.in", "r", stdin);
+//    freopen("stall4.out", "w", stdout);
 
-    ll l, n, rf, rb; cin >> l >> n >> rf >> rb;
-    ll magic = rf - rb;
-    vii A;
+    int n, m; cin >> n >> m;
+    s = 0, t = 400;
+
+    memset(res, 0, sizeof res);
     F0R(i, n) {
-        int x, y; cin >> x >> y;
-        A.pb(mp(x, y));
+        int x; cin >> x;
+        F0R(j, x) {
+            int y; cin >> y;
+            res[i+1][y] = 1;
+        }
+        res[s][i+1] = 1;
     }
-    sort(A.begin(), A.end(), [](const ii& a, const ii& b) {
-        return a.pB > b.pB;
-    });
+    F0R1(i, m) {
+        res[i][t] = 1;
+    }
 
-    ll pos = 0;
-    ll ans = 0;
-    for (ii x : A) {
-        if (x.pA < pos) continue;
-        ans += x.pB * (x.pA - pos)*magic;
-        pos = x.pA;
+
+    mf = 0;                                              // mf stands for max_flow
+    while (true) {           // O(VE^2) (actually O(V^3E) Edmonds Karp's algorithm
+        f = 0;
+        // run BFS, compare with the original BFS shown in Section 4.2.2
+        vi dist(MAX_V, INF); dist[s] = 0; queue<int> q; q.push(s);
+        p.assign(MAX_V, -1);           // record the BFS spanning tree, from s to t!
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            if (u == t) break;      // immediately stop BFS if we already reach sink t
+            for (int v = 0; v < MAX_V; v++)                 // note: this part is slow
+                if (res[u][v] > 0 && dist[v] == INF)
+                    dist[v] = dist[u] + 1, q.push(v), p[v] = u;
+        }
+        augment(t, INF);     // find the min edge weight `f' along this path, if any
+        if (f == 0) break;      // we cannot send any more flow (`f' = 0), terminate
+        mf += f;                 // we can still send a flow, increase the max flow!
     }
-    cout << ans << endl;
+
+    cout << mf << endl;
 
     return 0;
 }
