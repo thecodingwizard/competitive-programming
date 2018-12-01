@@ -1,9 +1,3 @@
-/*
-ID: nathan.18
-TASK: stall4
-LANG: C++11
-*/
-
 #include <iostream>
 #include <string>
 #include <utility>
@@ -56,60 +50,99 @@ typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<ll> vl;
 
-#define MAX_V 500
+#define MAXN 100100
 
-int res[MAX_V][MAX_V], mf, f, s, t;                          // global variables
-vi p;
+struct Node {
+    Node* left;
+    Node* right;
+    int val;
 
-void augment(int v, int minEdge) {     // traverse BFS spanning tree from s to t
-    if (v == s) { f = minEdge; return; }  // record minEdge in a global variable f
-    else if (p[v] != -1) { augment(p[v], min(minEdge, res[p[v]][v])); // recursive
-        res[p[v]][v] -= f; res[v][p[v]] += f; }       // update
+    Node() {
+        val = 0;
+        left = right = NULL;
+    }
+
+    Node* getLeft() {
+        if (left == NULL) left = new Node;
+        return left;
+    }
+
+    Node* getRight() {
+        if (right == NULL) right = new Node;
+        return right;
+    }
+
+    void add(int x, int v, int lo, int hi) {
+        val += v;
+        if (hi - lo == 1) return;
+        int mid = (lo + hi)/2;
+        if (mid <= x) {
+            getRight()->add(x, v, mid, hi);
+        } else {
+            getLeft()->add(x, v, lo, mid);
+        }
+    }
+
+    int query(int a, int b, int lo, int hi) {
+        if (a <= lo && b >= hi) return val;
+        else if (hi <= a || b <= lo) return 0;
+        int mid = (lo + hi)/2;
+        return (left ? left->query(a, b, lo, mid) : 0) + (right ? right->query(a, b, mid, hi) : 0);
+    }
+};
+
+Node BIT[MAXN];
+
+void bit_add(int idx, int y, int val) {
+    for (; idx < MAXN; idx += LSOne(idx)) {
+        BIT[idx].add(y, val, 0, MAXN);
+    }
+}
+
+int bit_query(int y0, int y1, int idx) {
+    int sum = 0;
+    for (; idx; idx -= LSOne(idx)) {
+        sum += BIT[idx].query(y0, y1, 0, MAXN);
+    }
+    return sum;
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    freopen("stall4.in", "r", stdin);
-    freopen("stall4.out", "w", stdout);
+    freopen("friendcross.in", "r", stdin);
+    freopen("friendcross.out", "w", stdout);
 
-    int n, m; cin >> n >> m;
-    s = 0, t = 470;
-
-    memset(res, 0, sizeof res);
+    int n, k; cin >> n >> k;
+    int A[n], B[n], revA[n], revB[n];
     F0R(i, n) {
-        int x; cin >> x;
-        F0R(j, x) {
-            int y; cin >> y;
-            res[i+1][y+220] = 1;
-        }
-        res[s][i+1] = 1;
+        cin >> A[i];
+        A[i];
+        revA[A[i]] = i+1;
     }
-    F0R1(i, m) {
-        res[i+220][t] = 1;
+    F0R(i, n) {
+        cin >> B[i];
+        B[i];
+        revB[B[i]] = i+1;
     }
-
-
-    mf = 0;                                              // mf stands for max_flow
-    while (true) {           // O(VE^2) (actually O(V^3E) Edmonds Karp's algorithm
-        f = 0;
-        // run BFS, compare with the original BFS shown in Section 4.2.2
-        vi dist(MAX_V, INF); dist[s] = 0; queue<int> q; q.push(s);
-        p.assign(MAX_V, -1);           // record the BFS spanning tree, from s to t!
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
-            if (u == t) break;      // immediately stop BFS if we already reach sink t
-            for (int v = 0; v < MAX_V; v++)                 // note: this part is slow
-                if (res[u][v] > 0 && dist[v] == INF)
-                    dist[v] = dist[u] + 1, q.push(v), p[v] = u;
-        }
-        augment(t, INF);     // find the min edge weight `f' along this path, if any
-        if (f == 0) break;      // we cannot send any more flow (`f' = 0), terminate
-        mf += f;                 // we can still send a flow, increase the max flow!
+    viii points;
+    F0R1(i, n) {
+        points.emplace_back(mp(revA[i], revB[i]), i);
     }
+    sort(points.begin(), points.end(), [](const iii &a, const iii &b) {
+        return a.pA.pA == b.pA.pA ? a.pA.pB > b.pA.pB : a.pA.pA > b.pA.pA;
+    });
 
-    cout << mf << endl;
+    ll ans = 0;
+    for (iii point : points) {
+        // query (point.pA.pB ... n, 0 ... point.pB - k - 1, point.pB + k + 1 ... n)
+        if (point.pB - k >= 0) ans += bit_query(0, point.pB - k, point.pA.pB);
+        if (point.pB + k <= n+5) ans += bit_query(point.pB + k + 1, n+10, point.pA.pB);
+        // update tree
+        bit_add(point.pA.pB, point.pB, 1);
+    }
+    cout << ans << endl;
 
     return 0;
 }
