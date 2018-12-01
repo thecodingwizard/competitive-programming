@@ -199,6 +199,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2017 | [mincross][mincross] | Why Did The Cow Cross The Road | Fenwick Tree | 10/10 |
 | Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP, RMQ (Seg Tree) | 10/10 |
 | Feb 2017 | [friendcross][friendcross] | Why Did The Cow Cross The Road III | 2D Seg Tree | 15/15 |
+| Open 2017 | [art][art] | Modern Art | Prefix Sums | 10/10 |
 
 [1.5.1]: usaco-training/Chapter%201/1.5.1%20ariprog%20-%20Arithmetic%20Progressions.cpp
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
