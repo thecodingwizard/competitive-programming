@@ -373,10 +373,16 @@ Solutions to USACO training and USACO contest problems.
 [nocross]: usaco-contests/2017feb/plat/nocross.cpp
 [friendcross]: usaco-contests/2017feb/plat/friendcross.cpp
 
+# Codeforces
+Solutions to various Codeforces problems.
+
+| Problem ID | Problem Name | Solution Notes |
+| [383D](codeforces/383D%20-%20Antimatter.cpp) | Antimatter | DP |
+| [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | Reorder The Array | Multiset |
+
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
 
-# Codeforces
-Solutions to various Codeforces problems.
+[Solutions Folder](UVa%20Online%20Judge)
 
 Note: Code primarily written in C++.
