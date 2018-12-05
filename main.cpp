@@ -59,8 +59,8 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-//    freopen("grass.in", "r", stdin);
-//    freopen("grass.out", "w", stdout);
+    freopen("grass.in", "r", stdin);
+    freopen("grass.out", "w", stdout);
 
     cin >> n >> m >> k >> q;
     F0R(i, m) {
@@ -86,14 +86,14 @@ int main() {
         --a;
         int prevColor = color[a];
         color[a] = b;
-        for (ii child : children[i]) {
-            if (prevColor == color[child.pA]) {
-                paths.erase(mp(child.pB, mp(i, child.pA)));
-                paths.erase(mp(child.pB, mp(child.pA, i)));
+        for (ii child : children[a]) {
+            if (prevColor != color[child.pA]) {
+                paths.erase(mp(child.pB, mp(a, child.pA)));
+                paths.erase(mp(child.pB, mp(child.pA, a)));
             }
             if (color[a] != color[child.pA]) {
-                paths.insert(mp(child.pB, mp(i, child.pA)));
-                paths.insert(mp(child.pB, mp(child.pA, i)));
+                paths.insert(mp(child.pB, mp(a, child.pA)));
+                paths.insert(mp(child.pB, mp(child.pA, a)));
             }
         }
         pair<int, ii> best = *paths.begin();
