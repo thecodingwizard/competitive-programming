@@ -50,88 +50,55 @@ typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<ll> vl;
 
+int n, m, k, q;
+set<pair<int, ii>> paths;
+vii children[200000];
+int color[200000];
+
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    freopen("art.in", "r", stdin);
-    freopen("art.out", "w", stdout);
+//    freopen("grass.in", "r", stdin);
+//    freopen("grass.out", "w", stdout);
 
-    int n; cin >> n;
-    set<int> magic;
-    int A[n][n]; F0R(i, n) F0R(j, n) cin >> A[i][j];
-    F0R(i, n) F0R(j, n) if (A[i][j] != 0) magic.insert(A[i][j]);
-    int colorCt = magic.size();
-    int colors = n*n;
-    int minX[colors+10], maxX[colors + 10], minY[colors+10], maxY[colors+10];
-    SET(minX, INF, colors+10);
-    SET(maxX, 0, colors+10);
-    SET(minY, INF, colors+10);
-    SET(maxY, 0, colors+10);
-
-    F0R(i, n) {
-        F0R(j, n) {
-            int color = A[i][j];
-            minX[color] = min(minX[color], i);
-            maxX[color] = max(maxX[color], i);
-            minY[color] = min(minY[color], j);
-            maxY[color] = max(maxY[color], j);
-        }
-    }
-
-    int count[n][n];
-    int delta[n+20];
-    set<int> toConsider;
-    vi delta2[n+20];
-    SET2D(count, 0, n, n);
-    FOR(i, 1, n*n+1) {
-        if (magic.count(i) > 0) {
-            delta2[minX[i]].pb(i);
-            delta2[maxX[i]+1].pb(i);
-        }
+    cin >> n >> m >> k >> q;
+    F0R(i, m) {
+        int a, b, l; cin >> a >> b >> l;
+        --a; --b;
+        children[a].pb(mp(b, l));
+        children[b].pb(mp(a, l));
     }
     F0R(i, n) {
-        for (int x : delta2[i]) {
-            if (toConsider.count(x) > 0) toConsider.erase(x);
-            else toConsider.insert(x);
-        }
-
-        SET(delta, 0, n+10);
-
-        for (int k : toConsider) {
-            if (i >= minX[k] && i <= maxX[k]) {
-                delta[minY[k]]++;
-                delta[maxY[k] + 1]--;
-            }
-        }
-
-        int ctr = 0;
-        F0R(j, n) {
-            ctr += delta[j];
-            count[i][j] = ctr;
-        }
+        cin >> color[i];
     }
 
-    bool first[colors + 10];
-    SET(first, true, colors+10);
-
     F0R(i, n) {
-        F0R(j, n) {
-            if (count[i][j] > 1) {
-                first[A[i][j]] = false;
+        for (ii child : children[i]) {
+            if (color[i] != color[child.pA]) {
+                paths.insert(mp(child.pB, mp(i, child.pA)));
             }
         }
     }
 
-    int ans = 0;
-    FOR(i, 1, n*n+1) {
-        if (first[i]) ans++;
+    F0R(i, q) {
+        int a, b; cin >> a >> b;
+        --a;
+        int prevColor = color[a];
+        color[a] = b;
+        for (ii child : children[i]) {
+            if (prevColor == color[child.pA]) {
+                paths.erase(mp(child.pB, mp(i, child.pA)));
+                paths.erase(mp(child.pB, mp(child.pA, i)));
+            }
+            if (color[a] != color[child.pA]) {
+                paths.insert(mp(child.pB, mp(i, child.pA)));
+                paths.insert(mp(child.pB, mp(child.pA, i)));
+            }
+        }
+        pair<int, ii> best = *paths.begin();
+        cout << best.pA << endl;
     }
-    if (ans == n*n && colorCt == 1) {
-        // that one color most cover up the other colors
-        ans -= 1;
-    }
-    cout << ans << endl;
 
     return 0;
 }
