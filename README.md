@@ -382,9 +382,10 @@ Solutions to various Codeforces problems.
 
 | Problem ID | Problem Name | Solution Notes |
 | ---------- | ------------ | -------------- |
-| [383D](codeforces/383D%20-%20Antimatter.cpp) | Antimatter | DP |
-| [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | Reorder The Array | Multiset |
-| [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | TV Shows | Multiset, Greedy |
+| [383D](codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
+| [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
+| [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
+| [946D](codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
 
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
