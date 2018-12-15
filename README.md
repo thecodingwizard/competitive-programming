@@ -200,6 +200,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP, RMQ (Seg Tree) | 10/10 |
 | Feb 2017 | [friendcross][friendcross] | Why Did The Cow Cross The Road III | 2D Seg Tree | 15/15 |
 | Open 2017 | [art][art] | Modern Art | Prefix Sums/Deltas | 10/10 |
+| Open 2017 | [grass][grass] | Switch Grass | MST, Sets, I/O Optimization | 10/10 |
 
 [1.5.1]: usaco-training/Chapter%201/1.5.1%20ariprog%20-%20Arithmetic%20Progressions.cpp
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
@@ -373,6 +374,8 @@ Solutions to USACO training and USACO contest problems.
 [mincross]: usaco-contests/2017feb/plat/mincross.cpp
 [nocross]: usaco-contests/2017feb/plat/nocross.cpp
 [friendcross]: usaco-contests/2017feb/plat/friendcross.cpp
+[art]: usaco-contests/2017open/plat/art.cpp
+[grass]: usaco-contests/2017open/plat/grass.cpp
 
 # Codeforces
 Solutions to various Codeforces problems.
