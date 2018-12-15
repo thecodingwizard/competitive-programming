@@ -50,6 +50,7 @@ Solutions to USACO training and USACO contest problems.
 | 4.2.1 | [Drainage Ditches][4.2.1] | Max Flow O(V^2E) |
 | 4.2.2 | [The Perfect Stall][4.2.2] | Max Bipartite Matching |
 | 4.2.3 | [Job Processing][4.2.3] | Greedy |
+| 4.3.1 | [Buy Low, Buy Lower][4.3.1] | DP, BigInteger (less than + addition) |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -247,6 +248,7 @@ Solutions to USACO training and USACO contest problems.
 [4.2.1]: usaco-training/Chapter%204/4.2.1%20-%20Drainage%20Ditches.cpp
 [4.2.2]: usaco-training/Chapter%204/4.2.2%20-%20The%20Perfect%20Stall.cpp
 [4.2.3]: usaco-training/Chapter%204/4.2.3%20-%20Job%20Processing.cpp
+[4.3.1]: usaco-training/Chapter%204/4.3.1%20-%20Buy%20Low,%20Buy%20Lower.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 
