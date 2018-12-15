@@ -381,6 +381,7 @@ Solutions to USACO training and USACO contest problems.
 Solutions to various Codeforces problems.
 
 | Problem ID | Problem Name | Solution Notes |
+| ---------- | ------------ | -------------- |
 | [383D](codeforces/383D%20-%20Antimatter.cpp) | Antimatter | DP |
 | [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | Reorder The Array | Multiset |
 | [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | TV Shows | Multiset, Greedy |
