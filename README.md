@@ -51,6 +51,7 @@ Solutions to USACO training and USACO contest problems.
 | 4.2.2 | [The Perfect Stall][4.2.2] | Max Bipartite Matching |
 | 4.2.3 | [Job Processing][4.2.3] | Greedy |
 | 4.3.1 | [Buy Low, Buy Lower][4.3.1] | DP, BigInteger (less than + addition) |
+| 4.3.2 | [Street Race][4.3.2] | DFS, Set, Brute Force |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -249,6 +250,7 @@ Solutions to USACO training and USACO contest problems.
 [4.2.2]: usaco-training/Chapter%204/4.2.2%20-%20The%20Perfect%20Stall.cpp
 [4.2.3]: usaco-training/Chapter%204/4.2.3%20-%20Job%20Processing.cpp
 [4.3.1]: usaco-training/Chapter%204/4.3.1%20-%20Buy%20Low,%20Buy%20Lower.cpp
+[4.3.2]: usaco-training/Chapter%204/4.3.2%20-%20Street%20Race.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 
