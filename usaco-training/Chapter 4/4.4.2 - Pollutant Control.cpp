@@ -78,9 +78,9 @@ vi p;
 vector<pair<ii, ii>> edges;
 
 void augment(int v, ll minEdge) {     // traverse BFS spanning tree from s to t
-  if (v == 1) { f = minEdge; return; }  // record minEdge in a global variable f
-  else if (p[v] != -1) { augment(p[v], min(minEdge, res[p[v]][v])); // recursive
-                         res[p[v]][v] -= f; res[v][p[v]] += f; }       // update
+    if (v == 1) { f = minEdge; return; }  // record minEdge in a global variable f
+    else if (p[v] != -1) { augment(p[v], min(minEdge, res[p[v]][v])); // recursive
+        res[p[v]][v] -= f; res[v][p[v]] += f; }       // update
 }
 
 void copyRes() {
