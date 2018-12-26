@@ -55,6 +55,7 @@ Solutions to USACO training and USACO contest problems.
 | 4.3.3 | [Letter Game][4.3.3] | String permutation, brute force, map/set |
 | 4.4.1 | [Shuttle Puzzle][4.4.1] | Brute Force, BFS (Queue), Implementation |
 | 4.4.2 | [Pollutant Control][4.4.2] | Max Flow Min Cut, minimize removed edges |
+| 4.4.3 | [Frame Up][4.4.3] | All Topological Sorts |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -257,6 +258,7 @@ Solutions to USACO training and USACO contest problems.
 [4.3.3]: usaco-training/Chapter%204/4.3.3%20-%20Letter%20Game.cpp
 [4.4.1]: usaco-training/Chapter%204/4.4.1%20-%20Shuttle%20Puzzle.cpp
 [4.4.2]: usaco-training/Chapter%204/4.4.2%20-%20Pollutant%20Control.cpp
+[4.4.3]: usaco-training/Chapter%204/4.4.3%20-%20Frame%20Up.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 

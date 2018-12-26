@@ -116,8 +116,8 @@ int main() {
     char grid[h][w]; F0R(i, h) F0R(j, w) cin >> grid[i][j];
 
     F0R(i, h) F0R(j, w) {
-        if (grid[i][j] != '.') frames[grid[i][j]].addPt(i, j);
-    }
+            if (grid[i][j] != '.') frames[grid[i][j]].addPt(i, j);
+        }
 
     for (pair<char, frame> x : frames) {
         frame a = x.pB;
