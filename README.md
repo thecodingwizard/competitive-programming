@@ -119,7 +119,9 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2015 | [cardgame][cardgame] | High Card Low Card (Gold) | Greedy | 15/15 |
 | Dec 2015 | [feast][feast] | Fruit Feast | DP (Knapsack) | 12/12 |
 | Dec 2015 | [dream][dream] | Bessie's Dream | Dijkstra | 16/16 |
+| Jan 2016 | [angry][angry] | Angry Cows | Sweep/Greedy/DP, Binary Search (Optional) | 10/10 |
 | Jan 2016 | [radio][radio] | Radio Contact | DP | 10/10 |
+| Jan 2016 | [lightsout][lightsout] | Lights Out | Simulation, Coordinates, Brute Force, Implementation | 10/10 |
 | Feb 2016 | [cbarn][cbarn] | Circular Barn | Greedy | 10/10 |
 | Feb 2016 | [cbarn2][cbarn2] | Circular Barn (Revisited) | DP | 10/10 |
 | Feb 2016 | [fencedin][fencedin] | Fenced In | MST (Kruskal) | 10/10 |
@@ -309,7 +311,9 @@ Solutions to USACO training and USACO contest problems.
 [cardgame]: usaco-contests/2015dec/gold/cardgame.cpp
 [feast]: usaco-contests/2015dec/gold/feast.cpp
 [dream]: usaco-contests/2015dec/gold/dream.cpp
+[angry]: usaco-contests/2016jan/gold/angry.cpp
 [radio]: usaco-contests/2016jan/gold/radio.cpp
+[lightsout]: usaco-contests/2016jan/gold/lightsout.cpp
 [cbarn]: usaco-contests/2016feb/gold/cbarn.cpp
 [cbarn2]: usaco-contests/2016feb/gold/cbarn2.cpp
 [fencedin]: usaco-contests/2016feb/gold/fencedin.cpp

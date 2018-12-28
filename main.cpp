@@ -1,8 +1,3 @@
-/*
-ID: nathan.18
-TASK: frameup
-LANG: C++
-*/
 #include <iostream>
 #include <string>
 #include <utility>
@@ -26,8 +21,8 @@ using namespace std;
 #define FOR(i, a, b) for (int i=a; i<(b); i++)
 #define F0R(i, a) for (int i=0; i<(a); i++)
 #define F0R1(i, a) for (int i=1; i<=(a); i++)
-#define FORd(i,a,b) for (int i = (b)-1; i >= a; i--)
-#define F0Rd(i,a) for (int i = (a)-1; i >= 0; i--)
+#define FORd(i, a, b) for (int i = (b)-1; i >= a; i--)
+#define F0Rd(i, a) for (int i = (a)-1; i >= 0; i--)
 #define F0Rd1(i, a) for (int i=a; i>0; i--)
 #define SORT(vec) sort(vec.begin(), vec.end())
 
@@ -55,9 +50,18 @@ typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<ll> vl;
 
-void fastscan(int&n) {bool negative=false;register int c;n=0;c=getchar();if(c=='-') {negative=true;c=getchar();}
-    for(;(c>47&&c<58);c=getchar()){n=n*10+c-48;}
-    if(negative){n*=-1;}}
+void fastscan(int &n) {
+    bool negative = false;
+    register int c;
+    n = 0;
+    c = getchar();
+    if (c == '-') {
+        negative = true;
+        c = getchar();
+    }
+    for (; (c > 47 && c < 58); c = getchar()) { n = n * 10 + c - 48; }
+    if (negative) { n *= -1; }
+}
 
 void setupIO(const string &PROB) {
     ios::sync_with_stdio(false);
@@ -71,95 +75,101 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-struct frame {
-    int maxX = 0, minX = INF, maxY = 0, minY = INF;
-
-    void addPt(int x, int y) {
-        maxX = max(maxX, x);
-        minX = min(minX, x);
-        maxY = max(maxY, y);
-        minY = min(minY, y);
+struct point {
+    double x, y;   // only used if more precision is needed
+    point() { x = y = 0.0; }                      // default constructor
+    point(double _x, double _y) : x(_x), y(_y) {}        // user-defined
+    bool operator<(point other) const { // override less than operator
+        if (fabs(x - other.x) > EPS)                 // useful for sorting
+            return x < other.x;          // first criteria , by x-coordinate
+        return y < other.y;
+    }          // second criteria, by y-coordinate
+    // use EPS (1e-9) when testing equality of two floating points
+    bool operator==(point other) const {
+        return (fabs(x - other.x) < EPS && (fabs(y - other.y) < EPS));
     }
 };
 
-set<char> children[1000];
-vector<vector<char>> ans;
-int inDegree[1000];
-bool visited[1000];
-int magic = 0;
-map<char, frame> frames;
+int n;
+vector<point> A;
+int D[300];
 
-vector<char> cur;
-void topoSort() {
-    for (pair<char, frame> x : frames) {
-        char a = x.pA;
-        if (inDegree[a] == 0 && !visited[a]) {
-            visited[a] = true;
-            cur.push_back(a);
-            if (cur.size() == magic) {
-                vector<char> next(cur);
-                ans.pb(next);
-            }
-            for (char child : children[a]) inDegree[child]--;
-            topoSort();
-            for (char child : children[a]) inDegree[child]++;
-            cur.pop_back();
-            visited[a] = false;
-        }
-    }
+int dist(point p1, point p2) {
+    return abs(p2.x - p1.x) + abs(p2.y - p1.y);
+}
+
+int angle(int x) {
+    int x1 = x - 1, x2 = x, x3 = x + 1;
+    if (x1 < 0) x1 = n - 1;
+    if (x3 >= n) x3 = 0;
+    point a = A[x1], b = A[x2], c = A[x3];
+    bool res = (a.x - b.x) * (c.y - b.y) - (c.x - b.x) * (a.y - b.y) > 0;
+    if (res) return 1;
+    return 0;
+}
+
+multiset<string> H;
+
+void add(string a) {
+    H.insert(a);
 }
 
 int main() {
-    setupIO("frameup");
+    setupIO("lightsout");
 
-    int h, w; cin >> h >> w;
-    char grid[h][w]; F0R(i, h) F0R(j, w) cin >> grid[i][j];
-
-    F0R(i, h) F0R(j, w) {
-        if (grid[i][j] != '.') frames[grid[i][j]].addPt(i, j);
+    // Step 1: Read in data
+    cin >> n;
+    F0R(i, n) {
+        int a, b;
+        cin >> a >> b;
+        A.pb(point(a, b));
     }
 
-    for (pair<char, frame> x : frames) {
-        frame a = x.pB;
-        FOR(i, a.minX, a.maxX + 1) {
-            int j = a.minY;
-            if (grid[i][j] != x.pA) {
-                children[x.pA].insert(grid[i][j]);
-            }
-            j = a.maxY;
-            if (grid[i][j] != x.pA) {
-                children[x.pA].insert(grid[i][j]);
-            }
+    // Step 2: Calculate min distance from each point to exit
+    int cwDist[n], ccwDist[n];
+    F0R(i, n) {
+        if (i == 0) cwDist[i] = 0;
+        else cwDist[i] = cwDist[i - 1] + dist(A[i], A[i - 1]);
+    }
+    ccwDist[0] = 0;
+    FORd(i, 1, n) {
+        if (i == n - 1) ccwDist[i] = dist(A[0], A[n - 1]);
+        else ccwDist[i] = ccwDist[i + 1] + dist(A[i], A[i + 1]);
+    }
+    F0R(i, n) D[i] = min(cwDist[i], ccwDist[i]);
+
+    // Step 3: Create map of all possible hashes O(n^2)
+    FOR(j, 1, n) {
+        int i = j;
+        string s = "x" + to_string(angle(i)) + ";";
+        add(s);
+        while (true) {
+            i++;
+            if (i == n) break;
+            s += to_string(dist(A[i], A[i - 1])) + "," + to_string(angle(i)) + ";";
+            add(s);
         }
-        FOR(j, a.minY, a.maxY + 1) {
-            int i = a.minX;
-            if (grid[i][j] != x.pA) {
-                children[x.pA].insert(grid[i][j]);
+    }
+
+    // Step 4: Simulate walking from every point
+    int best = 0;
+    FOR(j, 1, n) {
+        int i = j;
+        string s = "x" + to_string(angle(i)) + ";";
+        int curDist = 0;
+        while (true) {
+            if (H.count(s) == 1) {
+                best = max(best, D[i] + curDist - D[j]);
+                break;
             }
-            i = a.maxX;
-            if (grid[i][j] != x.pA) {
-                children[x.pA].insert(grid[i][j]);
-            }
+            i++;
+            if (i == n) break;
+            s += to_string(dist(A[i], A[i - 1])) + "," + to_string(angle(i)) + ";";
+            curDist += dist(A[i], A[i - 1]);
         }
     }
-
-    SET(inDegree, 0, 1000);
-    SET(visited, false, 1000);
-    for (pair<char, frame> x : frames) {
-        char a = x.pA;
-        for (char p : children[a]) inDegree[p]++;
-        magic++;
-    }
-    topoSort();
-
-    SORT(ans);
-
-    for (vector<char> x : ans) {
-        for (char y : x) {
-            cout << y;
-        }
-        cout << endl;
-    }
+    cout << best << endl;
 
     return 0;
 }
+
