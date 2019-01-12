@@ -52,6 +52,10 @@ Solutions to USACO training and USACO contest problems.
 | 4.2.3 | [Job Processing][4.2.3] | Greedy |
 | 4.3.1 | [Buy Low, Buy Lower][4.3.1] | DP, BigInteger (less than + addition) |
 | 4.3.2 | [Street Race][4.3.2] | DFS, Set, Brute Force |
+| 4.3.3 | [Letter Game][4.3.3] | String permutation, brute force, map/set |
+| 4.4.1 | [Shuttle Puzzle][4.4.1] | Brute Force, BFS (Queue), Implementation |
+| 4.4.2 | [Pollutant Control][4.4.2] | Max Flow Min Cut, minimize removed edges |
+| 4.4.3 | [Frame Up][4.4.3] | All Topological Sorts |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes | Score |
@@ -116,7 +120,9 @@ Solutions to USACO training and USACO contest problems.
 | Dec 2015 | [cardgame][cardgame] | High Card Low Card (Gold) | Greedy | 15/15 |
 | Dec 2015 | [feast][feast] | Fruit Feast | DP (Knapsack) | 12/12 |
 | Dec 2015 | [dream][dream] | Bessie's Dream | Dijkstra | 16/16 |
+| Jan 2016 | [angry][angry] | Angry Cows | Sweep/Greedy/DP, Binary Search (Optional) | 10/10 |
 | Jan 2016 | [radio][radio] | Radio Contact | DP | 10/10 |
+| Jan 2016 | [lightsout][lightsout] | Lights Out | Simulation, Coordinates, Brute Force, Implementation | 10/10 |
 | Feb 2016 | [cbarn][cbarn] | Circular Barn | Greedy | 10/10 |
 | Feb 2016 | [cbarn2][cbarn2] | Circular Barn (Revisited) | DP | 10/10 |
 | Feb 2016 | [fencedin][fencedin] | Fenced In | MST (Kruskal) | 10/10 |
@@ -252,6 +258,10 @@ Solutions to USACO training and USACO contest problems.
 [4.2.3]: usaco-training/Chapter%204/4.2.3%20-%20Job%20Processing.cpp
 [4.3.1]: usaco-training/Chapter%204/4.3.1%20-%20Buy%20Low,%20Buy%20Lower.cpp
 [4.3.2]: usaco-training/Chapter%204/4.3.2%20-%20Street%20Race.cpp
+[4.3.3]: usaco-training/Chapter%204/4.3.3%20-%20Letter%20Game.cpp
+[4.4.1]: usaco-training/Chapter%204/4.4.1%20-%20Shuttle%20Puzzle.cpp
+[4.4.2]: usaco-training/Chapter%204/4.4.2%20-%20Pollutant%20Control.cpp
+[4.4.3]: usaco-training/Chapter%204/4.4.3%20-%20Frame%20Up.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 
@@ -302,7 +312,9 @@ Solutions to USACO training and USACO contest problems.
 [cardgame]: usaco-contests/2015dec/gold/cardgame.cpp
 [feast]: usaco-contests/2015dec/gold/feast.cpp
 [dream]: usaco-contests/2015dec/gold/dream.cpp
+[angry]: usaco-contests/2016jan/gold/angry.cpp
 [radio]: usaco-contests/2016jan/gold/radio.cpp
+[lightsout]: usaco-contests/2016jan/gold/lightsout.cpp
 [cbarn]: usaco-contests/2016feb/gold/cbarn.cpp
 [cbarn2]: usaco-contests/2016feb/gold/cbarn2.cpp
 [fencedin]: usaco-contests/2016feb/gold/fencedin.cpp

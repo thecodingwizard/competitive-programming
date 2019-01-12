@@ -75,35 +75,85 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int dp[600][600];
-ii A[600];
-int n, k;
+int n, A[50000];
+int R[50000], L[50000];
 
-int dist(int a, int b) {
-    if (b >= n) return INF;
-    return abs(A[a].pA - A[b].pA) + abs(A[a].pB - A[b].pB);
+bool can(ll mid) {
+    int r = 0;
+    F0R(l, n) {
+        for (; r != n - 1 && A[r + 1] - A[l] <= mid; r++);
+        if (max(R[r], L[l])*2+2 <= mid) return true;
+    }
+    return false;
 }
 
 int main() {
-    setupIO("marathon");
+    setupIO("angry");
 
-    cin >> n >> k;
-    F0R(i, n) cin >> A[i].pA >> A[i].pB;
+    cin >> n;
+    F0R(i, n) cin >> A[i];
+    sort(A, A + n);
 
-    SET2D(dp, INF, 600, 600);
-    dp[0][k] = 0;
-
-    F0R(i, n) {
-        F0R(j, k + 1) {
-            F0R(toSkip, j + 1) {
-                if (i + toSkip >= n) continue;
-                dp[i + toSkip + 1][j - toSkip] = min(dp[i + toSkip + 1][j - toSkip],
-                                                     dp[i][j] + dist(i, i + toSkip + 1));
+    L[0] = 0;
+    int idx = 0;
+    FOR(i, 1, n) {
+        int best = INF;
+        bool first = true;
+        while (true) {
+            if (first) {
+                first = false;
+                int nextVal = max(A[i] - A[idx], L[idx] + 1);
+                best = nextVal;
+            } else if (idx + 1 < i) {
+                int nextVal = max(A[i] - A[idx + 1], L[idx + 1] + 1);
+                if (nextVal < best) {
+                    best = nextVal;
+                    idx++;
+                } else {
+                    break;
+                }
+            } else {
+                break;
             }
         }
+        L[i] = best;
     }
 
-    cout << dp[n - 1][0] << endl;
+    idx = n - 1;
+    R[n - 1] = 0;
+    F0Rd(i, n - 1) {
+        int best = INF;
+        bool first = true;
+        while (true) {
+            if (first) {
+                first = false;
+                int nextVal = max(A[idx] - A[i], R[idx] + 1);
+                best = nextVal;
+            } else if (idx - 1 > i) {
+                int nextVal = max(A[idx - 1] - A[i], R[idx - 1] + 1);
+                if (nextVal < best) {
+                    best = nextVal;
+                    idx--;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        R[i] = best;
+    }
 
-    return 0;
+    ll lo = 0, hi = 2000000000, mid, ans;
+    while (lo + 1 < hi) {
+        mid = (lo + hi) / 2;
+        if (can(mid)) {
+            ans = mid;
+            hi = mid;
+        } else {
+            lo = mid;
+        }
+    }
+    cout << fixed << setprecision(1);
+    cout << double(ans)/2.0 << endl;
 }
