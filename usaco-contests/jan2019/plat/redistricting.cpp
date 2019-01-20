@@ -62,23 +62,71 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int main() {
-    int n; cin >> n;
-    int A[n]; F0R(i, n) cin >> A[i];
-    vi L;
+struct MinQueue {
+    //         value, index
+    deque<pair<int,   int  >> dq;
+    int L = 0, R = -1;
 
-    /* Longest Increasing Subsequence N log N (modified to be longest non-decreasing subsequence) */
-    L.pb(A[0]);
-    FOR(i, 1, n) {
-        int x = A[i];
-        if (x >= L.back()) L.pb(x);
-        else {
-            auto it = upper_bound(L.begin(), L.end(), x);
-            *it = x;
+    void insert(int x) {
+        while (!dq.empty() && dq.back().pA >= x) {
+            dq.pop_back();
         }
+        dq.emplace_back(x, ++R);
     }
 
-    cout << n - L.size() << endl;
+    int size() { return R - L + 1; }
+
+    void del() {
+        if (dq.front().pB == L++) dq.pop_front();
+    }
+
+    int query() { return dq.front().pA; }
+};
+
+int n, k;
+bool A[300000]; // true if Holstein
+int dp[300000]; // minimum number of districts that are Guernsey-majority or tied from [0...i]
+map<int, vii> bessie;
+
+int main() {
+    setupIO("redistricting");
+
+    cin >> n >> k;
+    F0R(i, n) {
+        char c; cin >> c;
+        A[i] = c == 'H';
+    }
+    SET(dp, INF, 300000);
+
+    int ps[n+1];
+    ps[n] = 0;
+    F0Rd(i, n) {
+        ps[i] = ps[i+1] + (A[i] ? 1 : -1);
+    }
+
+    MinQueue mq;
+    mq.insert(0);
+
+    bessie[ps[0]].pb(mp(0, -1));
+    F0R(i, n) {
+        int minPS = ps[i + 1] + 1;
+        for (ii candidate : bessie[minPS]) {
+            if (candidate.pB >= i - k) {
+                dp[i] = min(dp[i], candidate.pA);
+            }
+        }
+
+        // option 2: plus one
+        // optimize using monotonically decreasing deque
+        dp[i] = min(dp[i], mq.query() + 1);
+
+        mq.insert(dp[i]);
+        if (i >= k - 1) mq.del();
+
+        bessie[ps[i+1]].pb(mp(dp[i], i));
+    }
+
+    cout << dp[n-1] << endl;
 
     return 0;
 }
