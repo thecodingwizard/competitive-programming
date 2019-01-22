@@ -64,59 +64,39 @@ void setupIO(const string &PROB) {
 
 
 int main() {
-    int m; cin >> m;
+    int n;
 
-    while (m--) {
-        int n; cin >> n;
+    while (cin >> n && n) {
+        int l; cin >> l;
         vi children[n];
-        F0R(i, n) {
-            int x; cin >> x;
-            F0R(j, x) {
-                int enemy; cin >> enemy;
-                --enemy;
-                if (enemy >= n) continue;
-                children[enemy].pb(i);
-                children[i].pb(enemy);
+        F0R(i, l) {
+            int a, b; cin >> a >> b;
+            children[a].pb(b);
+            children[b].pb(a);
+        }
+
+        int color[n]; SET(color, INF, n);
+
+        color[0] = 0;
+        queue<int> q; q.push(0);
+        bool isBipartite = true;
+        while (!q.empty() && isBipartite) {
+            int next = q.front(); q.pop();
+            for (int child : children[next]) {
+                if (color[child] == INF) {
+                    color[child] = 1 - color[next];
+                    q.push(child);
+                } else if (color[child] == color[next]) {
+                    isBipartite = false;
+                }
             }
         }
 
-        bool visited[n]; SET(visited, false, n);
-        int ans = 0;
-
-        F0R(i, n) {
-            if (visited[i]) continue;
-
-            queue<int> q;
-            q.push(i);
-            int color[n];
-            SET(color, INF, n);
-            color[i] = 0;
-
-            bool isBipartite = true;
-            while (!q.empty() && isBipartite) {
-                int next = q.front(); q.pop();
-                visited[next] = true;
-                for (int child : children[next]) {
-                    if (color[child] == INF) {
-                        color[child] = 1 - color[next];
-                        q.push(child);
-                    } else if (color[child] == color[next]) {
-                        isBipartite = false;
-                    }
-                }
-            }
-
-            if (isBipartite) {
-                int ct[2];
-                SET(ct, 0, 2);
-                F0R(x, n) {
-                    if (color[x] == INF) continue;
-                    ct[color[x]]++;
-                }
-                ans += max(ct[0], ct[1]);
-            }
+        if (isBipartite) {
+            cout << "BICOLORABLE." << endl;
+        } else {
+            cout << "NOT BICOLORABLE." << endl;
         }
-        cout << ans << endl;
     }
 
     return 0;
