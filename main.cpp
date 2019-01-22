@@ -83,8 +83,8 @@ int main() {
             queue<int> q;
             q.push(i);
             color[i] = 0;
-            bool isBiconnected = true;
-            while (!q.empty() && isBiconnected) {
+            bool isBipartite = true;
+            while (!q.empty() && isBipartite) {
                 int next = q.front(); q.pop();
                 visited[next] = true;
                 for (int child : children[next]) {
@@ -92,11 +92,11 @@ int main() {
                         color[child] = 1 - color[next];
                         q.push(child);
                     } else if (color[child] == color[next]) {
-                        isBiconnected = false;
+                        isBipartite = false;
                     }
                 }
             }
-            if (!isBiconnected) ans = false;
+            if (!isBipartite) ans = false;
         }
         if (ans) cout << "YES" << endl;
         else cout << "NO" << endl;

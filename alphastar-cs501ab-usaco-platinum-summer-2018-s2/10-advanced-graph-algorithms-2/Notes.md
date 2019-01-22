@@ -2,7 +2,7 @@
 
 2 types: Vertex biconnected, Edge biconnected
 
-Vertex biconnected: Removing a vertex splits the graph in two. Such edge is called an articulation point.
+Vertex biconnected: Removing a vertex splits the graph in two. Such vertex is called an articulation point.
 
 Edge biconnected: Removing a edge splits the graph in two. Such edge is called a bridge.
 
