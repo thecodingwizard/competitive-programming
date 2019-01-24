@@ -154,6 +154,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2018 | [milkorder][milkorder] | Milking Order | Topological Sort (Lexicographically earliest) | 10/10 |
 | Open 2018 | [talent][talent] | Talent Show | Binary search for answer, DP | 10/10 |
 | Dec 2018 | [dining][dining] | Fine Dining | Dijkstra | 10/10 |
+| Jan 2019 | [poetry][poetry] | Cow Poetry | DP, power under mod, math | 16/16 |
 
 ### Platinum USACO Contests:
 
@@ -346,6 +347,8 @@ Solutions to USACO training and USACO contest problems.
 [sort]: usaco-contests/2018open/gold/sort.cpp
 [milkorder]: usaco-contests/2018open/gold/milkorder.cpp
 [talent]: usaco-contests/2018open/gold/talent.cpp
+[dining]: usaco-contests/2018dec/gold/dining.cpp
+[poetry]: usaco-contests/2019jan/gold/poetry.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
