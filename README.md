@@ -155,6 +155,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2018 | [talent][talent] | Talent Show | Binary search for answer, DP | 10/10 |
 | Dec 2018 | [dining][dining] | Fine Dining | Dijkstra | 10/10 |
 | Jan 2019 | [poetry][poetry] | Cow Poetry | DP, power under mod, math | 16/16 |
+| Jan 2019 | [shortcut][shortcut] | Shortcut | Dijkstra, find path | 11/11 |
 
 ### Platinum USACO Contests:
 
