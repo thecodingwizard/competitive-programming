@@ -62,67 +62,57 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n;
-set<string> nodes;
-map<string, vector<string>> children;
-string root;
-int rootChildren = 0, dfsCtr;
-map<string, int> dfsLow, dfsNum;
-set<string> articulationPoints;
+int n, m;
+vi children[10000];
+int dfsNum[10000], dfsLow[10000], dfsCtr, root, rootChildren, score[10000];
 
-void dfs(string node, string parent) {
-    dfsLow[node] = dfsNum[node] = dfsCtr++;
-    for (string child : children[node]) {
-        if (dfsNum.count(child) == 0) {
+void dfs(int node, int parent) {
+    dfsNum[node] = dfsLow[node] = dfsCtr++;
+    for (int child : children[node]) {
+        if (dfsNum[child] == INF) {
             dfs(child, node);
 
-            if (root == node) rootChildren++;
+            if (node == root) rootChildren++;
 
-            if (dfsLow[child] >= dfsNum[node]) {
-                articulationPoints.insert(node);
-            }
-
+            if (dfsLow[child] >= dfsNum[node]) score[node]++;
             dfsLow[node] = min(dfsLow[node], dfsLow[child]);
         } else if (child != parent) {
-            dfsLow[node] = min(dfsLow[node], dfsNum[child]);
+            dfsLow[node] = min(dfsLow[node], dfsLow[child]);
         }
     }
 }
 
 int main() {
-    int caseNum = 1;
-    bool first = true;
-    while (cin >> n && n) {
-        nodes.clear();
-        dfsLow.clear();
-        dfsNum.clear();
-        children.clear();
-        articulationPoints.clear();
+
+    while (cin >> n >> m && (n || m)) {
+        int a, b;
+        F0R(i, n) children[i].clear();
+        SET(dfsNum, INF, 10000);
+        SET(dfsLow, INF, 10000);
         dfsCtr = 0;
-        F0R(i, n) {
-            string s; cin >> s;
-            nodes.insert(s);
-        }
-        int m; cin >> m;
-        F0R(i, m) {
-            string a, b; cin >> a >> b;
+        while (cin >> a >> b && !(a == -1 && b == -1)) {
             children[a].pb(b);
             children[b].pb(a);
         }
-        for (string s : nodes) {
-            if (dfsNum.count(s) > 0) continue;
-            root = s;
-            rootChildren = 0;
-            dfs(root, "");
-            if (rootChildren > 1) articulationPoints.insert(root);
-            else articulationPoints.erase(root);
+        root = 0;
+        dfs(0, -1);
+        score[0] = rootChildren - 1     ;
+
+        auto cmp = [](ii a, ii b) {
+            if (a.pB == b.pB) return a.pA < b.pA;
+            else return a.pB > b.pB;
+        };
+        set<ii, decltype(cmp)> ans(cmp);
+        F0R(i, n) {
+            ans.insert(mp(i, score[i]+1));
         }
-        if (first) first = false;
-        else cout << endl;
-        cout << "City map #" << caseNum++ << ": " << articulationPoints.size() << " camera(s) found" << endl;
-        for (string s : articulationPoints) {
-            cout << s << endl;
+
+        int ctr = 0;
+        for (ii x : ans) {
+            cout << x.pA << " " << x.pB << endl;
+            if (++ctr == m) break;
         }
+        cout << endl;
     }
 
     return 0;
