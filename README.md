@@ -418,6 +418,7 @@ Solutions to various Codeforces problems.
 | [383D](codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
 | [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
 | [946D](codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
+| [989D](codeforces/989D%20-%20A%20Shade%20of%20Moonlight.cpp) | D. A Shade of Moonlight | Binary Search, Math |
 
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
