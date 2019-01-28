@@ -64,22 +64,13 @@ void setupIO(const string &PROB) {
 
 int main() {
     int n; cin >> n;
-    int needed = (int)(ceil((4.5) * n));
-    int have = 0;
-
-    vi A;
+    set<int> A;
     F0R(i, n) {
         int x; cin >> x;
-        have += x;
-        A.pb(x);
+        A.insert(x);
     }
-    SORT(A);
-
-    int ans = 0;
-    while (have < needed) {
-        have += (5 - A[ans]);
-        ans++;
-    }
+    int ans = A.size();
+    if (A.count(0) > 0) ans--;
     cout << ans << endl;
 
     return 0;
