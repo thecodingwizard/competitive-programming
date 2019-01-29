@@ -415,6 +415,7 @@ Solutions to various Codeforces problems.
 | [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
 | [937A](codeforces/937A%20-%20Olympiad.cpp) | A. Olympiad | Set |
 | [991B](codeforces/991B%20-%20Getting%20an%20A.cpp) | B. Getting an A | Sorting |
+| [762B](codeforces/762B%20-%20USB%20vs%20PS2.cpp) | B. USB vs PS/2 | Sorting, Greedy |
 | [383D](codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
 | [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
 | [946D](codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
