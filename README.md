@@ -410,6 +410,8 @@ Solutions to USACO training and USACO contest problems.
 # Codeforces
 Solutions to various Codeforces problems.
 
+Not all problems are listed in the table below! [Here is the complete solutions folder.](codeforces)
+
 | Problem ID | Problem Name | Solution Notes |
 | ---------- | ------------ | -------------- |
 | [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |

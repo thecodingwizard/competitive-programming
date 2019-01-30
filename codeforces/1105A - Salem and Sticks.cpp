@@ -63,29 +63,24 @@ void setupIO(const string &PROB) {
 /* ============================ */
 
 int main() {
-    int n, k; cin >> n >> k;
-    string s; cin >> s;
+    int n; cin >> n;
+    int A[n]; F0R(i, n) cin >> A[i];
 
-    int best = 0;
-    for (char target = 'a'; target <= 'z'; target++) {
-        int lvl = 0;
-        int num = 0;
-        for (char x : s) {
-            if (x == target) {
-                if (num == k - 1) {
-                    num = 0;
-                    lvl++;
-                } else {
-                    num++;
-                }
-            } else {
-                num = 0;
-            }
+    int bestCost = INF, bestT;
+
+    FOR(t, 1, 101) {
+        int cost = 0;
+        F0R(i, n) {
+            if (abs(A[i] - t) <= 1) continue;
+            cost += abs(A[i] - t) - 1;
         }
-        best = max(best, lvl);
+        if (cost < bestCost) {
+            bestCost = cost;
+            bestT = t;
+        }
     }
 
-    cout << best << endl;
+    cout << bestT << " " << bestCost << endl;
 
     return 0;
 }
