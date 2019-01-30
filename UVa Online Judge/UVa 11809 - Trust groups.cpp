@@ -37,7 +37,6 @@ using namespace std;
 #define PI acos(-1.0)
 #define ll long long
 #define MOD (int)(2e+9+11)
-#define MOD2 1000000007
 #define SET(vec, val, size) for (int i = 0; i < size; i++) vec[i] = val;
 #define SET2D(arr, val, dim1, dim2) F0R(i, dim1) F0R(j, dim2) arr[i][j] = val;
 #define SET3D(arr, val, dim1, dim2, dim3) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) arr[i][j][k] = val;
@@ -63,44 +62,63 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+int p, t;
+bool adjMatrix[1000][1000];
+map<string, int> nameMap;
+int sccCt = 0, dfsNum[1000], dfsLow[1000], dfsCtr;
+bool visited[1000];
+vi s;
+
+void tarjanSCC(int node) {
+    dfsNum[node] = dfsLow[node] = dfsCtr++;
+    visited[node] = true;
+    s.pb(node);
+
+    F0R(i, p) {
+        if (!adjMatrix[node][i]) continue;
+
+        if (dfsNum[i] == INF) tarjanSCC(i);
+        if (visited[i]) dfsLow[node] = min(dfsLow[node], dfsLow[i]);
+    }
+
+    if (dfsLow[node] == dfsNum[node]) {
+        sccCt++;
+        while (true) {
+            int next = s.back(); s.pop_back(); visited[next] = false;
+            if (next == node) break;
+        }
+    }
+}
+
 int main() {
-    int n, l, r; cin >> n >> l >> r;
-    ll ways[3];
-    SET(ways, 0, 3);
+    while (cin >> p >> t && (p || t)) {
+        sccCt = 0;
+        nameMap.clear();
+        SET2D(adjMatrix, false, 1000, 1000);
+        dfsCtr = 0;
+        SET(dfsNum, INF, 1000);
+        SET(dfsLow, INF, 1000);
+        SET(visited, false, 1000);
+        s.clear();
 
-    if (r - l < 3) {
-        FOR(i, l, r + 1) {
-            ways[(i%3)]++;
+        F0R(i, p) {
+            string a, b; cin >> a >> b;
+            string name = a + b;
+            nameMap.insert(mp(name, i));
         }
-    } else {
-        FOR(i, (l%3), 3) ways[i]++;
-        l += (3 - (l % 3));
-        int dist = r - l + 1;
-        int toAdd = dist/3;
-        ways[0] += toAdd;
-        ways[1] += toAdd;
-        ways[2] += toAdd;
-        F0R(i, dist - toAdd*3) ways[i]++;
-        F0R(i, 3) ways[i] %= MOD2;
-    }
 
-
-    ll dp[n+10][3];
-
-    SET2D(dp, 0, n+10, 3);
-
-    dp[0][0] = 1;
-    F0R(i, n) {
-        F0R(j, 3) {
-            if (dp[i][j] == 0) continue;
-            F0R(k, 3) {
-                dp[i + 1][(j + k)%3] += (dp[i][j] * ways[k] % MOD2);
-                dp[i + 1][(j + k)%3] %= MOD2;
-            }
+        F0R(i, t) {
+            string a, b, c, d; cin >> a >> b >> c >> d;
+            string name1 = a + b, name2 = c + d;
+            adjMatrix[nameMap[name1]][nameMap[name2]] = true;
         }
-    }
 
-    cout << dp[n][0] << endl;
+        F0R(i, p) {
+            if (dfsNum[i] == INF) tarjanSCC(i);
+        }
+
+        cout << sccCt << endl;
+    }
 
     return 0;
 }
