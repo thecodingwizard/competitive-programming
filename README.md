@@ -415,6 +415,7 @@ Solutions to various Codeforces problems.
 | [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
 | [937A](codeforces/937A%20-%20Olympiad.cpp) | A. Olympiad | Set |
 | [809A](codeforces/809A%20-%20Do%20you%20want%20a%20date.cpp) | A. Do you want a date? | Math, power, mod |
+| [1104A](codeforces/1104A%20-%20Splitting%20into%20digits.cpp) | A. Splitting into digits | brute force |
 | [991B](codeforces/991B%20-%20Getting%20an%20A.cpp) | B. Getting an A | Sorting |
 | [762B](codeforces/762B%20-%20USB%20vs%20PS2.cpp) | B. USB vs PS/2 | Sorting, Greedy |
 | [383D](codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
