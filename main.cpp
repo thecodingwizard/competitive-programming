@@ -63,69 +63,68 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-class UnionFind {
-private:
-    vi p, rank, setSize;
-    int numSets;
-public:
-    UnionFind(int N) {
-        setSize.assign(N, 1); numSets = N; rank.assign(N, 0);
-        p.assign(N, 0); for (int i = 0; i < N; i++) p[i] = i; }
-    int findSet(int i) { return (p[i] == i) ? i : (p[i] = findSet(p[i])); }
-    bool isSameSet(int i, int j) { return findSet(i) == findSet(j); }
-    void unionSet(int i, int j) {
-        if (!isSameSet(i, j)) { numSets--;
-            int x = findSet(i), y = findSet(j);
-            if (rank[x] > rank[y]) { p[y] = x; setSize[x] += setSize[y]; }
-            else                   { p[x] = y; setSize[y] += setSize[x];
-                if (rank[x] == rank[y]) rank[y]++; } } }
-    int numDisjointSets() { return numSets; }
-    int sizeOfSet(int i) { return setSize[findSet(i)]; }
-};
+int n;
+ll t;
+int A[100000];
+int B[100000];
+pair<int, ll> P[100000];
+vector<pair<int, ll>> children[100000];
+
+set<ii> avail;
+
+// TODO optimize down to O(log n)
+ll getNumCookies() {
+    ll tLeft = t;
+    ll ans = 0;
+    for (ii x : avail) {
+        ll cost = x.pA, quantity = A[x.pB];
+        ll toTake = min(tLeft/cost, quantity);
+        ans += toTake;
+        tLeft -= toTake*cost;
+    }
+    return ans;
+}
+
+ll run(int node) {
+    avail.insert(mp(B[node], node));
+
+    ll best = getNumCookies();
+
+    ll bestChild = 0, secondBestChild = 0;
+    for (pair<int, ll> child : children[node]) {
+        t -= child.pB*2;
+        ll contender = run(child.pA);
+        if (contender > bestChild) {
+            secondBestChild = bestChild;
+            bestChild = contender;
+        } else if (contender > secondBestChild) {
+            secondBestChild = contender;
+        }
+        t += child.pB*2;
+    }
+
+    if (node == 0) best = max(best, bestChild);
+    else best = max(best, secondBestChild);
+
+    avail.erase(mp(B[node], node));
+
+    return best;
+}
 
 int main() {
-    int n, m; cin >> n >> m;
-    vector<pair<ll, int>> A;
-    F0R(i, n) {
-        ll x; cin >> x;
-        A.pb(mp(x, i));
+    cin >> n >> t;
+    F0R(i, n) cin >> A[i];
+    F0R(i, n) cin >> B[i];
+    P[0] = { -1, 0 };
+    FOR(i, 1, n) {
+        int a;
+        ll l; cin >> a >> l;
+        --a;
+        P[i] = { a, l };
+        children[a].pb(mp(i, l));
     }
-    SORT(A);
 
-    vector<pair<ll, ii>> B;
-    F0R(i, m) {
-        int a, b;
-        ll w;
-        cin >> a >> b >> w;
-        --a; --b;
-        B.pb(mp(w, mp(a, b)));
-    }
-    SORT(B);
-
-    UnionFind UF(n);
-    ll cost = 0;
-    int i1 = 1, i2 = 0;
-    while (true) {
-        if (i1 >= A.size() && i2 >= B.size()) break;
-        ll cost1 = i1 < A.size() ? (A[i1].pA + A[0].pA) : LL_INF;
-        ll cost2 = i2 < B.size() ? B[i2].pA : LL_INF;
-        if (cost1 < cost2) {
-            // take i1
-            if (!UF.isSameSet(A[0].pB, A[i1].pB)) {
-                UF.unionSet(A[0].pB, A[i1].pB);
-                cost += A[0].pA + A[i1].pA;
-            }
-            i1++;
-        } else {
-            // take i2
-            if (!UF.isSameSet(B[i2].pB.pA, B[i2].pB.pB)) {
-                UF.unionSet(B[i2].pB.pA, B[i2].pB.pB);
-                cost += B[i2].pA;
-            }
-            i2++;
-        }
-    }
-    cout << cost << endl;
+    cout << run(0) << endl;
 
     return 0;
 }
