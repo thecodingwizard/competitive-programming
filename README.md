@@ -428,6 +428,7 @@ Not all problems are listed in the table below! [Here is the complete solutions 
 | [946D](codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
 | [989D](codeforces/989D%20-%20A%20Shade%20of%20Moonlight.cpp) | D. A Shade of Moonlight | Binary Search, Math |
 | [817D](codeforces/817D%20-%20Imbalanced%20Array.cpp) | D. Imbalanced Array | Stack, Sweep, Math |
+| [342E](codeforces/342E%20-%20Xenia%20and%20Tree.cpp) | E. Xenia and Tree | Centroid Decomposition, LCA |
 
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
