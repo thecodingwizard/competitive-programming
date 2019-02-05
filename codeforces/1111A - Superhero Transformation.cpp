@@ -18,8 +18,6 @@
 
 using namespace std;
 
-template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
-
 #define FOR(i, a, b) for (int i=a; i<(b); i++)
 #define F0R(i, a) for (int i=0; i<(a); i++)
 #define F0R1(i, a) for (int i=1; i<=(a); i++)
@@ -45,8 +43,6 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define SET3D(arr, val, dim1, dim2, dim3) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) arr[i][j][k] = val;
 #define SET4D(arr, val, dim1, dim2, dim3, dim4) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) F0R(l, dim4) arr[i][j][k][l] = val;
 #define READGRID(arr, dim) F0R(i, dim) F0R(j, dim) cin >> arr[i][j];
-#define all(x) (x).begin(), (x).end()
-
 typedef pair<int, int> ii;
 typedef pair<int, ii> iii;
 typedef pair<ll, ll> pll;
@@ -67,32 +63,24 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-ll n, k, a, b;
-vi A;
-
-int calc(int start, int end) {
-    return upper_bound(A.begin(), A.end(), end) - lower_bound(A.begin(), A.end(), start);
-}
-
-ll run(int start, int end) {
-    ll numAvengers = calc(start, end);
-    if (numAvengers == 0) return a;
-    if (start == end) return numAvengers*b;
-    ll len = end-start+1;
-    ll burnNow = numAvengers*b*len;
-    ll split = run(start, (start+end)/2) + run((start+end)/2+1, end);
-    return min(burnNow, split);
+bool isVowel(char c) {
+    return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
 }
 
 int main() {
-    cin >> n >> k >> a >> b;
-    F0R(i, k) {
-        int x; cin >> x;
-        A.pb(x);
+    string s, t; cin >> s >> t;
+    if (s.length() != t.length()) {
+        cout << "No" << endl;
+    } else {
+        F0R(i, s.length()) {
+            char s1 = s[i], t1 = t[i];
+            if (!((isVowel(s1) && isVowel(t1)) || (!isVowel(s1) && !isVowel(t1)))) {
+                cout << "No" << endl;
+                return 0;
+            }
+        }
+        cout << "Yes" << endl;
     }
-    SORT(A);
-
-    cout << run(1, (1 << n)) << endl;
 
     return 0;
 }
