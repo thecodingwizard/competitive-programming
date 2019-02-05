@@ -18,8 +18,6 @@
 
 using namespace std;
 
-template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
-
 #define FOR(i, a, b) for (int i=a; i<(b); i++)
 #define F0R(i, a) for (int i=0; i<(a); i++)
 #define F0R1(i, a) for (int i=1; i<=(a); i++)
@@ -44,8 +42,6 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define SET3D(arr, val, dim1, dim2, dim3) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) arr[i][j][k] = val;
 #define SET4D(arr, val, dim1, dim2, dim3, dim4) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) F0R(l, dim4) arr[i][j][k][l] = val;
 #define READGRID(arr, dim) F0R(i, dim) F0R(j, dim) cin >> arr[i][j];
-#define all(x) (x).begin(), (x).end()
-
 typedef pair<int, int> ii;
 typedef pair<int, ii> iii;
 typedef pair<ll, ll> pll;
@@ -66,64 +62,47 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-class UnionFind {
-private:
-    vi p, rank, setSize;
-    int numSets;
-public:
-    UnionFind(int N) {
-        setSize.assign(N, 1); numSets = N; rank.assign(N, 0);
-        p.assign(N, 0); for (int i = 0; i < N; i++) p[i] = i; }
-    int findSet(int i) { return (p[i] == i) ? i : (p[i] = findSet(p[i])); }
-    bool isSameSet(int i, int j) { return findSet(i) == findSet(j); }
-    void unionSet(int i, int j) {
-        if (!isSameSet(i, j)) { numSets--;
-            int x = findSet(i), y = findSet(j);
-            if (rank[x] > rank[y]) { p[y] = x; setSize[x] += setSize[y]; }
-            else                   { p[x] = y; setSize[y] += setSize[x];
-                if (rank[x] == rank[y]) rank[y]++; } } }
-    int numDisjointSets() { return numSets; }
-    int sizeOfSet(int i) { return setSize[findSet(i)]; }
-};
+ll n, c, f;
+pair<ll, ll> A[70000];
 
-int n, m;
-set<iii> edges;
-viii taken;
-
-int kruskal(bool addToTaken) {
-    UnionFind UF(n);
-    int cost = 0;
-    for (iii edge : edges) {
-        if (UF.isSameSet(edge.pB.pA, edge.pB.pB)) continue;
-        cost += edge.pA;
-        UF.unionSet(edge.pB.pA, edge.pB.pB);
-        if (addToTaken) taken.pb(edge);
+bool can(ll midIdx) {
+    multiset<ll> lowCows, hiCows;
+    F0R(i, midIdx) lowCows.insert(A[i].pB);
+    FOR(i, midIdx, c) hiCows.insert(A[i].pB);
+    ll totCost = 0;
+    int have = 0;
+    int half = n/2;
+    for (ll cost : lowCows) {
+        totCost += cost;
+        have++;
+        if (have == half) break;
     }
-    if (UF.numDisjointSets() != 1) return INF;
-    return cost;
+    for (ll cost : hiCows) {
+        totCost += cost;
+        have++;
+        if (have == n) break;
+    }
+    return f >= totCost;
 }
 
 int main() {
-    int t; cin >> t;
-    while (t--) {
-        cin >> n >> m;
-        edges.clear();
-        taken.clear();
-        F0R(i, m) {
-            int a, b, c; cin >> a >> b >> c;
-            --a; --b;
-            edges.insert(mp(c, mp(a, b)));
-        }
+    cin >> n >> c >> f;
+    F0R(i, c) cin >> A[i].pA >> A[i].pB;
+    sort(A, A+c);
 
-        int ans1 = kruskal(true);
-        int ans2 = INF;
-        for (iii x : taken) {
-            edges.erase(x);
-            ans2 = min(ans2, kruskal(false));
-            edges.insert(x);
+    ll lo = (n/2), hi = c-(n/2), mid, ans = -1;
+    while (lo < hi) {
+        mid = (lo + hi)/2;
+        if (can(mid)) {
+            ans = mid;
+            lo = mid + 1;
+        } else {
+            hi = mid;
         }
-        cout << ans1 << " " << ans2 << endl;
     }
+
+    if (ans == -1) cout << "-1" << endl;
+    else cout << A[ans].pA << endl;
 
     return 0;
 }

@@ -18,8 +18,6 @@
 
 using namespace std;
 
-template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
-
 #define FOR(i, a, b) for (int i=a; i<(b); i++)
 #define F0R(i, a) for (int i=0; i<(a); i++)
 #define F0R1(i, a) for (int i=1; i<=(a); i++)
@@ -44,8 +42,6 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define SET3D(arr, val, dim1, dim2, dim3) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) arr[i][j][k] = val;
 #define SET4D(arr, val, dim1, dim2, dim3, dim4) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) F0R(l, dim4) arr[i][j][k][l] = val;
 #define READGRID(arr, dim) F0R(i, dim) F0R(j, dim) cin >> arr[i][j];
-#define all(x) (x).begin(), (x).end()
-
 typedef pair<int, int> ii;
 typedef pair<int, ii> iii;
 typedef pair<ll, ll> pll;
