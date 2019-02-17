@@ -70,11 +70,8 @@ set<int> children[100100];
 int nodes = 0;
 int parent[100100];
 int size[100100];
-vector<set<int>> paths[100100];
-map<int, vi> pathNum[100100];
-map<int, int> pathScore[100100];
 map<int, int> dist[100100];
-ii best[100100];
+pair<ii, ii> best[100100];
 
 int dfsSize(int node, int parent) {
     size[node] = 1;
@@ -93,19 +90,12 @@ int dfsCentroid(int node, int parent, int totSz) {
     return node;
 }
 
-vector<set<int>> dfsPath(int node, int depth, int parent, int centroid) {
-    vector<set<int>> ans;
+void dfsDist(int node, int depth, int parent, int centroid) {
     dist[centroid][node] = depth;
     for (int child : children[node]) {
         if (child == parent) continue;
-        vector<set<int>> option = dfsPath(child, depth + 1, node, centroid);
-        for (set<int> x : option) {
-            x.insert(centroid);
-            ans.pb(x);
-        }
+        dfsDist(child, depth + 1, node, centroid);
     }
-    ans.pb({node});
-    return ans;
 }
 
 int build(int node) {
@@ -117,20 +107,14 @@ int build(int node) {
     }
 
     for (int child : children[centroid]) {
-        vector<set<int>> pathOpts = dfsPath(child, 1, child, centroid);
-        for (const set<int> &curPath : pathOpts) {
-            paths[centroid].pb(set<int>(curPath));
-            for (int n : curPath) {
-                pathNum[centroid][n].pb(paths[centroid].size() - 1);
-            }
-        }
+        dfsDist(child, 1, child, centroid);
     }
 
     for (int child : children[centroid]) {
         parent[build(child)] = centroid;
     }
 
-    best[centroid] = {-1, -1};
+    best[centroid] = { {0, -1}, {0, -1} };
     return centroid;
 }
 
@@ -162,32 +146,33 @@ int main() {
             ctr++;
             int node = query.pB;
             int target = parent[node];
+            int prevTarget = node;
             while (target != -1) {
-                assert(pathNum[target].count(node) > 0);
-                for (int pathID : pathNum[target][node]) {
-                    pathScore[target][pathID]++;
-                    int a = best[target].pA, b = best[target].pB;
-                    if (a == -1 || pathScore[target][a] < pathScore[target][pathID]) {
-                        if (pathID != a) {
-                            best[target] = {pathID, a};
-                        }
-                    } else if (b == -1 || pathScore[target][b] < pathScore[target][pathID]) {
-                        if (pathID != b && pathID != a) {
-                            best[target] = {a, pathID};
-                        }
-                    }
+                int distToTarget = dist[target][node];
+                ii a = best[target].pA, b = best[target].pB;
+                if (a.pB == -1) {
+                    best[target].pA = { distToTarget, prevTarget };
+                } else if (b.pB == -1) {
+                    best[target].pB = { distToTarget, prevTarget };
+                } else if (a.pA < distToTarget) {
+                    if (a.pB != prevTarget) best[target] = { { distToTarget, prevTarget }, a };
+                    else best[target] = { { distToTarget, prevTarget }, b };
+                } else if (b.pA < distToTarget) {
+                    if (a.pB != prevTarget) best[target] = { a, { distToTarget, prevTarget } };
                 }
                 target = parent[target];
             }
         } else {
             int node = query.pB;
-            int ans = best[node].pA != -1 ? pathScore[node][best[node].pA] : 0;
+            int ans = best[node].pA.pA;
             int target = parent[node];
             int prevTarget = node;
             while (target != -1) {
                 int distToTarget = dist[target][node];
                 if (ctr > target) {
                     ans = max(ans, distToTarget);
+                    if (best[target].pA.pB != prevTarget) ans = max(ans, distToTarget + best[target].pA.pA);
+                    else ans = max(ans, distToTarget + best[target].pB.pA)
                     if (best[target].pA != -1 && paths[target][best[target].pA].count(prevTarget) == 0) {
                         ans = max(ans, distToTarget + pathScore[target][best[target].pA]);
                     } else if (best[target].pB != -1 && paths[target][best[target].pB].count(prevTarget) == 0) {
