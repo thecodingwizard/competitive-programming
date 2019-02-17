@@ -66,24 +66,140 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n, A[5000];
-int memo[5000][5000][2];
+set<int> children[100100];
+int nodes = 0;
+int parent[100100];
+int size[100100];
+vector<set<int>> paths[100100];
+map<int, vi> pathNum[100100];
+map<int, int> pathScore[100100];
+map<int, int> dist[100100];
+ii best[100100];
 
-int dp(int l, int r, bool takeLeft) {
-    if (memo[l][r][takeLeft] != -1) return memo[l][r][takeLeft];
-    if (l == r) return 0;
-    if (takeLeft) {
-        return memo[l][r][takeLeft] = min(dp(l + 1, r, true) + (A[l+1] == A[l] ? 0 : 1), dp(l + 1, r, false) + (A[r] == A[l] ? 0 : 1));
-    } else {
-        return memo[l][r][takeLeft] = min(dp(l, r - 1, true) + (A[l] == A[r] ? 0 : 1), dp(l, r - 1, false) + (A[r-1] == A[r] ? 0 : 1));
+int dfsSize(int node, int parent) {
+    size[node] = 1;
+    for (int child : children[node]) {
+        if (child == parent) continue;
+        size[node] += dfsSize(child, node);
     }
+    return size[node];
+}
+
+int dfsCentroid(int node, int parent, int totSz) {
+    for (int child : children[node]) {
+        if (child == parent) continue;
+        if (size[child] > totSz / 2) return dfsCentroid(child, node, totSz);
+    }
+    return node;
+}
+
+vector<set<int>> dfsPath(int node, int depth, int parent, int centroid) {
+    vector<set<int>> ans;
+    dist[centroid][node] = depth;
+    for (int child : children[node]) {
+        if (child == parent) continue;
+        vector<set<int>> option = dfsPath(child, depth + 1, node, centroid);
+        for (set<int> x : option) {
+            x.insert(centroid);
+            ans.pb(x);
+        }
+    }
+    ans.pb({node});
+    return ans;
+}
+
+int build(int node) {
+    dfsSize(node, node);
+
+    int centroid = dfsCentroid(node, node, size[node]);
+    for (int child : children[centroid]) {
+        children[child].erase(centroid);
+    }
+
+    for (int child : children[centroid]) {
+        vector<set<int>> pathOpts = dfsPath(child, 1, child, centroid);
+        for (const set<int> &curPath : pathOpts) {
+            paths[centroid].pb(set<int>(curPath));
+            for (int n : curPath) {
+                pathNum[centroid][n].pb(paths[centroid].size() - 1);
+            }
+        }
+    }
+
+    for (int child : children[centroid]) {
+        parent[build(child)] = centroid;
+    }
+
+    best[centroid] = {-1, -1};
+    return centroid;
 }
 
 int main() {
-    cin >> n;
-    F0R(i, n) cin >> A[i];
-    SET3D(memo, -1, 5000, 5000, 2);
-    cout << min(dp(0, n-1, true), dp(0, n-1, false));
+    setupIO("newbarn");
+
+    int q; cin >> q;
+    vii queries;
+    F0R(i, q) {
+        char c; int x; cin >> c >> x;
+        --x;
+        if (c == 'B') {
+            if (nodes != 0) {
+                children[x].insert(nodes);
+                children[nodes].insert(x);
+            }
+            queries.pb(mp(c, nodes));
+            nodes++;
+        } else {
+            queries.pb(mp(c, x));
+        }
+    }
+
+    parent[build(0)] = -1;
+
+    int ctr = 0;
+    for (ii query : queries) {
+        if (query.pA == 'B') {
+            ctr++;
+            int node = query.pB;
+            int target = parent[node];
+            while (target != -1) {
+                assert(pathNum[target].count(node) > 0);
+                for (int pathID : pathNum[target][node]) {
+                    pathScore[target][pathID]++;
+                    int a = best[target].pA, b = best[target].pB;
+                    if (a == -1 || pathScore[target][a] < pathScore[target][pathID]) {
+                        if (pathID != a) {
+                            best[target] = {pathID, a};
+                        }
+                    } else if (b == -1 || pathScore[target][b] < pathScore[target][pathID]) {
+                        if (pathID != b && pathID != a) {
+                            best[target] = {a, pathID};
+                        }
+                    }
+                }
+                target = parent[target];
+            }
+        } else {
+            int node = query.pB;
+            int ans = best[node].pA != -1 ? pathScore[node][best[node].pA] : 0;
+            int target = parent[node];
+            int prevTarget = node;
+            while (target != -1) {
+                int distToTarget = dist[target][node];
+                if (ctr > target) {
+                    ans = max(ans, distToTarget);
+                    if (best[target].pA != -1 && paths[target][best[target].pA].count(prevTarget) == 0) {
+                        ans = max(ans, distToTarget + pathScore[target][best[target].pA]);
+                    } else if (best[target].pB != -1 && paths[target][best[target].pB].count(prevTarget) == 0) {
+                        ans = max(ans, distToTarget + pathScore[target][best[target].pB]);
+                    }
+                }
+                prevTarget = target;
+                target = parent[target];
+            }
+            cout << ans << endl;
+        }
+    }
 
     return 0;
 }
