@@ -58,166 +58,167 @@ Solutions to USACO training and USACO contest problems.
 | 4.4.3 | [Frame Up][4.4.3] | All Topological Sorts |
 
 ### Silver USACO Contests:
-| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
-| ------------ | ---------- | ------------ | -------------- | ----- |
-| Feb 2018 | [reststops][reststops] | Rest Stops | Greedy | 10/10 |
+| Contest Date | Problem ID | Problem Name | Solution Notes |
+| ------------ | ---------- | ------------ | -------------- |
+| Feb 2018 | [reststops][reststops] | Rest Stops | Greedy |
 
 ### Gold USACO Contests:
 
 #### Old USACO Gold (Silver):
-| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
-| ------------ | ---------- | ------------ | -------------- | ----- |
-| Nov 2012 | [clumsy][clumsy] | Clumsy Cows | Greedy | 16/16 |
-| Nov 2012 | [distant][distant] | Distant Pastures | APSP, dijkstra | 16/16 |
-| Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | Same problem as Gold | 16/16 |
-| Dec 2012 | [crazy][crazy] | Crazy Fences | Computational Geometry | 10/10 |
-| Dec 2012 | [wifi][wifi] | Wifi Setup | DP | 10/10 |
-| Dec 2012 | [mroute][mroute] | Milk Routing | Dijkstra | 10/10 |
-| Jan 2013 | [paint][paint] | Painting the Fence | Coordinate Compression, Store Deltas & Sweep | 10/10 |
-| Jan 2013 | [squares][squares] | Square Overlap | Sweep | 10/10 |
-| Jan 2013 | [invite][invite] | Party Invitations | precompute which groups each cow is in | 10/10 |
-| Feb 2013 | [perimeter][perimeter] | Perimeter | Optimized Floodfill | 10/10 |
-| Feb 2013 | [tractor][tractor] | Tractor | Binary search for answer, dfs | 10/10 |
-| Feb 2013 | [msched][msched] | Milk Scheduling | Greedy | 10/10 |
-| Mar 2013 | [poker][poker] | Poker Hands | Greedy | 10/10 |
-| Mar 2013 | [painting][painting] | Farm Painting | Sweep | 10/10 |
-| Mar 2013 | [cowrun][cowrun] | The Cow Run | DP, same as gold | 15/15 |
-| Open 2013 | [gravity][gravity] | What's Up With Gravity? | Dijkstra | 10/10 |
-| Open 2013 | [fuel][fuel] | Fuel Economy | Greedy | 10/10 |
-| Open 2013 | [cruise][cruise] | Luxury River Cruise | Find where sequence repeats | 10/10 |
-| Nov 2013 | [nocow][nocow] | Farmer John has no Large Brown Cow | Solvable with a bit of math | 10/10 |
-| Nov 2013 | [crowded][crowded] | Crowded Cows | Sweep, can use multiset instead of monotonic queue | 11/11 |
-| Nov 2013 | [pogocow][pogocow] | Pogo-Cow | DP, note that Bessie can go either direction | 11/11 |
-| Dec 2013 | [msched][msched2] | Milk Scheduling | Greedy, sweep | 11/11 |
-| Dec 2013 | [vacation][vacation] | Vacation Planning | Code is slightly modified from gold version, answer is unnecessarily complicated for silver | 10/10 |
-| Dec 2013 | [shuffle][shuffle] | The Bessie Shuffle | Repeated Squaring, Permutations, Composing functions/permutations | 10/10 |
-| Jan 2014 | [slowdown][slowdown] | Bessie Slows Down | Maintain two arrays, simulation | 10/10 |
-| Jan 2014 | [ccski][ccski] | Cross Country Skiing | Prim's | 10/10 |
-| Jan 2014 | [recording][recording] | Recording the Moolympics | Greedy | 10/10 |
-| Feb 2014 | [auto][auto] | Auto-complete | Binary search | 10/10 |
-| Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra | 10/10 |
-| Feb 2014 | [scode][scode] | Secret Code | DP | 10/10 |
-| Mar 2014 | [irrigation][irrigation] | Watering the Fields | Kruskal/MST | 10/10 |
-| Mar 2014 | [lazy][lazy] | The Lazy Cow | Rotate grid 45 degrees | 10/10 |
-| Mar 2014 | [mooomoo][mooomoo] | Mooo Moo | DP | 10/10 |
-| Open 2014 | [fairphoto][fairphoto] | Fair Photography | Sweep | 10/10 |
-| Open 2014 | [gpsduel][gpsduel] | Dueling GPSs | Dijkstra | 10/10 |
-| Dec 2014 | [piggyback][piggyback] | Piggy Back | Shortest Path on three nodes | 11/11 |
-| Dec 2014 | [marathon][marathon] | Marathon | DP | 15/15 |
-| Dec 2014 | [cowjog][cowjog] | Cow Jog | Sweep | 15/15 |
-| Jan 2015 | [stampede][stampede] | Stampede | Sweep | 15/15 |
-| Jan 2015 | [cowroute][cowroute] | Cow Routing | Dijkstra | 12/12 |
-| Jan 2015 | [meeting][meeting] | Meeting Time | DP | 15/15 |
-| Feb 2015 | [censor][censor] | Censoring | Rolling Hash | 15/15 |
-| Feb 2015 | [hopscotch][hopscotch] | Cow Hopscotch | DP | 15/15 |
-| Feb 2015 | [superbull][superbull] | Superbull | MST, Prim's O(V^2) | 10/10 |
-| Open 2015 | [bgm][bgm] | Bessie Goes Moo | Parity | 10/10 |
-| Open 2015 | [trapped][trapped] | Trapped in the Haybales (Silver) | Sort, Sweep | 14/14 |
-| Open 2015 | [buffet][buffet] | Bessie's Birthday Buffet |  | 15/15 |
+| Contest Date | Problem ID | Problem Name | Solution Notes |
+| ------------ | ---------- | ------------ | -------------- |
+| Nov 2012 | [clumsy][clumsy] | Clumsy Cows | Greedy |
+| Nov 2012 | [distant][distant] | Distant Pastures | APSP, dijkstra |
+| Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | Same problem as Gold |
+| Dec 2012 | [crazy][crazy] | Crazy Fences | Computational Geometry |
+| Dec 2012 | [wifi][wifi] | Wifi Setup | DP |
+| Dec 2012 | [mroute][mroute] | Milk Routing | Dijkstra |
+| Jan 2013 | [paint][paint] | Painting the Fence | Coordinate Compression, Store Deltas & Sweep |
+| Jan 2013 | [squares][squares] | Square Overlap | Sweep |
+| Jan 2013 | [invite][invite] | Party Invitations | precompute which groups each cow is in |
+| Feb 2013 | [perimeter][perimeter] | Perimeter | Optimized Floodfill |
+| Feb 2013 | [tractor][tractor] | Tractor | Binary search for answer, dfs |
+| Feb 2013 | [msched][msched] | Milk Scheduling | Greedy |
+| Mar 2013 | [poker][poker] | Poker Hands | Greedy |
+| Mar 2013 | [painting][painting] | Farm Painting | Sweep |
+| Mar 2013 | [cowrun][cowrun] | The Cow Run | DP, same as gold |
+| Open 2013 | [gravity][gravity] | What's Up With Gravity? | Dijkstra |
+| Open 2013 | [fuel][fuel] | Fuel Economy | Greedy |
+| Open 2013 | [cruise][cruise] | Luxury River Cruise | Find where sequence repeats |
+| Nov 2013 | [nocow][nocow] | Farmer John has no Large Brown Cow | Solvable with a bit of math |
+| Nov 2013 | [crowded][crowded] | Crowded Cows | Sweep, can use multiset instead of monotonic queue |
+| Nov 2013 | [pogocow][pogocow] | Pogo-Cow | DP, note that Bessie can go either direction |
+| Dec 2013 | [msched][msched2] | Milk Scheduling | Greedy, sweep |
+| Dec 2013 | [vacation][vacation] | Vacation Planning | Code is slightly modified from gold version, answer is unnecessarily complicated for silver |
+| Dec 2013 | [shuffle][shuffle] | The Bessie Shuffle | Repeated Squaring, Permutations, Composing functions/permutations |
+| Jan 2014 | [slowdown][slowdown] | Bessie Slows Down | Maintain two arrays, simulation |
+| Jan 2014 | [ccski][ccski] | Cross Country Skiing | Prim's |
+| Jan 2014 | [recording][recording] | Recording the Moolympics | Greedy |
+| Feb 2014 | [auto][auto] | Auto-complete | Binary search |
+| Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra |
+| Feb 2014 | [scode][scode] | Secret Code | DP |
+| Mar 2014 | [irrigation][irrigation] | Watering the Fields | Kruskal/MST |
+| Mar 2014 | [lazy][lazy] | The Lazy Cow | Rotate grid 45 degrees |
+| Mar 2014 | [mooomoo][mooomoo] | Mooo Moo | DP |
+| Open 2014 | [fairphoto][fairphoto] | Fair Photography | Sweep |
+| Open 2014 | [gpsduel][gpsduel] | Dueling GPSs | Dijkstra |
+| Dec 2014 | [piggyback][piggyback] | Piggy Back | Shortest Path on three nodes |
+| Dec 2014 | [marathon][marathon] | Marathon | DP |
+| Dec 2014 | [cowjog][cowjog] | Cow Jog | Sweep |
+| Jan 2015 | [stampede][stampede] | Stampede | Sweep |
+| Jan 2015 | [cowroute][cowroute] | Cow Routing | Dijkstra |
+| Jan 2015 | [meeting][meeting] | Meeting Time | DP |
+| Feb 2015 | [censor][censor] | Censoring | Rolling Hash |
+| Feb 2015 | [hopscotch][hopscotch] | Cow Hopscotch | DP |
+| Feb 2015 | [superbull][superbull] | Superbull | MST, Prim's O(V^2) |
+| Open 2015 | [bgm][bgm] | Bessie Goes Moo | Parity |
+| Open 2015 | [trapped][trapped] | Trapped in the Haybales (Silver) | Sort, Sweep |
+| Open 2015 | [buffet][buffet] | Bessie's Birthday Buffet |  |
 
 #### USACO Gold (2015-now)
-| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
-| ------------ | ---------- | ------------ | -------------- | ----- |
-| Dec 2015 | [cardgame][cardgame] | High Card Low Card (Gold) | Greedy | 15/15 |
-| Dec 2015 | [feast][feast] | Fruit Feast | DP (Knapsack) | 12/12 |
-| Dec 2015 | [dream][dream] | Bessie's Dream | Dijkstra | 16/16 |
-| Jan 2016 | [angry][angry] | Angry Cows | Sweep/Greedy/DP, Binary Search (Optional) | 10/10 |
-| Jan 2016 | [radio][radio] | Radio Contact | DP | 10/10 |
-| Jan 2016 | [lightsout][lightsout] | Lights Out | Simulation, Coordinates, Brute Force, Implementation | 10/10 |
-| Feb 2016 | [cbarn][cbarn] | Circular Barn | Greedy | 10/10 |
-| Feb 2016 | [cbarn2][cbarn2] | Circular Barn (Revisited) | DP | 10/10 |
-| Feb 2016 | [fencedin][fencedin] | Fenced In | MST (Kruskal) | 10/10 |
-| Open 2016 | [split][split] | Splitting The Field | Sweep | 10/10 |
-| Open 2016 | [closing][closing] | Closing The Farm | UFDS (Note: Runs really close to time limit) | 10/10 |
-| Open 2016 | [248][248] | 248 | DP | 12/12 |
-| Dec 2016 | [moocast][moocast] | Moocast | UFDS, brute force | 10/10 |
-| Dec 2016 | [checklist][checklist] | Cow Checklist | DP | 10/10 |
-| Dec 2016 | [lasers][lasers] | Lasers and Mirrors | BFS | 11/11 |
-| Jan 2017 | [bphoto][bphoto] | Balanced Photo | Fenwick Tree | 10/10 |
-| Jan 2017 | [hps][hps] | Hoof, Paper, Scissors | 3D DP | 10/10 |
-| Jan 2017 | [cownav][cownav] | Cow Navigation | BFS | 10/10 |
-| Feb 2017 | [visitfj][visitfj] | Why Did The Cow Cross The Road | Dijkstra | 11/11 |
-| Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP | 10/10 |
-| Feb 2017 | [circlecross][circlecross] | Why Did The Cow Cross The Road III | Fenwick Tree (BIT) | 10/10 |
-| Open 2017 | [cownomics][cownomics] | Bovine Genomics | Rolling Hash | 10/10 |
-| Open 2017 | [art2][art2] | Modern Art 2 | Calculate start/end points | 10/10 |
-| Dec 2017 | [piepie][piepie] | A Pie For A Pie | BFS, binary search | 10/10 |
-| Dec 2017 | [barnpainting][barnpainting] | Barn Painting | DP | 10/10 |
-| Dec 2017 | [hayfeast][hayfeast] | Haybale Feast | Two Pointers | 10/10 |
-| Jan 2018 | [mootube][mootube] | MooTube | UFDS | 10/10 |
-| Jan 2018 | [atlarge][atlarge] | Cow At Large | DFS/BFS | 13/13 |
-| Jan 2018 | [spainting][spainting] | Stamp Painting | DP, recurrence | 12/12 |
-| Feb 2018 | [snowboots][snowboots] | Snow Boots | Sort, Doubly-Linked List | 12/12 |
-| Feb 2018 | [dirtraverse][dirtraverse] | Directory Traversal | DFS | 10/10 |
-| Feb 2018 | [taming][taming] | Taming The Herd | DP | 11/11 |
-| Open 2018 | [sort][sort] | Out of Sorts | BIT | 10/10 |
-| Open 2018 | [milkorder][milkorder] | Milking Order | Topological Sort (Lexicographically earliest) | 10/10 |
-| Open 2018 | [talent][talent] | Talent Show | Binary search for answer, DP | 10/10 |
-| Dec 2018 | [dining][dining] | Fine Dining | Dijkstra | 10/10 |
-| Jan 2019 | [poetry][poetry] | Cow Poetry | DP, power under mod, math | 16/16 |
-| Jan 2019 | [sleepy][sleepy] | Sleepy Cow Sorting | Fenwick Tree | 15/15 |
-| Jan 2019 | [shortcut][shortcut] | Shortcut | Dijkstra, find path | 11/11 |
+| Contest Date | Problem ID | Problem Name | Solution Notes |
+| ------------ | ---------- | ------------ | -------------- |
+| Dec 2015 | [cardgame][cardgame] | High Card Low Card (Gold) | Greedy |
+| Dec 2015 | [feast][feast] | Fruit Feast | DP (Knapsack) |
+| Dec 2015 | [dream][dream] | Bessie's Dream | Dijkstra |
+| Jan 2016 | [angry][angry] | Angry Cows | Sweep/Greedy/DP, Binary Search (Optional) |
+| Jan 2016 | [radio][radio] | Radio Contact | DP |
+| Jan 2016 | [lightsout][lightsout] | Lights Out | Simulation, Coordinates, Brute Force, Implementation |
+| Feb 2016 | [cbarn][cbarn] | Circular Barn | Greedy |
+| Feb 2016 | [cbarn2][cbarn2] | Circular Barn (Revisited) | DP |
+| Feb 2016 | [fencedin][fencedin] | Fenced In | MST (Kruskal) |
+| Open 2016 | [split][split] | Splitting The Field | Sweep |
+| Open 2016 | [closing][closing] | Closing The Farm | UFDS (Note: Runs really close to time limit) |
+| Open 2016 | [248][248] | 248 | DP |
+| Dec 2016 | [moocast][moocast] | Moocast | UFDS, brute force |
+| Dec 2016 | [checklist][checklist] | Cow Checklist | DP |
+| Dec 2016 | [lasers][lasers] | Lasers and Mirrors | BFS |
+| Jan 2017 | [bphoto][bphoto] | Balanced Photo | Fenwick Tree |
+| Jan 2017 | [hps][hps] | Hoof, Paper, Scissors | 3D DP |
+| Jan 2017 | [cownav][cownav] | Cow Navigation | BFS |
+| Feb 2017 | [visitfj][visitfj] | Why Did The Cow Cross The Road | Dijkstra |
+| Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP |
+| Feb 2017 | [circlecross][circlecross] | Why Did The Cow Cross The Road III | Fenwick Tree (BIT) |
+| Open 2017 | [cownomics][cownomics] | Bovine Genomics | Rolling Hash |
+| Open 2017 | [art2][art2] | Modern Art 2 | Calculate start/end points |
+| Dec 2017 | [piepie][piepie] | A Pie For A Pie | BFS, binary search |
+| Dec 2017 | [barnpainting][barnpainting] | Barn Painting | DP |
+| Dec 2017 | [hayfeast][hayfeast] | Haybale Feast | Two Pointers |
+| Jan 2018 | [mootube][mootube] | MooTube | UFDS |
+| Jan 2018 | [atlarge][atlarge] | Cow At Large | DFS/BFS |
+| Jan 2018 | [spainting][spainting] | Stamp Painting | DP, recurrence |
+| Feb 2018 | [snowboots][snowboots] | Snow Boots | Sort, Doubly-Linked List |
+| Feb 2018 | [dirtraverse][dirtraverse] | Directory Traversal | DFS |
+| Feb 2018 | [taming][taming] | Taming The Herd | DP |
+| Open 2018 | [sort][sort] | Out of Sorts | BIT |
+| Open 2018 | [milkorder][milkorder] | Milking Order | Topological Sort (Lexicographically earliest) |
+| Open 2018 | [talent][talent] | Talent Show | Binary search for answer, DP |
+| Dec 2018 | [dining][dining] | Fine Dining | Dijkstra |
+| Jan 2019 | [poetry][poetry] | Cow Poetry | DP, power under mod, math |
+| Jan 2019 | [sleepy][sleepy] | Sleepy Cow Sorting | Fenwick Tree |
+| Jan 2019 | [shortcut][shortcut] | Shortcut | Dijkstra, find path |
 
 ### Platinum USACO Contests:
 
 #### Old USACO Platinum (Gold):
-| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
-| ------------ | ---------- | ------------ | -------------- | ----- |
-| Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | DP | 16/16 |
-| Dec 2012 | [gangs][gangs] | Gangs of Istanbull/Cowstantinople | Greedy | 12/12 |
-| Dec 2012 | [first][first] | First! | trie, checking DAG for cycles | 12/12 |
-| Dec 2012 | [runaway][runaway] | Running Away From the Barn |  | 10/10 | 
-| Jan 2013 | [lineup][lineup] | Cow Lineup | sweep with two pointers | 10/10 |
-| Jan 2013 | [island][island] | Island Travels | bfs | 11/11 |
-| Jan 2013 | [seating][seating] | Seating | Binary Tree, Lazy Propagation | 10/10 |
-| Feb 2013 | [partition][partition] | Partitioning The Farm | DP | 17/17 |
-| Feb 2013 | [taxi][taxi] | Taxi | Min Cost Matching, calculate distance driven w/o cow | 12/12 |
-| Feb 2013 | [route][route] | Route Designing | DP | 10/10 |
-| Mar 2013 | [cowrun][cowrun] | The Cow Run | DP | 14/14 |
-| Mar 2013 | [hillwalk][hillwalk] | Hill Walk | Line sweep, find a way to order hills | 12/12 |
-| Nov 2013 | [nochange][nochange] | No Change | DP, 2^k state | 13/13 |
-| Nov 2013 | [sight][sight] | Line of Sight | If two cows can see the same point on the silo, they can see each other | 11/11 |
-| Nov 2013 | [empty][empty] | Empty Stalls | Sweep | 11/11 |
-| Dec 2013 | [vacationgold][vacationgold] | Vacation Planning (Gold) | Dijkstra | 10/10 |
-| Dec 2013 | [optmilk][optmilk] | Optimal Milking | Binary Tree | 11/11 |
-| Jan 2014 | [skicourse][skicourse] | Building A Ski Course | DP | 10/10 |
-| Jan 2014 | [skilevel][skilevel] | Ski Course Rating | Kruskal | 10/10 |
-| Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra | 10/10 |
-| Feb 2014 | [dec][dec] | Cow Decathlon | DP | 10/10 |
-| Mar 2014 | [sabotage][sabotage] | Sabotage | Binary search, 1D max sum | 14/14 |
-| Mar 2014 | [fcount][fcount] | Counting Friends | Brute Force, greedily connect friends | 11/11 |
-| Dec 2014 | [guard][guard] | Guard Mark | DP | 12/12 |
-| Dec 2014 | [marathon][marathon] | Marathon | Segment Tree | 10/10 |
-| Dec 2014 | [cowjog][cowjog] | Cow Jog | Longest Non-Increasing Subsequence | 14/14 |
-| Jan 2015 | [cowrect][cowrect] | Cow Rectangles | Sweep, assume we have to take one of the Holsteins | 14/14 |
-| Jan 2015 | [movie][movie] | Moovie Mooving | DP, bitmasking | 14/14 |
-| Open 2015 | [palpath][palpath] | Palindromic Paths | DP | 12/12 |
-| Open 2015 | [trapped][trapped] | Trapped in the Haybales | Sort haybales by weight | 15/15 |
-| Open 2015 | [buffet][buffet] | Bessie's Birthday Buffet | DP | 15/15 |
+| Contest Date | Problem ID | Problem Name | Solution Notes |
+| ------------ | ---------- | ------------ | -------------- |
+| Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | DP |
+| Dec 2012 | [gangs][gangs] | Gangs of Istanbull/Cowstantinople | Greedy |
+| Dec 2012 | [first][first] | First! | trie, checking DAG for cycles |
+| Dec 2012 | [runaway][runaway] | Running Away From the Barn |  | 
+| Jan 2013 | [lineup][lineup] | Cow Lineup | sweep with two pointers |
+| Jan 2013 | [island][island] | Island Travels | bfs |
+| Jan 2013 | [seating][seating] | Seating | Binary Tree, Lazy Propagation |
+| Feb 2013 | [partition][partition] | Partitioning The Farm | DP |
+| Feb 2013 | [taxi][taxi] | Taxi | Min Cost Matching, calculate distance driven w/o cow |
+| Feb 2013 | [route][route] | Route Designing | DP |
+| Mar 2013 | [cowrun][cowrun] | The Cow Run | DP |
+| Mar 2013 | [hillwalk][hillwalk] | Hill Walk | Line sweep, find a way to order hills |
+| Nov 2013 | [nochange][nochange] | No Change | DP, 2^k state |
+| Nov 2013 | [sight][sight] | Line of Sight | If two cows can see the same point on the silo, they can see each other |
+| Nov 2013 | [empty][empty] | Empty Stalls | Sweep |
+| Dec 2013 | [vacationgold][vacationgold] | Vacation Planning (Gold) | Dijkstra |
+| Dec 2013 | [optmilk][optmilk] | Optimal Milking | Binary Tree |
+| Jan 2014 | [skicourse][skicourse] | Building A Ski Course | DP |
+| Jan 2014 | [skilevel][skilevel] | Ski Course Rating | Kruskal |
+| Feb 2014 | [rblock][rblock] | Roadblock | Dijkstra |
+| Feb 2014 | [dec][dec] | Cow Decathlon | DP |
+| Mar 2014 | [sabotage][sabotage] | Sabotage | Binary search, 1D max sum |
+| Mar 2014 | [fcount][fcount] | Counting Friends | Brute Force, greedily connect friends |
+| Dec 2014 | [guard][guard] | Guard Mark | DP |
+| Dec 2014 | [marathon][marathon] | Marathon | Segment Tree |
+| Dec 2014 | [cowjog][cowjog] | Cow Jog | Longest Non-Increasing Subsequence |
+| Jan 2015 | [cowrect][cowrect] | Cow Rectangles | Sweep, assume we have to take one of the Holsteins |
+| Jan 2015 | [movie][movie] | Moovie Mooving | DP, bitmasking |
+| Open 2015 | [palpath][palpath] | Palindromic Paths | DP |
+| Open 2015 | [trapped][trapped] | Trapped in the Haybales | Sort haybales by weight |
+| Open 2015 | [buffet][buffet] | Bessie's Birthday Buffet | DP |
 
 #### USACO Platinum (2015-now):
-| Contest Date | Problem ID | Problem Name | Solution Notes | Score |
-| ------------ | ---------- | ------------ | -------------- | ----- |
-| Dec 2015 | [maxflow][maxflow] | Max Flow | LCA, prefix sums | 15/15 |
-| Dec 2015 | [cardgame][cardgame] | High Card Low Card | Greedy | 15/15 |
-| Dec 2015 | [haybales][haybales] | Counting Haybales | Seg Tree, Lazy, Min Query & Sum Query | 10/10 |
-| Jan 2016 | [fortmoo][fortmoo] | Fort Moo | DP/Sliding Window | 13/13 |
-| Jan 2016 | [mowing][mowing] | Mowing The Field | 2D Range Tree | 10/10 |
-| Feb 2016 | [balancing][balancing] | Load Balancing | Binary Search, BIT | 15/15 |
-| Feb 2016 | [fencedinplat][fencedinplat] | Fenced In |  | 10/10 |
-| Open 2016 | [262144][262144] | 262144 | DP | 12/12 |
+| Contest Date | Problem ID | Problem Name | Solution Notes |
+| ------------ | ---------- | ------------ | -------------- |
+| Dec 2015 | [maxflow][maxflow] | Max Flow | LCA, prefix sums |
+| Dec 2015 | [cardgame][cardgame] | High Card Low Card | Greedy |
+| Dec 2015 | [haybales][haybales] | Counting Haybales | Seg Tree, Lazy, Min Query & Sum Query |
+| Jan 2016 | [fortmoo][fortmoo] | Fort Moo | DP/Sliding Window |
+| Jan 2016 | [mowing][mowing] | Mowing The Field | 2D Range Tree |
+| Feb 2016 | [balancing][balancing] | Load Balancing | Binary Search, BIT |
+| Feb 2016 | [fencedinplat][fencedinplat] | Fenced In |  |
+| Open 2016 | [262144][262144] | 262144 | DP |
 | Dec 2016 | [team][team] | Team Building | DP | 9/9 |
-| Jan 2017 | [promote][promote] | Promotion Counting | BIT on preorder of tree | 10/10 |
-| Jan 2017 | [tallbarn][tallbarn] | Building a Tall Barn | Binary Search | 12/12 |
-| Jan 2017 | [subrev][subrev] | Subsequence Reversal | DP | 10/10 |
-| Feb 2017 | [mincross][mincross] | Why Did The Cow Cross The Road | Fenwick Tree | 10/10 |
-| Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP, RMQ (Seg Tree) | 10/10 |
-| Feb 2017 | [friendcross][friendcross] | Why Did The Cow Cross The Road III | 2D Seg Tree | 15/15 |
-| Open 2017 | [art][art] | Modern Art | Prefix Sums/Deltas | 10/10 |
-| Open 2017 | [grass][grass] | Switch Grass | MST, Sets, I/O Optimization | 10/10 |
-| Dec 2017 | [pushabox][pushabox] | Push A Box | Biconnected Components, BFS | 15/15 |
-| Feb 2018 | [newbarn][newbarn] | New Barns | Centroid Decomposition | 10/10 |
-| Jan 2019 | [redistricting][redistricting] | Redistricting | DP, Monotonic Queue | 18/18 |
+| Jan 2017 | [promote][promote] | Promotion Counting | BIT on preorder of tree |
+| Jan 2017 | [tallbarn][tallbarn] | Building a Tall Barn | Binary Search |
+| Jan 2017 | [subrev][subrev] | Subsequence Reversal | DP |
+| Feb 2017 | [mincross][mincross] | Why Did The Cow Cross The Road | Fenwick Tree |
+| Feb 2017 | [nocross][nocross] | Why Did The Cow Cross The Road II | DP, RMQ (Seg Tree) |
+| Feb 2017 | [friendcross][friendcross] | Why Did The Cow Cross The Road III | 2D Seg Tree |
+| Open 2017 | [art][art] | Modern Art | Prefix Sums/Deltas |
+| Open 2017 | [grass][grass] | Switch Grass | MST, Sets, I/O Optimization |
+| Dec 2017 | [pushabox][pushabox] | Push A Box | Biconnected Components, BFS |
+| Dec 2017 | [greedy][greedy] | Greedy Gift Takers | Binary Search, Prefix Sums |
+| Feb 2018 | [newbarn][newbarn] | New Barns | Centroid Decomposition |
+| Jan 2019 | [redistricting][redistricting] | Redistricting | DP, Monotonic Queue |
 
 [1.5.1]: usaco-training/Chapter%201/1.5.1%20ariprog%20-%20Arithmetic%20Progressions.cpp
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
@@ -406,6 +407,7 @@ Solutions to USACO training and USACO contest problems.
 [art]: usaco-contests/2017open/plat/art.cpp
 [grass]: usaco-contests/2017open/plat/grass.cpp
 [pushabox]: usaco-contests/2017dec/plat/pushabox.cpp
+[greedy]: usaco-contests/2017dec/plat/greedy.cpp
 [newbarn]: usaco-contests/2018feb/plat/newbarn.cpp
 [redistricting]: usaco-contests/2019jan/plat/redistricting.cpp
 
