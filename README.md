@@ -155,6 +155,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2018 | [talent][talent] | Talent Show | Binary search for answer, DP |
 | Dec 2018 | [dining][dining] | Fine Dining | Dijkstra |
 | Dec 2018 | [cowpatibility][cowpatibility] | Cowpatibility | PIE |
+| Dec 2018 | [teamwork][teamwork] | Teamwork | DP |
 | Jan 2019 | [poetry][poetry] | Cow Poetry | DP, power under mod, math |
 | Jan 2019 | [sleepy][sleepy] | Sleepy Cow Sorting | Fenwick Tree |
 | Jan 2019 | [shortcut][shortcut] | Shortcut | Dijkstra, find path |
@@ -356,6 +357,7 @@ Solutions to USACO training and USACO contest problems.
 [talent]: usaco-contests/2018open/gold/talent.cpp
 [dining]: usaco-contests/2018dec/gold/dining.cpp
 [cowpatibility]: usaco-contests/2018dec/gold/cowpatibility.cpp
+[teamwork]: usaco-contests/2018dec/gold/teamwork.cpp
 [poetry]: usaco-contests/2019jan/gold/poetry.cpp
 [sleepy]: usaco-contests/2019jan/gold/sleepy.cpp
 [shortcut]: usaco-contests/2019jan/gold/shortcut.cpp
