@@ -69,69 +69,59 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n;
-bool canReachStart[100][100], canReachEnd[100][100];
-int grid[100][100];
-bool visited[100][100];
-int dx[4] = { -1, 0, 1, 0 };
-int dy[4] = { 0, 1, 0, -1 };
+int n, m;
 
-void floodfill1(int a, int b) {
-    canReachStart[a][b] = true;
-    visited[a][b] = true;
-    F0R(i, 4) {
-        int a1 = a + dx[i], a2 = b + dy[i];
-        if (a1 < 0 || a1 >= n || a2 < 0 || a2 >= n) continue;
-        if (visited[a1][a2] || grid[a1][a2]) continue;
-        floodfill1(a1, a2);
+class cmp {
+    int param;
+public:
+    cmp(int p) : param(p) {}
+
+    bool operator()(int i, int j) {
+        int lhsDist = param < i ? i - param : n - param + i;
+        int rhsDist = param < j ? j - param : n - param + j;
+        return rhsDist < lhsDist;
     }
-}
-
-void floodfill2(int a, int b) {
-    canReachEnd[a][b] = true;
-    visited[a][b] = true;
-    F0R(i, 4) {
-        int a1 = a + dx[i], a2 = b + dy[i];
-        if (a1 < 0 || a1 >= n || a2 < 0 || a2 >= n) continue;
-        if (visited[a1][a2] || grid[a1][a2]) continue;
-        floodfill2(a1, a2);
-    }
-}
-
-int cost(int i, int j, int k, int l) {
-    return (k-i)*(k-i)+(l-j)*(l-j);
-}
+};
 
 int main() {
-    cin >> n;
-    ii start, end;
-    cin >> start.pA >> start.pB >> end.pA >> end.pB;
-
-    F0R(i, n) {
-        F0R(j, n) {
-            char c; cin >> c;
-            grid[i][j] = c == '1';
-        }
+    cin >> n >> m;
+    vi A[n+10];
+    F0R(i, m) {
+        int a, b; cin >> a >> b;
+        A[a].pb(b);
+    }
+    F0R1(i, n) {
+        sort(A[i].begin(), A[i].end(), cmp(i));
     }
 
-    SET2D(canReachStart, false, 100, 100);
-    SET2D(canReachEnd, false, 100, 100);
-    SET2D(visited, false, 100, 100);
-    floodfill1(start.pA-1, start.pB-1);
-    SET2D(visited, false, 100, 100);
-    floodfill2(end.pA-1, end.pB-1);
+    ll ans[n+10];
+    F0R1(i, n) {
+        int delivered = 0;
+        map<int, int> candies;
+        int pos = i;
+        ll time = 0;
+        int B[n+10]; SET(B, 0, n+10);
+        while (delivered != m) {
+            delivered += candies[pos];
+            candies[pos] = 0;
 
-    int ans = INF;
-    F0R(i, n) {
-        F0R(j, n) {
-            F0R(k, n) {
-                F0R(l, n) {
-                    if (canReachStart[i][j] && canReachEnd[k][l]) MIN(ans, cost(i, j, k, l));
-                }
+            if (delivered == m) break;
+
+            if (B[pos] < A[pos].size()) {
+                candies[A[pos][B[pos]++]]++;
             }
+
+            pos++;
+            time++;
+            if (pos > n) pos = 1;
         }
+        ans[i] = time;
     }
-    cout << ans << endl;
+
+    cout << ans[1];
+    FOR(i, 2, n+1) {
+        cout << " " << ans[i];
+    }
 
     return 0;
 }

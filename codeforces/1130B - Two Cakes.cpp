@@ -69,67 +69,24 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n;
-bool canReachStart[100][100], canReachEnd[100][100];
-int grid[100][100];
-bool visited[100][100];
-int dx[4] = { -1, 0, 1, 0 };
-int dy[4] = { 0, 1, 0, -1 };
-
-void floodfill1(int a, int b) {
-    canReachStart[a][b] = true;
-    visited[a][b] = true;
-    F0R(i, 4) {
-        int a1 = a + dx[i], a2 = b + dy[i];
-        if (a1 < 0 || a1 >= n || a2 < 0 || a2 >= n) continue;
-        if (visited[a1][a2] || grid[a1][a2]) continue;
-        floodfill1(a1, a2);
-    }
-}
-
-void floodfill2(int a, int b) {
-    canReachEnd[a][b] = true;
-    visited[a][b] = true;
-    F0R(i, 4) {
-        int a1 = a + dx[i], a2 = b + dy[i];
-        if (a1 < 0 || a1 >= n || a2 < 0 || a2 >= n) continue;
-        if (visited[a1][a2] || grid[a1][a2]) continue;
-        floodfill2(a1, a2);
-    }
-}
-
-int cost(int i, int j, int k, int l) {
-    return (k-i)*(k-i)+(l-j)*(l-j);
-}
-
 int main() {
-    cin >> n;
-    ii start, end;
-    cin >> start.pA >> start.pB >> end.pA >> end.pB;
-
-    F0R(i, n) {
-        F0R(j, n) {
-            char c; cin >> c;
-            grid[i][j] = c == '1';
-        }
+    int n; cin >> n;
+    vi pos[n+10];
+    F0R(i, n*2) {
+        int x; cin >> x;
+        pos[x].pb(i);
     }
 
-    SET2D(canReachStart, false, 100, 100);
-    SET2D(canReachEnd, false, 100, 100);
-    SET2D(visited, false, 100, 100);
-    floodfill1(start.pA-1, start.pB-1);
-    SET2D(visited, false, 100, 100);
-    floodfill2(end.pA-1, end.pB-1);
-
-    int ans = INF;
-    F0R(i, n) {
-        F0R(j, n) {
-            F0R(k, n) {
-                F0R(l, n) {
-                    if (canReachStart[i][j] && canReachEnd[k][l]) MIN(ans, cost(i, j, k, l));
-                }
-            }
-        }
+    ll ans = 0;
+    int curPos = 0;
+    F0R1(i, n) {
+        ans += abs(curPos - pos[i][0]);
+        curPos = pos[i][0];
+    }
+    curPos = 0;
+    F0R1(i, n) {
+        ans += abs(curPos - pos[i][1]);
+        curPos = pos[i][1];
     }
     cout << ans << endl;
 
