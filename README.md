@@ -445,4 +445,6 @@ Solutions to UVa Online Judge problems. Mostly starred problems from Competitive
 
 [Solutions Folder](UVa%20Online%20Judge)
 
-Note: Code primarily written in C++.
+# Google Kick Start
+
+[Solutions Folder](google-kickstart)
