@@ -446,5 +446,11 @@ Solutions to UVa Online Judge problems. Mostly starred problems from Competitive
 [Solutions Folder](UVa%20Online%20Judge)
 
 # Google Kick Start
+## [Kick Start 2018](google-kickstart/2018)
+| Problem Name | Solution Notes |
+| ------------ | -------------- |
+| A - Even Digits | Ad Hoc |
+| A - Lucky Dip | Brute Force / Binary Search |
+| A - Scrambled Words | Strings, implementation |
 
 [Solutions Folder](google-kickstart)
