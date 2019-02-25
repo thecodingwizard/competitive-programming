@@ -420,25 +420,47 @@ Solutions to USACO training and USACO contest problems.
 # Codeforces
 Solutions to various Codeforces problems.
 
-Not all problems are listed in the table below! [Here is the complete solutions folder.](codeforces)
+[Here is the complete solutions folder.](codeforces)
 
 | Problem ID | Problem Name | Solution Notes |
 | ---------- | ------------ | -------------- |
-| [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
-| [937A](codeforces/937A%20-%20Olympiad.cpp) | A. Olympiad | Set |
-| [809A](codeforces/809A%20-%20Do%20you%20want%20a%20date.cpp) | A. Do you want a date? | Math, power, mod |
-| [1104A](codeforces/1104A%20-%20Splitting%20into%20digits.cpp) | A. Splitting into digits | brute force |
-| [1104B](codeforces/1104B%20-%20Game%20with%20String.cpp) | B. Game with string | Stack |
-| [991B](codeforces/991B%20-%20Getting%20an%20A.cpp) | B. Getting an A | Sorting |
-| [762B](codeforces/762B%20-%20USB%20vs%20PS2.cpp) | B. USB vs PS/2 | Sorting, Greedy |
-| 1104C | C. Grid Game | |
-| 1104D | D. Game with modulo | binary search, math |
+| 321C | C. Ciel the Commander | Centroid Decomposition |
+| [342E](codeforces/342E%20-%20Xenia%20and%20Tree.cpp) | E. Xenia and Tree | Centroid Decomposition, LCA |
 | [383D](codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
-| [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
+| [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
+| [762B](codeforces/762B%20-%20USB%20vs%20PS2.cpp) | B. USB vs PS/2 | Sorting, Greedy |
+| [809A](codeforces/809A%20-%20Do%20you%20want%20a%20date.cpp) | A. Do you want a date? | Math, power, mod |
+| [817D](codeforces/817D%20-%20Imbalanced%20Array.cpp) | D. Imbalanced Array | Stack, Sweep, Math |
+| [937A](codeforces/937A%20-%20Olympiad.cpp) | A. Olympiad | Set |
 | [946D](codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
 | [989D](codeforces/989D%20-%20A%20Shade%20of%20Moonlight.cpp) | D. A Shade of Moonlight | Binary Search, Math |
-| [817D](codeforces/817D%20-%20Imbalanced%20Array.cpp) | D. Imbalanced Array | Stack, Sweep, Math |
-| [342E](codeforces/342E%20-%20Xenia%20and%20Tree.cpp) | E. Xenia and Tree | Centroid Decomposition, LCA |
+| [991B](codeforces/991B%20-%20Getting%20an%20A.cpp) | B. Getting an A | Sorting |
+| 1038C | C. Gambling | |
+| [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
+| 1067B | B. Multihedgehog | |
+| 1095F | F. Make it Connected | UFDS |
+| 1098A | A. Sum in the tree | |
+| 1099F | F. Cookies | Fenwick Tree |
+| [1104A](codeforces/1104A%20-%20Splitting%20into%20digits.cpp) | A. Splitting into digits | brute force |
+| [1104B](codeforces/1104B%20-%20Game%20with%20String.cpp) | B. Game with string | Stack |
+| 1104C | C. Grid Game | Ad Hoc |
+| 1104D | D. Game with modulo | binary search, math |
+| 1105A | A. Salem and Sticks | |
+| 1105B | B. Zuhair and Strings | |
+| 1105C | C. Ayoub and Lost Array | |
+| 1105D | D. Kilani and the Game | |
+| 1111A | A. Superhero Transformation | |
+| 1111C | C. Creative Snap | |
+| 1113A | A. Sasha and His Trip | Greedy |
+| 1113B | B. Sasha and Magnetic Machines | |
+| 1113C | C. Sasha and a Bit of Relax | |
+| 1113D | D. Sasha and One More Name | |
+| 1114D | D. Flood Fill | |
+| 1130A | A. Be Positive | Ad Hoc |
+| 1130B | B. Two Cakes | Greedy |
+| 1130C | C. Connect | Floodfill, Brute Force |
+| 1130D1 | D. Toy Train (Simplified) | Simulation |
+| 1130D2 | D. Toy Train | Math, Precomputation |
 
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
