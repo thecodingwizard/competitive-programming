@@ -446,6 +446,8 @@ Solutions to UVa Online Judge problems. Mostly starred problems from Competitive
 [Solutions Folder](UVa%20Online%20Judge)
 
 # Google Kick Start
+Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.com/kickstart) competitions.
+
 ## [Kick Start 2018](google-kickstart/2018)
 | Problem Name | Solution Notes |
 | ------------ | -------------- |
