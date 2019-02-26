@@ -69,90 +69,57 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-struct PS {
-    int ct[26];
-    PS() {
-        F0R(i, 26) ct[i] = 0;
-    }
+ll dp[30][9][2];
 
-    PS operator - (const PS &p) const {
-        PS toReturn;
-        F0R(i, 26) {
-            toReturn.ct[i] = ct[i] - p.ct[i];
-        }
-        return toReturn;
-    }
-
-    bool operator<(const PS &rhs) const {
-        F0R(i, 26) {
-            if (ct[i] != rhs.ct[i]) return ct[i] < rhs.ct[i];
-        }
-        return false;
-    }
-};
-
-bool operator!=(const PS &lhs, const PS &rhs) {
-    F0R(i, 26) {
-        if (lhs.ct[i] != rhs.ct[i]) return true;
-    }
-    return false;
+int leadingDigit(ll x) {
+    while (x >= 10) x /= 10;
+    return x;
 }
 
-ll si[1000000];
-char text[1000000];
-// following is important! I'm bad at C++ :(
-PS arrayOutOfBounds;
-PS ps[1000000];
-bool ans[20000];
+int numDigits(ll x) {
+    int ans = 0;
+    while (x > 0) {
+        x /= 10;
+        ans++;
+    }
+    return ans;
+}
 
+ll getBadNumsWithNine(ll x) {
+    if (x == 0) return 0;
+    ll badNums = 0;
+    F0R(mod, 9) {
+        badNums += (leadingDigit(x))*dp[numDigits(x)-1][mod][true];
+    }
+    badNums += getBadNumsWithNine(x-leadingDigit(x)*pow(10, numDigits(x)-1));
+    return badNums;
+}
+
+ll solve(ll x) {
+    ll badNums = 0;
+    F0R(firstDigit, leadingDigit(x)) {
+        badNums += dp[numDigits(x)-1][(9 - firstDigit)%9][false];
+    }
+    badNums += getBadNumsWithNine(x);
+    return x - badNums;
+}
 int main() {
-    int t; cin >> t;
-    FOR(caseNum, 1, t+1) {
-        int l;
-        cin >> l;
-        string rawDict[l];
-        F0R(i, l) cin >> rawDict[i];
-        PS dict[l];
-        map<int, map<int, map<PS, vi>>> fastDict[26];
-        set<int> lengths;
-        F0R(i, l) {
-            F0R(j, rawDict[i].length()) {
-                dict[i].ct[rawDict[i][j] - 'a']++;
-            }
-            fastDict[rawDict[i][0] - 'a'][rawDict[i].length()][rawDict[i][rawDict[i].length() - 1] - 'a'][dict[i]].pb(i);
-            lengths.insert(rawDict[i].length());
-        }
-        cin >> text[0] >> text[1];
-        si[0] = text[0]; si[1] = text[1];
-        ll n, a, b, c, d;
-        cin >> n >> a >> b >> c >> d;
-        FOR(i, 2, n) {
-            si[i] = (a*si[i-1]+b*si[i-2]+c)%d;
-            text[i] = 97 + (si[i]%26);
-        }
-        F0R(i, n) {
-            F0R(j, 26) {
-                ps[i].ct[j] = ps[i - 1].ct[j];
-                if (text[i] - 'a' == j) ps[i].ct[j]++;
-            }
-        }
-
-        SET(ans, false, 20000);
-        F0R(i, n) {
-            for (int len : lengths) {
-                if (len > n - 1) continue;
-                if (fastDict[text[i]-'a'].count(len) == 0) continue;
-                if (fastDict[text[i]-'a'][len].count(text[i+len-1]-'a') == 0) continue;
-                if (fastDict[text[i]-'a'][len][text[i+len-1]-'a'].count(ps[i + len - 1] - ps[i - 1]) == 0) continue;
-                for (int x : fastDict[text[i]-'a'][len][text[i+len-1]-'a'][ps[i + len - 1] - ps[i - 1]]) {
-                    ans[x] = true;
+    SET3D(dp, 0, 30, 9, 2);
+    dp[0][0][0] = 1;
+    F0R(numDigits, 20) {
+        F0R(mod, 9) {
+            F0R(hasNine, 2) {
+                F0R(toAdd, 10) {
+                    dp[numDigits+1][(mod + toAdd)%9][hasNine || toAdd == 9] += dp[numDigits][mod][hasNine];
                 }
-                fastDict[text[i]-'a'][len][text[i+len-1]-'a'].erase(ps[i + len - 1] - ps[i - 1]);
             }
         }
-        int realAns = 0;
-        F0R(i, l) if (ans[i]) realAns++;
-        cout << "Case #" << caseNum << ": " << realAns << endl;
+    }
+
+    int t; cin >> t;
+    F0R1(caseNum, t) {
+        ll f, l; cin >> f >> l;
+        cout << "Case #" << caseNum << ": " << solve(l) - solve(f) << endl;
     }
 
     return 0;
