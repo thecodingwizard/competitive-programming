@@ -69,8 +69,38 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+int n, k;
+ll dp[200];
+int presetVal[100];
+
+string solve(ll p, int start) {
+    if (start == n) return "";
+    if (presetVal[start] != -1) return to_string(presetVal[start]) + solve(p, start + 1);
+    if (p >= dp[start+1]) {
+        return "1" + solve(p-dp[start+1], start+1);
+    } else {
+        return "0" + solve(p, start+1);
+    }
+}
+
 int main() {
-    
+    int t; cin >> t;
+    F0R1(caseNum, t) {
+        ll p;
+        cin >> n >> k >> p;
+        SET(presetVal, -1, 100);
+        F0R(i, k) {
+            int a, b, c; cin >> a >> b >> c;
+            presetVal[--a] = c;
+        }
+        SET(dp, 0, 200);
+        dp[n] = 1;
+        F0Rd(i, n) {
+            dp[i] = presetVal[i] == -1 ? dp[i+1]*2 : dp[i+1];
+            MIN(dp[i], 1000000000100000000LL);
+        }
+        cout << "Case #" << caseNum << ": " << solve(p-1, 0) << endl;
+    }
 
     return 0;
 }
