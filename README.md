@@ -476,5 +476,6 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | A - Even Digits | Ad Hoc |
 | A - Lucky Dip | Brute Force / Binary Search |
 | A - Scrambled Words | Strings, implementation |
+| B - No Nine | DP (Alternatively, Ad Hoc) |
 
 [Solutions Folder](google-kickstart)
