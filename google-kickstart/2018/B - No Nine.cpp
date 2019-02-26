@@ -112,7 +112,6 @@ ll getBadNumsWithNine(ll x) {
 }
 
 ll getBadNumsMod(ll x, int mod) {
-    if (x == 9) return 0;
     if (x == 0 || x < (9-mod)%9) return 0;
     else if (x < 10) return 1;
     ll badNums = 0;
