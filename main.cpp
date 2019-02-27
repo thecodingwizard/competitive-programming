@@ -70,14 +70,15 @@ void setupIO(const string &PROB) {
 /* ============================ */
 
 int n, k;
-ll dp[200];
-int presetVal[100];
+ll dp[200][(1 << 16)];
+ll finalDP[200];
+iii requirements[100];
 
 string solve(ll p, int start) {
     if (start == n) return "";
     if (presetVal[start] != -1) return to_string(presetVal[start]) + solve(p, start + 1);
-    if (p >= dp[start+1]) {
-        return "1" + solve(p-dp[start+1], start+1);
+    if (p >= finalDP[start+1]) {
+        return "1" + solve(p-finalDP[start+1], start+1);
     } else {
         return "0" + solve(p, start+1);
     }
@@ -88,16 +89,35 @@ int main() {
     F0R1(caseNum, t) {
         ll p;
         cin >> n >> k >> p;
-        SET(presetVal, -1, 100);
         F0R(i, k) {
             int a, b, c; cin >> a >> b >> c;
-            presetVal[--a] = c;
+            requirements[i] = { c, { --a, --b } };
         }
-        SET(dp, 0, 200);
-        dp[n] = 1;
-        F0Rd(i, n) {
-            dp[i] = presetVal[i] == -1 ? dp[i+1]*2 : dp[i+1];
-            MIN(dp[i], 1000000000100000000LL);
+        SET2D(dp, 0, 200, (1 << 16));
+
+        // TODO figure out how to populate dp
+        F0R(i, n) {
+            F0R(j, (1 << 16)) {
+                bool bad = false;
+                F0R(l, k) {
+                    if (requirements[l].pB.pB <= i && requirements[l].pB.pA >= i+15) {
+                        int ct = 0;
+                        F0R(m, 16) {
+                            if (j & (1 << m)) ct++;
+                        }
+                        if (ct != requirements[l].pA) bad = true;
+                    }
+                }
+                if (bad) dp[i][j] = 0;
+                else dp[i][j] = dp[i+1][(j & ~(1 << 16)) << 1] + dp[i+1][((j & ~(1 << 16)) << 1) + 1];
+            }
+        }
+
+        SET(finalDP, 0, 200);
+        F0R(i, n) {
+            F0R(j, (1 << 16)) {
+                finalDP[i] += dp[i][j];
+            }
         }
         cout << "Case #" << caseNum << ": " << solve(p-1, 0) << endl;
     }
