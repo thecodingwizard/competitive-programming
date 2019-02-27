@@ -70,17 +70,15 @@ void setupIO(const string &PROB) {
 /* ============================ */
 
 int n, k;
-ll dp[200][(1 << 16)];
-ll finalDP[200];
+ll dp[200][(1 << 15)];
 iii requirements[100];
 
-string solve(ll p, int start) {
+string solve(int mask, ll p, int start) {
     if (start == n) return "";
-    if (presetVal[start] != -1) return to_string(presetVal[start]) + solve(p, start + 1);
-    if (p >= finalDP[start+1]) {
-        return "1" + solve(p-finalDP[start+1], start+1);
+    if (p >= dp[start+1][(mask & ~(1 << 15)) << 1]) {
+        return "1" + solve(((mask & ~(1 << 15)) << 1) + 1, p-dp[start+1][(mask & ~(1 << 15)) << 1], start+1);
     } else {
-        return "0" + solve(p, start+1);
+        return "0" + solve((mask & ~(1 << 15)) << 1, p, start+1);
     }
 }
 
@@ -93,33 +91,44 @@ int main() {
             int a, b, c; cin >> a >> b >> c;
             requirements[i] = { c, { --a, --b } };
         }
-        SET2D(dp, 0, 200, (1 << 16));
+        SET2D(dp, 0, 200, (1 << 15));
 
-        // TODO figure out how to populate dp
-        F0R(i, n) {
-            F0R(j, (1 << 16)) {
+        F0R(j, (1 << 15)) {
+            bool bad = false;
+            F0R(l, k) {
+                if (requirements[l].pB.pB < n && requirements[l].pB.pA >= n-15) {
+                    int ct = 0;
+                    FOR(m, n-requirements[l].pB.pB-1, n-requirements[l].pB.pA) {
+                        if (j & (1 << m)) ct++;
+                    }
+                    if (ct != requirements[l].pA) bad = true;
+                }
+            }
+            if (bad) dp[n][j] = 0;
+            else dp[n][j] = 1;
+        }
+
+        F0Rd(i, n) {
+            F0R(j, (1 << 15)) {
                 bool bad = false;
                 F0R(l, k) {
-                    if (requirements[l].pB.pB <= i && requirements[l].pB.pA >= i+15) {
+                    if (requirements[l].pB.pB < i && requirements[l].pB.pA >= i-15) {
                         int ct = 0;
-                        F0R(m, 16) {
+                        FOR(m, i-requirements[l].pB.pB-1, i-requirements[l].pB.pA) {
                             if (j & (1 << m)) ct++;
                         }
                         if (ct != requirements[l].pA) bad = true;
                     }
                 }
+                F0R(l, 16) {
+                    if ((j & (1 << l)) && l>=i) bad = true;
+                }
                 if (bad) dp[i][j] = 0;
-                else dp[i][j] = dp[i+1][(j & ~(1 << 16)) << 1] + dp[i+1][((j & ~(1 << 16)) << 1) + 1];
+                else dp[i][j] = dp[i+1][(j & ~(1 << 15)) << 1] + dp[i+1][((j & ~(1 << 15)) << 1) + 1];
             }
         }
 
-        SET(finalDP, 0, 200);
-        F0R(i, n) {
-            F0R(j, (1 << 16)) {
-                finalDP[i] += dp[i][j];
-            }
-        }
-        cout << "Case #" << caseNum << ": " << solve(p-1, 0) << endl;
+        cout << "Case #" << caseNum << ": " << solve(0, p-1, 0) << endl;
     }
 
     return 0;
