@@ -69,59 +69,56 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int r, c;
-int A[100][100];
-bool visited[100][100];
-vii order;
-int dist[100][100];
+int n, m;
+char A[1000][1000];
+vi order;
+bool visited[2000];
+int dist[2000];
 
-void topoSort(int i, int j) {
-    visited[i][j] = true;
-    int dx[4] = { -1, 0, 1, 0 };
-    int dy[4] = { 0, -1, 0, 1 };
-    F0R(x, 4) {
-        int a = i + dx[x], b = j + dy[x];
-        if (a < 0 || a >= r || b < 0 || b >= c) continue;
-        if (visited[a][b]) continue;
-        if (A[i][j] <= A[a][b]) continue;
-        topoSort(a, b);
+void topoSort(int i) {
+    visited[i] = true;
+    int start, end;
+    if (i < n) {
+        start = n, end = n+m;
+    } else {
+        start = 0, end = n;
     }
-    order.pb(mp(i, j));
+    FOR(j, start, end) {
+        if (!visited[j] && ((i < n && A[i][j-n] == '<') || (i >= n && A[j][i-n] == '>'))) topoSort(j);
+    }
+    order.pb(i);
 }
 
 int main() {
-    int t; cin >> t;
-    while (t--) {
-        string name; cin >> name;
-        cin >> r >> c;
-        F0R(i, r) {
-            F0R(j, c) cin >> A[i][j];
-        }
-        SET2D(visited, false, 100, 100);
-        SET2D(dist, 0, 100, 100);
-        order.clear();
-        F0R(i, r) {
-            F0R(j, c) {
-                if (!visited[i][j]) {
-                    topoSort(i, j);
-                }
-            }
-        }
-        reverse(order.begin(), order.end());
-        int ans = 0;
-        for (ii x : order) {
-            int dx[4] = { -1, 0, 1, 0 };
-            int dy[4] = { 0, 1, 0, -1 };
-            F0R(i, 4) {
-                int a = x.pA + dx[i], b = x.pB + dy[i];
-                if (a < 0 || a >= r || b < 0 || b >= c) continue;
-                if (A[x.pA][x.pB] <= A[a][b]) continue;
-                MAX(dist[a][b], dist[x.pA][x.pB]+1);
-                MAX(ans, dist[a][b]);
-            }
-        }
-        cout << name << ": " << ans+1 << endl;
+    cin >> n >> m;
+    F0R(i, n) F0R(j, m) cin >> A[i][j];
+    SET(visited, false, 2000);
+    F0R(i, n+m) {
+        if (!visited[i]) topoSort(i);
     }
+    reverse(order.begin(), order.end());
+    SET(dist, 1, 2000);
+
+    for (int x : order) {
+        int start, end;
+        if (x < n) {
+            start = n, end = n+m;
+        } else {
+            start = 0, end = n;
+        }
+        FOR(i, start, end) {
+            if ((x < n && A[x][i-n] == '<') || (x >= n && A[i][x-n] == '>')) {
+                MAX(dist[i], dist[x]+1);
+            }
+        }
+    }
+
+    cout << "Yes" << endl;
+    cout << dist[0];
+    FOR(i, 1, n) cout << " " << dist[i];
+    cout << endl << dist[n];
+    FOR(i, n+1, n+m) cout << " " << dist[i];
+    cout << endl;
 
     return 0;
 }
