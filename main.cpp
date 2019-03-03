@@ -74,17 +74,16 @@ char A[1000][1000];
 vi order;
 bool visited[2000];
 int dist[2000];
+vi children[2000];
+
+bool isCyclic() {
+
+}
 
 void topoSort(int i) {
     visited[i] = true;
-    int start, end;
-    if (i < n) {
-        start = n, end = n+m;
-    } else {
-        start = 0, end = n;
-    }
-    FOR(j, start, end) {
-        if (!visited[j] && ((i < n && A[i][j-n] == '<') || (i >= n && A[j][i-n] == '>'))) topoSort(j);
+    for (int child : children[i]) {
+        if (!visited[child]) topoSort(child);
     }
     order.pb(i);
 }
@@ -92,6 +91,17 @@ void topoSort(int i) {
 int main() {
     cin >> n >> m;
     F0R(i, n) F0R(j, m) cin >> A[i][j];
+    F0R(i, n*2) {
+        int start, end;
+        if (i < n) {
+            start = n, end = n+m;
+        } else {
+            start = 0, end = n;
+        }
+        FOR(j, start, end) {
+            if ((i < n && A[i][j-n] == '<') || (i >= n && A[j][i-n] == '>')) children[i].pb(j);
+        }
+    }
     SET(visited, false, 2000);
     F0R(i, n+m) {
         if (!visited[i]) topoSort(i);
@@ -100,16 +110,8 @@ int main() {
     SET(dist, 1, 2000);
 
     for (int x : order) {
-        int start, end;
-        if (x < n) {
-            start = n, end = n+m;
-        } else {
-            start = 0, end = n;
-        }
-        FOR(i, start, end) {
-            if ((x < n && A[x][i-n] == '<') || (x >= n && A[i][x-n] == '>')) {
-                MAX(dist[i], dist[x]+1);
-            }
+        for (int child : children[x]) {
+            MAX(dist[child], dist[x]+1);
         }
     }
 
