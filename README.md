@@ -461,6 +461,7 @@ Solutions to various Codeforces problems.
 | 1130C | C. Connect | Floodfill, Brute Force |
 | 1130D1 | D. Toy Train (Simplified) | Simulation |
 | 1130D2 | D. Toy Train | Math, Precomputation |
+| 1131D | D. Gourmet Choice | Graph |
 
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
