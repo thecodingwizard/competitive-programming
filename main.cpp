@@ -73,11 +73,29 @@ int n, m;
 char A[1000][1000];
 vi order;
 bool visited[2000];
+bool eqVisited[2000];
 int dist[2000];
 vi children[2000];
+int nodeMap[2000];
+vi equalityChildren[2000];
+set<int> S;
 
-bool isCyclic() {
+bool isCyclic(int node) {
+    if (S.count(node) > 0) return true;
+    S.insert(node);
+    for (int child : children[node]) {
+        if (isCyclic(child)) return true;
+    }
+    S.erase(node);
+    return false;
+}
 
+void dfsEq(int node, int magic) {
+    nodeMap[node] = magic;
+    visited[node] = true;
+    for (int child : equalityChildren[node]) {
+        if (!visited[child]) dfsEq(child, magic);
+    }
 }
 
 void topoSort(int i) {
@@ -100,8 +118,22 @@ int main() {
         }
         FOR(j, start, end) {
             if ((i < n && A[i][j-n] == '<') || (i >= n && A[j][i-n] == '>')) children[i].pb(j);
+            if ((i < n && A[i][j-n] == '=') || (i >= n && A[j][i-n] == '=')) equalityChildren[i].pb(j);
         }
     }
+
+    SET(eqVisited, false, 2000);
+    F0R(i, n*2) {
+        dfsEq(i, i);
+    }
+
+    F0R(i, n) {
+        if (isCyclic(i)) {
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+
     SET(visited, false, 2000);
     F0R(i, n+m) {
         if (!visited[i]) topoSort(i);
