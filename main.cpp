@@ -69,121 +69,107 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n, m;
-char A[1000][1000];
-vi order;
-bool visited[2000];
-bool eqVisited[2000];
-int dist[2000];
-vi children[2000];
-set<int> finalChildren[2000];
-int nodeMap[2000];
-vi equalityChildren[2000];
-set<int> S;
+class FenwickTree {
+private:
+  vi ft;
 
-bool isCyclic(int node) {
-    visited[node] = true;
-    if (S.count(node) > 0) return true;
-    S.insert(node);
-    for (int child : finalChildren[node]) {
-        if (!visited[nodeMap[child]] && isCyclic(nodeMap[child])) return true;
-        else if (S.count(nodeMap[child]) > 0) return true;
+public:
+  FenwickTree() {}
+  FenwickTree(int n) { ft.assign(n + 1, 0); }
+
+  int rsq(int b) {
+    int sum = 0; for (; b; b -= LSOne(b)) sum ^= ft[b];
+    return sum; }
+
+  int rsq(int a, int b) {
+    return rsq(b) ^ (a == 1 ? 0 : rsq(a - 1)); }
+
+  void adjust(int k, int v) {
+    for (; k < (int)ft.size(); k += LSOne(k)) ft[k] ^= v; }
+};
+
+int n, q;
+int A[100000];
+vi children[100000];
+int sz[101000], ctr = 1;
+map<int, int> idx;
+FenwickTree FT(101000);
+int depth[101000], p[18][101000];
+
+void build(int x, int pa, int d) {
+    depth[x] = d;
+    p[0][x] = pa;
+    FOR(i, 1, 18) {
+        p[i][x] = p[i-1][p[i-1][x]];
     }
-    S.erase(node);
-    return false;
+    for (int child : children[x]) {
+        if (child != pa) build(child, x, d+1);
+    }
 }
 
-void dfsEq(int node, int magic) {
-    nodeMap[node] = magic;
-    eqVisited[node] = true;
-    for (int child : equalityChildren[node]) {
-        if (!eqVisited[child]) {
-            dfsEq(child, magic);
-            for (int otherChild : children[child]) {
-                finalChildren[magic].insert(otherChild);
-            }
+int lca(int a, int b) {
+    if (depth[a] < depth[b]) {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
+    int c = depth[a] - depth[b];
+    F0R(i, 18) {
+        if ((c >> i) & 1) a = p[i][a];
+    }
+    if (a == b) return a;
+
+    F0Rd(i, 18) {
+        if (p[i][a] != p[i][b]) {
+            a = p[i][a];
+            b = p[i][b];
         }
     }
-    for (int child : children[node]) finalChildren[magic].insert(child);
+    return p[0][a];
 }
 
-void topoSort(int i) {
-    visited[i] = true;
-    for (int child : finalChildren[i]) {
-        if (!visited[nodeMap[child]]) topoSort(nodeMap[child]);
+int dfs(int node, int p) {
+    int nodeCtr = ctr++;
+    idx[node] = nodeCtr;
+    int size = 1;
+    for (int child : children[node]) {
+        if (child == p) continue;
+        size += dfs(child, node);
     }
-    order.pb(i);
+    sz[nodeCtr] = size;
+    FT.adjust(nodeCtr, A[node]);
+    FT.adjust(nodeCtr + sz[nodeCtr], A[node]);
+    return sz[nodeCtr];
 }
 
 int main() {
-    cin >> n >> m;
-    F0R(i, n) F0R(j, m) cin >> A[i][j];
-    F0R(i, n + m) {
-        int start, end;
-        if (i < n) {
-            start = n, end = n + m;
+    setupIO("cowland");
+    cin >> n >> q;
+    F0R(i, n) cin >> A[i];
+    F0R(i, n-1) {
+        int a, b; cin >> a >> b;
+        --a; --b;
+        children[a].pb(b);
+        children[b].pb(a);
+    }
+    dfs(0, -1);
+    build(0, 0, 0);
+
+    F0R(i, q) {
+        int x; cin >> x;
+        if (x == 1) {
+            int y, v; cin >> y >> v;
+            --y;
+            int id = idx[y];
+            FT.adjust(id, A[y] ^ v);
+            FT.adjust(id + sz[id], A[y] ^ v);
+            A[y] = v;
         } else {
-            start = 0, end = n;
-        }
-        FOR(j, start, end) {
-            if ((i < n && A[i][j - n] == '<') || (i >= n && A[j][i - n] == '>')) children[i].pb(j);
-            if ((i < n && A[i][j - n] == '=') || (i >= n && A[j][i - n] == '=')) equalityChildren[i].pb(j);
+            int a, b; cin >> a >> b;
+            int ans = FT.rsq(idx[a-1]) ^ FT.rsq(idx[b-1]) ^ A[lca(a-1, b-1)];
+            cout << ans << endl;
         }
     }
-
-    SET(eqVisited, false, 2000);
-    F0R(i, n + m) {
-        if (!eqVisited[i]) dfsEq(i, i);
-    }
-
-    SET(visited, false, 2000);
-    F0R(i, n + m) {
-        if (!visited[nodeMap[i]] && isCyclic(nodeMap[i])) {
-            cout << "No" << endl;
-            return 0;
-        }
-    }
-
-    SET(visited, false, 2000);
-    F0R(i, n + m) {
-        if (!visited[nodeMap[i]]) topoSort(nodeMap[i]);
-    }
-    reverse(order.begin(), order.end());
-    SET(dist, 1, 2000);
-
-    for (int x : order) {
-        for (int child : finalChildren[nodeMap[x]]) {
-            MAX(dist[nodeMap[child]], dist[nodeMap[x]] + 1);
-        }
-    }
-
-//    F0R(i, n) {
-//        FOR(j, n, n+m) {
-//            if (A[i][j-n] == '<') {
-//                if (dist[nodeMap[i]] >= dist[nodeMap[j]]) {
-//                    cout << "No" << endl;
-//                    return 0;
-//                }
-//            } else if (A[i][j-n] == '>') {
-//                if (dist[nodeMap[i]] <= dist[nodeMap[j]]) {
-//                    cout << "No" << endl;
-//                    return 0;
-//                }
-//            } else {
-//                if (dist[nodeMap[i]] != dist[nodeMap[j]]) {
-//                    cout << "No" << endl;
-//                    return 0;
-//                }
-//            }
-//        }
-//    }
-
-    cout << "Yes" << endl;
-    cout << dist[nodeMap[0]];
-    FOR(i, 1, n) cout << " " << dist[nodeMap[i]];
-    cout << endl << dist[nodeMap[n]];
-    FOR(i, n + 1, n + m) cout << " " << dist[nodeMap[i]];
-    cout << endl;
 
     return 0;
 }

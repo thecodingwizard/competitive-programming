@@ -79,6 +79,19 @@ vi children[2000];
 set<int> finalChildren[2000];
 int nodeMap[2000];
 vi equalityChildren[2000];
+set<int> S;
+
+bool isCyclic(int node) {
+    visited[node] = true;
+    if (S.count(node) > 0) return true;
+    S.insert(node);
+    for (int child : finalChildren[node]) {
+        if (!visited[nodeMap[child]] && isCyclic(nodeMap[child])) return true;
+        else if (S.count(nodeMap[child]) > 0) return true;
+    }
+    S.erase(node);
+    return false;
+}
 
 void dfsEq(int node, int magic) {
     nodeMap[node] = magic;
@@ -105,26 +118,34 @@ void topoSort(int i) {
 int main() {
     cin >> n >> m;
     F0R(i, n) F0R(j, m) cin >> A[i][j];
-    F0R(i, n+m) {
+    F0R(i, n + m) {
         int start, end;
         if (i < n) {
-            start = n, end = n+m;
+            start = n, end = n + m;
         } else {
             start = 0, end = n;
         }
         FOR(j, start, end) {
-            if ((i < n && A[i][j-n] == '<') || (i >= n && A[j][i-n] == '>')) children[i].pb(j);
-            if ((i < n && A[i][j-n] == '=') || (i >= n && A[j][i-n] == '=')) equalityChildren[i].pb(j);
+            if ((i < n && A[i][j - n] == '<') || (i >= n && A[j][i - n] == '>')) children[i].pb(j);
+            if ((i < n && A[i][j - n] == '=') || (i >= n && A[j][i - n] == '=')) equalityChildren[i].pb(j);
         }
     }
 
     SET(eqVisited, false, 2000);
-    F0R(i, n+m) {
+    F0R(i, n + m) {
         if (!eqVisited[i]) dfsEq(i, i);
     }
 
     SET(visited, false, 2000);
-    F0R(i, n+m) {
+    F0R(i, n + m) {
+        if (!visited[nodeMap[i]] && isCyclic(nodeMap[i])) {
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+
+    SET(visited, false, 2000);
+    F0R(i, n + m) {
         if (!visited[nodeMap[i]]) topoSort(nodeMap[i]);
     }
     reverse(order.begin(), order.end());
@@ -132,28 +153,7 @@ int main() {
 
     for (int x : order) {
         for (int child : finalChildren[nodeMap[x]]) {
-            MAX(dist[nodeMap[child]], dist[nodeMap[x]]+1);
-        }
-    }
-
-    F0R(i, n) {
-        FOR(j, n, n+m) {
-            if (A[i][j-n] == '<') {
-                if (dist[nodeMap[i]] >= dist[nodeMap[j]]) {
-                    cout << "No" << endl;
-                    return 0;
-                }
-            } else if (A[i][j-n] == '>') {
-                if (dist[nodeMap[i]] <= dist[nodeMap[j]]) {
-                    cout << "No" << endl;
-                    return 0;
-                }
-            } else {
-                if (dist[nodeMap[i]] != dist[nodeMap[j]]) {
-                    cout << "No" << endl;
-                    return 0;
-                }
-            }
+            MAX(dist[nodeMap[child]], dist[nodeMap[x]] + 1);
         }
     }
 
@@ -161,7 +161,7 @@ int main() {
     cout << dist[nodeMap[0]];
     FOR(i, 1, n) cout << " " << dist[nodeMap[i]];
     cout << endl << dist[nodeMap[n]];
-    FOR(i, n+1, n+m) cout << " " << dist[nodeMap[i]];
+    FOR(i, n + 1, n + m) cout << " " << dist[nodeMap[i]];
     cout << endl;
 
     return 0;
