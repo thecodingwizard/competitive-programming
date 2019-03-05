@@ -159,6 +159,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2019 | [poetry][poetry] | Cow Poetry | DP, power under mod, math |
 | Jan 2019 | [sleepy][sleepy] | Sleepy Cow Sorting | Fenwick Tree |
 | Jan 2019 | [shortcut][shortcut] | Shortcut | Dijkstra, find path |
+| Feb 2019 | [cowland][cowland] | Cow Land | Tree Traversal Array, or alternatively Heavy-Light Decomposition |
 
 ### Platinum USACO Contests:
 
@@ -362,6 +363,7 @@ Solutions to USACO training and USACO contest problems.
 [poetry]: usaco-contests/2019jan/gold/poetry.cpp
 [sleepy]: usaco-contests/2019jan/gold/sleepy.cpp
 [shortcut]: usaco-contests/2019jan/gold/shortcut.cpp
+[cowland]: usaco-contests/2019feb/gold/cowland.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
