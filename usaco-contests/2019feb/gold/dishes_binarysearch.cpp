@@ -69,32 +69,69 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+int n, A[100000];
+int val[100100];
+
+bool can(int num) {
+    if (num > n) {
+        exit(0);
+    }
+    vi needed;
+    F0R(i, num) {
+        needed.pb(A[i]);
+    }
+    SORT(needed);
+    int idx = 0;
+    set<pair<ii, bool>> dishes;
+    F0R(i, num) {
+        auto it = dishes.upper_bound(mp(mp(A[i], INF), false));
+        if (it == dishes.end()) {
+            dishes.insert(mp(mp(A[i], -1), true));
+            val[A[i]] = -1;
+        } else if (it->pB) {
+            dishes.insert(mp(mp(A[i], it->pA.pA), true));
+            val[A[i]] = it->pA.pA;
+            dishes.insert(mp(mp(it->pA.pA, it->pA.pB), false));
+            dishes.erase(it);
+        } else {
+            return false;
+        }
+
+        while (true) {
+            it = dishes.begin();
+            if (it == dishes.end() || it->pA.pA != needed[idx]) break;
+            int below = it->pA.pB;
+            dishes.erase(it);
+            if (below != -1) {
+                dishes.erase(mp(mp(below, val[below]), false));
+                dishes.insert(mp(mp(below, val[below]), true));
+            }
+            idx++;
+        }
+        if (!(dishes.empty() || idx < needed.size())) {
+            exit(0);
+        }
+    }
+    return true;
+}
+
 int main() {
     setupIO("dishes");
 
-    int n; cin >> n;
-    int A[n]; F0R(i, n) cin >> A[i];
-    int base[n+10]; SET(base, -1, n+10);
-    vi plates[n+10];
-    int maxPlaced = -1;
+    cin >> n;
+    F0R(i, n) cin >> A[i];
 
-    F0R(i, n) {
-        int next = A[i];
-        if (next < maxPlaced) {
-            cout << i << endl;
-            return 0;
+    int lo = 0, hi = n+1, mid, ans;
+    while (lo + 1 < hi) {
+        mid = (lo + hi)/2;
+        if (can(mid)) {
+            ans = mid;
+            lo = mid;
+        } else {
+            hi = mid;
         }
-        for (int plate = next; base[plate] == -1 && plate > 0; plate--) {
-            base[plate] = next;
-        }
-        while (!plates[base[next]].empty() && plates[base[next]].back() < next) {
-            MAX(maxPlaced, plates[base[next]].back());
-            plates[base[next]].pop_back();
-        }
-        plates[base[next]].pb(next);
     }
-
-    cout << n << endl;
+    cout << ans << endl;
 
     return 0;
 }

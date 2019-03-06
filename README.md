@@ -160,7 +160,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2019 | [sleepy][sleepy] | Sleepy Cow Sorting | Fenwick Tree |
 | Jan 2019 | [shortcut][shortcut] | Shortcut | Dijkstra, find path |
 | Feb 2019 | [cowland][cowland] | Cow Land | Tree Traversal Array, or alternatively Heavy-Light Decomposition |
-| Feb 2019 | [dishes][dishes] | Dishwashing | Greedy (I implemented Binary Search O(nlog^2n), a O(n) solution is also possible |
+| Feb 2019 | [dishes][dishes] | Dishwashing | Greedy (Also doable with [Greedy + Binary Search][dishes_binarysearch]) |
 
 ### Platinum USACO Contests:
 
@@ -365,6 +365,7 @@ Solutions to USACO training and USACO contest problems.
 [sleepy]: usaco-contests/2019jan/gold/sleepy.cpp
 [shortcut]: usaco-contests/2019jan/gold/shortcut.cpp
 [cowland]: usaco-contests/2019feb/gold/cowland.cpp
+[dishes_binarysearch]: usaco-contests/2019feb/gold/dishes_binarysearch.cpp
 [dishes]: usaco-contests/2019feb/gold/dishes.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
