@@ -1,0 +1,182 @@
+#!/usr/bin/python
+
+import sys, os, subprocess, md5, random, math
+from IneffableHelper import *
+from Rbow import *
+
+def omgError(errstr):
+  print Rbow.c(Rbow.RED, 'Arrgh! '+errstr)
+  sys.exit()
+
+def omgWarning(warnstr):
+  print Rbow.c(Rbow.RED, 'Heyyy! '+warnstr)
+
+# key: [value, *valueful*]
+ineff_options_list = {
+  '-v':        ['version', False],
+  '--version': ['version', False],
+
+  '-V':        ['verbose', False],
+  '--verbose': ['verbose', False],
+
+  '-V2':        ['verboser', False],
+  '--verboser': ['verboser', False],
+
+  '-h': ['help', False],
+  '--help': ['help', False],
+
+  '-w':                  ['warmup', False],
+  '--warmup':            ['warmup', False],
+  '--beammeupscotty':    ['warmup', False]
+}
+
+ineff_options = {}
+options = {}
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+arg_used = [False for i in xrange(len(sys.argv))]
+
+keyless_vals = []
+i = 1
+while i < len(sys.argv):
+  if sys.argv[i][0] == '-':
+    baked = ineff_options_list[sys.argv[i]][0]
+    keyful = ineff_options_list[sys.argv[i]][1]
+    ineff_options[ baked ] = None
+    if keyful and i+1 < len(sys.argv) and sys.argv[i+1][0] != '-':
+      ineff_options[ baked ] = sys.argv[i+1]
+      i += 1
+  else:
+    keyless_vals.append(sys.argv[i])
+  i += 1
+del i
+
+configfile = 'ineff.json'
+if 0 < len(keyless_vals):
+  configfile = keyless_vals[0]
+
+if 'help' in ineff_options:
+  help_text = \
+r"""
+ineffable [-v | --version] \
+          [-V | --verbose] \
+          [-h | --help] \
+          [-w | --warmup | --beammeupscotty] <configfile>
+"""
+  print help_text
+  sys.exit()
+
+if 'version' in ineff_options:
+  version_text = r"v1.2"
+  print version_text
+  sys.exit()
+
+options['verbose'] = 'verbose' in ineff_options or 'verboser' in ineff_options
+options['verboser'] = 'verboser' in ineff_options
+options['warmup'] = 'warmup' in ineff_options
+
+if os.path.isdir(configfile):
+  configfile = os.path.join(configfile, 'ineff.json')
+
+if not os.path.isfile(configfile):
+  print Rbow.c(Rbow.RED, '\nArrgh!!! No such configuration file found: %s\n' % (configfile))
+  sys.exit()
+
+print 'Loading config file: %s' % os.path.abspath(configfile)
+h = IneffableHelper(configfile)
+
+print
+if h.pkdesc is not None:
+  print '     ' + Rbow.c('1;31', '/*') + ' ' + Rbow.c('1;36', h.pkdesc) + ' ' + Rbow.c('1;31', '*/')
+if h.tl is not None:
+  print '     ' + Rbow.c('1;31', '/*') + ' ' + Rbow.c('1;36', 'Time Limit: '+str(h.tl/1000.0)+' sec') + ' ' + Rbow.c('1;31', '*/')
+if h.tl is not None:
+  print '     ' + Rbow.c('1;31', '/*') + ' ' + Rbow.c('1;36', 'Memory Limit: '+str(h.ml)+' kB') + ' ' + Rbow.c('1;31', '*/')
+print
+
+if h.warmup is not None:
+  print 'Warming up with: %s' % (h.warmup)
+  try:
+    subprocess.check_output(['/bin/sh', '-c', h.warmup])
+    if options['warmup']: # just warmup, and that's all
+      print Rbow.c(Rbow.GREEN, 'Warmup successful!') + '\n'
+      sys.exit()
+  except Exception as e:
+    print Rbow.c(Rbow.RED, '\nArrgh!!! Warmup command exited with non-zero ( %s ) code\n' % (e.returncode))
+    print 'Verdict: %s' % (Rbow.c(Rbow.WE, 'Warmup Error'))
+    sys.exit()
+
+foo = os.path.join(h.configdir, h.tstdir, md5.new('omgomgomg').hexdigest())
+
+if h.iopairs is not None:
+  width = 0
+  for inp in h.iopairs.keys():
+    width = max(width, len(inp))
+
+  ntests = 0
+  npassed = 0
+  print 
+  for inp, out in h.iopairs.iteritems():
+    print 'Test {}:'.format(inp).ljust(width+6),
+    ntests += 1
+
+    runtime_error = False
+    try:
+      limiter_output = subprocess.check_output(['sh', '-c', '{}/timeout -t {} -m {} {} <{} >{}'.format(
+        dir_path, h.tl/1000.0, h.ml, h.execute, os.path.join(h.configdir, h.tstdir, inp), foo)], stderr=subprocess.STDOUT
+      )
+    except Exception as e:
+      runtime_error = True
+      limiter_output = e.output
+
+    print limiter_output
+    if not runtime_error:
+      if limiter_output.find('INEFF_TIME') != -1:
+        print Rbow.c(Rbow.TLE, '[TLE] Time Limit Exceeded')
+      elif limiter_output.find('INEFF_MEM') != -1:
+        print Rbow.c(Rbow.MLE, '[MLE] Memory Limit Exceeded')
+      elif limiter_output.find('INEFF_HANGUP') != -1:
+        print Rbow.c(Rbow.HANGUP, '[???] Hangup Error')
+      elif limiter_output.find('INEFF_OUTSIZE') != -1:
+        print Rbow.c(Rbow.OLE, '[OLE] Output Limit Exceeded')
+      else:
+        identical = True
+        diff_output = ''
+        try:
+          diff_output = subprocess.check_output(['sh', '-c', 'diff -bB {} {}'.format(h.tstdir + out, foo)], stderr=subprocess.STDOUT)[:-1]
+        except Exception as e:
+          identical = False
+          diff_output = e.output
+      
+        if identical:
+          print Rbow.c(Rbow.AC, '[AC] Accepted')
+          npassed += 1
+        else:
+          print Rbow.c(Rbow.WA, '[WA] Wrong Answer')
+          if options['verbose']:
+            print '### Last 10 lines of input %s\n%s\n' % (inp, subprocess.check_output(['tail', os.path.join(h.configdir, h.tstdir, inp)]))
+            print '### Checker output:\n'+diff_output+'\n'
+    else:
+      print Rbow.c(Rbow.RE, '[RE] Runtime Error')
+
+    if options['verboser']:
+      print '### Resource limiter output:\n' + limiter_output
+
+
+  os.unlink(foo)
+  dummy_color = Rbow.GREEN if npassed == ntests else Rbow.RED if npassed == 0 else Rbow.YELLOW
+  print "\nPassed %s of %s tests" % (Rbow.c(dummy_color, str(npassed)), Rbow.c(dummy_color, str(ntests)))
+  if npassed == ntests:
+    quotes = [
+      ["AC is not final, WA is not fatal: it is the courage to continue that counts.", "Winston Churchill"],
+      ["To AC in life, you need two things: ignorance and confidence.", "Mark Twain"],
+      ["AC consists of going from WA to WA without loss of enthusiasm.", "Winston Churchill"],
+      ["AC is how high you bounce when you hit bottom (= get WA).", "George S. Patton"]
+    ]
+    r = int(math.floor(random.random()*len(quotes)))
+    
+    quotes[r][0] + '\n- ' + quotes[r][1]
+    
+    print
+    print Rbow.c('1;31;40', u'\n\u201c ' + quotes[r][0] + u' \u201d\n- ' + quotes[r][1] + '\n')
+    print
