@@ -73,9 +73,9 @@ int ct[210][210];
 
 int getCt(int topBound, int botBound, int leftBound, int rightBound) {
     return ct[rightBound][topBound]
-            - (botBound == -1 ? 0 : ct[rightBound][botBound])
-            - (leftBound == -1 ? 0 : ct[leftBound][topBound])
-            + (leftBound == -1 || botBound == -1 ? 0 : ct[leftBound][botBound]);
+           - (botBound == -1 ? 0 : ct[rightBound][botBound])
+           - (leftBound == -1 ? 0 : ct[leftBound][topBound])
+           + (leftBound == -1 || botBound == -1 ? 0 : ct[leftBound][botBound]);
 }
 
 int main() {

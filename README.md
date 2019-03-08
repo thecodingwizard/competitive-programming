@@ -161,6 +161,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2019 | [shortcut][shortcut] | Shortcut | Dijkstra, find path |
 | Feb 2019 | [cowland][cowland] | Cow Land | Tree Traversal Array, or alternatively Heavy-Light Decomposition |
 | Feb 2019 | [dishes][dishes] | Dishwashing | Greedy (Also doable with [Greedy + Binary Search][dishes_binarysearch]) |
+| Feb 2019 | [paintbarn][paintbarn] | Painting the Barn | Geometry, Prefix Sums, Line Sweep |
 
 ### Platinum USACO Contests:
 
@@ -367,6 +368,7 @@ Solutions to USACO training and USACO contest problems.
 [cowland]: usaco-contests/2019feb/gold/cowland.cpp
 [dishes_binarysearch]: usaco-contests/2019feb/gold/dishes_binarysearch.cpp
 [dishes]: usaco-contests/2019feb/gold/dishes.cpp
+[paintbarn]: usaco-contests/2019feb/gold/paintbarn.cpp
 
 [bbreeds]: usaco-contests/2012nov/gold/bbreeds.cpp
 [gangs]: usaco-contests/2012dec/gold/gangs.cpp
