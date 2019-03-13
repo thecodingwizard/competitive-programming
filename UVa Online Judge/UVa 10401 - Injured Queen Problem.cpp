@@ -69,38 +69,76 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n, k;
-ll A[800];
+int n;
+string s;
+vi children[20][20];
+bool visited[20][20];
+ll ways[20][20];
+vii S;
 
-bool can(ll mid) {
-    int used = 0, cur = 0;
-    int i = 0;
-    while (i <= n) {
-        if (A[i] > mid) return false;
-        if (cur + A[i] > mid) {
-            used++;
-            cur = 0;
-        }
-        cur += A[i];
-        i++;
+void topoSort(int row, int col) {
+    visited[row][col] = true;
+
+    for (int child : children[row][col]) {
+        if (!visited[row+1][child]) topoSort(row+1, child);
     }
-    return used <= k;
+
+    S.pb(mp(row, col));
+}
+
+int getVal(char x) {
+    if (x == '?') return INF;
+    if (x >= 'A') return x - 'A' + 9;
+    return x - '1';
 }
 
 int main() {
-    while (cin >> n >> k) {
-        F0R(i, n + 1) cin >> A[i];
+    while (cin >> s) {
+        n = s.length();
+        S.clear();
+        SET2D(visited, false, 20, 20);
+        SET2D(ways, 0, 20, 20);
 
-        ll lo = 0, hi = 1000000000, mid, ans;
-        while (lo < hi) {
-            mid = (lo + hi) / 2;
-            if (can(mid)) {
-                hi = mid;
-                ans = mid;
-            } else {
-                lo = mid + 1;
+        F0R(i, n) {
+            F0R(col, n) {
+                children[i][col].clear();
+                if (i == n - 1) continue;
+                if (s[i + 1] == '?') {
+                    F0R(j, n) {
+                        int val = j;
+                        if (abs(col - val) <= 1) continue;
+                        children[i][col].pb(val);
+                    }
+                } else {
+                    int val = getVal(s[i + 1]);
+                    if (abs(col - val) <= 1) continue;
+                    children[i][col].pb(val);
+                }
             }
         }
+
+        if (s[0] == '?') {
+            F0R(x, n) {
+                ways[0][x] = 1;
+                topoSort(0, x);
+            }
+        } else {
+            int val = getVal(s[0]);
+            ways[0][val] = 1;
+            topoSort(0, val);
+        }
+
+        reverse(S.begin(), S.end());
+
+        for (ii x : S) {
+            for (int child : children[x.pA][x.pB]) {
+                ways[x.pA+1][child] += ways[x.pA][x.pB];
+            }
+        }
+
+        ll ans = 0;
+        F0R(i, n) ans += ways[n-1][i];
+
         cout << ans << endl;
     }
 
