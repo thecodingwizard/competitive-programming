@@ -69,40 +69,68 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n, k;
-int A[100][100];
+struct state {
+    int x, y, dist, targ;
+};
 
-int memo[100][100][3][6];
-int dx[3] = { 0, 0, 1 };
-int dy[3] = { -1, 1, 0 };
-int dp(int i, int j, int prevDir, int k) {
-    if (i < 0 || i >= n || j < 0 || j >= n) return -INF;
-    if (A[i][j] < 0) k--;
-    if (k < 0) return -INF;
-    if (memo[i][j][prevDir][k] != -1) return memo[i][j][prevDir][k];
-    if (i == n - 1 && j == n - 1) return A[i][j];
-
-    int sum = -INF;
-    F0R(x, 3) {
-        if (prevDir == 1 && x == 0) continue;
-        if (prevDir == 0 && x == 1) continue;
-        int dpAns = dp(i + dx[x], j + dy[x], x, k);
-        if (dpAns != -INF) MAX(sum, dpAns + A[i][j]);
-    }
-    return memo[i][j][prevDir][k] = sum;
-}
-
+int n;
+char A[10][10];
+int ways[10][10][2600][26];
+bool visited[10][10][26];
 int main() {
-    int casenum = 1;
-    while (cin >> n >> k && (n || k)) {
-        F0R(i, n) F0R(j, n) cin >> A[i][j];
-        SET4D(memo, -1, 100, 100, 3, 6);
+    int caseNum = 1;
+	while (cin >> n && n) {
+        SET4D(ways, 0, 10, 10, 2600, 26);
+        SET3D(visited, false, 10, 10, 26);
+        ii start;
+        int biggest = -1;
+		F0R(i, n) {
+            F0R(j, n) {
+                cin >> A[i][j];
+                if (A[i][j] == 'A') start = { i, j };
+                if (A[i][j] != '.' && A[i][j] != '#') {
+                    A[i][j] -= 'A';
+                    MAX(biggest, (int)A[i][j]);
+                }
+            }
+        }
+        
+        cout << "Case " << caseNum++ << ": ";
+        ii ans = { INF, INF };
 
-        int ans = dp(0, 0, 2, k);
-        cout << "Case " << casenum++ << ": ";
-        if (ans == -INF) cout << "impossible" << endl;
-        else cout << ans << endl;
-    }
+
+        queue<state> q;
+        q.push(state{start.pA, start.pB, 0, 0});
+        ways[start.pA][start.pB][0][0] = 1;
+        while (!q.empty()) {
+            state next = q.front(); q.pop();
+            if (visited[next.x][next.y][next.targ]) continue;
+            visited[next.x][next.y][next.targ] = true;
+            if (next.targ == biggest && A[next.x][next.y] == next.targ) {
+                ans = { next.dist, ways[next.x][next.y][next.dist][next.targ] };
+                break;
+            }
+            int newTarg = next.targ;
+            if (next.targ == A[next.x][next.y]) newTarg++;
+            int dx[4] = { -1, 0, 1, 0 };
+            int dy[4] = { 0, 1, 0, -1 };
+            F0R(i, 4) {
+                state nxt = { next.x + dx[i], next.y + dy[i], next.dist + 1, newTarg };
+                if (nxt.x < 0 || nxt.x >= n || nxt.y < 0 || nxt.y >= n || A[nxt.x][nxt.y] == '#') continue;
+                if (A[nxt.x][nxt.y] != '.' && A[nxt.x][nxt.y] != nxt.targ) continue;
+                ways[nxt.x][nxt.y][nxt.dist][newTarg] += ways[next.x][next.y][next.dist][next.targ];
+                q.push(nxt);
+            }
+        }
+
+
+        if (ans.pA == INF) {
+            cout << "Impossible";
+        } else {
+            cout << ans.pA << " " << ans.pB;
+        }
+        cout << endl;
+	}
 
     return 0;
 }
