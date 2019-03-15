@@ -69,73 +69,65 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n; 
-vi children[5000];
-int dist[5000];
-int dist2[5000];
 
-ii dfs(int node, int parent) {
-    int maxDepth = 0, maxNode = node;
-    for (int child : children[node]) {
-        if (child == parent) continue;
-        ii res = dfs(child, node);
-        if (res.pA > maxDepth) {
-            maxDepth = res.pA;
-            maxNode = res.pB;
+vi children[25];
+int dist[25], n, m;
+
+int run(int node) {
+    SET(dist, INF, 25);
+    dist[node] = 0;
+    queue<int> q;
+    q.push(node);
+    int endNode = node;
+    vi newChildren[25];
+    while (!q.empty()) {
+        int front = q.front(); q.pop();
+        for (int child : children[front]) {
+            if (dist[child] == INF) {
+                dist[child] = dist[front] + 1;
+                q.push(child);
+                newChildren[child].pb(front);
+                newChildren[front].pb(child);
+                endNode = child;
+            }
         }
     }
-    return mp(maxDepth + 1, maxNode);
-}
-
-void setDist(int node, int d, int parent) {
-    dist[node] = d;
-    for (int child : children[node]) {
-        if (child == parent) continue;
-        setDist(child, d + 1, node);
+    q.push(endNode);
+    SET(dist, INF, 25);
+    dist[endNode] = 0;
+    int ans = 0;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (int child : newChildren[u]) {
+            if (dist[child] == INF) {
+                dist[child] = dist[u] + 1;
+                ans = dist[child];
+                q.push(child);
+            }
+        }
     }
-}
-
-void setDist2(int node, int d, int parent) {
-    dist2[node] = d;
-    for (int child : children[node]) {
-        if (child == parent) continue;
-        setDist2(child, d + 1, node);
-    }
+    cout << node << " " << endNode << " " << ans << endl;
+    return ans;
 }
 
 int main() {
-    while (cin >> n) {
-        assert(n <= 5000);
-        F0R(i, n) {
-            int x; cin >> x;
-            children[i].clear();
-            F0R(j, x) {
-                int y; cin >> y;
-                children[i].pb(y - 1);
-            }
+    int N; cin >> N;
+    F0R1(caseNum, N) {
+        cin >> n;
+        cin >> m;
+        F0R(i, n) children[i].clear();
+        F0R(i, m) {
+            int a, b; cin >> a >> b;
+            children[a].pb(b);
+            children[b].pb(a);
         }
-        vi bestRoots, worstRoots;
-
-        ii one = dfs(0, 0);
-        ii two = dfs(one.pB, one.pB);
-
-        int diameter = two.pA;
-        setDist(one.pB, 0, one.pB);
-        setDist2(two.pB, 0, two.pB);
-
+        int best = INF;
         F0R(i, n) {
-            if (dist[i] <= diameter/2 && dist2[i] <= diameter/2) bestRoots.pb(i);
-            if (dist[i] == diameter - 1 || dist2[i] == diameter - 1) worstRoots.pb(i);
+            MIN(best, run(i));
         }
-
-        cout << "Best Roots  :";
-        for (int x : bestRoots) cout << " " << x + 1;
-        cout << endl;
-        cout << "Worst Roots :";
-        for (int x : worstRoots) cout << " " << x + 1;
-        cout << endl;
+        cout << "Case #" << caseNum << ":" << endl;
+        cout << best << endl << endl;
     }
-
 
     return 0;
 }
