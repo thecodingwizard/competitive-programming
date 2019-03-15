@@ -69,77 +69,57 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n;
-char A[10][10];
-ii loc[30];
+int n; 
+vi children[5000];
+
+int dfs(int node, int parent) {
+    int maxDepth = 0;
+    for (int child : children[node]) {
+        if (child == parent) continue;
+        MAX(maxDepth, dfs(child, node));
+    }
+    return maxDepth + 1;
+}
 
 int main() {
-    int caseNum = 1;
-	while (cin >> n && n) {
-        int biggest = -1;
-		F0R(i, n) {
-            F0R(j, n) {
-                cin >> A[i][j];
-                if (A[i][j] != '.' && A[i][j] != '#') {
-                    A[i][j] -= 'A';
-                    loc[A[i][j]] = { i, j };
-                    MAX(biggest, (int)A[i][j]);
-                }
+    while (cin >> n) {
+        assert(n <= 5000);
+        F0R(i, n) {
+            int x; cin >> x;
+            children[i].clear();
+            F0R(j, x) {
+                int y; cin >> y;
+                children[i].pb(y - 1);
             }
         }
-        
-        cout << "Case " << caseNum++ << ": ";
-
-
-        int totDist = 0;
-        int curWays = 1;
-        bool bad = false;
-        F0R1(i, biggest) {
-            ii start = loc[i - 1], end = loc[i];
-            int dist[10][10]; SET2D(dist, INF, 10, 10);
-            dist[start.pA][start.pB] = 0;
-            int ways[10][10]; SET2D(ways, 0, 10, 10);
-            ways[start.pA][start.pB] = 1;
-            queue<ii> q;
-            q.push(start);
-            bool good = false;
-            while (!q.empty()) {
-                ii front = q.front(); q.pop();
-                if (front == end) {
-                    totDist += dist[front.pA][front.pB];
-                    curWays = (curWays * ways[front.pA][front.pB]) % 20437;
-                    good = true;
-                    break;
-                }
-                int dx[4] = { -1, 0, 1, 0 };
-                int dy[4] = { 0, 1, 0, -1 };
-                F0R(j, 4) {
-                    ii next = { front.pA + dx[j], front.pB + dy[j] };
-                    if (next.pA < 0 || next.pA >= n || next.pB < 0 || next.pB >= n || A[next.pA][next.pB] == '#') continue;
-                    if (A[next.pA][next.pB] > i && A[next.pA][next.pB] != '.') continue;
-                    if (dist[next.pA][next.pB] == INF) {
-                        ways[next.pA][next.pB] += ways[front.pA][front.pB];
-                        dist[next.pA][next.pB] = dist[front.pA][front.pB] + 1;
-                        q.push(next);
-                    } else if (dist[next.pA][next.pB] == dist[front.pA][front.pB] + 1) {
-                        ways[next.pA][next.pB] += ways[front.pA][front.pB];
-                    }
-                }
+        int worst = -INF, best = INF;
+        vi worstRoots, bestRoots;
+        F0R(i, n) {
+            int depth = dfs(i, i);
+            if (depth > worst) {
+                worst = depth;
+                worstRoots.clear();
+                worstRoots.pb(i);
+            } else if (depth == worst) {
+                worstRoots.pb(i);
             }
-            if (!good) {
-                bad = true;
-                break;
+            if (depth < best) {
+                best = depth;
+                bestRoots.clear();
+                bestRoots.pb(i);
+            } else if (depth == best) {
+                bestRoots.pb(i);
             }
         }
 
-
-        if (bad) {
-            cout << "Impossible";
-        } else {
-            cout << totDist << " " << curWays;
-        }
+        cout << "Best Roots  :";
+        for (int x : bestRoots) cout << " " << x + 1;
         cout << endl;
-	}
+        cout << "Worst Roots :";
+        for (int x : worstRoots) cout << " " << x + 1;
+        cout << endl;
+    }
+
 
     return 0;
 }
