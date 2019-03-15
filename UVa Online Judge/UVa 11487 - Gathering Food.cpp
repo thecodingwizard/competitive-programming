@@ -75,9 +75,9 @@ ii loc[30];
 
 int main() {
     int caseNum = 1;
-	while (cin >> n && n) {
+    while (cin >> n && n) {
         int biggest = -1;
-		F0R(i, n) {
+        F0R(i, n) {
             F0R(j, n) {
                 cin >> A[i][j];
                 if (A[i][j] != '.' && A[i][j] != '#') {
@@ -87,7 +87,7 @@ int main() {
                 }
             }
         }
-        
+
         cout << "Case " << caseNum++ << ": ";
 
 
@@ -139,7 +139,7 @@ int main() {
             cout << totDist << " " << curWays;
         }
         cout << endl;
-	}
+    }
 
     return 0;
 }
