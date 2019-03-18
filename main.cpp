@@ -69,100 +69,52 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n, dist[2500], dist2[2500]; 
-set<int> children[2500];
-vii edges;
+vii children[100];
+vi S;
 
-ii getDiam(int start) {
-    queue<int> q;
-    SET(dist, INF, 2500);
-    q.push(start);
-    dist[start] = 0;
-    int endNode = start;
-    while (!q.empty()) {
-        int u = q.front(); q.pop();
-        for (int v : children[u]) {
-            if (dist[v] == INF) {
-                dist[v] = dist[u] + 1;
-                q.push(v);
-                endNode = v;
+void eulerTour(int node) {
+    S.pb(node);
+    for (int i = 0; i < children[node].size(); i++) {
+        ii child = children[node][i];
+        if (child.pB == 1) {
+            children[node][i].pB = 0;
+            for (int j = 0; j < children[child.pA].size(); j++) {
+                ii x = children[child.pA][j];
+                // Remove backedge
+                if (x.pA == node) {
+                    children[child.pA][j].pB = 0;
+                    break;
+                }
             }
+            eulerTour(child.pA);
         }
     }
-    SET(dist, INF, 2500);
-    dist[endNode] = 0;
-    q.push(endNode);
-    int otherEndNode = endNode;
-    while (!q.empty()) {
-        int u = q.front(); q.pop();
-        for (int v : children[u]) {
-            if (dist[v] == INF) {
-                dist[v] = dist[u] + 1;
-                q.push(v);
-                otherEndNode = v;
-            }
-        }
-    }
-    SET(dist2, INF, 2500);
-    dist2[otherEndNode] = 0;
-    q.push(otherEndNode);
-    while (!q.empty()) {
-        int u = q.front(); q.pop();
-        for (int child : children[u]) {
-            if (dist2[child] == INF) {
-                dist2[child] = dist2[u] + 1;
-                q.push(child);
-            }
-        }
-    }
-    int diameter = dist[otherEndNode];
-    F0R(i, n) {
-        if (dist[i] <= (diameter+1)/2 && dist2[i] <= (diameter+1)/2) {
-            return mp(diameter, i);
-        }
-    }
-    assert(false);
-}
-
-ii removedEdge, addedEdge;
-int solve() {
-    ii diam = getDiam(0);
-    int ans = INF;
-    for (ii edge : edges) {
-        children[edge.pA].erase(edge.pB);
-        children[edge.pB].erase(edge.pA);
-        ii diam1 = getDiam(edge.pA), diam2 = getDiam(edge.pB);
-        children[diam1.pB].insert(diam2.pB);
-        children[diam2.pB].insert(diam1.pB);
-        ii diam3 = getDiam(0);
-        if (ans > diam3.pA) {
-            ans = diam3.pA;
-            removedEdge = edge;
-            addedEdge = mp(diam1.pB, diam2.pB);
-        }
-        children[diam2.pB].erase(diam1.pB);
-        children[diam1.pB].erase(diam2.pB);
-        children[edge.pA].insert(edge.pB);
-        children[edge.pB].insert(edge.pA);
-    }
-    return ans;
 }
 
 int main() {
-    int N; cin >> N;
-    F0R1(caseNum, N) {
-        cin >> n;
-        F0R(i, n) children[i].clear();
-        edges.clear();
-        F0R(i, n - 1) {
+    int T; cin >> T;
+    F0R1(caseNum, T) {
+        int n; cin >> n;
+
+        F0R(i, 100) children[i].clear();
+        S.clear();
+
+        int start = 0;
+        F0R(i, n) {
             int a, b; cin >> a >> b;
-            children[--a].insert(--b);
-            edges.pb(mp(a, b));
-            children[b].insert(a);
+            children[a].pb(mp(b, 1));
+            children[b].pb(mp(a, 1));
+            start = a;
         }
 
-        int ans = solve();
-        cout << ans << endl << removedEdge.pA+1 << " " << removedEdge.pB+1 << endl << addedEdge.pA+1 << " " << addedEdge.pB+1 << endl;
+        eulerTour(start);
+
+        if (caseNum != 1) cout << endl;
+        cout << "Case #" << caseNum << endl;
+
+        for (int x : S) {
+            cout << x << " ";
+        }
     }
 
     return 0;
