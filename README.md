@@ -1,3 +1,6 @@
+# Competitive Programming Solutions
+This repository contains solutions to various competitive programming problems.
+
 # USACO Solutions
 
 Solutions to USACO training and USACO contest problems.
