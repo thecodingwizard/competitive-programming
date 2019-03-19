@@ -64,6 +64,7 @@ Solutions to USACO training and USACO contest problems.
 | Contest Date | Problem ID | Problem Name | Solution Notes |
 | ------------ | ---------- | ------------ | -------------- |
 | Feb 2018 | [reststops][reststops] | Rest Stops | Greedy |
+| Feb 2019 | [revegetate][revegetate] | The Great Revegetation | Graph, DFS, Tricky |
 
 ### Gold USACO Contests:
 
@@ -282,6 +283,7 @@ Solutions to USACO training and USACO contest problems.
 [4.4.3]: usaco-training/Chapter%204/4.4.3%20-%20Frame%20Up.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
+[revegetate]: usaco-contests/2019feb/silver/revegetate.cpp
 
 [clumsy]: usaco-contests/2012nov/silver/clumsy.cpp
 [distant]: usaco-contests/2012nov/silver/distant.cpp
