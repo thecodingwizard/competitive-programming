@@ -447,6 +447,7 @@ Solutions to various Codeforces problems.
 | [946D](codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
 | [989D](codeforces/989D%20-%20A%20Shade%20of%20Moonlight.cpp) | D. A Shade of Moonlight | Binary Search, Math |
 | [991B](codeforces/991B%20-%20Getting%20an%20A.cpp) | B. Getting an A | Sorting |
+| 1012B | B. Chemical table | Bipartite Graph |
 | 1038C | C. Gambling | |
 | [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
 | 1067B | B. Multihedgehog | |
@@ -468,6 +469,8 @@ Solutions to various Codeforces problems.
 | 1113C | C. Sasha and a Bit of Relax | |
 | 1113D | D. Sasha and One More Name | |
 | 1114D | D. Flood Fill | |
+| 1117E | E. Decypher the String | Math, string processing |
+| 1118E | E. Yet Another Ball Problem | Constructive Algorithms, Ad Hoc |
 | 1130A | A. Be Positive | Ad Hoc |
 | 1130B | B. Two Cakes | Greedy |
 | 1130C | C. Connect | Floodfill, Brute Force |
