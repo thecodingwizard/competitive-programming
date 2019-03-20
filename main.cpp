@@ -70,24 +70,19 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+int h, w; 
+bool A[40][10]; // true if '*'
+
 int main() {
-    int n;
-    ll m;
-    cin >> n >> m;
-    if (m*(m-1) < n) {
-        cout << "NO" << endl;
-        return 0;
-    }
-
-    cout << "YES" << endl;
-    int delta = 0;
-    F0R(i, n) {
-        if (i % m == 0) delta++;
-
-        int first = i % m;
-        int second = (first + delta) % m;
-
-        cout << first + 1 << " " << second + 1 << endl;
+    int t; cin >> t;
+    while (t--) {
+        cin >> h >> w;
+        F0R(i, h) {
+            F0R(j, w) {
+                char c; cin >> c;
+                A[i][j] = c == '*';
+            }
+        }
     }
 
     return 0;
