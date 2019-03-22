@@ -478,6 +478,7 @@ Solutions to various Codeforces problems.
 | 1130D2 | D. Toy Train | Math, Precomputation |
 | 1131D | D. Gourmet Choice | DAG, Detecting Cycles, Topo Sort |
 | 1133F1 | F1. Spanning Tree With Maximum Degree | Greedy, UFDS, Kruskal |
+| 1133F2 | F2. Spanning Tree With One Fixed Degree | Greedy, UFDS, Kruskal, Construction |
 | 1141F1 | F1. Same Sum Blocks (Easy) | See 1141F2, though O(N^4) dp should also work |
 | 1141F2 | F2. Same Sum Blocks (Hard) | Prefix sums O(N^2) |
 | 1141G | G. Privatization of Roads in Treeland | Greedy, Implementation, DFS |
