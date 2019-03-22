@@ -479,6 +479,7 @@ Solutions to various Codeforces problems.
 | 1131D | D. Gourmet Choice | DAG, Detecting Cycles, Topo Sort |
 | 1141F1 | F1. Same Sum Blocks (Easy) | See 1141F2, though O(N^4) dp should also work |
 | 1141F2 | F2. Same Sum Blocks (Hard) | Prefix sums O(N^2) |
+| 1141G | G. Privatization of Roads in Treeland | Greedy, Implementation, DFS |
 
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
