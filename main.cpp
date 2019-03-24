@@ -70,28 +70,73 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int ct[10];
-
-void doStuff(int i) {
-    ct[i % 10]++;
-    if (i >= 10) {
-        doStuff(i/10);
-    }
-}
-
 int main() {
     int t; cin >> t;
-    while (t--) {
-        SET(ct, 0, 10);
-        int n; cin >> n;
-        F0R1(i, n) {
-            doStuff(i);
+    F0R1(caseNum, t) {
+        int n, q; cin >> n >> q;
+        ii A[q];
+        F0R(i, q) {
+            cin >> A[i].pA >> A[i].pB;
+            A[i].pB++;
         }
-        cout << ct[0];
-        FOR(i, 1, 10) {
-            cout << " " << ct[i];
+        bool taken[q]; F0R(i, q) taken[i] = false;
+        sort(A, A+q);
+
+        viii events;
+        F0R(i, q) {
+            events.emplace_back(A[i].pA, mp(i, 0));
+            events.emplace_back(A[i].pB, mp(i, 1));
         }
-        cout << endl;
+        SORT(events);
+        int ans = INF;
+        F0R(i, q) {
+            int takenIdx = -1;
+            int toSubtract = 0;
+            int subtractIgnore[q]; F0R(i, q) subtractIgnore[i] = 0;
+            int minSeats = INF, minIdx = -1;
+            for (iii x : events) {
+                int u = x.pB.pA;
+                if (!x.pB.pB) {
+                    // starting
+                    if (taken[u]) {
+                        if (takenIdx == -1 || A[takenIdx].pB < A[u].pB) {
+                            if (takenIdx != -1) toSubtract += x.pA - A[takenIdx].pA;
+                            takenIdx = u;
+                        }
+                    } else {
+                        subtractIgnore[u] = toSubtract;
+                        if (takenIdx != -1) {
+                            subtractIgnore[u] += x.pA - A[takenIdx].pA;
+                        }
+                    }
+                } else {
+                    // ending
+                    if (taken[u]) {
+                        if (takenIdx == u) {
+                            toSubtract += A[u].pB - A[u].pA;
+                            takenIdx = -1;
+                        }
+                    } else {
+                        int subtracted = toSubtract;
+                        if (takenIdx != -1) {
+                            subtracted += x.pA - A[takenIdx].pA + 1;
+                        }
+                        subtracted -= subtractIgnore[u];
+                        int seats = A[u].pB - A[u].pA - subtracted;
+                        if (minSeats > seats) {
+                            minSeats = seats;
+                            minIdx = u;
+                        }
+                    }
+                }
+            }
+            assert(minIdx != -1);
+            taken[minIdx] = true;
+            MIN(ans, minSeats);
+            assert(minSeats >= 0);
+        }
+
+        cout << "Case #" << caseNum << ": " << ans << endl;
     }
 
     return 0;

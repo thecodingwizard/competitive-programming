@@ -499,4 +499,9 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | A - Scrambled Words | Strings, implementation |
 | B - No Nine | Digit DP (Alternatively, Ad Hoc) |
 
+## [Kick Start 2019](google-kickstart/2019)
+| Problem Name | Solution Notes |
+| ------------ | -------------- |
+| A - Training | Sorting, Prefix Sums |
+
 [Solutions Folder](google-kickstart)
