@@ -229,6 +229,7 @@ Solutions to USACO training and USACO contest problems.
 | Jan 2018 | [lifeguards][lifeguards] | Lifeguards | DP (Note: Solution code is very sketchy and really shouldn't run in time) |
 | Feb 2018 | [newbarn][newbarn] | New Barns | Centroid Decomposition |
 | Jan 2019 | [redistricting][redistricting] | Redistricting | DP, Monotonic Queue |
+| Feb 2019 | [cowdate][cowdate] | Cow Dating | Two pointers, math |
 
 [1.5.1]: usaco-training/Chapter%201/1.5.1%20ariprog%20-%20Arithmetic%20Progressions.cpp
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
@@ -428,6 +429,7 @@ Solutions to USACO training and USACO contest problems.
 [lifeguards]: usaco-contests/2018jan/plat/lifeguards.cpp
 [newbarn]: usaco-contests/2018feb/plat/newbarn.cpp
 [redistricting]: usaco-contests/2019jan/plat/redistricting.cpp
+[cowdate]: usaco-contests/2019feb/plat/cowdate.cpp
 
 # Codeforces
 Solutions to various Codeforces problems.
