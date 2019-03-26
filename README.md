@@ -505,5 +505,6 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | Problem Name | Solution Notes |
 | ------------ | -------------- |
 | A - Training | Sorting, Prefix Sums |
+| A - Parcels  | Multi-Source BFS, Manhattan Distance |
 
 [Solutions Folder](google-kickstart)
