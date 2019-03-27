@@ -479,6 +479,7 @@ Solutions to various Codeforces problems.
 | 1130D1 | D. Toy Train (Simplified) | Simulation |
 | 1130D2 | D. Toy Train | Math, Precomputation |
 | 1131D | D. Gourmet Choice | DAG, Detecting Cycles, Topo Sort |
+| 1132D | D. Stressful Training | Binary Search, Greedy, Implementation |
 | 1133F1 | F1. Spanning Tree With Maximum Degree | Greedy, UFDS, Kruskal |
 | 1133F2 | F2. Spanning Tree With One Fixed Degree | Greedy, UFDS, Kruskal, Construction |
 | 1137D | D. Cooperative Game | Math, Number Theory, Mods |
