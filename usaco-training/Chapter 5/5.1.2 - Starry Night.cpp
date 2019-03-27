@@ -114,9 +114,9 @@ int main() {
     setupIO("starry");
     cin >> h >> w;
     F0R(i, w) F0R(j, h) {
-        char c; cin >> c;
-        A[i][j] = c == '1';
-    }
+            char c; cin >> c;
+            A[i][j] = c == '1';
+        }
     SET2D(visited, false, w, h);
     SET2D(visited2, false, w, h);
 
