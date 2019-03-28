@@ -287,6 +287,7 @@ Solutions to USACO training and USACO contest problems.
 [4.4.3]: usaco-training/Chapter%204/4.4.3%20-%20Frame%20Up.cpp
 [5.1.1]: usaco-training/Chapter%205/5.1.1%20-%20Fencing%20the%20Cows.cpp
 [5.1.2]: usaco-training/Chapter%205/5.1.2%20-%20Starry%20Night.cpp
+[5.1.3]: usaco-training/Chapter%205/5.1.3%20-%20Musical%20Themes.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 [revegetate]: usaco-contests/2019feb/silver/revegetate.cpp
