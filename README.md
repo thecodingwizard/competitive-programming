@@ -61,6 +61,7 @@ Solutions to USACO training and USACO contest problems.
 | 4.4.3 | [Frame Up][4.4.3] | All Topological Sorts |
 | 5.1.1 | [Fencing the Cows][5.1.1] | Simple Convex Hull |
 | 5.1.2 | [Starry Night][5.1.2] | Floodfill, Implementation |
+| 5.1.3 | [Musical Themes][5.1.3] | Sliding Window Iterative DP, Longest Repeating Non-Overlapping Substring, deltas |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes |
