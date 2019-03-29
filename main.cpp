@@ -101,7 +101,7 @@ int main() {
             for (int k = j - A[i]; k >= 0; k -= A[i]) {
                 if (can[k]) {
                     if (!can[j] || dp[j].size() >= dp[k].size() + 1) {
-                        if (!can[j] || dp[j][0] > i) {
+                        if (!can[j] || dp[j].size() > dp[k].size() + 1 || dp[j][0] > (dp[k].size() > 0 ? dp[k][0] : A[i])) {
                             dp[j] = vi(dp[k]);
                             dp[j].pb(A[i]);
                         }
