@@ -1,6 +1,6 @@
 /*
 ID: nathan.18
-TASK: snail
+TASK: milk4
 LANG: C++11
 */
 
@@ -76,65 +76,48 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n, b;
-char A[120][120];
-int best = 0;
-int dx[4] = { -1, 0, 1, 0 };
-int dy[4] = { 0, 1, 0, -1 };
-int curDist = 0;
-
-void run(int x, int y, int d) {
-    /* cout << "run " << x << " " << y << " " << d << endl; */
-    assert(d >= 0 && d < 4);
-    int a = x + dx[d], b = y + dy[d];
-    int oldCurDist = curDist;
-    if (a < 0 || a >= n || b < 0 || b >= n || A[a][b] == '#' || A[a][b] == '!') {}
-    else {
-        while (true) {
-            curDist++;
-            if (a < 0 || a >= n || b < 0 || b >= n || A[a][b] == '#') {
-                curDist--;
-                a -= dx[d]; b -= dy[d];
-                assert(a >= 0 && a < n && b >= 0 && b < n);
-                run(a, b, (d+1)%4);
-                run(a, b, (d+3)%4);
-                MAX(best, curDist);
-                break;
-            }
-            if (A[a][b] == '!') {
-                curDist--;
-                a -= dx[d]; b -= dy[d];
-                assert(a >= 0 && a < n && b >= 0 && b < n);
-                MAX(best, curDist);
-                break;
-            }
-            A[a][b] = '!';
-            a += dx[d], b += dy[d];
-        }
-        while (!(a == x && b == y)) {
-            A[a][b] = '.';
-            a -= dx[d], b -= dy[d];
-            assert(a >= 0 && a < n && b >= 0 && b < n);
-        }
-    }
-    curDist = oldCurDist;
-}
+int q, p;
+int A[100];
+vi dp[20001];
+bool can[20001];
 
 int main() {
-    setupIO("snail");
+    setupIO("milk4");
 
-    cin >> n >> b;
-    F0R(i, n) F0R(j, n) A[i][j] = '.';
-    F0R(i, b) {
-        char c; int x; cin >> c >> x;
-        A[x - 1][c - 'A'] = '#';
+    cin >> q >> p;
+    F0R(i, p) {
+        cin >> A[i];
+    }
+    sort(A, A+p);
+
+    SET(can, false, 20001);
+    F0Rd(i, p) {
+        F0R(j, q+1) {
+            if (j == 0) {
+                dp[j].clear();
+                can[j] = true;
+                continue;
+            }
+            for (int k = j - A[i]; k >= 0; k -= A[i]) {
+                if (can[k]) {
+                    if (!can[j] || dp[j].size() >= dp[k].size() + 1) {
+                        if (!can[j] || dp[j][0] > i) {
+                            dp[j] = vi(dp[k]);
+                            dp[j].pb(A[i]);
+                        }
+                    }
+                    can[j] = true;
+                }
+            }
+        }
     }
 
-    A[0][0] = '!';
-    run(0, 0, 1);
-    run(0, 0, 2);
-    cout << best+1 << endl;
-    
+    vi ans = dp[q];
+    reverse(all(ans));
+    cout << ans.size();
+    for (int x : ans) cout << " " << x;
+    cout << endl;
+
     return 0;
 }
 
