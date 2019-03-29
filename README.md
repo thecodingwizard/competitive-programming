@@ -63,6 +63,7 @@ Solutions to USACO training and USACO contest problems.
 | 5.1.2 | [Starry Night][5.1.2] | Floodfill, Implementation |
 | 5.1.3 | [Musical Themes][5.1.3] | Sliding Window Iterative DP, Longest Repeating Non-Overlapping Substring, deltas |
 | 5.2.1 | [Snail Trail][5.2.1] | Brute Force, Implementation, Recursion |
+| 5.3.1 | [Milk Measuring][5.3.1] | DP, Optimization, Sliding Window |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes |
@@ -290,6 +291,7 @@ Solutions to USACO training and USACO contest problems.
 [5.1.2]: usaco-training/Chapter%205/5.1.2%20-%20Starry%20Night.cpp
 [5.1.3]: usaco-training/Chapter%205/5.1.3%20-%20Musical%20Themes.cpp
 [5.2.1]: usaco-training/Chapter%205/5.2.1%20-%20Snail%20Trail.cpp
+[5.3.1]: usaco-training/Chapter%205/5.3.1%20-%20Milk%20Measuring.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 [revegetate]: usaco-contests/2019feb/silver/revegetate.cpp
