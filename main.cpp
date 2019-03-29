@@ -1,6 +1,6 @@
 /*
 ID: nathan.18
-TASK: milk4
+TASK: schlnet
 LANG: C++11
 */
 
@@ -76,70 +76,91 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int q, p;
-int A[100];
-vi dp[20001];
-bool can[20001];
+int n;
+vi children[100];
+int dfsLow[100], dfsNum[100], dfsParent[100], dfsCtr = 0;
+int rootChildren, dfsRoot;
+set<int> articulationPoints;
+bool visited[100];
+vi S;
+int sccCtr = 0;
+int sccNum[100];
 
-bool cmp(vi &lhs, vi &rhs) {
-    /* for (int x : lhs) cout << " " << x; */
-    /* cout << endl; */
-    /* for (int x : rhs) cout << " " << x; */
-    /* cout << endl; */
-    
-    assert(rhs.size() == lhs.size());
-    F0Rd(i, lhs.size()) {
-        if (lhs[i] != rhs[i]) {
-            /* cout << "comparing " << lhs[i] << " to " << rhs[i] << endl; */
-            return lhs[i] > rhs[i];
+void findArticulationPoint(int u) {
+    dfsLow[u] = dfsNum[u] = dfsCtr++;
+    for (int v : children[u]) {
+        if (dfsNum[v] == INF) {
+            dfsParent[v] = u;
+            if (u == dfsRoot) rootChildren++;
+            findArticulationPoint(v);
+            if (dfsLow[v] >= dfsNum[u]) {
+                articulationPoints.insert(u);
+            }
+            dfsLow[u] = min(dfsLow[u], dfsLow[v]);
+        } else if (v != dfsParent[u]) {
+            dfsLow[u] = min(dfsLow[u], dfsNum[v]);
         }
     }
-    return true;
+}
+
+void tarjanSCC(int u) {
+    dfsLow[u] = dfsNum[u] = dfsCtr++;
+    S.pb(u);
+    visited[u] = true;
+    for (int v : children[u]) {
+        if (dfsNum[v] == INF) {
+            tarjanSCC(v);
+        }
+        if (visited[v]) {
+            dfsLow[u] = min(dfsLow[u], dfsLow[v]);
+        }
+    }
+
+    if (dfsLow[u] == dfsNum[u]) {
+        while (true) {
+            int v = S.back(); S.pop_back(); visited[v] = false;
+            sccNum[v] = sccCtr;
+            if (u == v) break;
+        }
+        sccCtr++;
+    }
 }
 
 int main() {
-    setupIO("milk4");
+    setupIO("schlnet");
 
-    cin >> q >> p;
-    F0R(i, p) {
-        cin >> A[i];
-    }
-    sort(A, A+p);
-
-    SET(can, false, 20001);
-    F0Rd(i, p) {
-        F0R(j, q+1) {
-            if (j == 0) {
-                dp[j].clear();
-                can[j] = true;
-                continue;
-            }
-            for (int k = j - A[i]; k >= 0; k -= A[i]) {
-                if (can[k]) {
-                    if (!can[j] || dp[j].size() >= dp[k].size() + 1) {
-                        bool mustErase = false;
-                        if (dp[k].size() == 0 || dp[k].back() != A[i]) {
-                            dp[k].pb(A[i]);
-                            mustErase = true;
-                        }
-                        if (!can[j] || dp[j].size() > dp[k].size() || cmp(dp[j], dp[k])) {
-                            dp[j] = vi(dp[k]);
-                        }
-                        if (mustErase) {
-                            dp[k].pop_back();
-                        }
-                    }
-                    can[j] = true;
-                }
-            }
+    cin >> n;
+    F0R(i, n) {
+        int child;
+        while (cin >> child && child) {
+            children[i].pb(child - 1);
+            children[child - 1].pb(i);
         }
     }
 
-    vi ans = dp[q];
-    reverse(all(ans));
-    cout << ans.size();
-    for (int x : ans) cout << " " << x;
-    cout << endl;
+    SET(dfsLow, INF, 100);
+    SET(dfsNum, INF, 100);
+    F0R(i, n) {
+        if (dfsNum[i] == INF) {
+            rootChildren = 0; dfsRoot = i;
+            findArticulationPoint(i);
+            if (rootChildren > 1) {
+                articulationPoints.insert(i);
+            }
+        }
+    }
+    
+    cout << articulationPoints.size() << endl;
+
+    SET(dfsLow, INF, 100);
+    SET(dfsNum, INF, 100);
+    SET(visited, false, 100);
+    dfsCtr = sccCtr = 0;
+    F0R(i, n) {
+        if (dfsNum[i] == INF) {
+            tarjanSCC(i);
+        }
+    }
 
     return 0;
 }
