@@ -1,7 +1,7 @@
 /*
 ID: nathan.18
-TASK: picture
-LANG: C++11
+TASK: charrec
+LANG: C++
 */
 
 #include <iostream>
@@ -76,78 +76,146 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+int dict[27][20];
+int memo[1300][80], n;
+int A[1200];
+ii ans[1200][30];
+
+void readdict() {
+    ifstream dictfile("font.in");
+    int n; dictfile >> n;
+    F0R(i, 27) {
+        F0R(j, 20) {
+            int val = 0;
+            F0R(k, 20) {
+                char c; dictfile >> c;
+                if (c == '1') val |= (1 << k);
+            }
+            dict[i][j] = val;
+        }
+    }
+}
+
+int dp(int line, int location) {
+    if (line == n) return 0;
+    if (memo[line][location] != -1) return memo[line][location];
+    int finalAns = INF, choice = -1, res;
+
+    // case 1: 19 lines
+    if (line + 19 <= n) {
+        int bestDiff = INF, bestIdx = -1;
+        int op = dp(line + 19, location + 1);
+        if (op != INF) {
+            F0R(i, 27) {
+                F0R(ignore, 20) {
+                    int ct = 0;
+                    F0R(row, 20) {
+                        if (row == ignore) continue;
+                        int a = A[line + row - (ignore < row ? 1 : 0)], b = dict[i][row];
+                        ct += __builtin_popcount(a ^ b);
+                        if (ct >= bestDiff) break;
+                    }
+                    if (ct < bestDiff) {
+                        bestDiff = ct;
+                        bestIdx = i;
+                    }
+                }
+            }
+            if (op != INF && op + bestDiff < finalAns) {
+                finalAns = op + bestDiff;
+                choice = 0;
+                res = bestIdx;
+            }
+        }
+    }
+
+    // case 2: 20 lines
+    if (line + 20 <= n) {
+        int bestDiff = INF, bestIdx = -1;
+        int op = dp(line + 20, location + 1);
+        if (op != INF) {
+            F0R(i, 27) {
+                int ct = 0;
+                F0R(row, 20) {
+                    int a = A[line + row], b = dict[i][row];
+                    ct += __builtin_popcount(a ^ b);
+                    if (ct >= bestDiff) break;
+                }
+                if (ct < bestDiff) {
+                    bestDiff = ct;
+                    bestIdx = i;
+                }
+            }
+            if (op != INF && op + bestDiff < finalAns) {
+                finalAns = op + bestDiff;
+                choice = 1;
+                res = bestIdx;
+            }
+        }
+    }
+
+    // case 3: 21 lines
+    if (line + 21 <= n) {
+        int bestDiff = INF, bestIdx = -1;
+        int op = dp(line + 21, location + 1);
+        if (op != INF) {
+            F0R(i, 27) {
+                F0R(ignore, 21) {
+                    int ct = 0;
+                    F0R(row, 20) {
+                        int a = A[line + row + (ignore <= row ? 1 : 0)], b = dict[i][row];
+                        ct += __builtin_popcount(a ^ b);
+                        if (ct >= bestDiff) break;
+                    }
+                    if (ct < bestDiff) {
+                        bestDiff = ct;
+                        bestIdx = i;
+                    }
+                }
+            }
+            if (op + bestDiff < finalAns) {
+                finalAns = op + bestDiff;
+                choice = 2;
+                res = bestIdx;
+            }
+        }
+    }
+
+    if (choice == -1) return memo[line][location] = INF;
+    ans[line][location] = { choice, res };
+
+    return memo[line][location] = finalAns;
+}
+
 int main() {
-    setupIO("picture");
+    setupIO("charrec");
 
-    int n; cin >> n;
-    vector<pair<ii, ii>> horizEvents;
-    vector<pair<ii, ii>> vertEvents;
+    readdict();
+
+    cin >> n;
     F0R(i, n) {
-        int a, b, c, d; cin >> a >> b >> c >> d;
-
-        horizEvents.pb(mp(mp(a, 0), mp(b, d)));
-        horizEvents.pb(mp(mp(c, 1), mp(b, d)));
-
-        vertEvents.pb(mp(mp(b, 0), mp(a, c)));
-        vertEvents.pb(mp(mp(d, 1), mp(a, c)));
-    }
-
-    SORT(horizEvents);
-    SORT(vertEvents);
-
-    int ans = 0;
-
-    multiset<ii> S;
-    int curLoc = -INF;
-    for (auto ev : horizEvents) {
-        int len = ev.pA.pA - curLoc;
-        int ct = 0;
-        for (ii x : S) {
-            if (!x.pB) {
-                if (ct == 0) ans += len;
-                ct++;
-            } else {
-                ct--;
-                if (ct == 0) ans += len;
+        int val = 0;
+        F0R(j, 20) {
+            char c; cin >> c;
+            if (c == '1') {
+                val |= (1 << j);
             }
         }
-        
-        if (!ev.pA.pB) {
-            S.insert(mp(ev.pB.pA, 0));
-            S.insert(mp(ev.pB.pB, 1));
-        } else {
-            S.erase(S.find(mp(ev.pB.pA, 0)));
-            S.erase(S.find(mp(ev.pB.pB, 1)));
-        }
-        curLoc = ev.pA.pA;
-    }
-    assert(S.size() == 0);
-
-    curLoc = -INF;
-    for (auto ev : vertEvents) {
-        int len = ev.pA.pA - curLoc;
-        int ct = 0;
-        for (ii x : S) {
-            if (!x.pB) {
-                if (ct == 0) ans += len;
-                ct++;
-            } else {
-                ct--;
-                if (ct == 0) ans += len;
-            }
-        }
-
-        if (!ev.pA.pB) {
-            S.insert(mp(ev.pB.pA, 0));
-            S.insert(mp(ev.pB.pB, 1));
-        } else {
-            S.erase(S.find(mp(ev.pB.pA, 0)));
-            S.erase(S.find(mp(ev.pB.pB, 1)));
-        }
-        curLoc = ev.pA.pA;
+        A[i] = val;
     }
 
-    cout << ans << endl;
+    SET2D(memo, -1, 1300, 80);
+    dp(0, 0);
+
+    int cur = 0, loc = 0;
+    string toPrint;
+    while (cur != n) {
+        if (ans[cur][loc].pB == 0) toPrint += ' ';
+        else toPrint += ('a' + ans[cur][loc].pB - 1);
+        cur += ans[cur][loc].pA + 19;
+        loc++;
+    }
+    cout << toPrint << endl;
 
     return 0;
 }

@@ -241,6 +241,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2018 | [newbarn][newbarn] | New Barns | Centroid Decomposition |
 | Jan 2019 | [redistricting][redistricting] | Redistricting | DP, Monotonic Queue |
 | Feb 2019 | [cowdate][cowdate] | Cow Dating | Two pointers, math |
+| Open 2019 | [treeboxes][treeboxes] | Tree Boxes | LCA, Implementation, Interactive |
 
 [1.5.1]: usaco-training/Chapter%201/1.5.1%20ariprog%20-%20Arithmetic%20Progressions.cpp
 [1.6.3]: usaco-training/Chapter%201/1.6.3%20sprime%20-%20Superprime%20Rib.cpp
