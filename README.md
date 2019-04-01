@@ -67,6 +67,7 @@ Solutions to USACO training and USACO contest problems.
 | 5.3.2 | [Window Area][5.3.2] | Implementation, Calculating overlapping rectangle area - Split rectangle into four parts |
 | 5.3.3 | [Network of Schools][5.3.3] | Min additional edges to form SCC |
 | 5.3.4 | [Big Barn][5.3.4] | Prefix Sums + Binary Search, doable with DP as well |
+| 5.4.1 | [Canada Tour][5.4.1] | DP |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes |
@@ -298,6 +299,7 @@ Solutions to USACO training and USACO contest problems.
 [5.3.2]: usaco-training/Chapter%205/5.3.2%20-%20Window%20Area.cpp
 [5.3.3]: usaco-training/Chapter%205/5.3.3%20-%20Network%20of%20Schools.cpp
 [5.3.4]: usaco-training/Chapter%205/5.3.4%20-%20Big%20Barn.cpp
+[5.4.1]: usaco-training/Chapter%205/5.4.1%20-%20Canada%20Tour.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 [revegetate]: usaco-contests/2019feb/silver/revegetate.cpp
