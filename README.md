@@ -534,3 +534,11 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | A - Parcels  | Multi-Source BFS, Manhattan Distance |
 
 [Solutions Folder](google-kickstart)
+
+# CSES
+Solutions to [CSES Problem Set](https://cses.fi/problemset/).
+| Problem Name | Solution Notes |
+| ------------ | -------------- |
+| Weird Algorithm | Simulation, careful with integer overflow |
+
+[Solutions Folder](cses)
