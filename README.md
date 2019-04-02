@@ -540,5 +540,7 @@ Solutions to [CSES Problem Set](https://cses.fi/problemset/).
 | Problem Name | Solution Notes |
 | ------------ | -------------- |
 | Weird Algorithm | Simulation, careful with integer overflow |
+| Missing Number | Basic Arrays |
+| Repetitions | Maximum length substring with same characters |
 
 [Solutions Folder](cses)
