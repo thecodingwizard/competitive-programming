@@ -69,6 +69,7 @@ Solutions to USACO training and USACO contest problems.
 | 5.3.4 | [Big Barn][5.3.4] | Prefix Sums + Binary Search, doable with DP as well |
 | 5.4.1 | [Canada Tour][5.4.1] | DP |
 | 5.4.3 | [TeleCowmunication][5.4.3] | Max Flow Min Cut, Split Nodes |
+| 5.5.1 | [Picture][5.5.1] | Line Sweep |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes |
@@ -302,6 +303,7 @@ Solutions to USACO training and USACO contest problems.
 [5.3.4]: usaco-training/Chapter%205/5.3.4%20-%20Big%20Barn.cpp
 [5.4.1]: usaco-training/Chapter%205/5.4.1%20-%20Canada%20Tour.cpp
 [5.4.3]: usaco-training/Chapter%205/5.4.3%20-%20TeleCowmunication.cpp
+[5.5.1]: usaco-training/Chapter%205/5.5.1%20-%20Picture.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 [revegetate]: usaco-contests/2019feb/silver/revegetate.cpp
