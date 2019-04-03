@@ -548,5 +548,6 @@ Solutions to [CSES Problem Set](https://cses.fi/problemset/).
 | Missing Number | Basic Arrays |
 | Repetitions | Maximum length substring with same characters |
 | Increasing Array | Greedy |
+| Permutations | Ad Hoc, Construction |
 
 [Solutions Folder](cses)
