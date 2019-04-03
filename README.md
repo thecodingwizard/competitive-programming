@@ -71,6 +71,7 @@ Solutions to USACO training and USACO contest problems.
 | 5.4.2 | [Character Recognition][5.4.2] | DP, Bit manipulation for Optimization/Pruning |
 | 5.4.3 | [TeleCowmunication][5.4.3] | Max Flow Min Cut, Split Nodes |
 | 5.5.1 | [Picture][5.5.1] | Line Sweep |
+| 5.5.2 | [Hidden Passwords][5.5.2] | String Processing |
 
 ### Silver USACO Contests:
 | Contest Date | Problem ID | Problem Name | Solution Notes |
@@ -307,6 +308,7 @@ Solutions to USACO training and USACO contest problems.
 [5.4.2]: usaco-training/Chapter%205/5.4.2%20-%20Character%20Recognition.cpp
 [5.4.3]: usaco-training/Chapter%205/5.4.3%20-%20TeleCowmunication.cpp
 [5.5.1]: usaco-training/Chapter%205/5.5.1%20-%20Picture.cpp
+[5.5.2]: usaco-training/Chapter%205/5.5.2%20-%20Hidden%20Passwords.cpp
 
 [reststops]: usaco-contests/2018feb/silver/reststops.cpp
 [revegetate]: usaco-contests/2019feb/silver/revegetate.cpp
