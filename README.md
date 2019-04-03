@@ -541,6 +541,7 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 
 # CSES
 Solutions to [CSES Problem Set](https://cses.fi/problemset/).
+
 | Problem Name | Solution Notes |
 | ------------ | -------------- |
 | Weird Algorithm | Simulation, careful with integer overflow |
