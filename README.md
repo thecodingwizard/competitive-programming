@@ -459,6 +459,7 @@ Solutions to USACO training and USACO contest problems.
 [newbarn]: usaco-contests/2018feb/plat/newbarn.cpp
 [redistricting]: usaco-contests/2019jan/plat/redistricting.cpp
 [cowdate]: usaco-contests/2019feb/plat/cowdate.cpp
+[treeboxes]: usaco-contests/2019open/plat/treeboxes.cpp
 
 # Codeforces
 Solutions to various Codeforces problems.
