@@ -547,6 +547,7 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | Problem Name | Solution Notes |
 | ------------ | -------------- |
 | Foregone Solution | Greedy |
+| You Can Go Your Own Way | Greedy |
 
 [Solutions Folder](google-kickstart)
 
