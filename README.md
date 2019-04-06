@@ -540,6 +540,14 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | A - Training | Sorting, Prefix Sums |
 | A - Parcels  | Multi-Source BFS, Manhattan Distance |
 
+# Google Code Jam
+Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com/codejam) competitions.
+
+## [Code Jam 2019](google-codejam/2019)
+| Problem Name | Solution Notes |
+| ------------ | -------------- |
+| Foregone Solution | Greedy |
+
 [Solutions Folder](google-kickstart)
 
 # CSES
