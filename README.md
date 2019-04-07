@@ -549,7 +549,7 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | Foregone Solution | Greedy |
 | You Can Go Your Own Way | Greedy |
 | Cryptopangrams | GCD, BigInteger, Math |
-| Dat Bae | Code only solves visible test set |
+| Dat Bae | Interactive, similar strategy to CodeForces 1117E |
 
 # CSES
 Solutions to [CSES Problem Set](https://cses.fi/problemset/).

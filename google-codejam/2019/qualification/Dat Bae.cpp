@@ -1,8 +1,3 @@
-/*
- * !!! NOTE !!!
- * The following code only passes the visible test set.
- */
-
 #include <iostream>
 #include <string>
 #include <utility>
@@ -75,73 +70,54 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-vi stuff;
-
-void parse(string s) {
-    int lhs = 0, rhs = 0;
-    for (char c : s) {
-        if (c == '0') lhs++;
-        else rhs++;
-    }
-    stuff.pb(lhs);
-    stuff.pb(rhs);
-}
-
-string gen(int n, int depth) {
-    if (depth == 0) {
-        string ask;
-        F0R(i, n) {
-            if (i < n / 2) ask += "0";
-            else ask += "1";
-        }
-        return ask;
-    }
-    return gen(n/2, depth-1) + gen(n-n/2, depth-1);
-}
-
 int main() {
     int t; cin >> t;
     F0R1(caseNum, t) {
         int n, b, f; cin >> n >> b >> f;
-        stuff.clear();
 
-        int nextBigN = 1;
-        while (nextBigN < n) nextBigN*=2;
-
-        int idx = 0;
-        stuff.pb(n);
-        FOR(i, 0, ceil(log2(n))) {
-            string ask = gen(nextBigN, i);
-            cout << ask.substr(0, n) << endl;
-            string resp;
-            cin >> resp;
-            F0R(j, nextBigN - n) resp += ask[n+j];
-
-            int x = stuff.size();
-            int loc = 0;
-            FOR(j, idx, x) {
-                int len = stuff[j];
-
-                string s = resp.substr(loc, len);
-                parse(s);
-
-                loc += len;
+        int val[n-b+1]; SET(val, 0, n-b);
+        F0R(i, 5) {
+            string s;
+            F0R(j, n) {
+                if (j & (1 << i)) s += "1";
+                else s += "0";
             }
-            idx = x;
+            cout << s << endl;
+            string resp; cin >> resp;
+            F0R(j, n-b) {
+                if (resp[j] == '1') {
+                    val[j] |= (1 << i);
+                }
+            }
         }
 
-        int loc = 0;
-        vi ans;
-        FOR(j, idx, stuff.size()) {
-            if (stuff[j] == 0 && j - idx <= n) {
-                ans.pb(j - idx);
+        int prevVal = -1;
+        int ctr = 0;
+        F0R(i, n-b) {
+            val[i] += ctr*32;
+            if (val[i] < prevVal) {
+                ctr++;
+                val[i] += 32;
             }
-            loc += stuff[j];
+            prevVal = val[i];
         }
-        cout << ans[0];
-        FOR(j, 1, ans.size()) cout << " " << ans[j];
+
+        vi missing;
+        prevVal = -1;
+        val[n-b] = n;
+        F0R(i, n-b+1) {
+            if (val[i] != prevVal+1) {
+                FOR(j, prevVal+1, val[i]) {
+                    missing.pb(j);
+                }
+            }
+            prevVal = val[i];
+        }
+        cout << missing[0];
+        for (int i = 1; i < missing.size(); i++) cout << " " << missing[i];
         cout << endl;
-        int blah; cin >> blah;
+
+        int res; cin >> res;
     }
 
     return 0;
