@@ -548,6 +548,8 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | ------------ | -------------- |
 | Foregone Solution | Greedy |
 | You Can Go Your Own Way | Greedy |
+| Cryptopangrams | GCD, BigInteger, Math |
+| Dat Bae | Code only solves visible test set |
 
 [Solutions Folder](google-kickstart)
 

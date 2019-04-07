@@ -1,3 +1,8 @@
+/*
+ * !!! NOTE !!!
+ * The following code only passes the visible test set.
+ */
+
 #include <iostream>
 #include <string>
 #include <utility>
