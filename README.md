@@ -551,8 +551,6 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | Cryptopangrams | GCD, BigInteger, Math |
 | Dat Bae | Code only solves visible test set |
 
-[Solutions Folder](google-kickstart)
-
 # CSES
 Solutions to [CSES Problem Set](https://cses.fi/problemset/).
 
