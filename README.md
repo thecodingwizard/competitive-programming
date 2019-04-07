@@ -544,12 +544,12 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com/codejam) competitions.
 
 ## [Code Jam 2019](google-codejam/2019)
-| Problem Name | Solution Notes |
-| ------------ | -------------- |
-| Foregone Solution | Greedy |
-| You Can Go Your Own Way | Greedy |
-| Cryptopangrams | GCD, BigInteger, Math |
-| Dat Bae | Interactive, similar strategy to CodeForces 1117E |
+| Round | Problem Name | Solution Notes |
+| ----- | ------------ | -------------- |
+| Qualification | Foregone Solution | Greedy |
+| Qualification | You Can Go Your Own Way | Greedy |
+| Qualification |  Cryptopangrams | GCD, BigInteger, Math |
+| Qualification |  Dat Bae | Interactive, similar strategy to CodeForces 1117E |
 
 # CSES
 Solutions to [CSES Problem Set](https://cses.fi/problemset/).
