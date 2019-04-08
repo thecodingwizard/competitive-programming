@@ -71,53 +71,17 @@ void setupIO(const string &PROB) {
 /* ============================ */
 
 int main() {
-    int t; cin >> t;
-    F0R1(caseNum, t) {
-        int n, b, f; cin >> n >> b >> f;
+    double a, b, v, A, s;
+    while (cin >> a >> b >> v >> A >> s && a > 0) {
+        double dist = v*s/2;
+        double horizDist = dist*cos(A/360*(2*PI));
+        double vertDist = dist*sin(A/360*(2*PI));
+        cout << horizDist << " " << vertDist << " " << (A/360*2*PI) << endl;
 
-        int val[n-b+1]; SET(val, 0, n-b);
-        F0R(i, 5) {
-            string s;
-            F0R(j, n) {
-                if (j & (1 << i)) s += "1";
-                else s += "0";
-            }
-            cout << s << endl;
-            string resp; cin >> resp;
-            F0R(j, n-b) {
-                if (resp[j] == '1') {
-                    val[j] |= (1 << i);
-                }
-            }
-        }
+        int horiz = abs(horizDist/a);
+        int vert = abs(vertDist/b);
 
-        int prevVal = -1;
-        int ctr = 0;
-        F0R(i, n-b) {
-            val[i] += ctr*32;
-            if (val[i] < prevVal) {
-                ctr++;
-                val[i] += 32;
-            }
-            prevVal = val[i];
-        }
-
-        vi missing;
-        prevVal = -1;
-        val[n-b] = n;
-        F0R(i, n-b+1) {
-            if (val[i] != prevVal+1) {
-                FOR(j, prevVal+1, val[i]) {
-                    missing.pb(j);
-                }
-            }
-            prevVal = val[i];
-        }
-        cout << missing[0];
-        for (int i = 1; i < missing.size(); i++) cout << " " << missing[i];
-        cout << endl;
-
-        int res; cin >> res;
+        cout << horiz << " " << vert << endl;
     }
 
     return 0;
