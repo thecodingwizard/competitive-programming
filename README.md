@@ -548,8 +548,8 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | ----- | ------------ | -------------- |
 | Qualification | Foregone Solution | Greedy |
 | Qualification | You Can Go Your Own Way | Greedy |
-| Qualification |  Cryptopangrams | GCD, BigInteger, Math |
-| Qualification |  Dat Bae | Interactive, similar strategy to CodeForces 1117E |
+| Qualification | Cryptopangrams | GCD, BigInteger, Math |
+| Qualification | Dat Bae | Interactive, similar strategy to CodeForces 1117E |
 
 # CSES
 Solutions to [CSES Problem Set](https://cses.fi/problemset/).
