@@ -1,3 +1,9 @@
+/*
+ * Solution notes: Chinese remainder theorem
+ *
+ *
+ */
+
 #include <iostream>
 #include <string>
 #include <utility>

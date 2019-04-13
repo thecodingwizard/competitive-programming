@@ -556,6 +556,8 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | Qualification | You Can Go Your Own Way | Greedy |
 | Qualification | Cryptopangrams | GCD, BigInteger, Math |
 | Qualification | Dat Bae | Interactive, similar strategy to CodeForces 1117E |
+| 1A | Pylons | Construction, Implementation |
+| 1A | Golf Gophers | Chinese Remainder Theorem |
 
 # CSES
 Solutions to [CSES Problem Set](https://cses.fi/problemset/).
