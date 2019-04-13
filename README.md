@@ -543,6 +543,11 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 # Google Code Jam
 Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com/codejam) competitions.
 
+## [Code Jam 2018](google-codejam/2018)
+| Round | Problem Name | Solution Notes |
+| ----- | ------------ | -------------- |
+| 1A | Waffle Choppers | Prefix sums, greedy |
+
 ## [Code Jam 2019](google-codejam/2019)
 | Round | Problem Name | Solution Notes |
 | ----- | ------------ | -------------- |
