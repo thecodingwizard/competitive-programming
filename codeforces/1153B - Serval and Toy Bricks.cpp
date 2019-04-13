@@ -71,39 +71,28 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-set<ii> wat;
-vector<ii> ans;
-
-void solve(int x1, int y1, int x2, int y2) {
-    if (x2 < x1 || y2 < y1) return;
-    cout << "? " << x1 << " " << y1 << " " << x2 << " " << y2 << endl;
-    int z; cin >> z;
-    if (z == -1) exit(0);
-    if (x1 == x2 && y1 == y2 && (z & 1)) {
-        if (wat.count(mp(x1, y1)) == 0) ans.pb(mp(x1, y1));
-        wat.insert(mp(x1, y1));
-        return;
-    }
-    if (!(z & 1)) return;
-    if (x1 == x2 && y1 == y2) {
-        return;
-    }
-    solve(x1, y1, (x2+x1)/2, (y2+y1)/2);
-    solve(x1, (y2+y1)/2 + 1, (x2+x1)/2, y2);
-    solve((x2+x1)/2+1, y1, x2, (y2+y1)/2);
-    solve((x2+x1)/2+1, (y1+y2)/2+1, x2, y2);
-}
-
 int main() {
-    int n; cin >> n;
-    int x1 = 1, y1 = 1, x2 = n, y2 = n;
-    solve(x1, y1, (x2+x1)/2, (y2+y1)/2);
-    solve(x1, (y2+y1)/2 + 1, (x2+x1)/2, y2);
-    solve((x2+x1)/2+1, y1, x2, (y2+y1)/2);
-    solve((x2+x1)/2+1, (y1+y2)/2+1, x2, y2);
-    assert(ans.size() == 2);
-    ii a = ans[0], b = ans[1];
-    cout << "! " << a.pA << " " << a.pB << " " << b.pA << " " << b.pB << endl;
+    int n, m, h; cin >> n >> m >> h;
+
+    int A[m]; F0R(i, m) cin >> A[i];
+    int D[n]; F0R(i, n) cin >> D[i];
+    int B[n][m]; F0R(i, n) F0R(j, m) cin >> B[i][j];
+
+    int C[n][m];
+    F0R(i, n) {
+        F0R(j, m) {
+            if (B[i][j] == 0) C[i][j] = 0;
+            else C[i][j] = min(A[j], D[i]);
+        }
+    }
+
+    F0R(i, n) {
+        cout << C[i][0];
+        FOR(j, 1, m) {
+            cout << " " << C[i][j];
+        }
+        cout << endl;
+    }
 
     return 0;
 }

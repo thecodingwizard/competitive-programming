@@ -71,39 +71,26 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-set<ii> wat;
-vector<ii> ans;
-
-void solve(int x1, int y1, int x2, int y2) {
-    if (x2 < x1 || y2 < y1) return;
-    cout << "? " << x1 << " " << y1 << " " << x2 << " " << y2 << endl;
-    int z; cin >> z;
-    if (z == -1) exit(0);
-    if (x1 == x2 && y1 == y2 && (z & 1)) {
-        if (wat.count(mp(x1, y1)) == 0) ans.pb(mp(x1, y1));
-        wat.insert(mp(x1, y1));
-        return;
-    }
-    if (!(z & 1)) return;
-    if (x1 == x2 && y1 == y2) {
-        return;
-    }
-    solve(x1, y1, (x2+x1)/2, (y2+y1)/2);
-    solve(x1, (y2+y1)/2 + 1, (x2+x1)/2, y2);
-    solve((x2+x1)/2+1, y1, x2, (y2+y1)/2);
-    solve((x2+x1)/2+1, (y1+y2)/2+1, x2, y2);
-}
-
 int main() {
-    int n; cin >> n;
-    int x1 = 1, y1 = 1, x2 = n, y2 = n;
-    solve(x1, y1, (x2+x1)/2, (y2+y1)/2);
-    solve(x1, (y2+y1)/2 + 1, (x2+x1)/2, y2);
-    solve((x2+x1)/2+1, y1, x2, (y2+y1)/2);
-    solve((x2+x1)/2+1, (y1+y2)/2+1, x2, y2);
-    assert(ans.size() == 2);
-    ii a = ans[0], b = ans[1];
-    cout << "! " << a.pA << " " << a.pB << " " << b.pA << " " << b.pB << endl;
+    int n, t; cin >> n >> t;
+    ii A[n]; F0R(i, n) cin >> A[i].pA >> A[i].pB;
+
+    int b = INF, bestIdx = -1;
+    F0R(i, n) {
+        int best;
+
+        if (t - A[i].pA <= 0) {
+            best = A[i].pA;
+        } else {
+            best = A[i].pA + ((int)ceil((double)(t - A[i].pA)/A[i].pB))*A[i].pB;
+        }
+
+        if (best < b) {
+            b = best;
+            bestIdx = i + 1;
+        }
+    }
+    cout << bestIdx << endl;
 
     return 0;
 }

@@ -71,39 +71,47 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-set<ii> wat;
-vector<ii> ans;
+vi children[300000];
+bool isMax[300000];
 
-void solve(int x1, int y1, int x2, int y2) {
-    if (x2 < x1 || y2 < y1) return;
-    cout << "? " << x1 << " " << y1 << " " << x2 << " " << y2 << endl;
-    int z; cin >> z;
-    if (z == -1) exit(0);
-    if (x1 == x2 && y1 == y2 && (z & 1)) {
-        if (wat.count(mp(x1, y1)) == 0) ans.pb(mp(x1, y1));
-        wat.insert(mp(x1, y1));
-        return;
+int getLeaves(int u) {
+    if (children[u].empty()) return 1;
+    int sum = 0;
+    for (int v : children[u]) {
+        sum += getLeaves(v);
     }
-    if (!(z & 1)) return;
-    if (x1 == x2 && y1 == y2) {
-        return;
+    return sum;
+}
+
+int getVal(int u) {
+    if (children[u].empty()) return 1;
+    int ans;
+    if (isMax[u]) ans = INF;
+    else ans = 0;
+
+    for (int v : children[u]) {
+        int childVal = getVal(v);
+        if (isMax[u]) MIN(ans, childVal);
+        else ans += childVal;
     }
-    solve(x1, y1, (x2+x1)/2, (y2+y1)/2);
-    solve(x1, (y2+y1)/2 + 1, (x2+x1)/2, y2);
-    solve((x2+x1)/2+1, y1, x2, (y2+y1)/2);
-    solve((x2+x1)/2+1, (y1+y2)/2+1, x2, y2);
+    return ans;
 }
 
 int main() {
     int n; cin >> n;
-    int x1 = 1, y1 = 1, x2 = n, y2 = n;
-    solve(x1, y1, (x2+x1)/2, (y2+y1)/2);
-    solve(x1, (y2+y1)/2 + 1, (x2+x1)/2, y2);
-    solve((x2+x1)/2+1, y1, x2, (y2+y1)/2);
-    solve((x2+x1)/2+1, (y1+y2)/2+1, x2, y2);
-    assert(ans.size() == 2);
-    ii a = ans[0], b = ans[1];
-    cout << "! " << a.pA << " " << a.pB << " " << b.pA << " " << b.pB << endl;
+    F0R(i, n) {
+        int x; cin >> x;
+        isMax[i] = x == 1;
+    }
+    F0R(i, n-1) {
+        int p; cin >> p;
+        children[p-1].pb(i+1);
+    }
+
+    int leaves = getLeaves(0);
+    int x = getVal(0);
+
+    cout << leaves - x + 1 << endl;
 
     return 0;
 }
