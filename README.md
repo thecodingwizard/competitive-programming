@@ -547,6 +547,7 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | Round | Problem Name | Solution Notes |
 | ----- | ------------ | -------------- |
 | 1A | Waffle Choppers | Prefix sums, greedy |
+| 1A | Bit Party | Binary Search |
 
 ## [Code Jam 2019](google-codejam/2019)
 | Round | Problem Name | Solution Notes |
