@@ -518,7 +518,7 @@ Solutions to various Codeforces problems.
 | 1141F2 | F2. Same Sum Blocks (Hard) | Prefix sums O(N^2) |
 | 1141G | G. Privatization of Roads in Treeland | Greedy, Implementation, DFS |
 | 1151A | A. Maxim and Biology | Brute Force |
-| 1151B | B. Dima and a Bad XOR | Brute Force, XOR (Note: Solution code is brute force but a O(n*m) solution exists with observation) |
+| 1151B | B. Dima and a Bad XOR | Brute Force, XOR (Note: Solution code is brute force/DP but a O(n*m) solution exists with observation) |
 | 1151C | C. Problem for Nazar | Math, Implementation |
 | 1151D | D. Stas and the Queue at the Buffet | Greedy, light math |
 | 1153A | A. Serval and Bus | Math |
