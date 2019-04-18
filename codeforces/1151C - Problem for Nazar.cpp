@@ -71,42 +71,60 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+ll mod = 1000000007;
+ll getOdd(ll start, ll end) {
+    start %= mod;
+    end %= mod;
+    ll ans = end*end-start*start;
+    ans %= mod;
+    if (ans < 0) ans += mod;
+    return ans;
+}
+
+ll getEven(ll start, ll end) {
+    start %= mod;
+    end %= mod;
+    ll ans = end*end+end-start*start-start;
+    ans %= mod;
+    if (ans < 0) ans += mod;
+    return ans;
+}
+
 int main() {
-    int n, m; cin >> n >> m;
-    int A[n][m]; F0R(i, n) F0R(j, m) cin >> A[i][j];
-    bool possibilities[1024], nxt[1024];
-    SET(possibilities, false, 1024);
-    possibilities[0] = true;
-    int parent[n+10][1024];
-    parent[0][0] = -1;
-    F0R(i, n) {
-        SET(nxt, false, 1024);
-        F0R(x, 1024) {
-            if (!possibilities[x]) continue;
-            F0R(j, m) {
-                int nextVal = x ^ A[i][j];
-                parent[i+1][nextVal] = j;
-                nxt[nextVal] = true;
+    ll l, r; cin >> l >> r;
+    ll loc = 0;
+    ll ans = 0;
+    ll oddLoc = 0, evLoc = 0;
+    F0R(i, 60) {
+        ll toAdd = 1LL << i;
+        if (loc + toAdd < l) {
+        } else if (loc >= l && loc + toAdd <= r) {
+            if (i & 1) {
+                ans = (ans + getEven(evLoc, evLoc + toAdd)) % mod;
+            } else {
+                ans = (ans + getOdd(oddLoc, oddLoc + toAdd)) % mod;
+            }
+        } else if (loc < l && loc + toAdd >= l) {
+            ll startDist = l - loc - 1;
+            ll endDist = min(toAdd, r - loc);
+            if (i & 1) {
+                ans = (ans + getEven(evLoc + startDist, evLoc + endDist)) % mod;
+            } else {
+                ans = (ans + getOdd(oddLoc + startDist, oddLoc + endDist)) % mod;
+            }
+        } else if (loc >= l && loc < r && loc + toAdd >= r) {
+            ll endDist = r - loc;
+            if (i & 1) {
+                ans = (ans + getEven(evLoc, evLoc + endDist)) % mod;
+            } else {
+                ans = (ans + getOdd(oddLoc, oddLoc + endDist)) % mod;
             }
         }
-        F0R(x, 1024) possibilities[x] = nxt[x];
+        loc += toAdd;
+        if (i & 1) evLoc += toAdd;
+        else oddLoc += toAdd;
     }
-    int val = -1;
-    F0R(x, 1024) if (x > 0 && possibilities[x]) val = x;
-    if (val == -1) {
-        cout << "NIE" << endl;
-    } else {
-        cout << "TAK" << endl;
-        vi stuff;
-        FORd(i, 1, n+1) {
-            stuff.pb(parent[i][val] + 1);
-            val ^= A[i - 1][parent[i][val]];
-        }
-        reverse(all(stuff));
-        cout << stuff[0];
-        FOR(i, 1, stuff.size()) cout << " " << stuff[i];
-        cout << endl;
-    }
+    cout << ans << endl;
 
     return 0;
 }

@@ -72,41 +72,19 @@ void setupIO(const string &PROB) {
 /* ============================ */
 
 int main() {
-    int n, m; cin >> n >> m;
-    int A[n][m]; F0R(i, n) F0R(j, m) cin >> A[i][j];
-    bool possibilities[1024], nxt[1024];
-    SET(possibilities, false, 1024);
-    possibilities[0] = true;
-    int parent[n+10][1024];
-    parent[0][0] = -1;
-    F0R(i, n) {
-        SET(nxt, false, 1024);
-        F0R(x, 1024) {
-            if (!possibilities[x]) continue;
-            F0R(j, m) {
-                int nextVal = x ^ A[i][j];
-                parent[i+1][nextVal] = j;
-                nxt[nextVal] = true;
-            }
-        }
-        F0R(x, 1024) possibilities[x] = nxt[x];
+    int n; cin >> n;
+    ii A[n]; F0R(i, n) cin >> A[i].pA >> A[i].pB;
+    vii vals;
+    F0R(i, n) vals.pb(mp(A[i].pB - A[i].pA, i));
+    SORT(vals);
+    ll ans = 0;
+    int idx = 1;
+    for (ii x : vals) {
+        int i = x.pB;
+        ans += (ll)A[i].pA*(idx-1)+(ll)A[i].pB*(n-idx);
+        idx++;
     }
-    int val = -1;
-    F0R(x, 1024) if (x > 0 && possibilities[x]) val = x;
-    if (val == -1) {
-        cout << "NIE" << endl;
-    } else {
-        cout << "TAK" << endl;
-        vi stuff;
-        FORd(i, 1, n+1) {
-            stuff.pb(parent[i][val] + 1);
-            val ^= A[i - 1][parent[i][val]];
-        }
-        reverse(all(stuff));
-        cout << stuff[0];
-        FOR(i, 1, stuff.size()) cout << " " << stuff[i];
-        cout << endl;
-    }
+    cout << ans << endl;
 
     return 0;
 }

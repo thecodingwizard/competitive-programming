@@ -71,42 +71,25 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+int getdist(string a, string b) {
+    int ans = 0;
+    F0R(i, 4) {
+        int val = abs(b[i] - a[i]);
+        ans += min(val, 26 - val);
+    }
+    return ans;
+}
+
 int main() {
-    int n, m; cin >> n >> m;
-    int A[n][m]; F0R(i, n) F0R(j, m) cin >> A[i][j];
-    bool possibilities[1024], nxt[1024];
-    SET(possibilities, false, 1024);
-    possibilities[0] = true;
-    int parent[n+10][1024];
-    parent[0][0] = -1;
-    F0R(i, n) {
-        SET(nxt, false, 1024);
-        F0R(x, 1024) {
-            if (!possibilities[x]) continue;
-            F0R(j, m) {
-                int nextVal = x ^ A[i][j];
-                parent[i+1][nextVal] = j;
-                nxt[nextVal] = true;
-            }
-        }
-        F0R(x, 1024) possibilities[x] = nxt[x];
+    int n; cin >> n;
+    string s; cin >> s;
+    int ans = INF;
+    F0R(i, n-4+1) {
+        string sub = s.substr(i, 4);
+        int val = getdist(sub, "ACTG");
+        MIN(ans, val);
     }
-    int val = -1;
-    F0R(x, 1024) if (x > 0 && possibilities[x]) val = x;
-    if (val == -1) {
-        cout << "NIE" << endl;
-    } else {
-        cout << "TAK" << endl;
-        vi stuff;
-        FORd(i, 1, n+1) {
-            stuff.pb(parent[i][val] + 1);
-            val ^= A[i - 1][parent[i][val]];
-        }
-        reverse(all(stuff));
-        cout << stuff[0];
-        FOR(i, 1, stuff.size()) cout << " " << stuff[i];
-        cout << endl;
-    }
+    cout << ans << endl;
 
     return 0;
 }
