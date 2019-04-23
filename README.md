@@ -548,6 +548,7 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | ------------ | -------------- |
 | A - Training | Sorting, Prefix Sums |
 | A - Parcels  | Multi-Source BFS, Manhattan Distance |
+| B - Energy Stones | DP Knapsack, sorting |
 
 # Google Code Jam
 Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com/codejam) competitions.
