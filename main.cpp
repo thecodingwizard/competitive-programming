@@ -74,26 +74,25 @@ void setupIO(const string &PROB) {
 int main() {
     int t; cin >> t;
     F0R1(caseNum, t) {
-        int n, q; cin >> n >> q;
-        string s; cin >> s;
-        int ps[n][100];
-        F0R(i, n) {
-            for (char c = 'A'; c <= 'Z'; c++) {
-                if (s[i] == c) {
-                    ps[i][c] = (i == 0 ? 0 : ps[i - 1][c]) + 1;
-                } else {
-                    ps[i][c] = (i == 0 ? 0 : ps[i - 1][c]);
-                }
-            }
-        }
+        int n; cin >> n;
+        int s; cin >> s;
+        int A[n]; F0R(i, n) cin >> A[i];
+
         int ans = 0;
-        F0R(i, q) {
-            int a, b; cin >> a >> b;
-            int oddCt = 0;
-            for (char c = 'A'; c <= 'Z'; c++) {
-                if ((ps[b - 1][c] - (a == 1 ? 0 : ps[a - 2][c])) % 2 == 1) oddCt++;
+        F0R(i, n) {
+            int running = 0;
+            map<int, int> ctr;
+            FOR(j, i, n) {
+                int next = A[j];
+                if (ctr[next] == s) {
+                    running -= s;
+                } else if (ctr[next] > s) {
+                } else {
+                    running++;
+                }
+                ctr[next]++;
+                MAX(ans, running);
             }
-            if (oddCt <= 1) ans++;
         }
         cout << "Case #" << caseNum << ": " << ans << endl;
     }
