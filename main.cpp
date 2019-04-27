@@ -71,6 +71,83 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+class SegmentTree {
+private: vi st, A, maxPS;
+  int n;
+  int left (int p) { return p << 1; }
+  int right(int p) { return (p << 1) + 1; }
+
+  void build(int p, int L, int R) {
+    if (L == R) {
+      st[p] = A[L];
+      maxPS[p] = max(A[L], 0);
+    } else {
+      build(left(p) , L              , (L + R) / 2);
+      build(right(p), (L + R) / 2 + 1, R          );
+      int p1 = st[left(p)], p2 = st[right(p)];
+      st[p] = p1 + p2;
+      cout << "maxPS[" << p << "] = " << max(maxPS[left(p)], st[left(p)] + maxPS[right(p)]) << endl;
+      maxPS[p] = max(maxPS[left(p)], st[left(p)] + maxPS[right(p)]);
+  } }
+
+  int rsq(int p, int L, int R, int i, int j) {
+    if (i >  R || j <  L) return -1;
+    if (L >= i && R <= j) return st[p];
+
+    int p1 = rsq(left(p) , L              , (L+R) / 2, i, j);
+    int p2 = rsq(right(p), (L+R) / 2 + 1, R          , i, j);
+
+    if (p1 == -1) return p2;
+    if (p2 == -1) return p1;
+    return p1 + p2; }
+
+  int rprefixq(int p, int L, int R, int i, int j) {
+    if (i >  R || j <  L) return -1;
+    if (L >= i && R <= j) return maxPS[p];
+
+    int p1 = rprefixq(left(p) , L              , (L+R) / 2, i, j);
+    int p2 = rprefixq(right(p), (L+R) / 2 + 1, R          , i, j);
+
+    if (p1 == -1) return p2;
+    if (p2 == -1) return p1;
+    return max(p1, rsq(left(p), L, (L+R)/2, i, j) + p2); }
+
+  int update_point(int p, int L, int R, int idx, int new_value) {
+    int i = idx, j = idx;
+
+    if (i > R || j < L)
+      return st[p];
+
+    if (L == i && R == j) {
+      A[i] = new_value;
+      maxPS[p] = new_value;
+      return st[p] = new_value;
+    }
+
+    int p1, p2;
+    p1 = update_point(left(p) , L              , (L + R) / 2, idx, new_value);
+    p2 = update_point(right(p), (L + R) / 2 + 1, R          , idx, new_value);
+
+
+    maxPS[p] = max(maxPS[left(p)], st[left(p)] + maxPS[right(p)]);
+    return st[p] = p1 + p2;
+  }
+
+public:
+  SegmentTree(const vi &_A) {
+    A = _A; n = (int)A.size();
+    st.assign(4 * n, 0);
+    maxPS.assign(4*n, 0);
+    build(1, 0, n - 1);
+  }
+
+  int rsq(int i, int j) { return rsq(1, 0, n - 1, i, j); }
+  int rprefixq(int i, int j) { return rprefixq(1, 0, n - 1, i, j); }
+
+  int update_point(int idx, int new_value) {
+    return update_point(1, 0, n - 1, idx, new_value); }
+};
+
 int main() {
     int t; cin >> t;
     F0R1(caseNum, t) {
@@ -78,21 +155,33 @@ int main() {
         int s; cin >> s;
         int A[n]; F0R(i, n) cin >> A[i];
 
-        int ans = 0;
+        map<int, int> ctr;
+        map<int, vi> locations;
+        vi initVal;
         F0R(i, n) {
-            int running = 0;
-            map<int, int> ctr;
-            FOR(j, i, n) {
-                int next = A[j];
-                if (ctr[next] == s) {
-                    running -= s;
-                } else if (ctr[next] > s) {
-                } else {
-                    running++;
-                }
-                ctr[next]++;
-                MAX(ans, running);
+            int next = A[i];
+            locations[next].pb(i);
+            if (ctr[next] == s) {
+                initVal.pb(-s);
+            } else if (ctr[next] < s) {
+                initVal.pb(1);
+            } else {
+                initVal.pb(0);
             }
+            ctr[next]++;
+        }
+        SegmentTree ST(initVal);
+
+        int ans = 0;
+        map<int, int> indexes;
+        F0R(i, n) {
+            MAX(ans, ST.rprefixq(i, n - 1));
+            cout << ST.rprefixq(i, n-1) << endl;
+            int next = A[i];
+            int curIdx = indexes[next];
+            if (curIdx < locations[next].size()) ST.update_point(locations[next][curIdx], 1);
+            if (curIdx < locations[next].size() - 1) ST.update_point(locations[next][curIdx + 1], -s);
+            indexes[next]++;
         }
         cout << "Case #" << caseNum << ": " << ans << endl;
     }
