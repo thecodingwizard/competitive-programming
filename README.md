@@ -550,6 +550,7 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | A - Parcels  | Multi-Source BFS, Manhattan Distance |
 | B - Building Palindromes | Prefix Sums |
 | B - Energy Stones | DP Knapsack, sorting |
+| B - Diverse Subarray | Segment Tree |
 
 # Google Code Jam
 Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com/codejam) competitions.
