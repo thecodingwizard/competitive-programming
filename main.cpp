@@ -71,28 +71,54 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+struct BIT {
+    int n = 10010;
+    ll tree[10010];
+
+    ll update(int idx, ll val) {
+        for (; idx < n; idx += LSOne(idx)) {
+            tree[idx] += val;
+        }
+        return tree[idx];
+    }
+
+    ll query(int idx) {
+        if (idx == 0) return 0;
+        ll sum = 0;
+        for (; idx > 0; idx -= LSOne(idx)) {
+            sum += tree[idx];
+        }
+        return sum;
+    }
+};
+
+int n, m; 
+int A[10000];
+BIT bit[10];
+
 int main() {
-    int t, w; cin >> t >> w;
-    F0R1(caseNum, t) {
-        cout << 1 << endl << 2 << endl << 3 << endl << 4 << endl << 5 << endl << 6 << endl;
-        int w1, w2, w3, w4, w5, w6; cin >> w1 >> w2 >> w3 >> w4 >> w5 >> w6;
-        int ab = w2 - w1; // 2a + b
-        int cdef = 2*w1-w2; // c + d + e + f
-        int ac = w3 - cdef - 2*ab; // 4a + c
-        int ad = w4 - cdef - ac - 4*ab; // 4a + d
-        int ae = w5 - cdef - ac - ad - 4*ab; // 16a + e
-        int af = w6 - cdef - 3*ac - ad - ae - 8*ab; // 16a + f
-        int sum = ac + ad + ae + af; // 40a + c + d + e + f
-        /* cout << ab << " " << ac << " " << ad << " " << ae << " " << af << " " << sum << " " << cdef << endl; */
-        int a = (sum - cdef) / 40;
-        int b = ab - 2*a;
-        int c = ac - 4*a;
-        int d = ad - 4*a;
-        int e = ae - 16*a;
-        int f = af - 16*a;
-        cout << a << " " << b << " " << c << " " << d << " " << e << " " << f << endl;
-        int resp; cin >> resp;
-        if (resp == -1) exit(0);
+    cin >> n >> m;
+    F0R(i, n) cin >> A[i];
+
+    F0R(i, m) {
+        SET(bit[i].tree, 0, 10010);
+    }
+
+    F0R(i, n) {
+        bit[A[i] % m].update(i + 1, A[i]);
+    }
+
+    int q; cin >> q;
+    while (q--) {
+        char command; cin >> command;
+        if (command == 's') {
+            int l, r, mod; cin >> l >> r >> mod;
+            cout << bit[mod].query(r) - bit[mod].query(l - 1) << endl;
+        } else if (command == '+') {
+            int p, r; cin >> p >> r;
+        } else {
+
+        }
     }
 
     return 0;
