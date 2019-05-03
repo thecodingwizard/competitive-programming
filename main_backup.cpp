@@ -75,43 +75,36 @@ int main() {
     int t; cin >> t;
     F0R1(caseNum, t) {
         int p, q; cin >> p >> q;
-        set<int> interestingX, interestingY;
-        interestingX.insert(0); interestingY.insert(0); interestingX.insert(q); interestingY.insert(q);
-        vector<pair<ii, char>> lines;
+        map<int, vector<pair<int, ii>>> vertLines;
+        map<int, vector<pair<int, ii>>> horizLines;
         F0R(i, p) {
             int x, y; char d; cin >> x >> y >> d;
-            interestingX.insert(x - 1);
-            interestingX.insert(x + 1);
-            interestingY.insert(y - 1);
-            interestingY.insert(y + 1);
-            lines.pb(mp(mp(x, y), d));
-        }
-        int best = 0;
-        ii bestCoord = { 0, 0 };
-        for (auto x : interestingX) {
-            if (x < 0 || x >= q) continue;
-            for (auto y : interestingY) {
-                if (y < 0 || y >= q) continue;
-                int ct = 0;
-                for (auto line : lines) {
-                    if (line.pB == 'N') {
-                        if (line.pA.pA == y && line.pA.pB > x) ct++;
-                    } else if (line.pB == 'E') {
-                        if (line.pA.pB == x && line.pA.pA < y) ct++;
-                    } else if (line.pB == 'S') {
-                        if (line.pA.pA == y && line.pA.pB < x) ct++;
-                    } else {
-                        if (line.pA.pB == x && line.pA.pA > y) ct++;
-                    }
-                }
-                cout << ct << endl;
-                if (ct > best) {
-                    best = ct;
-                    bestCoord = { x, y };
-                }
+            if (d == 'N') {
+                vertLines[y].pb(mp(0, mp(i, 1)));
+                vertLines[y].pb(mp(x, mp(i, -1)));
+            } else if (d == 'S') {
+            } else if (d == 'E') {
+            } else {
             }
         }
-        cout << "Case #" << caseNum << ": " << bestCoord.pA << " " << bestCoord.pB << endl;
+        SORT(vertLines);
+        SORT(horizLines);
+
+        for (auto &x : vertLines) {
+            int xCoord = x.pA;
+            int prevY = -1;
+            for (auto &line : x.pB) {
+                int newY = line.pA;
+                for (auto &horizCoord : horizLines) {
+                    if (horizCoord.pA >= prevY && horizCoord.pA <= newY) {
+                        for (auto &horizLine : horizCoord.pB) {
+                            int loc = horizLine.pA;
+                        }
+                    }
+                }
+                prevY = newY;
+            }
+        }
     }
 
     return 0;
