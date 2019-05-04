@@ -71,80 +71,46 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-vi regions[200];
-bool isAdj[200][200];
-int dist[200][200];
-
-bool hasEdge(int region, int i, int j) {
-    F0R(a, regions[region].size()) {
-        if (regions[region][a] == i && regions[region][(a+1)%regions[region].size()] == j) return true;
-    }
-    return false;
-}
-
-bool isIn(int region, int town) {
-    for (int x : regions[region]) if (x == town) return true;
-    return false;
-}
-
 int main() {
-    int m, n, l; cin >> m >> n >> l;
-    int A[l]; F0R(i, l) cin >> A[i];
+    int m, n, a, b, c, d; cin >> m >> n >> a >> b >> c >> d;
+    int A[n][m]; F0R(i, n) F0R(j, m) cin >> A[i][j];
+    int ps[n+10][m+10]; SET2D(ps, 0, n+10, m+10);
+    F0R1(i, n) F0R1(j, m) ps[i][j] = ps[i - 1][j] + ps[i][j - 1] - ps[i - 1][j - 1] + A[i - 1][j - 1];
 
-    F0R(i, m) {
-        int x; cin >> x;
-        F0R(j, x) {
-            int y; cin >> y;
-            regions[i].pb(y);
-        }
-    }
-
-    reverse(all(regions[m - 1]));
-    SET2D(isAdj, false, m, m);
-    SET2D(dist, -1, m, m);
-
-    F0R(i, m) {
-        F0R(j, m) {
-            if (i == j) continue;
-            F0R(k, regions[i].size()) {
-                int a = regions[i][k], b = regions[i][(k+1)%regions[i].size()];
-                if (hasEdge(j, a, b) || hasEdge(j, b, a)) isAdj[i][j] = true;
+    int globalBest = 0;
+    pair<ii, ii> ans;
+    F0R1(x, n - b + 1) {
+        int w = 1;
+        int best[1001]; SET(best, INF, 1001);
+        ii bestAns[1001];
+        for (int y = w + 1; y < w + a - c; y++) {
+            for (int z = x + 1; z < x + b - d; z++) {
+                int res = ps[z + d - 1][y + c - 1] - ps[z + d - 1][y - 1] - ps[z - 1][y + c - 1] + ps[z - 1][y - 1];
+                if (res < best[y]) {
+                    best[y] = res;
+                    bestAns[y] = { y, z };
+                }
             }
         }
-    }
-
-    F0R(i, m) {
-        queue<int> q; q.push(i);
-        dist[i][i] = 0;
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
-            F0R(j, m) {
-                if (!isAdj[u][j]) continue;
-                if (dist[i][j] == -1) {
-                    dist[i][j] = dist[i][u] + 1;
-                    q.push(j);
+        F0R1(w, m - a + 1) {
+            int y = w + a - c - 1;
+            for (int z = x + 1; z < x + b - d; z++) {
+                int res = ps[z + d - 1][y + c - 1] - ps[z + d - 1][y - 1] - ps[z - 1][y + c - 1] + ps[z - 1][y - 1];
+                if (res < best[y]) {
+                    best[y] = res;
+                    bestAns[y] = { y, z };
+                }
+            }
+            int res = ps[x + b - 1][w + a - 1] - ps[x + b - 1][w - 1] - ps[x - 1][w + a - 1] + ps[x - 1][w - 1];
+            for (int y = w + 1; y < w + a - c; y++) {
+                if (globalBest < res - best[y]) {
+                    globalBest = res - best[y];
+                    ans = { { w, x }, bestAns[y] };
                 }
             }
         }
     }
-
-    int best = INF, bestAns = -1;
-    F0R(i, m) {
-        int regAns = 0;
-        F0R(j, l) {
-            int smallest = INF;
-            F0R(k, m) {
-                if (!isIn(k, A[j])) continue;
-                MIN(smallest, dist[k][i]);
-            }
-            regAns += smallest;
-        }
-        if (regAns < best) {
-            best = regAns;
-            bestAns = i + 1;
-        }
-    }
-    cout << best << endl << bestAns << endl;
+    cout << ans.pA.pA << " " << ans.pA.pB << endl << ans.pB.pA << " " << ans.pB.pB << endl;
 
     return 0;
 }

@@ -71,80 +71,48 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-vi regions[200];
-bool isAdj[200][200];
-int dist[200][200];
-
-bool hasEdge(int region, int i, int j) {
-    F0R(a, regions[region].size()) {
-        if (regions[region][a] == i && regions[region][(a+1)%regions[region].size()] == j) return true;
-    }
-    return false;
-}
-
-bool isIn(int region, int town) {
-    for (int x : regions[region]) if (x == town) return true;
-    return false;
-}
-
 int main() {
-    int m, n, l; cin >> m >> n >> l;
-    int A[l]; F0R(i, l) cin >> A[i];
-
-    F0R(i, m) {
-        int x; cin >> x;
-        F0R(j, x) {
-            int y; cin >> y;
-            regions[i].pb(y);
+    int t; cin >> t;
+    F0R1(caseNum, t) {
+        int p, q; cin >> p >> q;
+        set<int> interestingX, interestingY;
+        interestingX.insert(0); interestingY.insert(0); interestingX.insert(q); interestingY.insert(q);
+        vector<pair<ii, char>> lines;
+        F0R(i, p) {
+            int x, y; char d; cin >> x >> y >> d;
+            interestingX.insert(x - 1);
+            interestingX.insert(x + 1);
+            interestingY.insert(y - 1);
+            interestingY.insert(y + 1);
+            lines.pb(mp(mp(x, y), d));
         }
-    }
-
-    reverse(all(regions[m - 1]));
-    SET2D(isAdj, false, m, m);
-    SET2D(dist, -1, m, m);
-
-    F0R(i, m) {
-        F0R(j, m) {
-            if (i == j) continue;
-            F0R(k, regions[i].size()) {
-                int a = regions[i][k], b = regions[i][(k+1)%regions[i].size()];
-                if (hasEdge(j, a, b) || hasEdge(j, b, a)) isAdj[i][j] = true;
-            }
-        }
-    }
-
-    F0R(i, m) {
-        queue<int> q; q.push(i);
-        dist[i][i] = 0;
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
-            F0R(j, m) {
-                if (!isAdj[u][j]) continue;
-                if (dist[i][j] == -1) {
-                    dist[i][j] = dist[i][u] + 1;
-                    q.push(j);
+        int best = 0;
+        ii bestCoord = { 0, 0 };
+        for (auto x : interestingX) {
+            if (x < 0 || x >= q) continue;
+            for (auto y : interestingY) {
+                if (y < 0 || y >= q) continue;
+                int ct = 0;
+                for (auto line : lines) {
+                    if (line.pB == 'N') {
+                        if (line.pA.pA == y && line.pA.pB > x) ct++;
+                    } else if (line.pB == 'E') {
+                        if (line.pA.pB == x && line.pA.pA < y) ct++;
+                    } else if (line.pB == 'S') {
+                        if (line.pA.pA == y && line.pA.pB < x) ct++;
+                    } else {
+                        if (line.pA.pB == x && line.pA.pA > y) ct++;
+                    }
+                }
+                cout << ct << endl;
+                if (ct > best) {
+                    best = ct;
+                    bestCoord = { x, y };
                 }
             }
         }
+        cout << "Case #" << caseNum << ": " << bestCoord.pA << " " << bestCoord.pB << endl;
     }
-
-    int best = INF, bestAns = -1;
-    F0R(i, m) {
-        int regAns = 0;
-        F0R(j, l) {
-            int smallest = INF;
-            F0R(k, m) {
-                if (!isIn(k, A[j])) continue;
-                MIN(smallest, dist[k][i]);
-            }
-            regAns += smallest;
-        }
-        if (regAns < best) {
-            best = regAns;
-            bestAns = i + 1;
-        }
-    }
-    cout << best << endl << bestAns << endl;
 
     return 0;
 }

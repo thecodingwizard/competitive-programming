@@ -1,3 +1,5 @@
+// 2D BIT Tree Implementation!
+
 #include <iostream>
 #include <string>
 #include <utility>
@@ -71,80 +73,44 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-vi regions[200];
-bool isAdj[200][200];
-int dist[200][200];
+int n = 2000;
+int bit[2000][2000];
 
-bool hasEdge(int region, int i, int j) {
-    F0R(a, regions[region].size()) {
-        if (regions[region][a] == i && regions[region][(a+1)%regions[region].size()] == j) return true;
+void bit_add(int i, int j, int val) {
+    for (; i < n; i += LSOne(i)) {
+        for (int k = j; k < n; k += LSOne(k)) {
+            bit[i][k] += val;
+        }
     }
-    return false;
 }
 
-bool isIn(int region, int town) {
-    for (int x : regions[region]) if (x == town) return true;
-    return false;
+int bit_query(int i, int j) {
+    int ans = 0;
+    for (; i > 0; i -= LSOne(i)) {
+        for (int k = j; k > 0; k -= LSOne(k)) {
+            ans += bit[i][k];
+        }
+    }
+    return ans;
 }
 
 int main() {
-    int m, n, l; cin >> m >> n >> l;
-    int A[l]; F0R(i, l) cin >> A[i];
-
-    F0R(i, m) {
-        int x; cin >> x;
-        F0R(j, x) {
-            int y; cin >> y;
-            regions[i].pb(y);
+    int command;
+    while (cin >> command && command != 3) {
+        if (command == 0) {
+            int s; cin >> s;
+            // init bit to size s
+            n = s + 10;
+        } else if (command == 1) {
+            int x, y, a; cin >> x >> y >> a;
+            x++; y++;
+            bit_add(x, y, a);
+        } else {
+            int l, b, r, t; cin >> l >> b >> r >> t;
+            l++; b++; r++; t++;
+            cout << bit_query(r, t) - bit_query(r, b - 1) - bit_query(l - 1, t) + bit_query(l - 1, b - 1) << endl;
         }
     }
-
-    reverse(all(regions[m - 1]));
-    SET2D(isAdj, false, m, m);
-    SET2D(dist, -1, m, m);
-
-    F0R(i, m) {
-        F0R(j, m) {
-            if (i == j) continue;
-            F0R(k, regions[i].size()) {
-                int a = regions[i][k], b = regions[i][(k+1)%regions[i].size()];
-                if (hasEdge(j, a, b) || hasEdge(j, b, a)) isAdj[i][j] = true;
-            }
-        }
-    }
-
-    F0R(i, m) {
-        queue<int> q; q.push(i);
-        dist[i][i] = 0;
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
-            F0R(j, m) {
-                if (!isAdj[u][j]) continue;
-                if (dist[i][j] == -1) {
-                    dist[i][j] = dist[i][u] + 1;
-                    q.push(j);
-                }
-            }
-        }
-    }
-
-    int best = INF, bestAns = -1;
-    F0R(i, m) {
-        int regAns = 0;
-        F0R(j, l) {
-            int smallest = INF;
-            F0R(k, m) {
-                if (!isIn(k, A[j])) continue;
-                MIN(smallest, dist[k][i]);
-            }
-            regAns += smallest;
-        }
-        if (regAns < best) {
-            best = regAns;
-            bestAns = i + 1;
-        }
-    }
-    cout << best << endl << bestAns << endl;
 
     return 0;
 }
