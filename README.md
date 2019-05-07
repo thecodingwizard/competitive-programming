@@ -570,6 +570,8 @@ Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com
 | Qualification | Dat Bae | Interactive, similar strategy to CodeForces 1117E |
 | 1A | Pylons | Construction, Implementation |
 | 1A | Golf Gophers | Chinese Remainder Theorem |
+| 1B | Manhattan Crepe Cart | Sweep lines |
+| 1B | Draupnir (Visible Set Only) | Solving systems of equations (math) |
 
 # CSES
 Solutions to [CSES Problem Set](https://cses.fi/problemset/).
