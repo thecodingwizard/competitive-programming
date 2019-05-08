@@ -71,55 +71,93 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
+struct SegmentTree {
+    int n;
+    vi st;
+    vi A;
+
+    int build(int p, int l, int r) {
+        if (l == r) {
+            return st[p] = A[l];
+        }
+        int lhs = build(p<<1, l, (l+r)/2);
+        int rhs = build((p<<1)+1, (l+r)/2+1, r);
+        return st[p] = max(lhs, rhs);
+    }
+
+    int query(int p, int l, int r, int L, int R) {
+        if (l <= L && r >= R) return st[p];
+        if (l > R || r < L) return 0;
+        int lhs = query(p << 1, l, r, L, (L+R)/2);
+        int rhs = query((p << 1) + 1, l, r, (L+R)/2 + 1, R);
+        return max(lhs, rhs);
+    }
+};
+
 int main() {
     int t; cin >> t;
     F0R1(caseNum, t) {
-        int p, q; cin >> p >> q;
-        vii vertEvents, horizEvents;
-        vertEvents.pb(mp(0, 0));
-        horizEvents.pb(mp(0, 0));
-        F0R(i, p) {
-            int x, y; char d; cin >> x >> y >> d;
-            if (d == 'N') {
-                vertEvents.pb(mp(y + 1, 1));
-            } else if (d == 'E') {
-                horizEvents.pb(mp(x + 1, 1));
-            } else if (d == 'S') {
-                vertEvents.pb(mp(0, 1));
-                vertEvents.pb(mp(y, -1));
-            } else {
-                horizEvents.pb(mp(0, 1));
-                horizEvents.pb(mp(x, -1));
-            }
-        }
-        SORT(horizEvents);
-        SORT(vertEvents);
-        int best = 0;
-        ii bestCoord = { 0, 0 };
-        int ct = 0;
-        for (int i = 0; i < horizEvents.size(); i++) {
-            int loc = horizEvents[i].pA;
-            ct += horizEvents[i].pB;
-            while (i + 1 < horizEvents.size() && horizEvents[i + 1].pA == loc) {
-                i++;
-                ct += horizEvents[i].pB;
-            }
-            int otherCt = 0;
-            for (int j = 0; j < vertEvents.size(); j++) {
-                int otherLoc = vertEvents[j].pA;
-                otherCt += vertEvents[j].pB;
-                while (j + 1 < vertEvents.size() && vertEvents[j + 1].pA == otherLoc) {
-                    j++;
-                    otherCt += vertEvents[j].pB;
-                }
-                int opt = ct + otherCt;
-                if (best < opt) {
-                    best = opt;
-                    bestCoord = { loc, otherLoc };
+        int n, k; cin >> n >> k;
+        int A[n], B[n]; F0R(i, n) cin >> A[i]; F0R(i, n) cin >> B[i];
+
+        SegmentTree a, b;
+        F0R(i, n) a.A.pb(A[i]);
+        F0R(i, n) b.A.pb(B[i]);
+        a.st.assign(4*n, 0);
+        b.st.assign(4*n, 0);
+        a.n = n;
+        b.n = n;
+        a.build(1, 0, n - 1);
+        b.build(1, 0, n - 1);
+
+        ll finalAns = 0;
+        F0R(i, n) {
+            int lo = i, hi = n, mid, ans = i - 1;
+            while (lo < hi) {-
+                mid = (lo + hi)/2;
+                int aMax = a.query(1, i, mid, 0, n-1);
+                if (aMax == A[i]) {
+                    ans = mid + 1;
+                    lo = mid + 1;
+                } else {
+                    hi = mid;
                 }
             }
+            lo = i;
+            int maxA = ans;
+            hi = ans;
+            ans = -1;
+            while (lo < hi) {
+                mid = (lo + hi)/2;
+                int bMax = b.query(1, i, mid, 0, n-1);
+                if (A[i] - k > bMax) {
+                    lo = mid + 1;
+                } else {
+                    ans = mid;
+                    hi = mid;
+                }
+            }
+            if (ans == -1) continue;
+            int lower = ans;
+            ans = -1;
+            lo = lower;
+            hi = maxA;
+            while (lo < hi) {
+                mid = (lo + hi)/2;
+                int bMax = b.query(1, i, mid, 0, n-1);
+                if (A[i] + k < bMax) {
+                    hi = mid;
+                } else {
+                    lo = mid + 1;
+                    ans = mid + 1;
+                }
+            }
+            if (ans == -1) continue;
+            int upper = ans;
+            finalAns += upper - lower;
         }
-        cout << "Case #" << caseNum << ": " << bestCoord.pA << " " << bestCoord.pB << endl;
+
+        cout << "Case #" << caseNum << ": " << finalAns << endl;
     }
 
     return 0;
