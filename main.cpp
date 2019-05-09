@@ -100,61 +100,77 @@ int main() {
         int n, k; cin >> n >> k;
         int A[n], B[n]; F0R(i, n) cin >> A[i]; F0R(i, n) cin >> B[i];
 
-        SegmentTree a, b;
-        F0R(i, n) a.A.pb(A[i]);
-        F0R(i, n) b.A.pb(B[i]);
-        a.st.assign(4*n, 0);
-        b.st.assign(4*n, 0);
-        a.n = n;
-        b.n = n;
-        a.build(1, 0, n - 1);
-        b.build(1, 0, n - 1);
-
         ll finalAns = 0;
-        F0R(i, n) {
-            int lo = i, hi = n, mid, ans = i - 1;
-            while (lo < hi) {-
-                mid = (lo + hi)/2;
-                int aMax = a.query(1, i, mid, 0, n-1);
-                if (aMax == A[i]) {
-                    ans = mid + 1;
-                    lo = mid + 1;
-                } else {
-                    hi = mid;
+        set<ii> seen;
+        for (int run = 0; run < 2; run++) {
+            SegmentTree a, b;
+            F0R(i, n) a.A.pb(A[i]);
+            F0R(i, n) b.A.pb(B[i]);
+            a.st.assign(4*n, 0);
+            b.st.assign(4*n, 0);
+            a.n = n;
+            b.n = n;
+            a.build(1, 0, n - 1);
+            b.build(1, 0, n - 1);
+
+            F0R(i, n) {
+                int lo = i, hi = n, mid, ans = i - 1;
+                while (lo < hi) {
+                    mid = (lo + hi)/2;
+                    int aMax = a.query(1, i, mid, 0, n-1);
+                    if (aMax == A[i]) {
+                        ans = mid + 1;
+                        lo = mid + 1;
+                    } else {
+                        hi = mid;
+                    }
                 }
-            }
-            lo = i;
-            int maxA = ans;
-            hi = ans;
-            ans = -1;
-            while (lo < hi) {
-                mid = (lo + hi)/2;
-                int bMax = b.query(1, i, mid, 0, n-1);
-                if (A[i] - k > bMax) {
-                    lo = mid + 1;
-                } else {
-                    ans = mid;
-                    hi = mid;
+                lo = i;
+                int maxA = ans;
+                hi = ans;
+                ans = -1;
+                while (lo < hi) {
+                    mid = (lo + hi)/2;
+                    int bMax = b.query(1, i, mid, 0, n-1);
+                    if (A[i] - k > bMax) {
+                        lo = mid + 1;
+                    } else {
+                        ans = mid;
+                        hi = mid;
+                    }
                 }
-            }
-            if (ans == -1) continue;
-            int lower = ans;
-            ans = -1;
-            lo = lower;
-            hi = maxA;
-            while (lo < hi) {
-                mid = (lo + hi)/2;
-                int bMax = b.query(1, i, mid, 0, n-1);
-                if (A[i] + k < bMax) {
-                    hi = mid;
-                } else {
-                    lo = mid + 1;
-                    ans = mid + 1;
+                if (ans == -1) continue;
+                int lower = ans;
+                ans = -1;
+                lo = lower;
+                hi = maxA;
+                while (lo < hi) {
+                    mid = (lo + hi)/2;
+                    int bMax = b.query(1, i, mid, 0, n-1);
+                    if (A[i] + k < bMax) {
+                        hi = mid;
+                    } else {
+                        lo = mid + 1;
+                        ans = mid + 1;
+                    }
                 }
+                if (ans == -1) continue;
+                int upper = ans;
+                if (run == 0) {
+                    if (A[lower] == A[upper - 1]) {
+                        seen.insert(mp(lower, upper));
+                    }
+                } else {
+                    if (A[n - lower - 1] == A[n - upper - 2]) {
+                        /* if (seen.count(mp(n - lower - 1, n - upper - 1))) upper--; */
+                    }
+                }
+                finalAns += upper - lower;
+                cout << finalAns << endl;
             }
-            if (ans == -1) continue;
-            int upper = ans;
-            finalAns += upper - lower;
+
+            reverse(A, A+n);
+            reverse(B, B+n);
         }
 
         cout << "Case #" << caseNum << ": " << finalAns << endl;
