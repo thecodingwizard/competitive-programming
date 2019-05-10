@@ -72,7 +72,6 @@ void setupIO(const string &PROB) {
 /* ============================ */
 
 struct SegmentTree {
-    int n;
     vi st;
     vi A;
 
@@ -101,48 +100,60 @@ int main() {
         int A[n], B[n]; F0R(i, n) cin >> A[i]; F0R(i, n) cin >> B[i];
 
         ll finalAns = 0;
-        set<ii> seen;
-        for (int run = 0; run < 2; run++) {
-            SegmentTree a, b;
-            F0R(i, n) a.A.pb(A[i]);
-            F0R(i, n) b.A.pb(B[i]);
-            a.st.assign(4*n, 0);
-            b.st.assign(4*n, 0);
-            a.n = n;
-            b.n = n;
-            a.build(1, 0, n - 1);
-            b.build(1, 0, n - 1);
+        SegmentTree a, b;
+        F0R(i, n) a.A.pb(A[i]);
+        F0R(i, n) b.A.pb(B[i]);
+        a.st.assign(4*n, 0);
+        b.st.assign(4*n, 0);
+        a.build(1, 0, n - 1);
+        b.build(1, 0, n - 1);
 
-            F0R(i, n) {
-                int lo = i, hi = n, mid, ans = i - 1;
-                while (lo < hi) {
-                    mid = (lo + hi)/2;
-                    int aMax = a.query(1, i, mid, 0, n-1);
-                    if (aMax == A[i]) {
-                        ans = mid + 1;
-                        lo = mid + 1;
-                    } else {
-                        hi = mid;
-                    }
+        F0R(i, n) {
+            int lo = i, hi = n, mid, ans = i - 1;
+            while (lo < hi) {
+                mid = (lo + hi)/2;
+                int aMax = a.query(1, i, mid, 0, n-1);
+                if (aMax == A[i]) {
+                    ans = mid + 1;
+                    lo = mid + 1;
+                } else {
+                    hi = mid;
                 }
-                lo = i;
-                int maxA = ans;
-                hi = ans;
-                ans = -1;
-                while (lo < hi) {
-                    mid = (lo + hi)/2;
-                    int bMax = b.query(1, i, mid, 0, n-1);
-                    if (A[i] - k > bMax) {
-                        lo = mid + 1;
-                    } else {
-                        ans = mid;
-                        hi = mid;
-                    }
+            }
+            int maxA = ans;
+            lo = 0, hi = i, ans = i;
+            while (lo < hi) {
+                mid = (lo + hi)/2;
+                int aMax = a.query(1, mid, i - 1, 0, n-1);
+                if (aMax < A[i]) {
+                    hi = mid;
+                    ans = mid;
+                } else {
+                    lo = mid + 1;
                 }
-                if (ans == -1) continue;
-                int lower = ans;
+            }
+            int minA = ans;
+
+
+            lo = i + 1;
+            hi = maxA;
+            ans = -1;
+            bool noneRight = false;
+            while (lo < hi) {
+                mid = (lo + hi)/2;
+                int bMax = b.query(1, i, mid, 0, n-1);
+                if (A[i] - k > bMax) {
+                    lo = mid + 1;
+                } else {
+                    ans = mid;
+                    hi = mid;
+                }
+            }
+            int bRightLower = ans;
+            if (ans == -1) noneRight = true;
+            else {
                 ans = -1;
-                lo = lower;
+                lo = bRightLower;
                 hi = maxA;
                 while (lo < hi) {
                     mid = (lo + hi)/2;
@@ -154,23 +165,61 @@ int main() {
                         ans = mid + 1;
                     }
                 }
-                if (ans == -1) continue;
-                int upper = ans;
-                if (run == 0) {
-                    if (A[lower] == A[upper - 1]) {
-                        seen.insert(mp(lower, upper));
-                    }
-                } else {
-                    if (A[n - lower - 1] == A[n - upper - 2]) {
-                        /* if (seen.count(mp(n - lower - 1, n - upper - 1))) upper--; */
-                    }
-                }
-                finalAns += upper - lower;
-                cout << finalAns << endl;
+                if (ans == -1) noneRight = true;
             }
+            int bRightUpper = ans;
+            int rightOptions = noneRight ? 0 : bRightUpper - bRightLower;
 
-            reverse(A, A+n);
-            reverse(B, B+n);
+
+
+            lo = minA;
+            hi = i;
+            ans = -1;
+            bool noneLeft = false;
+            while (lo < hi) {
+                mid = (lo + hi)/2;
+                int bMax = b.query(1, mid, i, 0, n-1);
+                if (A[i] - k > bMax) {
+                    hi = mid;
+                } else {
+                    ans = mid + 1;
+                    lo = mid + 1;
+                }
+            }
+            if (ans == -1) noneLeft = true;
+            int bLeftLower = ans;
+            ans = -1;
+            lo = minA;
+            hi = i + 1;
+            while (lo < hi) {
+                mid = (lo + hi)/2;
+                int bMax = b.query(1, mid, i, 0, n-1);
+                if (A[i] + k < bMax) {
+                    lo = mid + 1;
+                } else {
+                    hi = mid;
+                    ans = mid;
+                }
+            }
+            if (ans == -1) noneLeft = true;
+            int bLeftUpper = ans;
+            int leftOptions = noneLeft ? 0 : bLeftLower - bLeftUpper;
+
+            finalAns += rightOptions * leftOptions + rightOptions + leftOptions;
+            if (A[i] == B[i]) finalAns++;
+        }
+
+        ll ans = 0;
+        F0R(i, n) {
+            int maxA = 0, maxB = 0;
+            FOR(j, i, n) {
+                MAX(maxA, A[j]);
+                MAX(maxB, B[j]);
+                if (abs(maxA - maxB) <= k) ans++;
+            }
+        }
+        if (ans != finalAns) {
+            cout << "Bad " << ans << endl;
         }
 
         cout << "Case #" << caseNum << ": " << finalAns << endl;
