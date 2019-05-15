@@ -240,6 +240,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2017 | [grass][grass] | Switch Grass | MST, Sets, I/O Optimization |
 | Dec 2017 | [pushabox][pushabox] | Push A Box | Biconnected Components, BFS |
 | Dec 2017 | [greedy][greedy] | Greedy Gift Takers | Binary Search, Prefix Sums |
+| Dec 2018 | [balance][balance] | Balance Beam | Convex Hull / Visualizing Geometry |
 | Jan 2018 | [lifeguards][lifeguards] | Lifeguards | DP (Note: Solution code is very sketchy and really shouldn't run in time) |
 | Feb 2018 | [newbarn][newbarn] | New Barns | Centroid Decomposition |
 | Jan 2019 | [redistricting][redistricting] | Redistricting | DP, Monotonic Queue |
@@ -455,6 +456,7 @@ Solutions to USACO training and USACO contest problems.
 [grass]: usaco-contests/2017open/plat/grass.cpp
 [pushabox]: usaco-contests/2017dec/plat/pushabox.cpp
 [greedy]: usaco-contests/2017dec/plat/greedy.cpp
+[balance]: usaco-contests/2018dec/plat/balance.cpp
 [lifeguards]: usaco-contests/2018jan/plat/lifeguards.cpp
 [newbarn]: usaco-contests/2018feb/plat/newbarn.cpp
 [redistricting]: usaco-contests/2019jan/plat/redistricting.cpp
