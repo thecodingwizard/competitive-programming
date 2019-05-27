@@ -240,7 +240,7 @@ Solutions to USACO training and USACO contest problems.
 | Open 2017 | [grass][grass] | Switch Grass | MST, Sets, I/O Optimization |
 | Dec 2017 | [pushabox][pushabox] | Push A Box | Biconnected Components, BFS |
 | Dec 2017 | [greedy][greedy] | Greedy Gift Takers | Binary Search, Prefix Sums |
-| Open 2018 | [disrupt][disrupt] | Disruption | Merging small to large, pool pointers method, graph |
+| Open 2018 | [disrupt][disrupt] | Disruption | Method 1: (Merging small to large, pool pointers method). Method 2: (LCA + Path Compression). Method 3: (HLD). Method 4: (2D Seg Tree, Graphically thinking) |
 | Dec 2018 | [balance][balance] | Balance Beam | Convex Hull / Visualizing Geometry |
 | Jan 2018 | [lifeguards][lifeguards] | Lifeguards | DP (Note: Solution code is very sketchy and really shouldn't run in time) |
 | Feb 2018 | [newbarn][newbarn] | New Barns | Centroid Decomposition |
