@@ -477,6 +477,7 @@ Solutions to various Codeforces problems.
 | [383D](codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
 | [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
 | [762B](codeforces/762B%20-%20USB%20vs%20PS2.cpp) | B. USB vs PS/2 | Sorting, Greedy |
+| 762E | E. Radio Stations | Segment Tree |
 | [809A](codeforces/809A%20-%20Do%20you%20want%20a%20date.cpp) | A. Do you want a date? | Math, power, mod |
 | [817D](codeforces/817D%20-%20Imbalanced%20Array.cpp) | D. Imbalanced Array | Stack, Sweep, Math |
 | [937A](codeforces/937A%20-%20Olympiad.cpp) | A. Olympiad | Set |
