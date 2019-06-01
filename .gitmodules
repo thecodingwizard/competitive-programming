@@ -1,0 +1,6 @@
+[submodule "cpbook-code"]
+	path = cpbook-code
+	url = https://github.com/stevenhalim/cpbook-code
+[submodule "usaco-camp"]
+	path = usaco-camp
+	url = https://github.com/thecodingwizard/usaco-camp
