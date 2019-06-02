@@ -531,6 +531,7 @@ Solutions to various Codeforces problems.
 | 1153C | C. Serval and Parenthesis Sequence | Greedy |
 | 1153D | D. Serval and Rooted Tree | Tree traversal, DP (ish) |
 | 1153E | E. Serval and Snake | Binary Search, Brute Force |
+| 1169D | D. Good Triple | Brute Force |
 
 # UVa Online Judge (Competitive Programming 3, Starred)
 Solutions to UVa Online Judge problems. Mostly starred problems from Competitive Programming 3.
