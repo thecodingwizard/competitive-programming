@@ -468,31 +468,31 @@ Solutions to USACO training and USACO contest problems.
 # Codeforces
 Solutions to various Codeforces problems.
 
-[Here is the complete solutions folder.](codeforces)
+[Here is the complete solutions folder.](Codeforces)
 
 | Problem ID | Problem Name | Solution Notes |
 | ---------- | ------------ | -------------- |
 | 321C | C. Ciel the Commander | Centroid Decomposition |
-| [342E](codeforces/342E%20-%20Xenia%20and%20Tree.cpp) | E. Xenia and Tree | Centroid Decomposition, LCA |
-| [383D](codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
-| [497A](codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
-| [762B](codeforces/762B%20-%20USB%20vs%20PS2.cpp) | B. USB vs PS/2 | Sorting, Greedy |
+| [342E](Codeforces/342E%20-%20Xenia%20and%20Tree.cpp) | E. Xenia and Tree | Centroid Decomposition, LCA |
+| [383D](Codeforces/383D%20-%20Antimatter.cpp) | D. Antimatter | DP |
+| [497A](Codeforces/497A%20-%20Reorder%20The%20Array.cpp) | A. Reorder The Array | Multiset |
+| [762B](Codeforces/762B%20-%20USB%20vs%20PS2.cpp) | B. USB vs PS/2 | Sorting, Greedy |
 | 762E | E. Radio Stations | Segment Tree |
-| [809A](codeforces/809A%20-%20Do%20you%20want%20a%20date.cpp) | A. Do you want a date? | Math, power, mod |
-| [817D](codeforces/817D%20-%20Imbalanced%20Array.cpp) | D. Imbalanced Array | Stack, Sweep, Math |
-| [937A](codeforces/937A%20-%20Olympiad.cpp) | A. Olympiad | Set |
-| [946D](codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
-| [989D](codeforces/989D%20-%20A%20Shade%20of%20Moonlight.cpp) | D. A Shade of Moonlight | Binary Search, Math |
-| [991B](codeforces/991B%20-%20Getting%20an%20A.cpp) | B. Getting an A | Sorting |
+| [809A](Codeforces/809A%20-%20Do%20you%20want%20a%20date.cpp) | A. Do you want a date? | Math, power, mod |
+| [817D](Codeforces/817D%20-%20Imbalanced%20Array.cpp) | D. Imbalanced Array | Stack, Sweep, Math |
+| [937A](Codeforces/937A%20-%20Olympiad.cpp) | A. Olympiad | Set |
+| [946D](Codeforces/946D%20-%20Timetable.cpp) | D. Timetable | DP |
+| [989D](Codeforces/989D%20-%20A%20Shade%20of%20Moonlight.cpp) | D. A Shade of Moonlight | Binary Search, Math |
+| [991B](Codeforces/991B%20-%20Getting%20an%20A.cpp) | B. Getting an A | Sorting |
 | 1012B | B. Chemical table | Bipartite Graph |
 | 1038C | C. Gambling | |
-| [1061D](codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
+| [1061D](Codeforces/1061D%20-%20TV%20Shows.cpp) | D. TV Shows | Multiset, Greedy |
 | 1067B | B. Multihedgehog | |
 | 1095F | F. Make it Connected | UFDS |
 | 1098A | A. Sum in the tree | |
 | 1099F | F. Cookies | Fenwick Tree |
-| [1104A](codeforces/1104A%20-%20Splitting%20into%20digits.cpp) | A. Splitting into digits | brute force |
-| [1104B](codeforces/1104B%20-%20Game%20with%20String.cpp) | B. Game with string | Stack |
+| [1104A](Codeforces/1104A%20-%20Splitting%20into%20digits.cpp) | A. Splitting into digits | brute force |
+| [1104B](Codeforces/1104B%20-%20Game%20with%20String.cpp) | B. Game with string | Stack |
 | 1104C | C. Grid Game | Ad Hoc |
 | 1104D | D. Game with modulo | binary search, math |
 | 1105A | A. Salem and Sticks | |
@@ -549,7 +549,7 @@ Solutions to UVa Online Judge problems. Mostly starred problems from Competitive
 # Google Kick Start
 Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.com/kickstart) competitions.
 
-## [Kick Start 2018](google-kickstart/2018)
+## [Kick Start 2018](GoogleKickstart/2018)
 | Problem Name | Solution Notes |
 | ------------ | -------------- |
 | A - Even Digits | Ad Hoc |
@@ -557,7 +557,7 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 | A - Scrambled Words | Strings, implementation |
 | B - No Nine | Digit DP (Alternatively, Ad Hoc) |
 
-## [Kick Start 2019](google-kickstart/2019)
+## [Kick Start 2019](GoogleKickstart/2019)
 | Problem Name | Solution Notes |
 | ------------ | -------------- |
 | A - Training | Sorting, Prefix Sums |
@@ -569,7 +569,7 @@ Solutions to various [Google Kick Start](https://codingcompetitions.withgoogle.c
 # Google Code Jam
 Solutions to various [Google Code Jam](https://codingcompetitions.withgoogle.com/codejam) competitions.
 
-## [Code Jam 2018](google-codejam/2018)
+## [Code Jam 2018](GoogleCodeJam/2018)
 | Round | Problem Name | Solution Notes |
 | ----- | ------------ | -------------- |
 | 1A | Waffle Choppers | Prefix sums, greedy |
