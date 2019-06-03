@@ -53,45 +53,83 @@ void setupIO(const string &PROB) {
 
 /* ============================ */
 
-int n;
-ii A[20000];
-int dp[2][2002][2];
 int main() {
-    cin >> n;
-    F0R(i, n) {
-        cin >> A[i].pA >> A[i].pB;
-    }
+    setupIO("balance");
 
-    SET3D(dp, INF, 1, 2002, 2);
-    dp[0][1000][0] = abs(A[0].pA);
-    dp[0][1000][1] = abs(A[0].pB);
-    F0R(i, n - 1) {
-        int curIdx = i % 2;
-        int nxtIdx = (i + 1) % 2;
-        F0R(j, 2002) F0R(k, 2) dp[nxtIdx][j][k] = INF;
-        F0R(j, 2002) {
-            F0R(k, 2) {
-                if (dp[curIdx][j][k] == INF) continue;
-                int cDist = dp[curIdx][j][k];
-                int xCoord, yCoord;
-                if (k == 0) {
-                    xCoord = A[i].pA;
-                    yCoord = j - 1000;
-                } else {
-                    xCoord = j - 1000;
-                    yCoord = A[i].pB;
-                }
-                int dX = abs(xCoord - A[i + 1].pA) + cDist;
-                int dY = abs(yCoord - A[i + 1].pB) + cDist;
-                MIN(dp[nxtIdx][yCoord + 1000][0], dX);
-                MIN(dp[nxtIdx][xCoord + 1000][1], dY);
-            }
+    int n; cin >> n;
+    ll A[2*n]; F0R(i, 2*n) cin >> A[i];
+
+    ll numOnes = 0;
+    ll numLeft = 0, numRight = 0;
+    ll ct[2*n];
+    ll psZeroes[2*n];
+    ll psOnes[n];
+    vi leftZeroes, rightZeroes;
+    psZeroes[n - 1] = !A[n - 1];
+    F0Rd(i, n - 1) {
+        psZeroes[i] = psZeroes[i + 1] + !A[i];
+    }
+    F0R(i, n) {
+        if (A[i] == 0) {
+            numLeft += numOnes;
+            ct[i] = numOnes;
+            leftZeroes.pb(i);
+        } else {
+            numOnes++;
+            ct[i] = psZeroes[i];
+        }
+        psOnes[i] = numOnes;
+    }
+    reverse(all(leftZeroes));
+    numOnes = 0;
+    psZeroes[2*n - 1] = !A[2*n - 1];
+    F0Rd(i, 2*n - 1) {
+        psZeroes[i] = psZeroes[i + 1] + !A[i];
+    }
+    FOR(i, n, 2*n) {
+        if (A[i] == 0) {
+            numRight += numOnes;
+            ct[i] = numOnes;
+            rightZeroes.pb(i);
+        } else {
+            numOnes++;
+            ct[i] = psZeroes[i];
         }
     }
-    int ans = INF;
-    F0R(j, 2002) {
-        F0R(k, 2) {
-            MIN(ans, dp[(n - 1) % 2][j][k]);
+
+    ll ans = abs(numLeft - numRight);
+
+    ll left = numLeft, right = numRight;
+    // Case 1: Move ones from right to left
+    int zeroIdx = 0;
+    ll numSwaps = 0;
+    FOR(i, n, 2*n) {
+        if (zeroIdx == leftZeroes.size()) break;
+        if (A[i] == 1) {
+            int zeroLoc = leftZeroes[zeroIdx++];
+            left -= ct[zeroLoc];
+            right -= ct[i];
+            numSwaps += (i - zeroLoc);
+            MIN(ans, abs(left - right) + numSwaps);
+        }
+    }
+
+    // Case 2: Move ones from left to right
+    zeroIdx = 0;
+    left = numLeft, right = numRight;
+    numSwaps = 0;
+    ll numMoved = 0;
+    F0Rd(i, n) {
+        if (zeroIdx == rightZeroes.size()) break;
+        if (A[i] == 1) {
+            int zeroLoc = rightZeroes[zeroIdx++];
+            left -= ct[i];
+            left += psOnes[i];
+            right -= ct[zeroLoc] + numMoved;
+            right += psZeroes[zeroLoc];
+            numSwaps += (zeroLoc - i);
+            MIN(ans, abs(left - right) + numSwaps);
+            numMoved++;
         }
     }
     cout << ans << endl;
