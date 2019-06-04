@@ -1,3 +1,15 @@
+/*
+ * We can easily calculate number of inversions on left/right in linear time.
+ *
+ * Assuming that we can't move any numbers between the left/right side of the array,
+ * we see that the answer is abs(left - right) since it takes one swap to change the
+ * left/right number of inversions by one.
+ *
+ * Now we consider what would happen if we move numbers between the left/right side
+ * of the array. There's two cases: Either we move ones from left to right, or we
+ * move ones from right to left. Note that it's always optimal for us to swap the
+ * closest one and zero to the middle. We can handle both these cases in linear time.
+ */
 #include <bits/stdc++.h>
 
 using namespace std;
