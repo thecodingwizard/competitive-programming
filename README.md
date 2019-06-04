@@ -180,6 +180,7 @@ Solutions to USACO training and USACO contest problems.
 | Feb 2019 | [cowland][cowland] | Cow Land | Tree Traversal Array, or alternatively Heavy-Light Decomposition |
 | Feb 2019 | [dishes][dishes] | Dishwashing | Greedy (Also doable with [Greedy + Binary Search][dishes_binarysearch]) |
 | Feb 2019 | [paintbarn][paintbarn] | Painting the Barn | Geometry, Prefix Sums, Line Sweep |
+| Open 2019 | balance | Balancing Inversions | |
 
 ### Platinum USACO Contests:
 
