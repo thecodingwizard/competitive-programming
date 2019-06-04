@@ -67,45 +67,31 @@ int main() {
         }
     }
 
-    // new idea: keep track of prefix sums
+    // For each location i, figure out the first location j s.t. there exists some k where A[k][j] < A[k][i]
+    int minStartLoc[n]; SET(minStartLoc, 0, n);
 
-    bool matched[n]; // whether or not all the parenthesis at this location have a matching closing parenthesis
-    SET(matched, true, n);
-    int matching[k][n]; // stores the other index of match
-    F0R(j, k) {
-        stack<int> s;
-        bool good[n]; SET(good, false, n);
-        F0R(i, n) {
-            if (A[j][i] == '(') {
-                s.push(i);
-            } else {
-                if (s.size() > 0) {
-                    int u = s.top(); s.pop();
-                    good[u] = good[i] = true;
-                    matching[j][i] = u;
-                    matching[j][u] = i;
-                }
-            }
-        }
-        F0R(i, n) {
-            if (!good[i]) matched[i] = false;
-        }
-    }
+    map<vi, int> psLocations;
 
-    ll ans = 0;
+    vi init; F0R(i, k) init.pb(0);
+    psLocations[init] = 0;
+
+    int ps[k]; SET(ps, 0, k);
+    int setCount[n]; SET(setCount, 0, n);
     F0R(i, n) {
-        int maxEnd = 0;
+        vi nums;
         F0R(j, k) {
-            if (A[j][i] == '(') {
-                MAX(maxEnd, matching[j][i]);
-            } else {
-                maxEnd = INF;
-            }
+            if (A[j][i] == '(') ps[j]++;
+            else ps[j]--;
+            nums.pb(ps[j]);
         }
-        if (maxEnd == INF) continue;
+        if (psLocations.count(nums)) {
+            // can match with psLocations[nums]
+            // check to make sure psLocations[nums]...i prefix sums don't go below nums
 
+        } else {
+            psLocations[nums] = i + 1;
+        }
     }
-    cout << ans << endl;
 
     return 0;
 }
