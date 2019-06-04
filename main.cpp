@@ -41,96 +41,69 @@ typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<ll> vl;
 
-void setupIO(const string &PROB) {
+void setupIO(const string &PROB = "") {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ifstream infile(PROB + ".in");
-    if (infile.good()) {
-        freopen((PROB + ".in").c_str(), "r", stdin);
-        freopen((PROB + ".out").c_str(), "w", stdout);
+    if (PROB.length() != 0) {
+        ifstream infile(PROB + ".in");
+        if (infile.good()) {
+            freopen((PROB + ".in").c_str(), "r", stdin);
+            freopen((PROB + ".out").c_str(), "w", stdout);
+        }
     }
 }
 
 /* ============================ */
 
 int main() {
-    setupIO("balance");
+    setupIO("cbs");
 
-    int n; cin >> n;
-    ll A[2*n]; F0R(i, 2*n) cin >> A[i];
-
-    ll numOnes = 0;
-    ll numLeft = 0, numRight = 0;
-    ll ct[2*n];
-    ll psZeroes[2*n];
-    ll psOnes[n];
-    vi leftZeroes, rightZeroes;
-    psZeroes[n - 1] = !A[n - 1];
-    F0Rd(i, n - 1) {
-        psZeroes[i] = psZeroes[i + 1] + !A[i];
+    int k, n;
+    cin >> k >> n;
+    char A[k][n];
+    F0R(i, k) {
+        F0R(j, n) {
+            cin >> A[i][j];
+        }
     }
+
+    // new idea: keep track of prefix sums
+
+    bool matched[n]; // whether or not all the parenthesis at this location have a matching closing parenthesis
+    SET(matched, true, n);
+    int matching[k][n]; // stores the other index of match
+    F0R(j, k) {
+        stack<int> s;
+        bool good[n]; SET(good, false, n);
+        F0R(i, n) {
+            if (A[j][i] == '(') {
+                s.push(i);
+            } else {
+                if (s.size() > 0) {
+                    int u = s.top(); s.pop();
+                    good[u] = good[i] = true;
+                    matching[j][i] = u;
+                    matching[j][u] = i;
+                }
+            }
+        }
+        F0R(i, n) {
+            if (!good[i]) matched[i] = false;
+        }
+    }
+
+    ll ans = 0;
     F0R(i, n) {
-        psOnes[i] = numOnes;
-        if (A[i] == 0) {
-            numLeft += numOnes;
-            ct[i] = numOnes;
-            leftZeroes.pb(i);
-        } else {
-            numOnes++;
-            ct[i] = psZeroes[i];
+        int maxEnd = 0;
+        F0R(j, k) {
+            if (A[j][i] == '(') {
+                MAX(maxEnd, matching[j][i]);
+            } else {
+                maxEnd = INF;
+            }
         }
-    }
-    reverse(all(leftZeroes));
-    numOnes = 0;
-    psZeroes[2*n - 1] = !A[2*n - 1];
-    F0Rd(i, 2*n - 1) {
-        psZeroes[i] = psZeroes[i + 1] + !A[i];
-    }
-    FOR(i, n, 2*n) {
-        if (A[i] == 0) {
-            numRight += numOnes;
-            ct[i] = numOnes;
-            rightZeroes.pb(i);
-        } else {
-            numOnes++;
-            ct[i] = psZeroes[i];
-        }
-    }
+        if (maxEnd == INF) continue;
 
-    ll ans = abs(numLeft - numRight);
-
-    ll left = numLeft, right = numRight;
-    // Case 1: Move ones from right to left
-    int zeroIdx = 0;
-    ll numSwaps = 0;
-    FOR(i, n, 2*n) {
-        if (zeroIdx == leftZeroes.size()) break;
-        if (A[i] == 1) {
-            int zeroLoc = leftZeroes[zeroIdx++];
-            left -= ct[zeroLoc];
-            right -= ct[i];
-            numSwaps += (i - zeroLoc);
-            MIN(ans, abs(left - right) + numSwaps);
-        }
-    }
-
-    // Case 2: Move ones from left to right
-    zeroIdx = 0;
-    left = numLeft, right = numRight;
-    numSwaps = 0;
-    ll numMoved = 0;
-    F0Rd(i, n) {
-        if (zeroIdx == rightZeroes.size()) break;
-        if (A[i] == 1) {
-            int zeroLoc = rightZeroes[zeroIdx++];
-            left -= ct[i] + numMoved;
-            left += psOnes[i];
-            right -= ct[zeroLoc] + numMoved;
-            right += psZeroes[zeroLoc] - 1;
-            numSwaps += (zeroLoc - i);
-            MIN(ans, abs(left - right) + numSwaps);
-            numMoved++;
-        }
     }
     cout << ans << endl;
 
