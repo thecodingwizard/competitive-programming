@@ -188,6 +188,7 @@ Solutions to USACO training and USACO contest problems.
 | Contest Date | Problem ID | Problem Name | Solution Notes |
 | ------------ | ---------- | ------------ | -------------- |
 | Nov 2012 | [bbreeds][bbreeds] | Balanced Cow Breeds | DP |
+| Nov 2012 | [cbs][cbs] | Concurrently Balanced Strings | Prefix Sums |
 | Dec 2012 | [gangs][gangs] | Gangs of Istanbull/Cowstantinople | Greedy |
 | Dec 2012 | [first][first] | First! | trie, checking DAG for cycles |
 | Dec 2012 | [runaway][runaway] | Running Away From the Barn |  | 
@@ -409,6 +410,7 @@ Solutions to USACO training and USACO contest problems.
 [paintbarn]: USACO/2019feb/gold/paintbarn.cpp
 
 [bbreeds]: USACO/2012nov/gold/bbreeds.cpp
+[cbs]: USACO/2012nov/gold/cbs.cpp
 [gangs]: USACO/2012dec/gold/gangs.cpp
 [first]: USACO/2012dec/gold/first.cpp
 [runaway]: USACO/2012dec/gold/runaway.cpp

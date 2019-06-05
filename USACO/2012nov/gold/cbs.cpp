@@ -1,3 +1,15 @@
+/*
+ * We can keep track of k prefix sums as we sweep from left to right.
+ * Each time we encounter a prefix sum we have encountered before, we can
+ * use that as an interval. However, we have to check to make sure that none
+ * of the intermediate prefix sum values go below the endpoints prefix sum values
+ * as that would mean that there was some unbalanced parenthesis, like ")(".
+ * We can do this by doing an initial sweep:
+ * - For each location i, figure out the first location j s.t. there exists some k where A[k][j] < A[k][i]
+ *
+ * This is basically the solution described in the official USACO solution: http://usaco.org/current/data/sol_cbs.html
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
