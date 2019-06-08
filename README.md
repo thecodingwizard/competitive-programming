@@ -535,6 +535,10 @@ Solutions to various Codeforces problems.
 | 1153D | D. Serval and Rooted Tree | Tree traversal, DP (ish) |
 | 1153E | E. Serval and Snake | Binary Search, Brute Force |
 | 1169D | D. Good Triple | Brute Force |
+| 1173A | A. Nauuo and Votes | Greedy |
+| 1173B | B. Nauuo and Chess | Greedy, Constructive Algorithms |
+| 1173C | C. Nauuo and Cards | Greedy |
+| 1173D | D. Nauuo and Circle | Combinatorics, DP, trees |
 
 # International Olympiad in Informatics (IOI)
 | Problem Name | Solution Notes |

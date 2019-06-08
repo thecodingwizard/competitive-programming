@@ -55,70 +55,23 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-int n;
-vi adj[200000];
-bool visited[200000];
-int mod = 998244353;
-ll nodeCt[200000];
-
-ll calcNodeCt(int u) {
-    if (visited[u]) return nodeCt[u];
-    visited[u] = true;
-    ll ct = 1;
-    for (int v : adj[u]) {
-        ct += calcNodeCt(v);
-    }
-    return nodeCt[u] = ct;
-}
-
-ll permute(int n) {
-    ll ans = 1;
-    F0R1(i, n) {
-        ans *= i;
-        ans %= mod;
-    }
-    return ans;
-}
-
-ll calc(int u) {
-    visited[u] = true;
-    ll numChildren = 0;
-    ll childrenMultiplier = 1;
-    vi directChildren;
-    for (int v : adj[u]) {
-        if (!visited[v]) {
-            directChildren.pb(v);
-            numChildren++;
-            childrenMultiplier *= calc(v);
-            childrenMultiplier %= mod;
-        }
-    }
-    if (u == 0) {
-        ll permutation = permute(numChildren);
-        ll ans = childrenMultiplier*permutation;
-        for (int v : directChildren) {
-            ans += (((nodeCt[v]*childrenMultiplier)%mod)*permutation)%mod;
-            ans %= mod;
-        }
-        return ans;
-    }
-    return (permute(numChildren+1)*childrenMultiplier) % mod;
-}
-
 int main() {
     setupIO();
 
-    cin >> n;
-    F0R(i, n - 1) {
-        int a, b; cin >> a >> b;
-        adj[--a].pb(--b);
-        adj[b].pb(a);
+    int n; cin >> n;
+    int sz = 0;
+    int canHold = 0;
+    while (canHold < n) {
+        sz++;
+        canHold = 2*sz - 1;
     }
-    SET(visited, false, 200000);
-    calcNodeCt(0);
-    SET(visited, false, 200000);
-
-    cout << calc(0) << endl;
+    cout << sz << endl;
+    F0R(i, sz) {
+        cout << "1 " << (i+1) << endl;
+    }
+    FOR(i, sz, n) {
+        cout << i - sz + 2 << " " << sz << endl;
+    }
 
     return 0;
 }
