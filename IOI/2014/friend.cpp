@@ -16,36 +16,36 @@ bool visited[1000];
 int *A;
 int n;
 void dfsVisited(int u, int p) {
-	visited[u] = true;
-	for (int v = 0; v < n; v++) {
-		if (!friends[v][u]) continue;
-		if (v == p || v == u) continue;
-		dfsVisited(v, u);
-	}
+    visited[u] = true;
+    for (int v = 0; v < n; v++) {
+        if (!friends[v][u]) continue;
+        if (v == p || v == u) continue;
+        dfsVisited(v, u);
+    }
 }
 int run(int u, int canTake, int p) {
-	if (memo[u][canTake] != -1) return memo[u][canTake];
-	int ans = 0;
-	// Option 1: Don't take u
-	int opAns = 0;
-	for (int v = 0; v < n; v++) {
-		if (!friends[v][u]) continue;
-		if (v == p || v == u) continue;
-		opAns += run(v, 1, u);
-	}
-	ans = opAns;
+    if (memo[u][canTake] != -1) return memo[u][canTake];
+    int ans = 0;
+    // Option 1: Don't take u
+    int opAns = 0;
+    for (int v = 0; v < n; v++) {
+        if (!friends[v][u]) continue;
+        if (v == p || v == u) continue;
+        opAns += run(v, 1, u);
+    }
+    ans = opAns;
 
-	// Option 2: Take u
-	if (canTake) {
-		opAns = A[u];
-		for (int v = 0; v < n; v++) {
-			if (!friends[v][u]) continue;
-			if (v == p || v == u) continue;
-			opAns += run(v, 0, u);
-		}
-		ans = max(ans, opAns);
-	}
-	return memo[u][canTake] = ans;
+    // Option 2: Take u
+    if (canTake) {
+        opAns = A[u];
+        for (int v = 0; v < n; v++) {
+            if (!friends[v][u]) continue;
+            if (v == p || v == u) continue;
+            opAns += run(v, 0, u);
+        }
+        ans = max(ans, opAns);
+    }
+    return memo[u][canTake] = ans;
 }
 
 int match[1000];
@@ -62,19 +62,19 @@ int aug(int u) {
 }
 
 void dfsLeft(int u, int p, int l) {
-	isLeft[u] = l;
-	visited[u] = true;
-	for (int v = 0; v < n; v++) {
-		if (v == u || !friends[v][u] || visited[v]) continue;
-		dfsLeft(v, u, !l);
-	}
+    isLeft[u] = l;
+    visited[u] = true;
+    for (int v = 0; v < n; v++) {
+        if (v == u || !friends[v][u] || visited[v]) continue;
+        dfsLeft(v, u, !l);
+    }
 }
 
 // Find out best sample
 int findSample(int n2, int confidence[], int host[], int protocol[]) {
-	n = n2;
+    n = n2;
 
-	if (n <= 1000) {
+    if (n <= 1000) {
         FOR(i, 0, n) FOR(j, 0, n) friends[i][j] = false;
 
         A = confidence;
@@ -104,29 +104,29 @@ int findSample(int n2, int confidence[], int host[], int protocol[]) {
         }
     }
 
-	if (n <= 10) {
-		// Subtask 1
-		int ans = 0;
-		for (int i = 0; i < (1 << n); i++) {
-			int curAns = 0;
-			bool invalid = false;
-			for (int j = 0; j < n; j++) {
-				if (!(i & (1 << j))) continue;
-				for (int f = 0; f < n; f++) {
-					if (!friends[j][f] || j == f) continue;
+    if (n <= 10) {
+        // Subtask 1
+        int ans = 0;
+        for (int i = 0; i < (1 << n); i++) {
+            int curAns = 0;
+            bool invalid = false;
+            for (int j = 0; j < n; j++) {
+                if (!(i & (1 << j))) continue;
+                for (int f = 0; f < n; f++) {
+                    if (!friends[j][f] || j == f) continue;
 
-					if (i & (1 << f)) {
-						invalid = true;
-						break;
-					}
-				}
-				if (invalid) break;
-				curAns += confidence[j];
-			}
-			if (!invalid) ans = max(ans, curAns);
-		}
-		return ans;
-	} else {
+                    if (i & (1 << f)) {
+                        invalid = true;
+                        break;
+                    }
+                }
+                if (invalid) break;
+                curAns += confidence[j];
+            }
+            if (!invalid) ans = max(ans, curAns);
+        }
+        return ans;
+    } else {
         bool isSubtaskTwo = true;
         for (int i = 1; i < n; i++) {
             if (protocol[i] != 1) isSubtaskTwo = false;

@@ -550,7 +550,8 @@ Solutions to various Codeforces problems.
 | ------------ | -------------- |
 | 2003 A. Trail Maintenance | Union Find |
 | 2004 B. Hermes | DP, Iterative, Sliding Window |
-| 2004 D. Empodia | ??? Read header of file, IDK why solution gets AC :/ |
+| 2004 D. Empodia | Read header of file, IDK why solution gets AC :P |
+| 2014 E. Friend | Induction Trick |
 
 [Solutions Folder](IOI)
 
