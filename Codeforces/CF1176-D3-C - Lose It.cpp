@@ -55,81 +55,37 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-bool isPrime[3000000];
-vi primes;
-
-int child[3000000];
-int parent[3000000];
-
-vi ans;
-
-int gd(int n) {
-    for (int i = 2; i <= sqrt(n); i++) {
-        if (n % i == 0) {
-            return n / i;
-        }
-    }
-    assert(false);
-}
+vi sequences[500000];
 
 int main() {
     setupIO();
 
     int n; cin >> n;
-    int A[2*n];
-    multiset<int> nums;
-    F0R(i, 2*n) {
-        cin >> A[i];
-        nums.insert(A[i]);
-        child[A[i]] = -1;
-    }
-
-    SET(isPrime, true, 3000000);
-    SET(child, -1, 3000000);
-    SET(parent, -1, 3000000);
-    for (int i = 2; i < 3000000; i++) {
-        if (isPrime[i]) {
-            for (int j = i; j < 3000000; j += i) isPrime[j] = false;
-            isPrime[i] = true;
-            primes.pb(i);
+    int idx = 0;
+    queue<int> need[100];
+    int ans = 0;
+    int nums[6] = { 4, 8, 15, 16, 23, 42 };
+    F0R(curIdx, n) {
+        int x; cin >> x;
+        if (x == 4) {
+            need[1].push(idx);
+            sequences[idx++].pb(x);
         }
-    }
-
-    for (int i = 0; i < 2*n; i++) {
-        int num = A[i];
-        if (isPrime[num]) {
-            if (num <= 199999) {
-                child[num] = primes[num - 1];
-                parent[child[num]] = num;
+        for (int i = 1; i < 6; i++) {
+            if (x == nums[i]) {
+                if (need[i].size() == 0) ans++;
+                else {
+                    int id = need[i].front(); need[i].pop();
+                    sequences[id].pb(x);
+                    if (n != 5) need[i+1].push(id);
+                }
             }
-        } else {
-            child[num] = gd(num);
         }
     }
-
-    int iterations = 0;
-    while (!nums.empty()) {
-        iterations++;
-        assert(iterations < n+5);
-        auto it = --nums.end();
-        int itVal = *it;
-        if (isPrime[itVal]) {
-            assert(parent[itVal] != -1);
-            ans.pb(parent[itVal]);
-            nums.erase(it);
-            nums.erase(nums.find(parent[itVal]));
-        } else {
-            assert(child[itVal] != -1);
-            ans.pb(itVal);
-            nums.erase(it);
-            nums.erase(nums.find(child[itVal]));
-        }
-        assert(nums.size() % 2 == 0);
+    for (int i = 0; i < idx; i++) {
+        if (sequences[i].size() != 6) ans += sequences[i].size();
     }
-
-    cout << ans[0];
-    for (int i = 1; i < n; i++) cout << " " << ans[i];
-    cout << endl;
+    cout << ans << endl;
 
     return 0;
 }

@@ -55,81 +55,51 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-bool isPrime[3000000];
-vi primes;
+int n, m;
+vi children[200001];
+vi white, black;
+bool visited[200001];
 
-int child[3000000];
-int parent[3000000];
-
-vi ans;
-
-int gd(int n) {
-    for (int i = 2; i <= sqrt(n); i++) {
-        if (n % i == 0) {
-            return n / i;
-        }
+void color(int u, int c) {
+    if (c == 1) white.pb(u);
+    else black.pb(u);
+    visited[u] = true;
+    for (int v : children[u]) {
+        if (!visited[v]) color(v, !c);
     }
-    assert(false);
 }
 
 int main() {
     setupIO();
 
-    int n; cin >> n;
-    int A[2*n];
-    multiset<int> nums;
-    F0R(i, 2*n) {
-        cin >> A[i];
-        nums.insert(A[i]);
-        child[A[i]] = -1;
-    }
-
-    SET(isPrime, true, 3000000);
-    SET(child, -1, 3000000);
-    SET(parent, -1, 3000000);
-    for (int i = 2; i < 3000000; i++) {
-        if (isPrime[i]) {
-            for (int j = i; j < 3000000; j += i) isPrime[j] = false;
-            isPrime[i] = true;
-            primes.pb(i);
+    int t; cin >> t;
+    F0R(i, t) {
+        cin >> n >> m;
+        F0R(i, n+1) children[i].clear();
+        F0R(i, m) {
+            int a, b; cin >> a >> b;
+            children[a].pb(b);
+            children[b].pb(a);
         }
-    }
+        white.clear();
+        black.clear();
+        SET(visited, false, n+1);
+        color(1, 1);
 
-    for (int i = 0; i < 2*n; i++) {
-        int num = A[i];
-        if (isPrime[num]) {
-            if (num <= 199999) {
-                child[num] = primes[num - 1];
-                parent[child[num]] = num;
-            }
+        if (white.size() < black.size()) {
+            assert(white.size() <= n/2);
+            cout << white.size() << endl;
+            cout << white[0];
+            for (int i = 1; i < white.size(); i++) cout << " " << white[i];
+            cout << endl;
         } else {
-            child[num] = gd(num);
+            assert(black.size() <= n/2);
+            cout << black.size() << endl;
+            cout << black[0];
+            for (int i = 1; i < black.size(); i++) cout << " " << black[i];
+            cout << endl;
         }
     }
-
-    int iterations = 0;
-    while (!nums.empty()) {
-        iterations++;
-        assert(iterations < n+5);
-        auto it = --nums.end();
-        int itVal = *it;
-        if (isPrime[itVal]) {
-            assert(parent[itVal] != -1);
-            ans.pb(parent[itVal]);
-            nums.erase(it);
-            nums.erase(nums.find(parent[itVal]));
-        } else {
-            assert(child[itVal] != -1);
-            ans.pb(itVal);
-            nums.erase(it);
-            nums.erase(nums.find(child[itVal]));
-        }
-        assert(nums.size() % 2 == 0);
-    }
-
-    cout << ans[0];
-    for (int i = 1; i < n; i++) cout << " " << ans[i];
-    cout << endl;
 
     return 0;
 }
