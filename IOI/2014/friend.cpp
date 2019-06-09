@@ -1,3 +1,22 @@
+/**
+ * Subtask One: Brute force 2^n
+ * Subtask Two: Nobody's friends with anyone else, sum all confidence values
+ * Subtask Three: Everyone's friends with everyone else, take largest confidence value
+ * Subtask Four: It's a tree, you can do dp[i][0] = max of subtree of i, cannot take i. dp[i][1] = max of subtree of i, can take i.
+ * Subtask Five: It's a bipartite graph where each node has weight 1. You can do maximum independent set (N - MCBM)
+ * Subtask Six: Use induction trick, processing protocols in reverse.
+ * - Define host_val = host confidence
+ *          my_val = my cofidence
+ * - If protcol is IAmYourFriend:
+ *      if host_val < my_val: ans += my_val; host_val = 0. We're gonna take my_val instead of host_val
+ *      else: ans += my_val; host_val -= my_val; We're either gonna take host or take my val.
+ * - If protocol is WeAreYourFriends:
+ *      host_val = max(host_val, my_val). If we take the host, we can also choose to take me instead
+ * - If protocol is MyFriendsAreYourFriends:
+ *      host_val += my_val. If we're gonna take host, we might as well take me as well.
+ * Credits to tmwilliamlin168 for explaining the solution to me :)
+ */
+
 #include <bits/stdc++.h>
 #include "friend.h"
 
