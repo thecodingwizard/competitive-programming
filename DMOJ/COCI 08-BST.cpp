@@ -1,7 +1,7 @@
 /**
  * After each node i is inserted, it's left and right subtrees will hold values a...i-1 and i+1...b, respectively
  *
- * We can map each range to a its depth in the tree and solve this problem in O(n log n) time with some careful optimizations.
+ * We can map each range to its depth in the tree and solve this problem in O(n log n) time with some careful optimizations.
  */
 
 #include <bits/stdc++.h>
