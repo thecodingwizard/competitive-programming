@@ -1,3 +1,13 @@
+/*
+ * Solution: https://codeforces.com/blog/entry/67511
+ *
+ * dp for liked weights
+ * dp2 for disliked weights
+ *
+ * Important: Modular multiplicative inverses!
+ * When doing division under mod, dividing by x is equal to multiplying by the modular multiplicative inverse of x under modulo m.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -55,8 +65,8 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-ll dp[3001][3001];
-ll dp2[3001][3001];
+ll dp[101][52][52];
+ll dp2[101][52][52];
 
 int mod = 998244353;
 
@@ -102,50 +112,44 @@ int main() {
         else weight_nolike += init_weight[i];
     }
 
-    /*
-     * dp[w][i][j]
-     * Expected weight of item with current weight w after all m operations
-     * assume i increments and j decrements have happened already
-     *
-     * dp for liked weights
-     * dp2 for disliked weights
-     */
-    F0Rd(k, 3001) {
-        F0R(i, k+1) {
-            int j = k - i;
-            if (k == m) {
-                dp[i][j] = 1;
-                dp2[i][j] = 1;
-                continue;
-            }
+    F0Rd(k, 51) {
+        F0R(w, 101) {
+            F0R(i, k+1) {
+                int j = k - i;
+                if (k == m) {
+                    dp[w][i][j] = w;
+                    dp2[w][i][j] = w;
+                    continue;
+                }
+                if (w == 100) continue;
 
-            int totWeight = weight_like + weight_nolike + i - j;
-            if (totWeight <= 0) continue;
-            dp[i][j] = (dp[i+1][j]) % mod * modInverse(totWeight, mod) % mod;
-            dp[i][j] += ((weight_like + i - 1)*dp[i+1][j]) % mod * modInverse(totWeight, mod) % mod;
-            dp[i][j] += ((weight_nolike - j)*dp[i][j+1]) % mod * modInverse(totWeight, mod) % mod;
-            dp[i][j] %= mod;
+                int totWeight = weight_like + weight_nolike + i - j;
+                dp[w][i][j] = (w*dp[w+1][i+1][j]) % mod * modInverse(totWeight, mod) % mod;
+                dp[w][i][j] += ((weight_like + i - w)*dp[w][i+1][j]) % mod * modInverse(totWeight, mod) % mod;
+                dp[w][i][j] += ((weight_nolike - j)*dp[w][i][j+1]) % mod * modInverse(totWeight, mod) % mod;
+                dp[w][i][j] %= mod;
 
-            if (isnan(dp[i][j])) {
-                dp[i][j] = 0;
-            }
+                if (isnan(dp[w][i][j])) {
+                    dp[w][i][j] = 0;
+                }
 
-            dp2[i][j] = (dp2[i][j+1]) % mod * modInverse(totWeight, mod) % mod;
-            dp2[i][j] += ((weight_like + i)*dp2[i+1][j]) % mod * modInverse(totWeight, mod) % mod;
-            dp2[i][j] += ((weight_nolike - j - 1)*dp2[i][j+1]) % mod * modInverse(totWeight, mod) % mod;
-            dp2[i][j] %= mod;
+                dp2[w][i][j] = (w*dp2[w-1][i][j+1]) % mod * modInverse(totWeight, mod) % mod;
+                dp2[w][i][j] += ((weight_like + i)*dp2[w][i+1][j]) % mod * modInverse(totWeight, mod) % mod;
+                dp2[w][i][j] += ((weight_nolike - j - w)*dp2[w][i][j+1]) % mod * modInverse(totWeight, mod) % mod;
+                dp2[w][i][j] %= mod;
 
-            if (isnan(dp2[i][j])) {
-                dp2[i][j] = 0;
+                if (isnan(dp2[w][i][j])) {
+                    dp2[w][i][j] = 0;
+                }
             }
         }
     }
 
     F0R(i, n) {
         if (like[i]) {
-            cout << init_weight[i]*dp[0][0]%mod << endl;
+            cout << dp[init_weight[i]][0][0] << endl;
         } else {
-            cout << init_weight[i]*dp2[0][0]%mod << endl;
+            cout << dp2[init_weight[i]][0][0] << endl;
         }
     }
 

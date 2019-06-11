@@ -539,6 +539,7 @@ Solutions to various Codeforces problems.
 | 1173B | B. Nauuo and Chess | Greedy, Constructive Algorithms |
 | 1173C | C. Nauuo and Cards | Greedy |
 | 1173D | D. Nauuo and Circle | Combinatorics, DP, trees |
+| 1173E1 | E1. Nauuo and Pictures (easy version) | DP, probability, Modular Multiplicative Inverses |
 | 1176A | A. Divide It | Brute Force, Recursion |
 | 1176B | B. Merge It | Greedy |
 | 1176C | C. Lose It | Greedy |
