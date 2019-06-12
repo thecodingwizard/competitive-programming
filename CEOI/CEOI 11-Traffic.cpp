@@ -1,11 +1,27 @@
 /*
- * I actually have no clue what my code does anymore. Basically you have to do APSP on all the
- * left/right nodes, and with some prefix sums you can solve each query in O(1) time given the APSP
+ * The key observation is that since the roads don't intersect at their endpoints, each left
+ * endpoint will be able to reach a contiguous range of right endpoints.
  *
- * To find APSP, Dijkstra is easiest but will get you TLE on the last test case. A DP solution
- * is possible.
+ * In O(n) time, it's possible to remove all left nodes that aren't connected to right nodes,
+ * and all right nodes that aren't connected to left nodes.
  *
- * IDK what my DP code does AT ALL, and I have no idea why it needs to be run twice to get AC.
+ * Let's define the following:
+ * - highest[i] = what is the highest right node that can be reached from left node i? (highest = maximum y-coordinate)
+ * - lowest[i] = what is the lowest right node that can be reached from left node i? (lowest = minimum y-coordinate)
+ *
+ * If we can figure out highest[i] and lowest[i] for each left node, then the answer for the left
+ * node i is just highest[i] - lowest[i] + 1, since each left node can reach all right nodes in a contiguous range.
+ * There is an exception to this rule if the left node can't reach *any* right nodes, but this can be handled separately.
+ *
+ * How do we figure out highest[i] and lowest[i] in O(n) time?
+ *
+ * Notice that if node A's y-coordinate is higher than node B's y-coordinate, then the following holds
+ * (assuming both node A and node B are connected to at least one right node):
+ *
+ * highest[A] >= highest[B]
+ * lowest[A] <= lowest[B]
+ *
+ * Hence, we can determine highest and lowest by processing the left nodes from increasing/decreasing y coordinate values.
  */
 
 #include <bits/stdc++.h>
@@ -136,6 +152,7 @@ int main() {
     }
 
     // Step 1: Number *reachable* endpoints from 1...n
+    // and remove unreachable endpoint nodes
     SET(reachable, false, 300000);
     SET(reverseReachable, false, 300000);
     F0R(i, n) {
