@@ -1,3 +1,13 @@
+/*
+ * I actually have no clue what my code does anymore. Basically you have to do APSP on all the
+ * left/right nodes, and with some prefix sums you can solve each query in O(1) time given the APSP
+ *
+ * To find APSP, Dijkstra is easiest but will get you TLE on the last test case. A DP solution
+ * is possible.
+ *
+ * IDK what my DP code does AT ALL, and I have no idea why it needs to be run twice to get AC.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -85,44 +95,79 @@ int main() {
         }
     }
 
-    // Step 1: Dijkstra APSP
+    // Step 1: APSP DP
+    // I have no clue what is going on anymore
     SET2D(dist, INF, 2*r, 2*r);
     F0R(start, 2*r) {
+        dist[start][start >= r ? start - r : start + r] = rowTraverse[start%r] + A[start%r][start >= r ? 0 : c-1];
         dist[start][start] = 0;
-        min_heap<ii> pq;
-        pq.push(mp(0, start));
-        while (!pq.empty()) {
-            ii u = pq.top();
-            pq.pop();
-            if (dist[start][u.pB] < u.pA) continue;
-            // up, down, cross
-            if (u.pB != 0 && u.pB != r) {
-                int v = u.pB - 1;
-                int newDist = dist[start][u.pB] + A[v % r][v >= r ? c - 1 : 0];
-                if (dist[start][v] > newDist) {
-                    dist[start][v] = newDist;
-                    pq.push(mp(newDist, v));
+    }
+    // The code needs to be run twice. Why? IDK...
+    F0R(iteration, 2) {
+        FOR(maxDist, 1, r) {
+            F0R(start, 2 * r) {
+                if (start < r) {
+                    if (start + maxDist < r) {
+                        MIN(dist[start][start + maxDist], dist[start][start + maxDist - 1] + A[start + maxDist][0]);
+                        MIN(dist[start][start + maxDist],
+                            dist[start][start + maxDist - 1 + r] + A[start + maxDist][c - 1] +
+                            rowTraverse[start + maxDist] + A[start + maxDist][0]);
+                        MIN(dist[start][start + maxDist + r],
+                            dist[start][start + maxDist - 1] + rowTraverse[start + maxDist] + A[start + maxDist][0] +
+                            A[start + maxDist][c - 1]);
+                        MIN(dist[start][start + maxDist + r],
+                            dist[start][start + maxDist - 1 + r] + A[start + maxDist][c - 1]);
+                    }
+                    if (start - maxDist >= 0) {
+                        MIN(dist[start][start - maxDist], dist[start][start - maxDist + 1] + A[start - maxDist][0]);
+                        MIN(dist[start][start - maxDist],
+                            dist[start][start - maxDist + 1 + r] + A[start - maxDist][c - 1] +
+                            rowTraverse[start - maxDist] + A[start - maxDist][0]);
+                        MIN(dist[start][start - maxDist + r],
+                            dist[start][start - maxDist + 1] + rowTraverse[start - maxDist] + A[start - maxDist][0] +
+                            A[start - maxDist][c - 1]);
+                        MIN(dist[start][start - maxDist + r],
+                            dist[start][start - maxDist + 1 + r] + A[start - maxDist][c - 1]);
+                    }
+                } else {
+                    if (start + maxDist < 2 * r) {
+                        MIN(dist[start][start + maxDist],
+                            dist[start][start + maxDist - 1] + A[start % r + maxDist][c - 1]);
+                        MIN(dist[start][start + maxDist],
+                            dist[start][start + maxDist - 1 - r] + A[start % r + maxDist][0] +
+                            rowTraverse[start % r + maxDist] + A[start % r + maxDist][c - 1]);
+                        MIN(dist[start][start + maxDist - r],
+                            dist[start][start + maxDist - 1] + rowTraverse[start % r + maxDist] +
+                            A[start % r + maxDist][c - 1] + A[start % r + maxDist][0]);
+                        MIN(dist[start][start + maxDist - r],
+                            dist[start][start + maxDist - 1 - r] + A[start % r + maxDist][0]);
+                    }
+                    if (start - maxDist >= r) {
+                        MIN(dist[start][start - maxDist],
+                            dist[start][start - maxDist + 1] + A[start % r - maxDist][c - 1]);
+                        MIN(dist[start][start - maxDist],
+                            dist[start][start - maxDist + 1 - r] + A[start % r - maxDist][0] +
+                            rowTraverse[start % r - maxDist] + A[start % r - maxDist][c - 1]);
+                        MIN(dist[start][start - maxDist - r],
+                            dist[start][start - maxDist + 1] + rowTraverse[start % r - maxDist] +
+                            A[start % r - maxDist][c - 1] + A[start % r - maxDist][0]);
+                        MIN(dist[start][start - maxDist - r],
+                            dist[start][start - maxDist + 1 - r] + A[start % r - maxDist][0]);
+                    }
                 }
             }
-
-            if (u.pB != r - 1 && u.pB != 2 * r - 1) {
-                int v = u.pB + 1;
-                int newDist = dist[start][u.pB] + A[v % r][v >= r ? c - 1 : 0];
-                if (dist[start][v] > newDist) {
-                    dist[start][v] = newDist;
-                    pq.push(mp(newDist, v));
-                }
+        }
+        F0R(start, 2 * r) {
+            F0Rd(tgtRow, r - 1) {
+                MIN(dist[start][tgtRow], dist[start][tgtRow + 1] + A[tgtRow][0]);
+                MIN(dist[start][tgtRow + r], dist[start][tgtRow + 1 + r] + A[tgtRow][c - 1]);
             }
-
-            int v = u.pB < r ? u.pB + r : u.pB - r;
-            int newDist = dist[start][u.pB] + rowTraverse[u.pB % r] + A[v % r][v >= r ? c - 1 : 0];
-            if (dist[start][v] > newDist) {
-                dist[start][v] = newDist;
-                pq.push(mp(newDist, v));
+            FOR(tgtRow, 1, r) {
+                MIN(dist[start][tgtRow], dist[start][tgtRow - 1] + A[tgtRow][0]);
+                MIN(dist[start][tgtRow + r], dist[start][tgtRow - 1 + r] + A[tgtRow][c - 1]);
             }
         }
     }
-
 
     int d; cin >> d;
     ii curLoc = { 0, 0 };
