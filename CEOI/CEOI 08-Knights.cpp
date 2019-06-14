@@ -1,3 +1,26 @@
+/*
+ * Pattern Finding
+ *
+ * You can write a brute-force script for small n, and hence you can find many patterns
+ *
+ * First consider if there was just one knight. Obvious pattern exists to see whether or not
+ * Alice will win.
+ *
+ * If there are multiple knights, the optimal strategy for each player is:
+ * - If you are going to lose with that knight, lose as fast as possible
+ * - If you are going to win with that knight, win as slowly as possible
+ *
+ * Hence you can use DP to calculate how many moves before a knight will have
+ * no more possible moves assuming each player plays optimally. A pattern exists for this as well!
+ *
+ * Finally you can solve the problem after figuring out all the patterns.
+ * In O(1) time, you can identify whether or not a knight is a winning knight,
+ * and how many moves before the knight will run out of moves.
+ *
+ * If the most # of moves of any losing knight for Alice is >=
+ * the most # of moves of any winning knight for Alice, then No. Otherwise, Yes.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
