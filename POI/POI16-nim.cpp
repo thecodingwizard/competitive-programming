@@ -1,3 +1,18 @@
+/*
+ * Subset 1 - 3: See other file
+ *
+ * Subset 4: Build off the DP of Subtask 2.
+ * The key observation is to sort the numbers in increasing order. Now, when we are processing
+ * a number, we only have to consider numbers up to 2*current_number since the XOR of any of the numbers
+ * we have processed so far cannot exceed 2*current_number. Since the sum of all the numbers doesn't exceed
+ * 10,000,000, this solves the time complexity issue.
+ * To fix the memory issue, do sliding window on i.
+ *
+ * Subset 5: Optimize memory further
+ * We can also do sliding window on k to remove the need for two dimensions on i, which will reduce the memory
+ * enough to pass.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
