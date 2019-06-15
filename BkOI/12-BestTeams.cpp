@@ -1,3 +1,7 @@
+/*
+ * Segment tree, see comments for details
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
