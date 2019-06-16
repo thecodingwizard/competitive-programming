@@ -545,6 +545,10 @@ Solutions to various Codeforces problems.
 | 1176C | C. Lose It | Greedy |
 | 1176D | D. Recover It | multiset, prime generation, greedy |
 | 1176E | E. Cover It | Bicoloring (ish) |
+| 1181A | A. Chunga-Changa | |
+| 1181B | B. Split a Number | |
+| 1181C | C. Flag | |
+| 1181D | D. Irrigation | |
 
 # International Olympiad in Informatics (IOI)
 | Problem Name | Solution Notes |

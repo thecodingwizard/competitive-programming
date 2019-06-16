@@ -112,18 +112,19 @@ int main() {
         }
         ll other = D[dIdx-1].pA;
         ll realK = (k - other) % dIdx;
-        int lo = 1, hi = m+1, mid, a = m;
+        if (realK == 0) realK = dIdx;
+        int lo = 1, hi = m+1, mid, xsd = m;
         while (lo < hi) {
             mid = (lo + hi)/2;
             int xx = wtf.rsq(mid);
-            if (xx == realK) a = mid;
+            if (xx == realK) xsd = mid;
             if (xx < realK) {
                 lo = mid + 1;
             } else {
                 hi = mid;
             }
         }
-        ans[B[i].pB] = a;
+        ans[B[i].pB] = xsd;
     }
 
     F0R(i, q) cout << ans[i] << endl;

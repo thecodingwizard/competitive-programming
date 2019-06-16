@@ -55,78 +55,18 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-class FenwickTree {
-private:
-    vi ft;
-
-public:
-    FenwickTree() {}
-    FenwickTree(int n) { ft.assign(n + 1, 0); }
-
-    int rsq(int b) {
-        int sum = 0; for (; b; b -= LSOne(b)) sum += ft[b];
-        return sum; }
-
-    int rsq(int a, int b) {
-        return rsq(b) - (a == 1 ? 0 : rsq(a - 1)); }
-
-    void adjust(int k, int v) {
-        for (; k < (int)ft.size(); k += LSOne(k)) ft[k] += v; }
-};
-
 int main() {
     setupIO();
 
-    int n, m, q; cin >> n >> m >> q;
-    int A[n]; F0R(i, n) cin >> A[i];
-    pair<ll, int> B[q];
-    F0R(i, q) {
-        ll k; cin >> k;
-        B[i] = mp(k, i);
+    ll x, y, z; cin >> x >> y >> z;
+    ll ans = x/z + y/z;
+    ll xRem = x % z, yRem = y % z;
+    ll chg = 0;
+    if (xRem + yRem >= z) {
+        ans++;
+        chg = z - max(xRem, yRem);
     }
-    int ans[q];
-    sort(B, B+q);
-    int C[m]; SET(C, 0, m);
-    F0R(i, n) {
-        C[A[i]-1]++;
-    }
-    vii smth; F0R(i, m) smth.pb(mp(C[i], i)); SORT(smth);
-    pair<ll, int> D[m];
-    ll sum = 0;
-    int itr = 0;
-    for (ii x : smth) {
-        itr++;
-        sum += x.pA;
-        D[x.pB] = mp((ll)x.pA*itr - sum, x.pB);
-    }
-    sort(D, D+m);
-
-    int dIdx = 0;
-    FenwickTree wtf(m);
-
-    F0R(i, q) {
-        ll k = B[i].pA - n;
-        while (dIdx < m && D[dIdx].pA < k) {
-            wtf.adjust(D[dIdx].pB + 1, 1);
-            dIdx++;
-        }
-        ll other = D[dIdx-1].pA;
-        ll realK = (k - other) % dIdx;
-        int lo = 1, hi = m+1, mid, a = m;
-        while (lo < hi) {
-            mid = (lo + hi)/2;
-            int xx = wtf.rsq(mid);
-            if (xx == realK) a = mid;
-            if (xx < realK) {
-                lo = mid + 1;
-            } else {
-                hi = mid;
-            }
-        }
-        ans[B[i].pB] = a;
-    }
-
-    F0R(i, q) cout << ans[i] << endl;
+    cout << ans << " " << chg << endl;
 
     return 0;
 }

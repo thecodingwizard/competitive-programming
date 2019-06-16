@@ -55,78 +55,50 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-class FenwickTree {
-private:
-    vi ft;
-
-public:
-    FenwickTree() {}
-    FenwickTree(int n) { ft.assign(n + 1, 0); }
-
-    int rsq(int b) {
-        int sum = 0; for (; b; b -= LSOne(b)) sum += ft[b];
-        return sum; }
-
-    int rsq(int a, int b) {
-        return rsq(b) - (a == 1 ? 0 : rsq(a - 1)); }
-
-    void adjust(int k, int v) {
-        for (; k < (int)ft.size(); k += LSOne(k)) ft[k] += v; }
-};
+int A[100000];
+string sum(int j, int k) {
+    string ans = "";
+    int carry = 0;
+    F0R(digit, max(j, k-j)) {
+        int left = digit < j ? A[j - digit - 1] : 0;
+        int right = digit < k-j ? A[k - digit - 1] : 0;
+        int together = left + right + carry;
+        carry = 0;
+        if (together >= 10) {
+            carry = 1;
+            together -= 10;
+        }
+        ans = to_string(together) + ans;
+    }
+    if (carry == 1) ans = "1" + ans;
+    return ans;
+}
 
 int main() {
     setupIO();
 
-    int n, m, q; cin >> n >> m >> q;
-    int A[n]; F0R(i, n) cin >> A[i];
-    pair<ll, int> B[q];
-    F0R(i, q) {
-        ll k; cin >> k;
-        B[i] = mp(k, i);
-    }
-    int ans[q];
-    sort(B, B+q);
-    int C[m]; SET(C, 0, m);
+    int n; cin >> n;
     F0R(i, n) {
-        C[A[i]-1]++;
+        char c; cin >> c;
+        A[i] = c - '0';
     }
-    vii smth; F0R(i, m) smth.pb(mp(C[i], i)); SORT(smth);
-    pair<ll, int> D[m];
-    ll sum = 0;
-    int itr = 0;
-    for (ii x : smth) {
-        itr++;
-        sum += x.pA;
-        D[x.pB] = mp((ll)x.pA*itr - sum, x.pB);
-    }
-    sort(D, D+m);
-
-    int dIdx = 0;
-    FenwickTree wtf(m);
-
-    F0R(i, q) {
-        ll k = B[i].pA - n;
-        while (dIdx < m && D[dIdx].pA < k) {
-            wtf.adjust(D[dIdx].pB + 1, 1);
-            dIdx++;
+    FOR(numLen, n/2, n) {
+        // numLen...n
+        string cur = "-1";
+        if (A[numLen] != 0) {
+            string ans = sum(numLen, n);
+            cur = ans;
         }
-        ll other = D[dIdx-1].pA;
-        ll realK = (k - other) % dIdx;
-        int lo = 1, hi = m+1, mid, a = m;
-        while (lo < hi) {
-            mid = (lo + hi)/2;
-            int xx = wtf.rsq(mid);
-            if (xx == realK) a = mid;
-            if (xx < realK) {
-                lo = mid + 1;
-            } else {
-                hi = mid;
-            }
+        if (A[n - numLen] != 0) {
+            string ans = sum(n - numLen, n);
+            if (cur == "-1") cur = ans;
+            else cur = min(cur, ans);
         }
-        ans[B[i].pB] = a;
+        if (cur != "-1") {
+            cout << cur << endl;
+            return 0;
+        }
     }
-
-    F0R(i, q) cout << ans[i] << endl;
 
     return 0;
 }

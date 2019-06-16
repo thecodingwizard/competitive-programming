@@ -55,78 +55,73 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-class FenwickTree {
-private:
-    vi ft;
-
-public:
-    FenwickTree() {}
-    FenwickTree(int n) { ft.assign(n + 1, 0); }
-
-    int rsq(int b) {
-        int sum = 0; for (; b; b -= LSOne(b)) sum += ft[b];
-        return sum; }
-
-    int rsq(int a, int b) {
-        return rsq(b) - (a == 1 ? 0 : rsq(a - 1)); }
-
-    void adjust(int k, int v) {
-        for (; k < (int)ft.size(); k += LSOne(k)) ft[k] += v; }
+struct magic {
+    int a, b, c, h;
 };
+
+bool operator==(magic a, magic b) {
+    return a.a == b.a && a.b == b.b && a.c == b.c && a.h == b.h;
+}
 
 int main() {
     setupIO();
 
-    int n, m, q; cin >> n >> m >> q;
-    int A[n]; F0R(i, n) cin >> A[i];
-    pair<ll, int> B[q];
-    F0R(i, q) {
-        ll k; cin >> k;
-        B[i] = mp(k, i);
-    }
-    int ans[q];
-    sort(B, B+q);
-    int C[m]; SET(C, 0, m);
+    int n, m; cin >> n >> m;
+    int A[n][m];
     F0R(i, n) {
-        C[A[i]-1]++;
-    }
-    vii smth; F0R(i, m) smth.pb(mp(C[i], i)); SORT(smth);
-    pair<ll, int> D[m];
-    ll sum = 0;
-    int itr = 0;
-    for (ii x : smth) {
-        itr++;
-        sum += x.pA;
-        D[x.pB] = mp((ll)x.pA*itr - sum, x.pB);
-    }
-    sort(D, D+m);
-
-    int dIdx = 0;
-    FenwickTree wtf(m);
-
-    F0R(i, q) {
-        ll k = B[i].pA - n;
-        while (dIdx < m && D[dIdx].pA < k) {
-            wtf.adjust(D[dIdx].pB + 1, 1);
-            dIdx++;
+        F0R(j, m) {
+            char c; cin >> c;
+            A[i][j] = c - 'a';
         }
-        ll other = D[dIdx-1].pA;
-        ll realK = (k - other) % dIdx;
-        int lo = 1, hi = m+1, mid, a = m;
-        while (lo < hi) {
-            mid = (lo + hi)/2;
-            int xx = wtf.rsq(mid);
-            if (xx == realK) a = mid;
-            if (xx < realK) {
-                lo = mid + 1;
-            } else {
-                hi = mid;
+    }
+    magic B[n][m];
+    F0R(i, n) {
+        F0R(j, m) {
+            B[i][j].h = -1;
+        }
+    }
+    F0R(j, m) {
+        for (int i = 0; i < n;) {
+            int tgt = A[i][j];
+            int height = 0;
+            while (i+height<n&&A[i+height][j] == tgt) height++;
+            int stop1 = i + height;
+            if (stop1 == n) break;
+            int height2 = 0;
+            tgt = A[i + height][j];
+            while (i+height+height2<n&&A[i+height+height2][j] == tgt) height2++;
+            if (height2 != height) {
+                if (height2 > height) i = stop1;
+                else i += height-height2;
+                continue;
             }
+            int stop2 = i + height + height2;
+            if (stop2 == n) break;
+            int height3 = 0;
+            tgt = A[i + height+height2][j];
+            while (i+height+height2+height3<n&&A[i+height+height2+height3][j] == tgt && height3 != height) height3++;
+            if (height3 != height) {
+                i = stop1;
+                continue;
+            }
+            int stop3 = i + height + height2 + height3;
+            B[i][j].a = A[i][j]; B[i][j].b = A[i+height][j]; B[i][j].c = A[i+height+height2][j];
+            B[i][j].h = height;
+            i = i + height;
         }
-        ans[B[i].pB] = a;
     }
 
-    F0R(i, q) cout << ans[i] << endl;
+    ll ans = 0;
+    F0R(i, n) {
+        F0R(j, m) {
+            if (B[i][j].h == -1) continue;
+            int width = 0;
+            while (j+width < m && B[i][j] == B[i][j+width]) width++;
+            ans += width*(width+1)/2;
+            j += width-1;
+        }
+    }
+    cout << ans << endl;
 
     return 0;
 }
