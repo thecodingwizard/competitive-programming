@@ -1,6 +1,11 @@
 # Competitive Programming Solutions
 This repository contains solutions to various competitive programming problems.
 
+Command to find problems solved:
+```
+find -type f -name "*.cpp" ! -name "*main*" -not -path "./cpbook-code/*" -not -path "./alphastar/*summer*/*" -not -path "./**/*game*/*" | wc -l
+```
+
 # USACO Solutions
 
 Solutions to USACO training and USACO contest problems.
