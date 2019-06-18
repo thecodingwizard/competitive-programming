@@ -1,3 +1,14 @@
+/*
+ * Note that R has a period of 7. Send *random* numbers until you have a collision. When you
+ * get a collision, solve for one of the R values until you have solved for all 7 of them.
+ * It should not take too many queries. Make sure to store the queries you send in this step.
+ *
+ * Then figure out all the M values you can from the queries in the first step. For the remaining
+ * M values, send one query to fill in one M value.
+ *
+ * Using random numbers is very important.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -55,7 +66,52 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-int main() {
-    setupIO();
-    return 0;
+#include "decrypt.h"
+
+void decrypt() {
+    int R[7]; SET(R, -1, 7);
+    int M[256]; SET(M, -1, 256);
+    map<int, ii> seen;
+    int magic[7] = { 1, 2, 4, 1^2, 2^4, 1^2^4, 1^4 };
+    set<int> unknownR; F0R(i, 7) unknownR.insert(i);
+    vii spentQueries[7];
+    while (true) {
+        if (unknownR.size() <= 0) break;
+        F0R(j, 7) {
+            int x = rand() % 256;
+            int resp = query(x);
+            spentQueries[j].pb(mp(x, resp));
+            if (seen.count(resp)) {
+                int k = seen[resp].pA;
+                for (int l = 0; l < 7; l++) {
+                    if (unknownR.count(l) == 0) continue;
+                    if (magic[l] == (magic[k]^magic[j])) {
+                        R[l] = (x ^ seen[resp].pB);
+                        unknownR.erase(l);
+                    }
+                }
+            } else {
+                seen[resp] = mp(j, x);
+            }
+        }
+    }
+    F0R(i, 7) {
+        for (ii q : spentQueries[i]) {
+            M[R[i]^q.pA] = q.pB;
+        }
+    }
+    vector<int> need;
+    F0R(i, 256) if (M[i] == -1) need.pb(i);
+    int kCtr = 0;
+    for (int x : need) {
+        M[x] = query(R[kCtr++]^x);
+        if (kCtr == 7) kCtr -= 7;
+    }
+    solution(R,M);
+    return;
 }
+
+//int main() {
+//    setupIO();
+//    return 0;
+//}
