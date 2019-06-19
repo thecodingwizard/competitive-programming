@@ -1,14 +1,5 @@
 /*
- * Weak test data, this code should not get AC (It should TLE/WA).
- *
- * I sorted by x-coordinate and did coordinate compression on y.
- *
- * Then swept from left to right for x-coordinate and considered that to be bottom left corner.
- * For every other coordinate to the right of it and above it (note this step is wrong, should WA),
- * add it to a fenwick tree and consider that point as the top right corner. If the number of
- * points in this rectangle is exactly t, then exit program early (note this should still cause TLE).
- *
- * O(n^2) + incorrect algorithm but weak test data :/
+ * O(n^2) with very low constant factor passes.
  */
 
 #include <bits/stdc++.h>
@@ -68,22 +59,9 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-int ft[10001];
-
-void adjust(int k, int v) {
-    for (; k <= 10000; k += LSOne(k)) ft[k] += v;
-}
-
-int query(int k) {
-    int a = 0;
-    for (; k > 0; k -= LSOne(k)) a += ft[k];
-    return a;
-}
-
 int main() {
     setupIO();
     int n, t; cin >> n >> t;
-    assert(n <= 10000); // Bounds seem to be wrong, should be <= 10,000 not 20,000
     pair<ii, int> A[n];
     F0R(i, n) {
         cin >> A[i].pA.pA >> A[i].pA.pB;
@@ -96,27 +74,36 @@ int main() {
     int idx = 1;
     for (int x : yVals) yMap[x] = idx++;
     F0R(i, n) A[i].pA.pB = yMap[A[i].pA.pB];
+    F0R(i, n) A[i].pA.pA = 1 + i;
 
-    SET(ft, 0, n+1);
+    int ps[n+10][n+10]; SET2D(ps, 0, n+10, n+10);
+    idx = 0;
+    F0R1(i, n+1) {
+        FOR(j, 1, n+1) {
+            ps[i][j] = ps[i-1][j] + ps[i][j-1] - ps[i-1][j-1];
+            if (idx < n && A[idx].pA.pA == i && A[idx].pA.pB == j) {
+                ps[i][j]++;
+                idx++;
+            }
+        }
+    }
 
     int best = INF;
-    ii bestAns;
+    ii ans;
     F0R(i, n) {
-        FOR(j, i, n) {
-            adjust(A[j].pA.pB, 1);
-            int op = abs(query(A[j].pA.pB) - query(A[i].pA.pB)) + 1;
-            if (op >= t) {
-                if (op - t < best) {
-                    best = op - t;
-                    bestAns = mp(A[i].pB, A[j].pB);
+        F0R(j, n) {
+            int x = A[i].pA.pA, y = A[i].pA.pB;
+            int a = A[j].pA.pA, b = A[j].pA.pB;
+            int num = ps[a][b] - ps[a][y - 1] - ps[x - 1][b] + ps[x - 1][y - 1];
+            if (num >= t) {
+                if (num - t < best) {
+                    best = num - t;
+                    ans = mp(A[i].pB, A[j].pB);
                 }
             }
         }
-        FOR(j, i, n) {
-            adjust(A[j].pA.pB, -1);
-        }
     }
-    cout << bestAns.pA << " " << bestAns.pB << endl;
+    cout << ans.pA << " " << ans.pB << endl;
 
     return 0;
 }
