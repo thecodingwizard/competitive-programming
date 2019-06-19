@@ -68,10 +68,10 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-int ft[20001];
+int ft[10001];
 
 void adjust(int k, int v) {
-    for (; k <= 20000; k += LSOne(k)) ft[k] += v;
+    for (; k <= 10000; k += LSOne(k)) ft[k] += v;
 }
 
 int query(int k) {
@@ -83,6 +83,7 @@ int query(int k) {
 int main() {
     setupIO();
     int n, t; cin >> n >> t;
+    assert(n <= 10000); // Bounds seem to be wrong, should be <= 10,000 not 20,000
     pair<ii, int> A[n];
     F0R(i, n) {
         cin >> A[i].pA.pA >> A[i].pA.pB;
@@ -102,35 +103,16 @@ int main() {
     ii bestAns;
     F0R(i, n) {
         FOR(j, i, n) {
-            /*
-             * NOTE: THIS STEP IS WRONG!!
-             *
-             * 2
-             * 2
-             * 1 2
-             * 2 1
-             */
-            if (A[j].pA.pB < A[i].pA.pB) continue;
-
             adjust(A[j].pA.pB, 1);
-            int op = query(A[j].pA.pB);
+            int op = abs(query(A[j].pA.pB) - query(A[i].pA.pB)) + 1;
             if (op >= t) {
                 if (op - t < best) {
                     best = op - t;
                     bestAns = mp(A[i].pB, A[j].pB);
-
-                    /*
-                     * Note: This gets AC but a well-designed test data should TLE :/
-                     */
-                    if (best == 0) {
-                        cout << bestAns.pA << " " << bestAns.pB << endl;
-                        return 0;
-                    }
                 }
             }
         }
         FOR(j, i, n) {
-            if (A[j].pA.pB < A[i].pA.pB) continue;
             adjust(A[j].pA.pB, -1);
         }
     }
