@@ -58,23 +58,17 @@ void setupIO(const string &PROB = "") {
 int main() {
     setupIO();
 
-    int r, h; cin >> r >> h;
-    pair<string, pair<string, string>> A[r], B[h];
-    F0R(i, r) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        A[i] = mp(a, mp(b, c));
-    }
-    F0R(i, h) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        B[i] = mp(a, mp(b, c));
+    int n; cin >> n;
+    n--;
+    ll ct = 1;
+
+    ll add = 4;
+    while (n--) {
+        ct += add;
+        add += 4;
     }
 
-    F0R(start, r) {
-        int left = 0, right = 0;
-        while (right < h) {
-
-        }
-    }
+    cout << ct << endl;
 
     return 0;
 }

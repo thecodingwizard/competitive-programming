@@ -58,21 +58,50 @@ void setupIO(const string &PROB = "") {
 int main() {
     setupIO();
 
-    int r, h; cin >> r >> h;
-    pair<string, pair<string, string>> A[r], B[h];
-    F0R(i, r) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        A[i] = mp(a, mp(b, c));
-    }
-    F0R(i, h) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        B[i] = mp(a, mp(b, c));
+    int n; cin >> n;
+    int q; cin >> q;
+    deque<int> dq;
+    int maxEl = -1;
+    F0R(i, n) {
+        int x; cin >> x;
+        MAX(maxEl, x);
+        dq.push_back(x);
     }
 
-    F0R(start, r) {
-        int left = 0, right = 0;
-        while (right < h) {
+    int iterations = 0;
+    vii ans;
+    while (dq.front() != maxEl) {
+        int A = dq.front(); dq.pop_front();
+        int B = dq.front(); dq.pop_front();
+        if (A == maxEl) {
+            break;
+        }
+        if (A > B) {
+            dq.push_front(A);
+            dq.push_back(B);
+        } else {
+            dq.push_front(B);
+            dq.push_back(A);
+        }
+        ans.pb(mp(A, B));
+        iterations++;
+    }
 
+    vi otherNums;
+    dq.pop_front();
+    while (!dq.empty()) {
+        otherNums.pb(dq.front());
+        dq.pop_front();
+    }
+
+    F0R(i, q) {
+        ll x; cin >> x;
+        if (x <= iterations) {
+            cout << ans[x-1].pA << " " << ans[x-1].pB << endl;
+        } else {
+            x -= iterations + 1;
+            x = x % otherNums.size();
+            cout << maxEl << " " << otherNums[x] << endl;
         }
     }
 

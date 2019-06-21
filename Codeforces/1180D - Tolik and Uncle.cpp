@@ -58,23 +58,51 @@ void setupIO(const string &PROB = "") {
 int main() {
     setupIO();
 
-    int r, h; cin >> r >> h;
-    pair<string, pair<string, string>> A[r], B[h];
-    F0R(i, r) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        A[i] = mp(a, mp(b, c));
-    }
-    F0R(i, h) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        B[i] = mp(a, mp(b, c));
-    }
-
-    F0R(start, r) {
-        int left = 0, right = 0;
-        while (right < h) {
-
+    int n, m; cin >> n >> m;
+//    vii ans;
+    F0R1(vertStart, n/2) {
+        F0R1(i, m) {
+            cout << vertStart << " " << i << "\n";
+            cout << n - vertStart + 1 << " " << m - i + 1 << "\n";
+//            ans.pb(mp(vertStart, i));
+//            ans.pb(mp(n - vertStart + 1, m - i + 1));
         }
     }
+    if (n % 2 != 0) {
+        F0R1(i, m / 2) {
+            cout << n/2+1 << " " << i << "\n";
+            cout << n/2+1 << " " << m - i + 1 << "\n";
+//            ans.pb(mp(n/2+1, i));
+//            ans.pb(mp(n/2+1, m - i + 1));
+        }
+        if (m % 2 != 0) {
+            cout << n/2+1 << " " << m/2 + 1 << "\n";
+//            ans.pb(mp(n/2+1, m / 2 + 1));
+        }
+    }
+
+    // Checker
+//    set<ii> seen;
+//    ii prev = ans[0];
+//    int ct[n+1][m+1];
+//    SET2D(ct, 0, n+1, m+1);
+//    ct[prev.pA][prev.pB]++;
+//    FOR(i, 1, ans.size()) {
+//        ii nxt = ans[i];
+//        ii d = mp(nxt.pA - prev.pA, nxt.pB - prev.pB);
+//        if (seen.count(d)) {
+//            assert(false);
+//        } else {
+//            seen.insert(d);
+//        }
+//        ct[nxt.pA][nxt.pB]++;
+//        prev = nxt;
+//    }
+//    F0R1(i, n) F0R1(j, m) assert(ct[i][j] == 1);
+
+//    for (ii x : ans) {
+//        cout << x.pA << " " << x.pB << endl;
+//    }
 
     return 0;
 }

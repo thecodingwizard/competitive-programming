@@ -58,23 +58,53 @@ void setupIO(const string &PROB = "") {
 int main() {
     setupIO();
 
-    int r, h; cin >> r >> h;
-    pair<string, pair<string, string>> A[r], B[h];
-    F0R(i, r) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        A[i] = mp(a, mp(b, c));
-    }
-    F0R(i, h) {
-        string a, x, b, c; cin >> a >> x >> b >> x >> c;
-        B[i] = mp(a, mp(b, c));
-    }
+    int n; cin >> n;
+    int A[n]; F0R(i, n) cin >> A[i];
 
-    F0R(start, r) {
-        int left = 0, right = 0;
-        while (right < h) {
-
+    int numNeg = 0;
+    ii largestPos = { -1, -1 };
+    ii largestNeg = { -1, -1 };
+    F0R(i, n) {
+        if (A[i] < 0) {
+            numNeg++;
+            if (largestNeg.pA < -A[i]) {
+                largestNeg = {-A[i], i};
+            }
+        }
+        else {
+            if (largestPos.pA < A[i]) {
+                largestPos = {A[i], i};
+            }
         }
     }
+
+    int numPos = n - numNeg;
+    int xx = numPos;
+    F0R(i, n) {
+        if (A[i] >= 0 && (n % 2 == 0 || i != largestPos.pB)) {
+            if (numPos > 0) {
+                A[i] = -A[i] - 1;
+                numPos--;
+            }
+        }
+    }
+
+    if (n % 2 == 1) {
+        if (largestNeg.pA != -1 && largestPos.pA != -1 && largestNeg.pA > largestPos.pA) {
+            A[largestNeg.pB] = -A[largestNeg.pB] - 1;
+            A[largestPos.pB] = -A[largestPos.pB] - 1;
+        }
+    }
+
+    if (xx <= 0 && n % 2 == 1) {
+        A[largestNeg.pB] = -A[largestNeg.pB] - 1;
+    }
+
+    F0R(i, n) {
+        if (i != 0) cout << " ";
+        cout << A[i];
+    }
+    cout << endl;
 
     return 0;
 }
