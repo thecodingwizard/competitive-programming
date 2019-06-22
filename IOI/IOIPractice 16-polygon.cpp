@@ -1,3 +1,12 @@
+/*
+ * DP[i][j] = number of ways to draw j lines with i vertices.
+ *
+ * O(n^2) state, O(n^2) transition = O(n^4).
+ *
+ * My implementation had some overcounting so I have to divide by k (using modular multiplicative inverse)
+ * for each DP value. I'm not too sure why this works, I figured it out by trial and error :P
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
