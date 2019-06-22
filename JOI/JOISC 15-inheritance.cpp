@@ -1,3 +1,12 @@
+/*
+ * Union Find, greedy.
+ *
+ * Note that the optimal strategy is to sort the edges by decreasing cost, and for every edge, attempt to give it
+ * to the first child. If the first child can't receive it, then try the next child, and so on.
+ *
+ * We can do this using Union Find
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
