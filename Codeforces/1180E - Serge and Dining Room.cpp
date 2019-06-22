@@ -1,3 +1,12 @@
+/*
+ * Binary search on seg tree with range updates and range minimum queries
+ *
+ * For each dish, do -1 from 1...dish_val
+ * For each pupil, do +1 from 1...pupil_cash
+ *
+ * Then binary search for the largest number where the value is < 0
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
