@@ -1,3 +1,21 @@
+/*
+ * DP. Note that at every step one person must be at the work location, so you
+ * can have your state as n*l*l with O(1) transitions. Just try moving the first person,
+ * the second person, or the third person.
+ *
+ * Watch out for a small detail in the problem statement: If you're servicing station i and
+ * there is already someone on station i, you *must* use that person to service station i!
+ * You cannot move the second or third person in this case.
+ *
+ * CSES grader only allows you to solve both subtasks; it won't let you know if you got
+ * one subtask correct. Also, if you get Runtime Error, it's probably MLE (64MB limit).
+ *
+ * To avoid MLE, use sliding window DP. However, you can still store the full n*l*l parent
+ * pointers if you use char instead of int since your parent pointer is either 1, 2, or 3.
+ *
+ * At the very end of the code there is a grader to make sure the path you output is valid.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
