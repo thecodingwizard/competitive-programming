@@ -1,3 +1,30 @@
+/*
+ * A n*k*k dp solution is fairly obvious (n*k states, then from each location just try using 1...C_i notes of that denomination).
+ *
+ * However using a deque it's possible to update all the transitions in O(k) time bringing the complexity
+ * down to O(n*k). Editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/POI/official/2005/editrial/ban.pdf
+ * Look on page 92 for the pseudocode.
+ *
+ * Basically, when processing a note i with value A and number B, consider every offset from 0...A-1.
+ * Let's call the offset we're currently processing X.
+ *
+ * We are going to update all the DP values X, X+A, X+A+A, X+A+A+A, ... all the way until we reach k.
+ *
+ * For every DP value that we update, we basically have to decide how many of note i we want to take
+ * in O(1) time. Obviously to update X we take 0 notes.
+ * To update X+A, we can either take 0 notes or 1 note.
+ * To update X+A+A we take 0, 1, or 2 notes.
+ * Let's say we're trying to update X + a*A. For every y <= a,
+ * DP[X + a*A] = min(DP[X + a*A], DP[X + y*A] + (a - y))
+ * where (a-y) is the number of notes of value A that we take. We also have to make sure that (a - y) <= numberOfNotes[i]
+ * We can maintain a deque as we update X, then X+A, then X+A+A...
+ * The deque contains a list of monotonically increasing values of y.
+ * The front of the deque is ideal; e.g. DP[X + y*A] + (a - y) is minimized.
+ * However, we have to make sure to pop off the front of the deque if (a - y) is greater than numberOfNotes[i].
+ *
+ * Look at the pseudocode in the editorial or look at the code below for additional clarity.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
