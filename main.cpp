@@ -25,7 +25,6 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define mp make_pair
 #define pb push_back
 #define PI acos(-1.0)
-#define ll long long
 // #define MOD (int)(2e+9+11)
 #define MOD (int)(1e+9+7)
 #define SET(vec, val, size) for (int i = 0; i < size; i++) vec[i] = val;
@@ -42,6 +41,8 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define SORT(vec) sort(all(vec))
 #define RSORT(vec) sort(vec.rbegin(),vec.rend())
 
+typedef long long ll;
+typedef long double ld;
 typedef pair<int, int> ii;
 typedef pair<int, ii> iii;
 typedef pair<ll, ll> pll;
