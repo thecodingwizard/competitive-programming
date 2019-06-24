@@ -1,3 +1,35 @@
+/*
+ * Think of this problem as a graph: Each node is the position 1...n.
+ * If two nodes u and v are currently in conflict (e.g. their soldiers have same height) then they have an edge
+ * between them of weight 0.
+ * If two nodes u and v will be in conflict if either one of them is flipped (their top/bottom soliders swap),
+ * then they have an edge between them of weight 1.
+ * Don't include self-edges.
+ *
+ * Let's make a few observations:
+ * - The maximum number of soldiers with height x is 2, since any more and it is impossible to solve the problem.
+ * - Each node has zero, one, or two edges.
+ * - The graph will have a lot of cycles and a lot of straight lines.
+ * - We can solve each of the cycles/straight lines independently.
+ * - By flipping a node, all the edges next to it will be flipped (if they are currently weight 0, they will
+ * be weight 1, and vice versa).
+ * - If it's a cycle, it will have an even number of edges with weight 0.
+ *
+ * Let's now figure out how to solve a straight line.
+ * Let's first make a list of edge weights, e.g. 0 1 1 0 1 0 1
+ * Note that one move = flip values of two adjacent edges.
+ * Let's make a list of edge weights. We want to make flips s.t. all the edges have weight 1.
+ * We can do this greedily, if the current node has weight 0, we flip the current node and the next node.
+ * However there is another case to consider, we can flip the value of the very first edge only in one operation.
+ *
+ * Now how do we solve a cycle?
+ * Similar to solving a straight line, but when we flip edge 0, we also flip edge n-1.
+ *
+ * Now we can solve all of the cycles/straight lines independently and add the moves up to get our final answer.
+ *
+ * My implementation is very messy, you can write far more elegant code.
+ */
+
 // #pragma GCC optimize ("O3")
 // #pragma GCC target ("sse4")
 
