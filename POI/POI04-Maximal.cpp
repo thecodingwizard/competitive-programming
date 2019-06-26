@@ -1,3 +1,23 @@
+/*
+ * The problem is basically: Come up with a list of numbers such that the lcm of these numbers is
+ * maximized and the sum of the numbers is <= Q.
+ *
+ * Observe that the numbers should all be relatively prime to each other, and that the biggest
+ * number in that list isn't very big (I found this intuitively, for a formal proof look at POI editorial).
+ *
+ * You can solve this problem using DP but the numbers get too big too fast. So either implement
+ * biginteger or:
+ *
+ * You need to support following operations:
+ * 1. comparison
+ * 2. multiplication
+ * 3. factorization
+ *
+ * instead of using long long, you can use long double which stores up to 10^308 with good enough
+ * precision to do the first two operations. To handle the third operation, just make a list
+ * of factors as you do your DP.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
