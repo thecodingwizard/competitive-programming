@@ -1,3 +1,10 @@
+/*
+ * A k^2 DP solution is fairly obvious, O(k) states O(k) transition.
+ *
+ * To speed up, we can sort the k points by x-coordinate. We can add each of the
+ * dp values into a max seg tree. Then we can do transition in O(log k) by querying the seg tree.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
