@@ -1,3 +1,12 @@
+/*
+ * Consider each digit location separately (ones, tens, hundreds, etc).
+ *
+ * Count # of times each digit appears in that location through all the numbers.
+ *
+ * Then for every pair of digits, do math to determine how much it will add to the answer:
+ * abs(i - j)*ct[i]*ct[j]
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 

@@ -1,3 +1,13 @@
+/*
+ * Max flow. Each given transaction is a node. Each person is a node.
+ * Connect transaction to two people with edge weight two.
+ * Connect each transaction to source with edge weight two.
+ * Connect each person to sink with given edge weight.
+ * Rest of transactions can be done greedily.
+ *
+ * Official solution is very similar but adds in additional transaction nodes instead of assigning greedily.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -81,6 +91,11 @@ namespace output {
     template<class T> void prD(const vector<T>& x);
     template<class T> void prD(const set<T>& x);
     template<class T1, class T2> void prD(const map<T1,T2>& x);
+    template<class T1, class T2> void pr(const pair<T1,T2>& x);
+    template<class T, size_t SZ> void pr(const array<T,SZ>& x);
+    template<class T> void pr(const vector<T>& x);
+    template<class T> void pr(const set<T>& x);
+    template<class T1, class T2> void pr(const map<T1,T2>& x);
 
     template<class T> void prD(const T& x) { cout << x; }
     template<class Arg, class... Args> void prD(const Arg& first, const Args&... rest) {
@@ -150,76 +165,107 @@ void setupIO(const string &PROB = "") {
 
 /* ============================ */
 
-int A[50001], B[50001];
-ll tens[50001];
-ll ctRev[50001];
-ll ct = 0;
-ll numA[10][50001], numB[10][50001];
+int n, m;
+int A[100];
+
+// 0 = source
+// 1...1000 = purchases
+// 1001...1100 = people
+// 1101 = sink
+vi children[1102];
+int res[1102][1102];
+int p[1102];
+
+int f;
+void aug(int u, int minEdge) {
+    if (u == 0) f = minEdge;
+    if (p[u] >= 0) {
+        aug(p[u], min(minEdge, res[p[u]][u]));
+        res[p[u]][u] -= f;
+        res[u][p[u]] += f;
+    }
+}
 
 int main() {
     setupIO();
 
-    string a, b; re(a, b);
-    F0R(i, b.size()) {
-        if (b.size() - a.size() <= i) {
-            A[i] = a[i - (b.size() - a.size())] - '0';
-        } else {
-            A[i] = 0;
-        }
-    }
-    F0R(i, sz(b)) B[i] = b[i] - '0';
-    SET2D(numA, 0, 10, 50001);
-    SET2D(numB, 0, 10, 50001);
-    F0Rd(i, sz(b)) {
-        if (i == sz(b) - 1) tens[i] = 1;
-        if (i == 0) break;
-        tens[i - 1] = (tens[i] * 10) % MOD;
+    re(n, m);
+    reA(A, n);
+
+    int aSum = 0; F0R(i, n) aSum += A[i];
+
+    SET2D(res, 0, 1102, 1102);
+
+    F0R1(i, n) {
+        children[1000 + i].pb(1101);
+        children[1101].pb(1000 + i);
+        res[1000+i][1101] = A[i-1];
     }
 
-    F0Rd(i, sz(b)) {
-        if (i == sz(b) - 1) ctRev[i] = 1;
-        if (i == 0) break;
-        ctRev[i - 1] = ctRev[i] + A[i]*tens[i];
-    }
-    F0R(i, sz(b)) {
-        F0R(j, 10) {
-            numA[j][i] = ct*tens[i];
-            if (j < A[i]) numA[j][i] += tens[i];
-            if (j == A[i]) numA[j][i] += ctRev[i];
-            numA[j][i] %= MOD;
-        }
-        ct = (10*ct + A[i]) % MOD;
-    }
-    F0R(i, sz(b)) {
-        numA[A[i]][i]--;
+    vii M;
+    F0R(i, m) {
+        int x, y; re(x, y);
+        M.pb(mp(x, y));
+        children[i + 1].pb(1000 + x);
+        children[i + 1].pb(1000 + y);
+        children[1000 + x].pb(i + 1);
+        children[1000 + y].pb(i + 1);
+        res[i+1][1000 + x] = 2; // 2 or INF?
+        res[i+1][1000 + y] = 2;
+        children[0].pb(i + 1);
+        children[i + 1].pb(0);
+        res[0][i+1] = 2;
     }
 
-    ct = 0;
-    F0Rd(i, sz(b)) {
-        if (i == sz(b) - 1) ctRev[i] = 1;
-        if (i == 0) break;
-        ctRev[i - 1] = ctRev[i] + B[i]*tens[i];
-    }
-    F0R(i, sz(b)) {
-        F0R(j, 10) {
-            numB[j][i] = ct*tens[i];
-            if (j < B[i]) numB[j][i] += tens[i];
-            if (j == B[i]) numB[j][i] += ctRev[i];
-            numB[j][i] %= MOD;
-        }
-        ct = (10*ct + B[i]) % MOD;
-    }
-
-    ll ans = 0;
-    F0R(i, sz(b)) {
-        F0R(j, 10) {
-            F0R(k, 10) {
-                ans = (ans + (ll)abs(j - k)*(numB[j][i]-numA[j][i])*(numB[k][i]-numA[k][i])) % MOD;
-                if (ans < 0) ans += MOD;
+    while (true) {
+        int s = 0, t = 1101;
+        SET(p, -1, 1102);
+        p[s] = -2;
+        queue<int> q; q.push(s);
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            if (u == t) break;
+            for (int v : children[u]) {
+                if (res[u][v] > 0 && p[v] == -1) {
+                    p[v] = u; q.push(v);
+                }
             }
         }
+        if (p[t] == -1) break;
+        aug(t, INF);
     }
-    ps(ans);
+
+    ps(aSum/2);
+
+    F0R(i, m) {
+        pr(M[i], " ");
+        int x = res[1000 + M[i].pA][i + 1];
+        ps(x);
+        A[M[i].pA-1] -= x;
+        A[M[i].pB-1] -= (2 - x);
+    }
+
+    F0R(i, n) {
+        while (A[i] >= 2) {
+            A[i] -= 2;
+            ps(i + 1, (i == 0 ? 2 : 1), 2);
+        }
+    }
+
+    F0R(i, n) {
+        if (A[i] == 1) {
+            int tgt = -1;
+            FOR(j, i + 1, n) {
+                if (A[j] == 1) {
+                    tgt = j;
+                    break;
+                }
+            }
+            assert(tgt != -1);
+            A[i]--; A[tgt]--;
+            ps(i + 1, tgt + 1, 1);
+        }
+    }
 
     return 0;
 }
