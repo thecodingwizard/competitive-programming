@@ -1,3 +1,10 @@
+/*
+ * Note that your state can be defined as (x, y), direction facing, and day of week.
+ * There are only so many states, so can brute force until we find a cycle.
+ *
+ * Then can do math to solve the problem.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
