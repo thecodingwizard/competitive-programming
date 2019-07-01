@@ -1,3 +1,10 @@
+/*
+ * Pattern finding, just run code over and over to find patterns.
+ *
+ * Check official editorial for a smarter (though harder) approach that figures out what the code
+ * is actually doing.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
