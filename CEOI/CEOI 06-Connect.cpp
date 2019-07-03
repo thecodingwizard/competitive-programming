@@ -1,3 +1,57 @@
+/*
+ * Real messy implementation. I think editorial has a far cleaner implementation.
+ *
+ * Idea is same as editorial, recognize that each room + its border must be of one of the following:
+ * + +
+ *  ..
+ * +.+
+ *
+ * +.+
+ *  .
+ * +.+
+ *
+ * etc. Then DP
+ *
+ * Input data:
+
+17 15
++-+-+-+-+-+-+-+
+|             |
++ + + + + + + +
+|X  |   |     |
++ + + + + + + +
+|   |   |  X  |
++-+ + + + + + +
+|       |     |
++ + + +-+-+-+-+
+|            X|
++ + +-+-+-+-+ +
+|             |
++ + + + + + + +
+|  X|         |
++ + + + + + + +
+|   |         |
++-+-+-+-+-+-+-+
+
+15 15
++-+-+-+-+-+-+-+
+|X|           |
++ + + +-+ + + +
+| |   |X|  X  |
++ + + + + + +-+
+|     | |   |X|
++ +-+-+ + + + +
+|       |   | |
++-+-+ + + +-+ +
+|     |     | |
++ + + +-+-+ + +
+|     |X  | | |
++ +-+-+ + + + +
+|    X|       |
++-+-+-+-+-+-+-+
+
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
