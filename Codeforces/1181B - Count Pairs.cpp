@@ -1,3 +1,7 @@
+/*
+ * Math: x^4 + y^4 = k*(x - y)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 

@@ -1,3 +1,8 @@
+/*
+ * Observation: if any vertex has degree 2, NO.
+ * else YES.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -154,26 +159,19 @@ using namespace output;
 
 /* ============================ */
 
-int n, p, k;
-
-ll conv(ll x) {
-    return (((x*x%p*x%p*x%p - k*x%p) % p) + p) % p;
-}
-
 int main() {
     setupIO();
 
-    re(n, p, k);
-    int A[n]; reA(A, n);
-    map<ll, int> ct;
-    F0R(i, n) {
-        ct[conv(A[i])]++;
+    int n; re(n);
+    int deg[n + 1]; SET(deg, 0, n+1);
+    F0R(i, n-1) {
+        int a, b; re(a, b);
+        deg[a]++; deg[b]++;
     }
-    ll ans = 0;
-    for (auto x : ct) {
-        ans += ct[x.pA] * (ct[x.pA] - 1) / 2;
-    }
-    ps(ans);
+    bool good = true;
+    F0R1(i, n) if (deg[i] == 2) good = false;
+    if (good) ps("YES");
+    else ps("NO");
 
     return 0;
 }

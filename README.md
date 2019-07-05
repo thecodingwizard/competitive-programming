@@ -474,7 +474,7 @@ Solutions to USACO training and USACO contest problems.
 [treeboxes]: USACO/2019open/plat/treeboxes.cpp
 
 # Codeforces
-Solutions to various Codeforces problems.
+Solutions to various Codeforces problems. List no longer updated!
 
 [Here is the complete solutions folder.](Codeforces)
 
