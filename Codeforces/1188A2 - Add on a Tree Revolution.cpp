@@ -1,3 +1,9 @@
+/*
+ * You can use four moves to change the value of a single edge without changing the values of any other edge.
+ *
+ * Observation.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
