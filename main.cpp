@@ -1,7 +1,3 @@
-/*
- * See editorial: https://codeforces.com/blog/entry/68079
- */
-
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -158,54 +154,119 @@ using namespace output;
 
 /* ============================ */
 
-int mod = 998244353;
+map<ii, int> roadIdx;
+struct City {
+    int x, y; int rIdxOne, rIdxTwo;
+};
 
-int n, k;
+vector<City> cities;
 
-int A[1000];
-ll val[1000][1001];
+vi children[200000];
+
+struct Road {
+    int a, b; int depth;
+};
+vector<Road> roads;
+
+int parent[200000][18];
+double dist[200000][18][2][2];
+
+double gd(int a, int b) {
+    City A = cities[a], B = cities[b];
+    return hypot(B.y - A.y, B.x - A.x);
+}
+
+double cd(int ridx) {
+    City a = cities[roads[ridx].a], b = cities[roads[ridx].b];
+    return hypot(b.y - a.y, b.x - a.x);
+}
+
+void setParent(int rId) {
+    int p = parent[rId][0];
+    dist[rId][0][0][0] = 0;
+    dist[rId][0][0][1] = cd(p);
+    dist[rId][0][1][0] = gd(roads[rId].b, roads[p].a);
+    dist[rId][0][1][1] = gd(roads[rId].b, roads[p].b);
+    FOR(i, 1, 18) {
+        dist[rId][i][0][0] = min(dist[rId][i - 1][0][0] + dist[p][i - 1][0][0], dist[rId][i - 1][0][1] + dist[p][i - 1][1][0]);
+        dist[rId][i][0][1] = min(dist[rId][i - 1][0][0] + dist[p][i - 1][0][1], dist[rId][i - 1][0][1] + dist[p][i - 1][1][1]);
+        dist[rId][i][1][0] = min(dist[rId][i - 1][1][0] + dist[p][i - 1][0][0], dist[rId][i - 1][1][1] + dist[p][i - 1][1][0]);
+        dist[rId][i][1][1] = min(dist[rId][i - 1][1][0] + dist[p][i - 1][0][1], dist[rId][i - 1][1][1] + dist[p][i - 1][1][1]);
+        parent[rId][i] = p = parent[p][i - 1];
+    }
+}
+
+double getDist(int r1, int r2) {
+    // return distance from road r1 to road r2
+    if (roads[r1].depth < roads[r2].depth) {
+        int tmp = r2;
+        r2 = r1;
+        r1 = tmp;
+    }
+    pair<double, double> d1 = { cd(r1), 0 };
+    pair<double, double> d2 = { cd(r2), 0 };
+    F0Rd(i, 18) {
+        int par = parent[r1][i];
+        if (roads[par].depth >= roads[r2].depth) {
+            pair<double, double> nd1;
+            nd1.pA = min(dist[r1][i][0][0] + d1.pA, dist[r1][i][1][0] + d1.pB);
+            nd1.pB = min(dist[r1][i][0][1] + d1.pA, dist[r1][i][1][1] + d1.pB);
+            d1 = nd1;
+            r1 = par;
+        }
+    }
+    F0Rd(i, 18) {
+        int p1 = parent[r1][i], p2 = parent[r2][i];
+        if (p1 != p2) {
+            pair<double, double> nd1;
+            nd1.pA = min(dist[r1][i][0][0] + d1.pA, dist[r1][i][1][0] + d1.pB);
+            nd1.pB = min(dist[r1][i][0][1] + d1.pA, dist[r1][i][1][1] + d1.pB);
+            d1 = nd1;
+            r1 = p1;
+            pair<double, double> nd2;
+            nd2.pA = min(dist[r2][i][0][0] + d2.pA, dist[r2][i][1][0] + d2.pB);
+            nd2.pB = min(dist[r2][i][0][1] + d2.pA, dist[r2][i][1][1] + d2.pB);
+            d2 = nd2;
+            r2 = p2;
+        }
+    }
+    return d1.pB + d2.pB + gd(roads[r1].b, roads[r2].b);
+}
 
 int main() {
     setupIO();
+    cout << fixed << setprecision(6);
 
-    re(n, k);
-    reA(A, n);
-    sort(A, A+n);
-    ll ans = 0;
-    F0R1(z, 100000/(k-1)) {
-        F0R(i, n) val[i][0] = 1;
-        F0R(j, k - 1) {
-            ll runningSum = 0;
-            int ptr = n - 1;
-            F0Rd(i, n) {
-                while (ptr >= 0 && A[ptr] - A[i] >= z) {
-                    runningSum = (runningSum + val[ptr--][j]) % mod;
-                }
-                val[i][j + 1] = runningSum;
-            }
+    int x1, y1, x2, y2; re(x1, y1, x2, y2);
+    cities.pb(City{x1, y1, 0, 0}); cities.pb(City{x2, y2, 0, 0});
+    roadIdx[mp(0, 1)] = 0;
+    parent[0][0] = 0;
+    setParent(0);
+    int n; re(n);
+    F0R(i, n) {
+        char cmd; re(cmd);
+        if (cmd == 'd') {
+            int x, y, a, b; re(x, y, a, b); a--; b--;
+            int par = roadIdx[mp(min(a, b), max(a, b))];
+            int rsz = sz(roadIdx);
+            children[par].pb(rsz); roadIdx[mp(a, sz(cities))] = rsz;
+            children[par].pb(rsz + 1); roadIdx[mp(b, sz(cities))] = rsz + 1;
+            roads.pb(Road{a, sz(cities), roads[par].depth + 1});
+            roads.pb(Road{b, sz(cities), roads[par].depth + 1});
+            cities.pb(City{x, y, rsz, rsz + 1});
+            parent[rsz][0] = par;
+            parent[rsz + 1][0] = par;
+            setParent(rsz); setParent(rsz + 1);
+        } else {
+            int a, b; re(a, b); a--; b--;
+            double best = LL_INF;
+            MIN(best, getDist(cities[a].rIdxOne, cities[b].rIdxOne));
+            MIN(best, getDist(cities[a].rIdxTwo, cities[b].rIdxOne));
+            MIN(best, getDist(cities[a].rIdxOne, cities[b].rIdxTwo));
+            MIN(best, getDist(cities[a].rIdxTwo, cities[b].rIdxTwo));
+            ps(best);
         }
-        ll toAdd = 0;
-        F0R(i, n) toAdd += val[i][k - 1];
-        ans = (ans + toAdd) % mod;
     }
-    ps(ans);
-
-//    ans = 0;
-//    F0R(i, (1 << n)) {
-//        if (__builtin_popcount(i) == k) {
-//            int smallest = INF;
-//            F0R(j, n) {
-//                if (i & (1 << j)) {} else continue;
-//                F0R(l, n) {
-//                    if (j == l) continue;
-//                    if (i & (1 << l)) {} else continue;
-//                    MIN(smallest, abs(A[j] - A[l]));
-//                }
-//            }
-//            if (smallest != INF) ans += smallest;
-//        }
-//    }
-//    ps("Check:", ans);
 
     return 0;
 }
