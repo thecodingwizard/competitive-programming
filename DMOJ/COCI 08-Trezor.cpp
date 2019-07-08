@@ -1,3 +1,39 @@
+/*
+ * Batch 1:
+ * - You can brute force (a+b)*l
+ * - A guard can see a vault if and only if the x-distance and the y-distance from the guard to the vault is relatively prime
+ * - (Some edge cases to above rule when x-distance is 1 or y-distance is 0)
+ *
+ * Batch 2:
+ * - You can brute force (a+b)*(a*b)
+ * - The vaults that can be seen by each guard repeat at a*b
+ * - Hence for every y-coordinate you don't have to loop all the way to l, you can stop at a*b
+ *
+ * Batch 3:
+ * - Same as editorial
+ * - Basically, let's assume we have a function calc(a, b) that returns the number of numbers from 1...b
+ *   that are relatively prime to a. So calc(6, 9) = 3. (1, 5, 7)
+ * - We handle each y-coordinate from -A to B
+ * - Let's call the y-distance to guard (0, -A) = da, (0, B) = db
+ * - Define:
+        ll relPrimeA = calc(da, l);
+        ll relPrimeB = calc(db, l);
+        ll relPrimeAB = calc(da*db, l);
+ * - Note that super secure = relPrimeAB
+ * - semi secure = relPrimeA + relPrimeB - 2*relPrimeAB
+ * - not secure = l - relPrimeA - relPrimeB + rePrimeAB
+ *
+ * - Now we have to implement calc, which we can do using principle of inclusion exclusion on the factors of a.
+ * - For example, if a = 24, then factors = 2, 3. Let's say l = 100.
+ * - The answer will be 100/2 + 100/3 - 100/6
+ *
+ * - Make sure to handle edge cases (x-distance 1, y-distance 0)
+ *
+ * Contains code for:
+ * - Principle of Inclusion Exclusion (PIE)
+ * - Finding prime factors of a number
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
