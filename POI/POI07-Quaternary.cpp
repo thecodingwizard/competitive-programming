@@ -1,3 +1,10 @@
+/*
+ * Same as editorial solution: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/POI/official/2007/editorial/wag.pdf
+ *
+ * Big integer base 10 to base 4 conversion:
+ * Repeatedly divide the number by 4, after each division, the remainder is the base 4 units, tens, hundreds, etc.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
