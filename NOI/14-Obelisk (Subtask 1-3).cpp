@@ -1,3 +1,22 @@
+/*
+ * Note that your state can uniquely be defined as (x, y, orientation, floor)
+ *
+ * You can do a BFS from source to destination. However, this is too slow for subtask 3.
+ *
+ * The trick is to recognize that the distance from (1, 2) to (3, 4) is the same for each floor, so you only have
+ * to run a single BFS from (0, 0) to all the other nodes. Make sure to give some padding (eg. allow negative
+ * coordinates, allow >400 coordinates).
+ *
+ * Then you can run Dijkstra from each hole to the next hole.
+ *
+ * Why is this the case? After all, when moving from (1, 2) to (3, 4) you may encounter a hole that
+ * doesn't exist in another floor. However, this doesn't actually matter because when encountering
+ * that hole, you just drop down to the next floor and continue your same sequence of movements, and
+ * you end up at (3, 4) in the same number of moves, just on the floor beneath you, so it doesn't really matter.
+ *
+ * Note that m = 1 is a special case and should be handled differently (orientation doesn't matter)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
