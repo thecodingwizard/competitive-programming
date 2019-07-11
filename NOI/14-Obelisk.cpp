@@ -1,3 +1,9 @@
+/*
+ * For the last subtask, note that it's possible to calculate the number of moves from (0, 0) to (dx, dy)
+ * in O(1) time. See official editorial for how.
+ *
+ * My implementation is really, really, really messy.
+ */
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
