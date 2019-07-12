@@ -1,3 +1,22 @@
+/*
+ * Since we know the pipes only head east or south, if A represents the source and X the sink,
+ * then the cost of matching A to X is (X.x - A.x) + (A.y - X.y).
+ *
+ * Now let's consider two pairings, A->X and B->Y. When will it be optimal to change the pairing
+ * to A->Y and B->X? Well, Option 1 (the original) is X.x - A.x + A.y - X.y + Y.x - B.x + B.y - Y.y
+ * Option 2 is Y.x - A.x + A.y - Y.y + X.x - B.x + B.y - X.y
+ *
+ * We notice that both options are the same -- it never helps us to switch two pairings! From this
+ * we can infer that *any* valid assignment following the down+right rule is optimal. In fact,
+ * the cost of the assignment is: For each source, cost += source.y - source.x. For each sink,
+ * cost += sink.x - sink.y. Note that however we pair the source/sink, the cost always remains the same.
+ *
+ * Then we only have to determine an optimal pairing which can be done by sweeping from right to left
+ * while maintaining a set of possible sinks and greedily picking the sink with the highest y coordinate.
+ *
+ * I believe editorial is the same solution though they provide a legit proof.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
