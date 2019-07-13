@@ -1,3 +1,9 @@
+/*
+ * We can process the elements from bottom up. The first time we reach a number, we add it to a stack.
+ * The second time we reach a number, we must "remove" it from the stack by swapping it with every number on top
+ * of it in the stack until it's the top element in the stack, then we pop it out. Each swap = one action.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
