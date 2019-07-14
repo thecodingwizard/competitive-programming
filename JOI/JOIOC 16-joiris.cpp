@@ -1,3 +1,7 @@
+/*
+ * Same as editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/JOI/official/JOIOC/2016/joiris.pdf
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
