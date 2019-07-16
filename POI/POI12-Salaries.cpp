@@ -1,3 +1,34 @@
+/*
+ * My solution is the same as the editorial. Note that my implementation may be slightly different,
+ * but the concept is the same.
+ *
+ * To solve this problem, we first create a list of possible salaries to assign to blank nodes.
+ *
+ * We will call each node with a known value a "tree". The root of the "tree" is the node
+ * with the known salary, and all the other nodes of the tree are blank nodes connected (directly or indirectly)
+ * to the root node.
+ *
+ * We observe that the only time we can determine the missing values of a tree is when the tree is a path:
+ * when each node in the tree has exactly one child. Otherwise, if a node in the tree has two or more children,
+ * the node's children cannot be determined.
+ *
+ * Let's now process the trees in increasing value. Assume we are processing a tree i with root salary A_i and B_i
+ * empty nodes (nodes that need to have salaries assigned to them.)
+ * Define K_i to be the list of all available, unused salaries <= A_i. We have to figure out a way to assign
+ * salaries from K_i to the blank nodes of the tree we are currently processing. However, note that since
+ * we are processing trees in increasing value order, it doesn't actually matter which of the K_i salaries
+ * we choose, since any salary we don't use from K_i will be part of K_(i+1). So we can just greedily pick
+ * any subset of B_i salaries from K_i.
+ *
+ * To assign salaries to our tree, we can once again do this greedily by assigning the largest available salary to
+ * the first child, the second largest salary to the second child, and so on. Once we hit a node that has 2+
+ * children, we must stop since it's no longer possible to determine the salaries for those nodes.
+ *
+ * However, what will happen if len(K_i) > B_i? In other words what will happen if we have more
+ * possible salaries than nodes to assign them to? Then all the possible salaries are invalid
+ * (all salaries in K_i cannot be determined).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
