@@ -1,3 +1,22 @@
+/*
+ * String transformations ==> classes
+ *
+ * We can categorize molecules into "classes" such that a molecule will be able to be transformed into
+ * any other molecule in its class, but won't be able to transform into a molecule that's not in it's class.
+ *
+ * We can write some brute force code to see if we can figure out some interesting properties about the classes.
+ * We notice that there are at most 24 classes, and that each of the 24 classes has a molecule of length <= 4.
+ *
+ * See editorial for formal proof, but basically if all the molecules of length <= 5 are part of one of 24 classes,
+ * and each of the 24 classes have at least one molecule of length <= 4, then for any molecule of length > 5
+ * we can take the first five characters, transform the prefix of five characters into four characters, and repeat
+ * until we end up in one of the 24 classes. And we can write brute force code to make sure that the first
+ * two conditions are met.
+ *
+ * To solve the problem we just use the approach described above to convert a super long molecule into
+ * a shorter molecule.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -167,7 +186,7 @@ void dfs(string s, int c) {
     seen.insert(s);
     if (sz(s) <= 5) {
         mClass[s] = c; // we only care about molecules length <= 5, helps save time + memory
-                // note that this optimization might not be necessary oops :P
+        // note that this optimization might not be necessary oops :P
     }
     F0R(i, s.length() - 1) {
         string x; x += s[i]; x += s[i+1];
