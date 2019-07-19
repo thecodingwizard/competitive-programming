@@ -1,3 +1,22 @@
+/*
+ * Since n <= 26, it's actually possible to brute force this problem.
+ *
+ * We can generate every single possible combination of choose 13 out of 26 cities. Note that we can
+ * auto-assign city 1, so it's 25 choose 12 = ~5 million.
+ *
+ * The editorial proves a lemma that it's possible to generate combinations in such a way where each subsequent
+ * combination differs from its original combination by only two cities, so you can just calculate the diff
+ * of each combination instead of recalculating the whole thing.
+ *
+ * In my implementation, I used a sketchy way from StackOverflow using bit manipulation to generate the combinations.
+ * This method doesn't guarantee that each combination differs by only two, but it's close enough. Averaged out,
+ * I think each combination differs by ~2.7 cities, which is fast enough to get AC with the proper implementation.
+ *
+ * Contains code for:
+ * - Brute force combinations
+ * - Generate all combinations using bit manipulation
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
