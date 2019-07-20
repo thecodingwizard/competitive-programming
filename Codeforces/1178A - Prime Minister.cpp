@@ -1,3 +1,7 @@
+/*
+ * Greedily take parties
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -157,51 +161,33 @@ using namespace output;
 
 /* ============================ */
 
-int mod = 998244353;
-ll dp[500][500];
-ll transition[500];
-int minVal[500];
-int A[500];
-
-ll getDP(int i, int j) {
-    if (i >= j) return 1;
-    return dp[i][j];
-}
-
 int main() {
     setupIO();
 
-    int n, m; re(n, m);
-    reA(A, m);
-    SET2D(dp, 1, n, n);
-    SET(transition, 1, n);
-    F0R(length, n) {
-        F0R(start, n - length) {
-            int end = start + length;
-            if (length == 0) {
-                dp[start][start] = 1;
-                minVal[start] = start;
-                continue;
-            }
-            int minIdx = minVal[start];
-            if (A[end] < A[minIdx]) {
-                minVal[start] = end;
-                minIdx = end;
-                ll newT = 0;
-                FOR(i, start, minIdx + 1) {
-                    newT = (newT + getDP(start, i - 1)*getDP(i, minIdx - 1)) % mod;
-                }
-                transition[start] = newT;
-                dp[start][end] = transition[start];
-            } else {
-                dp[start][end] = 0;
-                FOR(i, minIdx, end + 1) {
-                    dp[start][end] = (dp[start][end] + transition[start]*getDP(minIdx + 1, i)%mod*getDP(i + 1, end)) % mod;
-                }
-            }
+    int n; re(n);
+    int A[n]; reA(A, n);
+    int needed = 0; F0R(i, n) needed += A[i];
+    int alice = A[0];
+    vii xx;
+    FOR(i, 1, n) {
+        xx.pb(mp(A[i], i + 1));
+    }
+    SORT(xx);
+    needed = (needed) / 2 + 1 - alice;
+
+    vi ans; ans.pb(1);
+    trav(x, xx) {
+        if (needed <= 0) break;
+        if (alice >= x.pA*2) {
+            ans.pb(x.pB);
+            needed -= x.pA;
+            if (needed <= 0) break;
+        } else {
+            ps(0); return 0;
         }
     }
-    ps(dp[0][n-1]);
+    ps(sz(ans));
+    ps(ans);
 
     return 0;
 }

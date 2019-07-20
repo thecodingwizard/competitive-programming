@@ -1,3 +1,10 @@
+/*
+ * Let's first connect all the nodes into a cycle. Now each node has degree = 2. However,
+ * the number of edges might not be prime. Therefore we will keep adding edges until the number
+ * of edges is prime. Note that we can add up to n/2 edges while keeping all the degrees of the nodes either
+ * 2 or 3. Luckily, for all n <= 1000, there exists a prime in the interval [n, n + n/2]
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -157,51 +164,66 @@ using namespace output;
 
 /* ============================ */
 
-int mod = 998244353;
-ll dp[500][500];
-ll transition[500];
-int minVal[500];
-int A[500];
-
-ll getDP(int i, int j) {
-    if (i >= j) return 1;
-    return dp[i][j];
-}
-
 int main() {
     setupIO();
 
-    int n, m; re(n, m);
-    reA(A, m);
-    SET2D(dp, 1, n, n);
-    SET(transition, 1, n);
-    F0R(length, n) {
-        F0R(start, n - length) {
-            int end = start + length;
-            if (length == 0) {
-                dp[start][start] = 1;
-                minVal[start] = start;
-                continue;
-            }
-            int minIdx = minVal[start];
-            if (A[end] < A[minIdx]) {
-                minVal[start] = end;
-                minIdx = end;
-                ll newT = 0;
-                FOR(i, start, minIdx + 1) {
-                    newT = (newT + getDP(start, i - 1)*getDP(i, minIdx - 1)) % mod;
-                }
-                transition[start] = newT;
-                dp[start][end] = transition[start];
-            } else {
-                dp[start][end] = 0;
-                FOR(i, minIdx, end + 1) {
-                    dp[start][end] = (dp[start][end] + transition[start]*getDP(minIdx + 1, i)%mod*getDP(i + 1, end)) % mod;
-                }
-            }
+    bool isPrime[1000001]; SET(isPrime, true, 1000001);
+    F0R1(i, 500000) isPrime[i*2] = false;
+    isPrime[0] = isPrime[1] = false; isPrime[2] = true;
+    for (int i = 3; i <= 1000000; i += 2) {
+        if (!isPrime[i]) continue;
+        for (int j = i + i; j <= 1000000; j += i) isPrime[j] = false;
+    }
+    // testing code
+//    F0R1(i, 1000) {
+//        int nearestPrime = -1;
+//        FOR(j, i, 1000001) {
+//            if (isPrime[j]) {
+//                nearestPrime = j;
+//                break;
+//            }
+//        }
+//        if (nearestPrime == -1) assert(false);
+//        int diff = nearestPrime - i;
+//        if (diff >= i / 2) {
+//            ps(diff, i);
+//        }
+//    }
+
+
+    int n; re(n);
+
+    int degree[n];
+    SET(degree, 0, n);
+
+    int nearestPrime = -1;
+    FOR(j, n, 1000001) {
+        if (isPrime[j]) {
+            nearestPrime = j;
+            break;
         }
     }
-    ps(dp[0][n-1]);
+    int diff = nearestPrime - n;
+    ps(nearestPrime);
+    F0R(i, n - 1) {
+        ps(i + 1, i + 2);
+        degree[i]++;
+        degree[i + 1]++;
+    }
+    ps(1, n);
+    degree[0]++;
+    degree[n - 1]++;
+    F0R(i, diff) {
+        ps(i + 1, i + 1 + n / 2);
+        degree[i]++;
+        degree[i + n / 2]++;
+    }
+    F0R(i, n) {
+        if (!isPrime[degree[i]]) {
+            ps("BAD");
+            assert(false);
+        }
+    }
 
     return 0;
 }

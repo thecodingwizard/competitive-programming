@@ -1,3 +1,19 @@
+/*
+ * Answer is 2^(w+h)
+ *
+ * Let's assume h = 1.
+ * For the leftmost square, there are four options for orientation. Notice that if the leftmost square's
+ * right edge is white, then the second square must be black -> white, so the right edge of the second square
+ * must also be white, and so on. So the first square has four options, and each following square has two options.
+ *
+ * Now what will happen if h > 1?
+ * The top left square still has four options. Every other square on the top row has 2 options, since it's
+ * left/right edge is determined by the top left square.
+ * Every other square on the first column also has 2 options. It's top/bottom square is determined by the top
+ * left square.
+ * Every other square that's not on the first column or the first row has only one legal orientation.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -157,51 +173,18 @@ using namespace output;
 
 /* ============================ */
 
+int w, h;
 int mod = 998244353;
-ll dp[500][500];
-ll transition[500];
-int minVal[500];
-int A[500];
-
-ll getDP(int i, int j) {
-    if (i >= j) return 1;
-    return dp[i][j];
-}
 
 int main() {
     setupIO();
 
-    int n, m; re(n, m);
-    reA(A, m);
-    SET2D(dp, 1, n, n);
-    SET(transition, 1, n);
-    F0R(length, n) {
-        F0R(start, n - length) {
-            int end = start + length;
-            if (length == 0) {
-                dp[start][start] = 1;
-                minVal[start] = start;
-                continue;
-            }
-            int minIdx = minVal[start];
-            if (A[end] < A[minIdx]) {
-                minVal[start] = end;
-                minIdx = end;
-                ll newT = 0;
-                FOR(i, start, minIdx + 1) {
-                    newT = (newT + getDP(start, i - 1)*getDP(i, minIdx - 1)) % mod;
-                }
-                transition[start] = newT;
-                dp[start][end] = transition[start];
-            } else {
-                dp[start][end] = 0;
-                FOR(i, minIdx, end + 1) {
-                    dp[start][end] = (dp[start][end] + transition[start]*getDP(minIdx + 1, i)%mod*getDP(i + 1, end)) % mod;
-                }
-            }
-        }
+    re(w, h);
+    ll ans = 1;
+    F0R(i, w+h) {
+        ans = ans*2 % mod;
     }
-    ps(dp[0][n-1]);
+    ps(ans);
 
     return 0;
 }

@@ -1,3 +1,7 @@
+/*
+ * Sweep, keep track of # of w's ahead and behind each 'o'
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -157,51 +161,23 @@ using namespace output;
 
 /* ============================ */
 
-int mod = 998244353;
-ll dp[500][500];
-ll transition[500];
-int minVal[500];
-int A[500];
-
-ll getDP(int i, int j) {
-    if (i >= j) return 1;
-    return dp[i][j];
-}
-
 int main() {
     setupIO();
 
-    int n, m; re(n, m);
-    reA(A, m);
-    SET2D(dp, 1, n, n);
-    SET(transition, 1, n);
-    F0R(length, n) {
-        F0R(start, n - length) {
-            int end = start + length;
-            if (length == 0) {
-                dp[start][start] = 1;
-                minVal[start] = start;
-                continue;
-            }
-            int minIdx = minVal[start];
-            if (A[end] < A[minIdx]) {
-                minVal[start] = end;
-                minIdx = end;
-                ll newT = 0;
-                FOR(i, start, minIdx + 1) {
-                    newT = (newT + getDP(start, i - 1)*getDP(i, minIdx - 1)) % mod;
-                }
-                transition[start] = newT;
-                dp[start][end] = transition[start];
-            } else {
-                dp[start][end] = 0;
-                FOR(i, minIdx, end + 1) {
-                    dp[start][end] = (dp[start][end] + transition[start]*getDP(minIdx + 1, i)%mod*getDP(i + 1, end)) % mod;
-                }
-            }
+    string s; re(s);
+    ll ans = 0;
+    ll wCt = 0;
+    ll totWCt = 0;
+    F0R(i, sz(s) - 1) {
+        if (s[i] == 'v' && s[i + 1] == 'v') totWCt++;
+    }
+    F0R(i, sz(s) - 1) {
+        if (s[i] == 'v' && s[i + 1] == 'v') wCt++;
+        if (s[i] == 'o') {
+            ans += wCt*(totWCt - wCt);
         }
     }
-    ps(dp[0][n-1]);
+    ps(ans);
 
     return 0;
 }

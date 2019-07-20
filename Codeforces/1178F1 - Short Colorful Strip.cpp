@@ -1,3 +1,15 @@
+/*
+ * Same as editorial.
+ *
+ * Define dp(start, end) = number of ways to color [start, end], given that [start, end] is one solid color.
+ * There is a n^4 dp solution that's fairly simple, just figure out the minimum value in [start, end].
+ * Recognize that you can paint any strip that covers that minimum value, then recursively call the dp.
+ * Brute force left endpoint and right endpoint of that strip.
+ *
+ * To speed up to n^3, just recognize that left/right endpoint are independent, so you can compute transitions
+ * in O(n) rather than O(n^2).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 

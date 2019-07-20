@@ -1,3 +1,14 @@
+/*
+ * My code's solution is fairly complicated, there is actually a better solution.
+ *
+ * By induction: If n <= 3, then just output the first character.
+ * If n >= 4, then let's take the first two characters and the last two characters.
+ *
+ * We know that no two adjacent characters are equal, so by pidgeonhole principle there must be a matching
+ * in those four characters (you can prove this by writing out all possible combinations for the four
+ * characters). We will take the matching and recurse.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -157,51 +168,33 @@ using namespace output;
 
 /* ============================ */
 
-int mod = 998244353;
-ll dp[500][500];
-ll transition[500];
-int minVal[500];
-int A[500];
-
-ll getDP(int i, int j) {
-    if (i >= j) return 1;
-    return dp[i][j];
-}
-
 int main() {
     setupIO();
 
-    int n, m; re(n, m);
-    reA(A, m);
-    SET2D(dp, 1, n, n);
-    SET(transition, 1, n);
-    F0R(length, n) {
-        F0R(start, n - length) {
-            int end = start + length;
-            if (length == 0) {
-                dp[start][start] = 1;
-                minVal[start] = start;
-                continue;
-            }
-            int minIdx = minVal[start];
-            if (A[end] < A[minIdx]) {
-                minVal[start] = end;
-                minIdx = end;
-                ll newT = 0;
-                FOR(i, start, minIdx + 1) {
-                    newT = (newT + getDP(start, i - 1)*getDP(i, minIdx - 1)) % mod;
-                }
-                transition[start] = newT;
-                dp[start][end] = transition[start];
-            } else {
-                dp[start][end] = 0;
-                FOR(i, minIdx, end + 1) {
-                    dp[start][end] = (dp[start][end] + transition[start]*getDP(minIdx + 1, i)%mod*getDP(i + 1, end)) % mod;
-                }
-            }
+    string s; re(s);
+    int l = 0, r = sz(s);
+    vector<char> suffix;
+    while (l < r) {
+        bool skip = true;
+        F0R(i, 3) {
+            if (r - i - 1 != l && r - i - 1 >= 0 && s[r - i - 1] == s[l]) skip = false;
         }
+        if (skip) {
+            l++; continue;
+        }
+        pr(s[l]);
+        while (s[--r] != s[l]);
+        if (r != l) {
+            suffix.pb(s[l]);
+        }
+        l++;
     }
-    ps(dp[0][n-1]);
+    if (l > r) {
+    } else {
+        pr(s[l-1]);
+    }
+    F0Rd(i, sz(suffix)) pr(suffix[i]);
+    pr("\n");
 
     return 0;
 }
