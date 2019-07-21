@@ -1,3 +1,33 @@
+/*
+ * Same as editorial.
+ *
+ * Define T_i = number of skaters with foot size i.
+ *
+ * Note that an assignment is possible if and only if, for all pairs (A, B) where 1 <= A <= B <= n - d,
+ * T_A + T_(A+1) + T_(A+2) + ... + T_(B) <= (B - A + 1 + d)*k.
+ *
+ * We can rearrange some terms to get:
+ * (T_A - k) + (T_(A+1) - k) + (T_(A+2) - k) + ... + (T_B - k) <= d*k
+ * for all 1 <= A <= B <= n - d.
+ *
+ * Note that this is now just a maximum subarray sum problem. We create an array from 1...n and set
+ * all values to -k. At every update, we add x_i to index r_i. Then we find the maximum subarray sum
+ * of this array, which is doable in O(n) greedily. If this sum is <= d*k, TAK. Otherwise, NIE.
+ *
+ * This yields an O(nm) solution. To speed up, we can use a segment tree to solve the maximum subarry sum problem.
+ *
+ * Each node in the segment tree will store:
+ * - The sum of all values in its interval
+ * - The maximum subarray sum in its interval
+ * - The maximum prefix sum of its interval
+ * - The maximum suffix sum of its interval
+ *
+ * Merging is fairly straightforward, see code below or refer to editorial.
+ *
+ * Contains code for:
+ * - Maximum Subarray Sum Segment Tree
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
