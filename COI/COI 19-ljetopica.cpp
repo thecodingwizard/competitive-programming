@@ -1,3 +1,9 @@
+/*
+ * DP state: depth, kLeft, isFlipped (from the given commands), isSmallest, isLargest
+ *
+ * Similar to USACO Odometer
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
