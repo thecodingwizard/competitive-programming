@@ -1,3 +1,12 @@
+/*
+ * We can represent each row as a bitset, true = can reach, false = cannot reach
+ *
+ * To handle E/W, just shift each row left/right.
+ * To handle N/S, I made 1500 bitsets and kept a verticalOffset counter.
+ * For question marks, you can |= above row, below row, left/right shift.
+ * After each operation, just &= the whole grid with the legal squares, taking into account verticalOffset.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
