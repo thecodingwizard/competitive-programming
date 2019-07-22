@@ -1,3 +1,23 @@
+/*
+ * If we have something like   6  -1  4, we can place a pump on 4 to drain all the water in the city.
+ * Make sure you see why.
+ *
+ * We can greedily assign pumps to the lowest city if it is not already covered by an existing pump.
+ * Why? Well, we don't have to put any pumps on a square if it isn't part of the city.
+ *
+ * Let's say we put a pump on a square X with altitude x. This square isn't part of the city.
+ * Let's say the lowest city Y it drains has altitude y > x. We can move our pump from square X
+ * to square Y while still draining all the cities that the pump in square X drained, because
+ * any city draining to square X is also going to drain to square Y.
+ *
+ * Iterate through the city squares in increasing altitude. If the city isn't covered yet,
+ * add a pump to the city and the mark any city that can be drained from that pump as "covered."
+ *
+ * For implementation, it may be helpful to do the following:
+ * For any non-city square X, we can increase its altitude
+ * to be the same as the lowest city that drains to square X, then do the above.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
