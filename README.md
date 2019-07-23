@@ -125,6 +125,7 @@ Solutions to USACO training and USACO contest problems.
 | Mar 2014 | [mooomoo][mooomoo] | Mooo Moo | DP |
 | Open 2014 | [fairphoto][fairphoto] | Fair Photography | Sweep |
 | Open 2014 | [gpsduel][gpsduel] | Dueling GPSs | Dijkstra |
+| Open 2014 | [odometer][odometer] | Odometer | DP Construction |
 | Dec 2014 | [piggyback][piggyback] | Piggy Back | Shortest Path on three nodes |
 | Dec 2014 | [marathon][marathon] | Marathon | DP |
 | Dec 2014 | [cowjog][cowjog] | Cow Jog | Sweep |
@@ -356,6 +357,7 @@ Solutions to USACO training and USACO contest problems.
 [mooomoo]: USACO/2014mar/silver/mooomoo.cpp
 [fairphoto]: USACO/2014open/silver/fairphoto.cpp
 [gpsduel]: USACO/2014open/silver/gpsduel.cpp
+[odometer]: USACO/2014open/silver/odometer.cpp
 [cowjogsilver]: USACO/2014dec/silver/cowjog.cpp
 [piggyback]: USACO/2014dec/silver/piggyback.cpp
 [stampede]: USACO/2015jan/silver/stampede.cpp

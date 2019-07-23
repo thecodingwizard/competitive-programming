@@ -1,3 +1,9 @@
+/*
+ * Same as editorial
+ *
+ * DP Construction, try to construct an interesting number.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
