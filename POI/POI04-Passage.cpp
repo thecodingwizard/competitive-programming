@@ -1,3 +1,12 @@
+/*
+ * We can use bruteforce bitmask dp: Our state is which people have been selected to cross the bridge.
+ *
+ * To transition, we just brute-force select the next group.
+ *
+ * Implementation detail: When brute-forcing, we know that the next group has to have at least one person,
+ * so we auto-assign one person remaining into the next group to go, which greatly speeds up the code.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
