@@ -1,3 +1,24 @@
+/*
+ * This problem can be solved greedily with dp.
+ *
+ * Let's examine the very last plough of an optimal solution. It will either be a horizontal plough,
+ * a vertical plough, or a plough of a single square. We will handle these cases separately.
+ *
+ * If the last plough is a single square, that means that we must have done m + n - 2 ploughs before
+ * reaching the last square. Hence, we can set an upper bound for the answer as m + n - 1 ploughs.
+ * We know that a solution exists, so to get m + n - 1, we just greedily plough whichever side we can.
+ *
+ * If the last plough is a horizontal plough, then we know that we must have done exactly n - 1 horizontal
+ * ploughs and some number of vertical ploughs to reach this state. There is no way to avoid doing n - 1 horizontal
+ * ploughs. Hence, we can greedily do horizontal ploughs: If we can plough the top/bottom row, we just greedily do so.
+ *
+ * However, what if we can't? Then we can use DP to solve this problem. Our state will be (a, b) ==> we have
+ * done vertical ploughs from 0...a and from b...m - 1, and we have done as many greedy horizontal ploughs
+ * as we can. We can transition to (a + 1, b) or (a, b - 1) by ploughing either the left/right side of the field.
+ *
+ * We then apply this to the case if the last plough is a vertical plough.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
