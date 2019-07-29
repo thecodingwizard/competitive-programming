@@ -1,5 +1,7 @@
 /*
  * Solves subtasks 1-3 only.
+ *
+ * Editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/Baltic/official/boi2019_solutions/necklace.sol_.en_.pdf
  */
 
 //#pragma GCC optimize ("O3")
