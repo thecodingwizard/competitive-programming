@@ -158,66 +158,75 @@ using namespace output;
 
 /* ============================ */
 
-string maxNum;
-ull memo[19][50][2][2];
-ull dp(int loc, int k, bool largest, bool started, int targ, int targ2) {
-    if (loc == sz(maxNum)) {
-        if (!started) return 0;
-        if (targ2 != -1) {
-            if (k == 20) return 1;
-            else return 0;
-        }
-        if (k >= 20) {
-            return 1;
-        } else {
-            return 0;
-        }
+int mod = 998244353;
+int A[1000000];
+int sLoc[500], eLoc[500];
+ll memo[500][500];
+vi colorOrder;
+
+int getMinVal(int start, int end) {
+    int minVal = INF;
+    bool reachedStart = false;
+    trav(x, colorOrder) {
+        if (x == start) reachedStart = true;
+        if (reachedStart) MIN(minVal, x);
+        if (x == end) break;
     }
-    if (memo[loc][k][largest][started] != -1) return memo[loc][k][largest][started];
-    ull ans = 0;
-
-    F0R(i, 10) {
-        bool isLargest = largest;
-        int lar = maxNum[loc] - '0';
-        if (isLargest && i > lar) break;
-        if (i < lar) isLargest = false;
-
-        bool isStarted = started || i != 0;
-
-        if (isStarted && targ2 != -1) {
-            if (i != targ && i != targ2) continue;
-        }
-
-        ans += dp(loc + 1, k + (isStarted ? (targ == i ? 1 : -1) : 0), isLargest, isStarted, targ, targ2);
-    }
-
-    return memo[loc][k][largest][started] = ans;
+    return minVal;
 }
 
-ull calc(ull x) {
-    maxNum = to_string(x);
-    ull ans = 0;
-    F0R(i, 10) {
-        SET4D(memo, -1, 19, 50, 2, 2);
-        ans += dp(0, 20, true, false, i, -1);
-    }
-    ull dup = 0;
-    F0R(i, 10) {
-        F0R(j, 10) {
-            SET4D(memo, -1, 19, 50, 2, 2);
-            dup += dp(0, 20, true, false, i, j);
+ll dp(int start, int end) {
+    if (memo[start][end] != -1) return memo[start][end];
+
+    int minVal = getMinVal(start, end);
+
+    vi bef, af;
+    bool reachedStart = false, reachedEnd = false;
+    trav(x, colorOrder) {
+        if (!reachedStart) {
+            bef.pb(x);
+        }
+        if (x == start) {
+            reachedStart = true;
+        }
+        if (x == end) {
+            reachedEnd = true;
+        }
+        if (reachedEnd) {
+            af.pb(x);
         }
     }
-    ans -= dup/2;
-    return ans;
+
+    ll ans = 0;
+    trav(x, bef) {
+        trav(y, af) {
+            ans += dp(start, x)*dp(x, minVal)*dp(minVal, minVal)*dp(minVal, y)*dp(y, end);
+            ans %= mod;
+        }
+    }
+
+    return memo[start][end] = ans;
 }
 
 int main() {
-    setupIO("odometer");
+    setupIO();
 
-    ull x, y; re(x, y);
+    int n, m; re(n, m);
+    reA(A, m);
 
-    ps(calc(y) - calc(x - 1));
+    SET(sLoc, -1, n);
+    F0R(i, m) {
+        A[i]--;
+        if (sLoc[A[i]] == -1) {
+            sLoc[A[i]] = i;
+            colorOrder.pb(A[i]);
+        } else {
+            eLoc[A[i]] = i;
+        }
+    }
+
+    SET2D(memo, -1, 500, 500);
+    ps(dp(A[0], A[m-1]));
 
     return 0;
 }
