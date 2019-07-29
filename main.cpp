@@ -162,45 +162,84 @@ int mod = 998244353;
 int A[1000000];
 int sLoc[500], eLoc[500];
 ll memo[500][500];
-vi colorOrder;
+vii colorOrder;
 
 int getMinVal(int start, int end) {
     int minVal = INF;
     bool reachedStart = false;
     trav(x, colorOrder) {
-        if (x == start) reachedStart = true;
-        if (reachedStart) MIN(minVal, x);
-        if (x == end) break;
+        if (x.pA == start) reachedStart = true;
+        if (reachedStart) {
+            if (minVal > x.pA) {
+                minVal = x.pA;
+            }
+        }
+        if (x.pA == end) break;
     }
     return minVal;
 }
 
 ll dp(int start, int end) {
+    if (start == -1 || end == -1) return 1;
     if (memo[start][end] != -1) return memo[start][end];
 
     int minVal = getMinVal(start, end);
 
-    vi bef, af;
+    vii bef, af;
     bool reachedStart = false, reachedEnd = false;
-    trav(x, colorOrder) {
-        if (!reachedStart) {
-            bef.pb(x);
+    int lastEnd = -1;
+    int ctr = 0;
+    int befMinVal, afMinVal = 0;
+    bool began = false, ended = false;
+    F0R(i, sz(colorOrder)) {
+        ii x = colorOrder[i];
+
+        if (x.pA == start) began = true;
+        if (!began) continue;
+        if (x.pA == end) ended = true;
+        if (x.pA != end && ended) break;
+
+        if (x.pA == minVal && x.pB == 0) {
+            befMinVal = i == 0 ? -1 : colorOrder[i - 1].pA;
         }
-        if (x == start) {
+        if (afMinVal == -1) {
+            afMinVal = x.pA;
+        }
+        if (x.pA == minVal && x.pB == 1) {
+            afMinVal = -1;
+        }
+
+        if (x.pB == 0) ctr++;
+        else ctr--;
+
+        if (ctr == 0) {
+            lastEnd = x.pA;
+        }
+
+        if (!reachedStart) {
+            if (x.pB == 0 && ctr == 1) {
+                bef.pb(mp(lastEnd, x.pA));
+            }
+        }
+        if (x.pA == minVal && x.pB == 0) {
             reachedStart = true;
         }
-        if (x == end) {
+        if (x.pA == minVal && x.pB == 1) {
             reachedEnd = true;
         }
         if (reachedEnd) {
-            af.pb(x);
+            if (x.pB == 0 && ctr == 1) {
+                af.pb({lastEnd, x.pA});
+            }
         }
     }
+
+    if (sz(bef) == 0 || sz(af) == 0) return memo[start][end] = 1;
 
     ll ans = 0;
     trav(x, bef) {
         trav(y, af) {
-            ans += dp(start, x)*dp(x, minVal)*dp(minVal, minVal)*dp(minVal, y)*dp(y, end);
+            ans += dp(start, x.pA)*dp(x.pB, befMinVal)*dp(minVal, minVal)*dp(afMinVal, y.pA)*dp(y.pB, end);
             ans %= mod;
         }
     }
@@ -219,11 +258,19 @@ int main() {
         A[i]--;
         if (sLoc[A[i]] == -1) {
             sLoc[A[i]] = i;
-            colorOrder.pb(A[i]);
+            eLoc[A[i]] = i;
         } else {
             eLoc[A[i]] = i;
         }
     }
+
+    vector<pair<int, ii>> events;
+    F0R(i, n) {
+        events.pb({sLoc[A[i]], {A[i], 0}});
+        events.pb({eLoc[A[i]], {A[i], 1}});
+    }
+    SORT(events);
+    trav(x, events) colorOrder.pb(x.pB);
 
     SET2D(memo, -1, 500, 500);
     ps(dp(A[0], A[m-1]));
