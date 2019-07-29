@@ -1,3 +1,7 @@
+/*
+ * Solves subtasks 1-3 only.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
