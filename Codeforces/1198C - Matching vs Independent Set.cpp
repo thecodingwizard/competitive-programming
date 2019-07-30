@@ -1,3 +1,20 @@
+/*
+ * We can solve this problem using greedy.
+ *
+ * As we read in edges, we greedily take an edge if both its end vertices have not been "taken." If we
+ * take the edge, then we mark both its vertices as "taken."
+ *
+ * if we have at least n edges, then we output Matching.
+ *
+ * Otherwise, we can find an IndSet of size at least n by taking all the vertices that haven't been marked
+ * as "taken."
+ *
+ * A solution is always possible. Why? Consider the worst case if there are n-1 edges. That means (n-1)*2 = 2n-2
+ * vertices have been marked as taken, leaving n+2 vertices unmarked. We can greedily take all the n+2 vertices,
+ * because if there were two vertices that were connected by an edge, we would have taken that edge in our
+ * first greedy step.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
