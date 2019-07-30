@@ -158,88 +158,83 @@ using namespace output;
 
 /* ============================ */
 
-int mod = 998244353;
-int A[1000000];
-int sLoc[500], eLoc[500];
-vi B;
-
-ll dp(int l, int r);
-
-ll leftMemo[1000][500];
-ll getLeft(int l, int minVal) {
-    if (leftMemo[l][minVal] != -1) return leftMemo[l][minVal];
-    ll ans = 0;
-    FOR(i, l, sLoc[minVal] + 1) {
-        ans += dp(l, i - 1) * dp(i, sLoc[minVal] - 1);
-        ans %= mod;
-    }
-    return leftMemo[l][minVal] = ans;
-}
-
-ll rightMemo[1000][500];
-ll getRight(int r, int minVal) {
-    if (rightMemo[r][minVal] != -1) return rightMemo[r][minVal];
-    ll ans = 0;
-    FOR(j, eLoc[minVal], r + 1) {
-        ans += dp(eLoc[minVal] + 1, j) * dp(j + 1, r);
-        ans %= mod;
-    }
-    return rightMemo[r][minVal] = ans;
-}
-
-ll memo[1000][1000];
-ll dp(int l, int r) {
-    int minVal = INF; FOR(i, l, r + 1) MIN(minVal, B[i]);
-    if (minVal == INF) return 1;
-    if (sLoc[minVal] < l || eLoc[minVal] > r) return memo[l][r] = 0;
-
-    ll ans = getLeft(l, minVal)*getRight(r, minVal);
-    ans %= mod;
-    int start = -1;
-    FOR(i, sLoc[minVal], eLoc[minVal] + 1) {
-        if (B[i] == minVal) {
-            if (start != -1) {
-                ans *= dp(start, i - 1);
-                ans %= mod;
-                start = -1;
-            }
-        } else {
-            if (start == -1) start = i;
-        }
-    }
-    return memo[l][r] = ans;
-}
+int n, m;
+vii children[400];
+vii rChildren[400];
+char connect[400][400];
 
 int main() {
     setupIO();
 
-    int n, m; re(n, m);
-    reA(A, m);
+    re(n, m);
+    F0R(i, m) {
+        int a, b; char c; re(a, b, c);
+        children[--a].pb({--b, c - 'a'});
+        rChildren[b].pb({a, c - 'a'});
+        connect[a][b] = c;
+    }
+    int d; re(d);
+    int A[d]; reA(A, d);
 
-    SET(sLoc, -1, n);
-    F0R(i, m) {
-        A[i]--;
-    }
-    F0R(i, m) {
-        if (sz(B) > 0 && B.back() == A[i]) continue;
-        B.pb(A[i]);
-    }
-    F0R(i, sz(B)) {
-        if (sLoc[B[i]] == -1) {
-            sLoc[B[i]] = i;
-            eLoc[B[i]] = i;
-        } else {
-            eLoc[B[i]] = i;
+    vector<char> word;
+    FOR(i, 1, d) {
+        int x = A[i - 1], y = A[i];
+        --x; --y;
+        queue<pair<string, ii>> q; q.push({"", {x, y}});
+        vi adj[26], adj2[26];
+        while (!q.empty()) {
+            pair<string, ii> u = q.front(); q.pop();
+            int x = u.pB.pA, y = u.pB.pB;
+
+            if (u.pB.pA == u.pB.pB || u.pB.pB == -1) {
+                if (u.pB.pB == -1) {
+                    pr(sz(u.pA)*2 - 1, " ", u.pA);
+                    reverse(all(u.pA));
+                    FOR(i, 1, sz(u.pA)) pr(u.pA[i]);
+                    pr("\n");
+                } else {
+                    pr(sz(u.pA) * 2, " ", u.pA);
+                    reverse(all(u.pA));
+                    pr(u.pA, "\n");
+                }
+                goto done;
+            }
+
+            F0R(i, 26) {
+                adj[i].clear();
+                adj2[i].clear();
+            }
+            trav(a, children[x]) {
+                adj[a.pB].pb(a.pA);
+            }
+            trav(a, rChildren[y]) {
+                adj2[a.pB].pb(a.pA);
+            }
+
+            F0R(i, 26) {
+                trav(a, adj[i]) {
+                    if (a == y) {
+                        q.push({ u.pA + connect[u.pB.pA][a], {y, -1}});
+                        goto finished;
+                    }
+                }
+            }
+
+            F0R(i, 26) {
+                trav(a, adj[i]) {
+                    trav(b, adj2[i]) {
+                        q.push({u.pA + connect[u.pB.pA][a], { a, b }});
+                    }
+                }
+            }
+
+            finished:
+            continue;
         }
-    }
-    if (sz(B) > 1000) {
-        ps(0); return 0;
-    }
 
-    SET2D(leftMemo, -1, sz(B), 500);
-    SET2D(rightMemo, -1, sz(B), 500);
-    SET2D(memo, -1, sz(B), sz(B));
-    ps(dp(0, sz(B) - 1));
+        ps(-1);
+        done: continue;
+    }
 
     return 0;
 }
