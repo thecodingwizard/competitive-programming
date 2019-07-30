@@ -1,3 +1,17 @@
+/*
+ * Solve using DP. State: dp[x1][y1][x2][y2] = cost to paint (x1, y1) (x2, y2) rectangle white.
+ *
+ * Transition: If the rectangle is already white, dp = 0.
+ * Otherwise, we can paint it all white with cost max(x2 - x1 + 1, y2 - y1 + 1).
+ *
+ * We can also split rectangle horizontally/vertically to paint a subsection of the rectangle.
+ * min(dp[x1][y1][i][y2] + dp[i + 1][y1][x2][y2]) for all i from x1...x2-1
+ * min(dp[x1][y1][x2][i] + dp[x1][i + 1][x2][y2]) for all i from y1...y2-1
+ *
+ * Contains code for:
+ * - Submatrix DP
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
