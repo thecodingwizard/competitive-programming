@@ -1,3 +1,26 @@
+/*
+ * Same as editorial.
+ *
+ * We can solve this problem by running bfs on an implicit graph.
+ *
+ * Let's define a graph G with vertices (u, v, c) ==> u, v are in the set of crossings,
+ * and c is in the set { a, b, c, ... x, y, z, # }.
+ *
+ * There is an edge from (u, v, #) to (u', v, c) if there is an edge from u to u' labeled c.
+ * There is an edge from (u, v, c) to (u, v', #) if there is an edge from v' to v labeled c.
+ *
+ * From each node, we store the next node that minimizes the number of edges traveled. Note that 1 edge == 1 character.
+ *
+ * However, there might be cycles, so a recursive DP solution won't work here; instead, we must BFS
+ * from the base case to all the other cases.
+ *
+ * The base case is when u == v, so we insert { x, x, c } ==> x = 1...n, c = a...# into the queue.
+ * Then we "flip" the edges of G during our update, so we find all nodes that can transition to this node and update them.
+ *
+ * Finally, to answer a query to travel from node a to node b, we just follow the path
+ * from (a, b, #) all the way to the base case.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
