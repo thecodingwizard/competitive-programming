@@ -1,3 +1,7 @@
+/*
+ * Editorial: https://csacademy.com/contest/ioi-2016-training-round-5/task/balanced-string/solution/
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
