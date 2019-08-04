@@ -1,3 +1,9 @@
+/*
+ * Greedy: Sum up all the numbers of the array. If sum is odd, then NO. If the largest number in the array is greater
+ * than all the other numbers in the array added up, then NO. Otherwise, YES since a solution is always possible
+ * by pairing the largest number with the second largest number.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
