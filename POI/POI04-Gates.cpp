@@ -1,3 +1,16 @@
+/*
+ * Same as editorial: First we greedily assign all nodes to be zero. Then we "correct" the graph to make it valid.
+ * Then we greedily assign all nodes to be one. We "correct" the graph again.
+ * Finally, we compare every node's value when we greedily assigned zero and greedily assigned one. If the
+ * value is the same in both scenarios, then the gate is fixed and we output the value. If it is
+ * different, then the gate is not fixed.
+ *
+ * How do we correct in O(n + m) time? We can maintain a queue of nodes that aren't valid. Then we
+ * take a node off the queue, correct it by updating its value and add any of its neighbors that aren't valid.
+ *
+ * Note that each node can be corrected at most twice, so we can solve this problem in linear time.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
