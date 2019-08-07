@@ -1,3 +1,15 @@
+/*
+ * Submatrix DP: Our state is length x width of the rectangle, and our transition is we either divide
+ * the rectangle lengthwise or widthwise.
+ *
+ * To handle the condition that each room must have a window, we can add four states to the DP, whether or not
+ * the top/left/right/bottom edge has access to a window.
+ *
+ * However, this TLE's. To speed it up, notice that a top edge with access to a window is the same as a bottom edge
+ * with access to the window. Hence, we can just store the number of horizontal edges with access to a window,
+ * and the number of vertical edges with access to a window. So our state has size n * m * 3 * 3.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
