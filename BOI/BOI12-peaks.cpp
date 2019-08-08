@@ -1,3 +1,17 @@
+/*
+ * Same ideas as editorial.
+ * 
+ * Process the tiles in decreasing order of height. Maintain a union find data structure. Union adjacent tiles that
+ * have already been "processed" (eg. the height of neighbor tile is >= the height of the tile currently being processed)
+ *
+ * For each union set, keep track of its highest "peak" and the number of times that peak occurs. When merging
+ * two sets A, B:
+ * - If max peak height of A < max peak height of B: for every max peak in A, the min cost is the cost of the tile
+ * that was just processed.
+ * - Likewise for B > A
+ * - If A == B, then update the number of times the max peak occurs
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
