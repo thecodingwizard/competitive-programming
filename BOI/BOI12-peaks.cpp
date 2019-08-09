@@ -1,6 +1,6 @@
 /*
  * Same ideas as editorial.
- * 
+ *
  * Process the tiles in decreasing order of height. Maintain a union find data structure. Union adjacent tiles that
  * have already been "processed" (eg. the height of neighbor tile is >= the height of the tile currently being processed)
  *

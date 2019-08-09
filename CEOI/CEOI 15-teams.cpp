@@ -1,3 +1,19 @@
+/*
+ * Note that each valid sequence of numbers must satisfy the following property: A digit x can only
+ * appear if all the numbers from 1...x-1 have already been used somewhere earlier.
+ *
+ * The problem is basically asking us to find the number of valid sequences of numbers that are lexicographically
+ * less than the input sequence.
+ *
+ * DP[maxDigit][isUnd][idx] = number of ways numbers can be assigned from idx...n-1 inclusive, assuming
+ * all the digits from 1...maxDigit, inclusive, have been used from 0...idx-1. If isUnd is true, that means
+ * we have gone "under" the input sequence. Answer is dp[0][0][0].
+ *
+ * Do sliding window on idx. Note that we don't actually need isUnd, it's possible to solve the problem with just
+ * maxDigit & idx, which helps optimize constant factor. Alternatively you can notice that only certain
+ * isUnd values are needed and only calculate specific isUnd values.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
