@@ -1,3 +1,14 @@
+/*
+ * Observe that we can greedily place tiles starting on the leftmost uncovered tile in the range [L, R].
+ *
+ * We can solve this problem using binary jumping: define jump[i][j] = the next uncovered tile after greedily placing
+ * 2^j tiles starting at uncovered tile A_i.
+ *
+ * We build in n log n, and query in log n.
+ *
+ * See implementation for more clarity.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -166,12 +177,14 @@ vii A;
 int n, k, q, m;
 int jump[300001][19];
 
+// find the index of the first uncovered tile at or after loc.
 int f(int loc) {
     auto it = lb(all(A), mp(loc,-1));
     if (it == A.end()) return m;
     return it->pB;
 }
 
+// find the index of an uncovered tile on or to the right of loc.
 int f2(int loc) {
     auto it = ub(all(A), mp(loc,INF));
     if (it == A.begin()) return -1;
@@ -183,8 +196,8 @@ void init(int N, int K, int Q, int M, vi A2) {
     n = N, k = K, q = Q, m = M;
     F0R(i, m) A.pb({A2[i],i});
 
+    // Build a jump array
     F0R(j, 19) jump[m][j] = m;
-
     F0R(j, 19) {
         F0R(i, m) {
             if (j == 0) jump[i][j] = f(A[i].pA + k);
