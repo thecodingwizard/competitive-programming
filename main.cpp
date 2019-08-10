@@ -160,67 +160,12 @@ using namespace output;
 
 /* ============================ */
 
-#include "tile.h"
+#include "game.h"
 
-vii A;
-int n, k, q, m;
-int jump[300001][19];
-
-int f(int loc) {
-    auto it = lb(all(A), mp(loc,-1));
-    if (it == A.end()) return m;
-    return it->pB;
+int ct[1500];
+void initialize(int N) {
+    F0R(i, N) ct[i] = 0;
 }
-
-int f2(int loc) {
-    auto it = ub(all(A), mp(loc,INF));
-    if (it == A.begin()) return -1;
-    --it;
-    return it->pB;
+int hasEdge(int u, int v) {
+    return ++ct[max(u, v)] == max(u, v);
 }
-
-void init(int N, int K, int Q, int M, vi A2) {
-    n = N, k = K, q = Q, m = M;
-    F0R(i, m) A.pb({A2[i],i});
-
-    F0R(j, 19) jump[m][j] = m;
-
-    F0R(j, 19) {
-        F0R(i, m) {
-            if (j == 0) jump[i][j] = f(A[i].pA + k);
-            else jump[i][j] = jump[jump[i][j - 1]][j - 1];
-        }
-    }
-}
-
-int getNumberOfSpecialTiles(int L, int R) {
-    int cur = f(L), tgt = f2(R);
-    int ans = 0;
-    F0Rd(i, 19) {
-        if (jump[cur][i] <= tgt) {
-            cur = jump[cur][i];
-            ans += pow(2, i);
-        }
-    }
-    if (cur <= tgt) ans++;
-    return ans;
-}
-
-//int main() {
-//    int N, K, M, Q;
-//    scanf("%d %d %d %d", &N, &K, &M, &Q);
-//
-//    std::vector<int> A(M);
-//    for (int i = 0; i < M; ++i) {
-//        scanf("%d", &A[i]);
-//    }
-//
-//    init(N, K, Q, M, A);
-//
-//    for (int i = 0; i < Q; ++i) {
-//        int L, R;
-//        scanf("%d %d", &L, &R);
-//        printf("%d\n", getNumberOfSpecialTiles(L, R));
-//    }
-//    return 0;
-//}
