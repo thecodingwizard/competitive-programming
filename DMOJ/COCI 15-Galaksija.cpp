@@ -1,3 +1,13 @@
+/*
+ * Same as editorial. Reverse the input so we're adding edges and use union find. In each union find set,
+ * keep track of a "root" node and all the possible xor values from that root node to any other node in the set.
+ * Also keep track of the xor path from each individual node to its root.
+ *
+ * When unioning, merge small into large and run a dfs in the small set to update the xor values in the large set.
+ *
+ * Be careful with constant factor
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
