@@ -1,3 +1,20 @@
+/*
+ * Same as editorial.
+ * - Root at exit vertex.
+ * - Note that if the edge doesn't disconnect the queried node from the exit vertex, then it's possible to escape
+ * - Solve the above problem by doing a preorder dfs traversal, find the root of the newly formed subtree after the
+ * edge removal and see if the queried vertex is in the subtree
+ * - If it isn't, then escape. Otherwise, we have to go to a shop.
+ *
+ * - Assume that the queried vertex is u, and the optimal shop is v. Assume that lca(u, v) = w. Define d[x] = distance
+ * from root to x. Note that the distance to shop v from u is d[u] + d[v] - 2*d[w]. So for every vertex x,
+ * define magic[x] = -2*d[x] + d[optimalShop] where optimalShop is a shop located in the subtree of x that minimizes
+ * magic[x]. magic can be computed by dp O(n).
+ *
+ * - We can now solve the problem by starting at u and moving up one parent at a time utilizing magic[x]. However that's
+ * too slow, we precompute with binary jumping and now we can find the smallest magic[x] in log n time.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
