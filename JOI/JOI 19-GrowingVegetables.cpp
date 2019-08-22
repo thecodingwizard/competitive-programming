@@ -1,3 +1,7 @@
+/*
+ * See: https://github.com/luciocf/OI-Problems/blob/master/JOI/Final%20Round/Final%20Round%202019/vegetables3.cpp
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
