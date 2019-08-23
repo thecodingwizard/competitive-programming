@@ -1,3 +1,13 @@
+/*
+ * - Reverse the input data
+ * - Keep track of whether each person has met a journalist yet, and who the last journalist they met was
+ * - By doing so, we can find out the latest time each scientist must make their invention (when they first
+ * meet a journalist while travering the input data in reverse), as well as which journalist they first saw
+ * - Finally we traverse the input data in order to determine which journalists will learn about an invention
+ *
+ * - Note that HackerRank doesn't give partial points for only outputting the first line\
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
