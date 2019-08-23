@@ -160,75 +160,50 @@ using namespace output;
 
 /* ============================ */
 
-int n, m, k;
-vii A;
+struct state {
+    int time, pos, speed, boostEnd, id;
+};
 
-ii journalist[1000001];
-int date[1000001];
-bool learned[1000001];
-int firstJournalist[1000001];
+bool operator<(const state &a, const state &b) {
+    if (a.time == b.time) return a.speed > b.speed;
+    return a.time > b.time;
+}
+
+int ft[400];
+void adjust(int k, int v) {
+    for (; k <= 300; k += LSOne(k)) ft[k] += v;
+}
+int qry(int k) {
+    int ans = 0;
+    for (; k > 0; k -= LSOne(k)) ans += ft[k];
+    return ans;
+}
 
 int main() {
     setupIO();
 
-    re(n, m, k);
-    A.resz(m); re(A);
-    reverse(all(A));
-
-    SET(learned, false, n + 1);
-    SET(firstJournalist, -1, n + 1);
-
-    F0R(i, k + 1) date[i] = INF;
-    F0R(i, k + 1) {
-        journalist[i].pA = -1;
-        journalist[i].pB = -1;
-    }
-    FOR(i, k + 1, n + 1) {
-        journalist[i].pA = i;
-        journalist[i].pB = INF;
+    int n; re(n);
+    int A[n], B[n], C[n];
+    F0R(i, n) {
+        re(A[i], B[i], C[i]);
     }
 
+    int m; re(m);
+    bool isAccel[300]; SET(isAccel, false, 300);
     F0R(i, m) {
-        ii x = A[i];
-        if (journalist[x.pA].pA == -1 && journalist[x.pB].pA == -1) continue;
-        if (x.pA > k && x.pB > k) continue;
-        ii a = journalist[x.pA], b = journalist[x.pB];
-        if (a.pA == -1 || a.pB < b.pB) {
-            journalist[x.pA] = journalist[x.pB];
-            if (x.pB > k) journalist[x.pA].pB = i;
-        } else {
-            journalist[x.pB] = journalist[x.pA];
-            if (x.pA > k) journalist[x.pB].pB = i;
-        }
-        if (date[x.pA] == INF) {
-            date[x.pA] = i;
-            firstJournalist[x.pA] = journalist[x.pA].pA;
-        }
-        if (date[x.pB] == INF) {
-            date[x.pB] = i;
-            firstJournalist[x.pB] = journalist[x.pB].pA;
-        }
+        int x; re(x); isAccel[x] = true;
     }
 
-    reverse(all(A));
-    F0R(i, m) {
-        ii x = A[i];
-        if (x.pA <= k && date[x.pA] != INF && m - date[x.pA] - 1 <= i) learned[x.pA] = true;
-        if (x.pB <= k && date[x.pB] != INF && m - date[x.pB] - 1 <= i) learned[x.pB] = true;
-        learned[x.pA] = learned[x.pA] || learned[x.pB];
-        learned[x.pB] = learned[x.pA] || learned[x.pB];
+    priority_queue<state> pq;
+    F0R(i, n) {
+        pq.push({ 0, 0, A[i], 20, i });
     }
+    F0R(i, 400) ft[i] = 0;
 
-    F0R1(i, k) {
-        pr(date[i] == INF ? -1 : m - date[i], " ");
+    while (!pq.empty()) {
+        state u = pq.top(); pq.pop();
+
     }
-    ps();
-    vi list; FOR(i, k + 1, n + 1) if (learned[i]) list.pb(i);
-    pr(sz(list), " "); ps(list);
-    F0R1(i, k) {
-        pr(firstJournalist[i], " ");
-    }
-    ps();
 
     return 0;
 }
