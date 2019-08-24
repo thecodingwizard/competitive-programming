@@ -1,3 +1,10 @@
+/*
+ * - Simulate: Note that since at most it takes 50 seconds to move one meter, at most 15000 seconds before
+ * race ends. Therefore make an array of size 15000 and simulate each second.
+ * - At each second, we take every rider that's ready to move again and move him forward one meter, calculating
+ * whether he is accelerating and how long it takes him to move forward one meter. Then we add him to the array again.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -160,24 +167,9 @@ using namespace output;
 
 /* ============================ */
 
-struct state {
-    int time, pos, speed, boostEnd, id;
+struct rider {
+    int pos, accel, id;
 };
-
-bool operator<(const state &a, const state &b) {
-    if (a.time == b.time) return a.speed > b.speed;
-    return a.time > b.time;
-}
-
-int ft[400];
-void adjust(int k, int v) {
-    for (; k <= 300; k += LSOne(k)) ft[k] += v;
-}
-int qry(int k) {
-    int ans = 0;
-    for (; k > 0; k -= LSOne(k)) ans += ft[k];
-    return ans;
-}
 
 int main() {
     setupIO();
@@ -194,16 +186,37 @@ int main() {
         int x; re(x); isAccel[x] = true;
     }
 
-    priority_queue<state> pq;
+    vector<rider> riders[15001];
     F0R(i, n) {
-        pq.push({ 0, 0, A[i], 20, i });
+        riders[0].pb({0, 0, i});
     }
-    F0R(i, 400) ft[i] = 0;
 
-    while (!pq.empty()) {
-        state u = pq.top(); pq.pop();
-
+    int accelCt[300]; SET(accelCt, 0, 300);
+    int nxtAccel[300];
+    int ans[20000];
+    F0R(i, 15001) {
+        F0R(i, 300) nxtAccel[i] = accelCt[i];
+        trav(x, riders[i]) {
+            if (x.pos >= 300) {
+                ans[x.id] = i;
+                continue;
+            }
+            nxtAccel[x.pos]++;
+            if (isAccel[x.pos] && x.accel == 0) x.accel = accelCt[x.pos] % 20;
+            if (x.accel > 0) {
+                riders[i + 1].pb({ x.pos + 1, x.accel - 1, x.id });
+            } else {
+                int speed;
+                if (x.pos < 100) speed = A[x.id];
+                else if (x.pos < 200) speed = B[x.id];
+                else speed = C[x.id];
+                riders[i + speed].pb({ x.pos + 1, 0, x.id });
+            }
+        }
+        F0R(i, 300) accelCt[i] = nxtAccel[i];
+        riders[i].clear();
     }
+    F0R(i, n) ps(ans[i]);
 
     return 0;
 }
