@@ -1,3 +1,10 @@
+/*
+ * - Simulate: Note that since at most it takes 50 seconds to move one meter, at most 15000 seconds before
+ * race ends. Therefore make an array of size 15000 and simulate each second.
+ * - At each second, we take every rider that's ready to move again and move him forward one meter, calculating
+ * whether he is accelerating and how long it takes him to move forward one meter. Then we add him to the array again.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
