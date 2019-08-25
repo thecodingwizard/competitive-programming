@@ -1,3 +1,30 @@
+/*
+ * This problem is basically finding max independent set of graph, which is NP hard.
+ *
+ * First notice that the edge direction doesn't matter, so we'll make all edges undirected.
+ *
+ * The key to being able to solve this problem is that k >= n-10, so we can at most exclude 10 nodes.
+ * Let's define l = n - k. l <= 10.
+ *
+ * If a node has degree > l, then notice that we definitely cannot take it, because if we did then we would
+ * have to exclude more than l other nodes, and the answer is NIE.
+ *
+ * So we remove all nodes with degree > l and update the new l value to be the max number of nodes we can remove.
+ * If l is negative then output NIE.
+ *
+ * Further notice that the number of remaining nodes with degree > 0 must be <= l*(l+1), otherwise we can also
+ * prove that no solution is possible.
+ *
+ * Finally, we can brute force dfs with backtracking to find the answer.
+ *
+ * Implementation of dfs:
+ * - make a list of all vertices with degree > 0
+ * - dfs state: (idx, k) where idx is the index of the vertices list that we're currently on,
+ *              k is the number of vertices we can still remove
+ * - if k < 0, then NIE
+ * - otherwise, we either keep this vertex or remove the vertex and decrement ks
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
