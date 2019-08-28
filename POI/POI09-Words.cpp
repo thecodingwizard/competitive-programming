@@ -1,3 +1,11 @@
+/*
+ * Same as editorial
+ *
+ * Note that h(x) is basically fibonacci sequence: h(x) = h(x-1) + h(x-2)
+ *
+ * Editorial has pseudocode + proof for solution
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
