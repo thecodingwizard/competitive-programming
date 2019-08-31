@@ -1,3 +1,29 @@
+/*
+ * Same as editorial.
+ *
+ * First, construct a binary tree from the input data. From each node, going right = 1, going left = 0.
+ * Leaves = code word. Going from root node to the leaf = one code word.
+ *
+ * Note that since the prefix of the message may be cut off, the message is really some suffix of a word,
+ * followed by 0+ complete words. Imagine a "decoder": It starts at the root node. As it reads in the message,
+ * it goes left if it reads a 0, and right if it reads a 1. If the message is not corrupted, at the end of every word,
+ * it will reach a leaf node and move back to the root node.
+ *
+ * Define the set of "important vertices" as vertices in the binary tree that the decoder can end up in if the
+ * decoder reads a suffix of a word, followed by 0+ complete words. Note that for a word to be "synchronizing,"
+ * for every vertex in the set of "important vertices," if the decoder starts at that vertex and reads a synchronizing
+ * word, it will always end up at the root node.
+ *
+ * To find the set of important vertices, we do two steps: First, we find the set of "very important" vertices,
+ * or vertices that can be reached if the decoder starts at the root node and reads some suffix of a word. (dfs1)
+ * Then, we find the set of "important" vertices -- we initialize the set to contain all "very important" vertices.
+ * Then for every vertex in the set of important vertices, we run dfs2.
+ *
+ * After finding the set of "important" vertices, we run a final dfs3 to determine all the synchronizing words.
+ *
+ * The explanation and pseudocode of dfs1, dfs2, and dfs3 can be found in the editorial.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
