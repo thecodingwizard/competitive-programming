@@ -1,3 +1,17 @@
+/*
+ * Define C to be the given sequence of numbers.
+ * Notice that the answer to a query is either x, x or x, x + 1. (or -1 -1)
+ * The first case (x, x) is obvious. If C[i] = v, l <= i <= r, then obviously i, i is the right answer.
+ * The second case (x, x+1) is less obvious, but there's never a case where we must take the lca of more than
+ * two adjacent numbers in the array.
+ *
+ * Now this problem can be solved by maintaining two arrays of sets A, B.
+ * A[v] handles the first case; it contains integers x where C[x] = v.
+ * B[v] handles the second case; it contains integers x where lca(C[x], C[x+1]) = v.
+ *
+ * When handling queries of type 1, simply update A, B accordingly.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
