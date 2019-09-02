@@ -1,3 +1,26 @@
+/*
+ * Same as editorial
+ *
+ * Make the following observation: The optimal subset is [i...j] where either:
+ * Case 1. 0 <= i < 3, i <= j < n
+ * Case 2. i <= j < n, j >= n-3
+ *
+ * Editorial has proof, here's how to set the proof up: Assume the contrapositive, that the optimal subset [i...j]
+ * doesn't meet one of the two cases above. That means that there are at least three blocks on the left and right of
+ * the optimal subset, for the proof let's assume three on either side.
+ *
+ * Do casework for proof.
+ * Case #1: [i...j] is all one color. Then we can easily extend the optimal subset by taking one more block
+ * on either the left or right side of the optimal subset. But what if i=j? Then the max length is 1 and we can
+ * take [0...0] instead of [i...j]
+ *
+ * Case #2: [i...j] is two colors. This case can be merged with Case #3.
+ *
+ * Case #3: [i...j] contains three colors. Denote |X| = number of blocks of color X in optimal subset. WLOG,
+ * assume |B| < |S| < |C|. The proof for this is much longer (see editorial), but basically the idea is to
+ * make observations as to what the immediate left/right cube colors can be, and do more casework from there.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
