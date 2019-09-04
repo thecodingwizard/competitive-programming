@@ -1,3 +1,25 @@
+/*
+ * Crucially, we know there is a section that all the start nodes must pass through to reach the end node.
+ * Furthermore, since it's a tree, between two nodes there's exactly one path.
+ *
+ * To find the section, we just simulate moving the start nodes up until we get to a node that all the start nodes
+ * can reach. To do this efficiently, we run a DFS from one end node and assign "depth" trackers to each node.
+ * We also assign parent pointers during this time (the end node is the root). Now we process the farthest nodes first,
+ * each time we process a node we basically merge that node with its parent and process the parent, making sure to
+ * process nodes from farthest to closest. Note that we only process each node at most once. Once we merge the
+ * final start node, then we have found the start of the section.
+ *
+ * Next, from the section start node, we run another dfs to calculate dist from that node to every other node.
+ * We make a list of all the distances from section node to end node. Now we need list of distances from beginning
+ * nodes to the section start node. First, let's ignore the restriction of one node per edge at once. Let's make
+ * list of distances from start nodes to the section node, let's say we get {2, 2, 2, 4, 8}. Note that at any
+ * given point in time the section node can only let one node through at once. Therefore, the actual time
+ * it takes from start node to section node (with the restriction) is {2, 3, 4, 5, 8} (basically just make it
+ * strictly increasing). Finally we pair each start node distance with the distance from section node to end node.
+ *
+ * Much care must be taken to pass memory limit.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
