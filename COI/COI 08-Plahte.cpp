@@ -1,3 +1,9 @@
+/*
+ * Same solution as editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/COCI/official/2009/olympiad_solutions/solutions.pdf
+ *
+ * I would not recommend looking at my code implementation ;)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
