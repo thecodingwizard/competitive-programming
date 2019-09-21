@@ -1,3 +1,7 @@
+/*
+ * See editorial: https://codeforces.com/blog/entry/66506
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 

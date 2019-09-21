@@ -1,3 +1,5 @@
+/* UNTESTED CODE, 99% SURE IT DOESNT WORK */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -160,106 +162,114 @@ using namespace output;
 
 /* ============================ */
 
-int D[100000];
-int st[400000];
-int lazy[400000];
+vi children[50000];
+set<ii> edges;
+map<ii, ii> nextEdge;
+set<ii> notFirst;
+multiset<int> adj[50000];
+map<ii, vi> edgeStuff;
+map<ii, int> edgeIdx;
+vector<int> cyc;
+int deg[50000];
 
-void build(int p, int i, int j) {
-    lazy[p] = 0;
-    if (i == j) {
-        st[p] = D[i];
-    } else {
-        build(p << 1, i, (i+j)/2);
-        build((p << 1) + 1, (i+j)/2+1, j);
-        st[p] = min(st[p << 1], st[(p << 1) + 1]);
+vi goPath;
+int go(int a, int b) {
+    goPath.clear();
+    ii p = mp(a, b);
+    // warning careful for full cycles
+    while (true) {
+        goPath.pb(p.pB);
+        if (nextEdge.count(p) == 0) break;
+        p = nextEdge[p];
     }
+    return p.pB;
 }
 
-void down(int p, int i, int j) {
-    if (lazy[p] == 0) return;
-    st[p] += lazy[p];
-    if (i != j) {
-        lazy[(p << 1)] += lazy[p];
-        lazy[(p << 1) + 1] += lazy[p];
-    }
-    lazy[p] = 0;
+void bad() {
+    ps("NIE");
+    exit(0);
 }
 
-void upd(int p, int i, int j, int l, int r, int v) {
-    down(p, i, j);
-    if (i > r || j < l) return;
-    if (i >= l && j <= r) {
-        lazy[p] += v; down(p, i, j);
-        return;
-    }
-    upd((p << 1), i, (i+j)/2, l, r, v);
-    upd((p << 1) + 1, (i+j)/2+1, j, l, r, v);
-    st[p] = min(st[(p << 1)], st[(p << 1) + 1]);
-}
+void EulerTour(int u) {
+    while (adj[u].size()) {
+        int x = *adj[u].begin();
+        adj[u].erase(adj[u].find(x));
 
-int qry(int p, int i, int j) {
-    down(p, i, j);
-    if (st[p] != 0) return INF;
-    if (i == j) {
-        if (st[p] == 0) return i;
-        return INF;
+        EulerTour(x);
+        cyc.push_back(u);
     }
-    int x = qry((p << 1), i, (i+j)/2);
-    if (x != INF) return x;
-    return qry((p << 1) + 1, (i+j)/2+1, j);
 }
 
 int main() {
     setupIO();
 
-    int n, q; re(n, q);
-    int positions[100000][3];
-    int minP[100000]; F0R(i, n) minP[i] = INF;
-    F0R(j, 3) {
-        F0R(i, n) {
-            int x;
-            re(x);
-            positions[x - 1][j] = i;
-            MIN(minP[x-1], i);
-        }
+    int n, m; re(n, m);
+    F0R(i, m) {
+        int a, b; re(a, b); --a; --b;
+        children[a].pb(b);
+        edges.insert(mp(a, b));
     }
-
-    F0R(i, n) D[i] = 0;
-    F0R(i, n) {
-        D[minP[i]]++;
-    }
-    FOR(i, 1, n) D[i] += D[i-1];
-    F0R(i, n) D[i] -= i + 1;
-    build(1, 0, n-1);
-
-    F0R(i, q) {
-        int x; re(x);
-        if (x == 1) {
-            int y; re(y); --y;
-            int t = qry(1, 0, n-1);
-            if (t >= minP[y]) {
-                ps("DA");
-            } else {
-                ps("NE");
+    int t; re(t);
+    F0R(i, t) {
+        int k; re(k);
+        int prv2 = -1;
+        int prv = -1;
+        F0R(j, k) {
+            int x; re(x); --x;
+            if (prv != -1) {
+                if (edges.count(mp(prv, x)) == 0) {
+                    bad();
+                }
             }
-        } else {
-            int p, a, b; re(p, a, b); --a; --b;
-            p--;
-            int A = positions[a][p], B = positions[b][p];
-            positions[b][p] = A; positions[a][p] = B;
-
-            upd(1, 0, n-1, minP[a], n-1, -1);
-            upd(1, 0, n-1, minP[b], n-1, -1);
-
-            minP[a] = INF;
-            F0R(i, 3) MIN(minP[a], positions[a][i]);
-            minP[b] = INF;
-            F0R(i, 3) MIN(minP[b], positions[b][i]);
-
-            upd(1, 0, n-1, minP[a], n-1, 1);
-            upd(1, 0, n-1, minP[b], n-1, 1);
+            if (prv != -1 && prv2 != -1) {
+                ii a = mp(prv2, prv), b = mp(prv, x);
+                if (nextEdge.count(a) && nextEdge[a] != b) bad();
+                nextEdge[a] = b;
+                notFirst.insert(b);
+            }
+            prv2 = prv;
+            prv = x;
         }
     }
+
+    SET(deg, 0, 50000);
+    trav(x, edges) {
+        if (notFirst.count(x)) continue;
+        if (nextEdge.count(x) == 0) {
+            adj[x.pA].insert(x.pB);
+            edgeStuff[mp(x.pA, x.pB)].pb(-1);
+            deg[x.pB]++;
+        } else {
+            int xx = go(x.pA, x.pB);
+            adj[x.pA].insert(xx);
+            deg[xx]++;
+            edgeStuff[mp(x.pA, xx)].pb(x.pB);
+        }
+    }
+    F0R(i, n) {
+        if (deg[i] != adj[i].size()) bad();
+    }
+
+    EulerTour(0);
+    reverse(all(cyc));
+    cyc.pb(0);
+
+    int prv = -1;
+    vi realCyc; realCyc.pb(cyc[0]);
+    trav(x, cyc) {
+        if (prv != -1) {
+            int xx = edgeStuff[mp(prv, x)][edgeIdx[mp(prv, x)]++];
+            if (xx != -1) {
+                go(prv, xx);
+                trav(y, goPath) realCyc.pb(y);
+            } else {
+                realCyc.pb(x);
+            }
+        }
+        prv = x;
+    }
+    ps("TAK");
+    trav(x, realCyc) ps(x+1);
 
     return 0;
 }
