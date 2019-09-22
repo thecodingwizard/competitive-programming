@@ -1,6 +1,3 @@
-//#pragma GCC optimize ("O3")
-//#pragma GCC target ("sse4")
-
 #include <bits/stdc++.h>
 
 #include <utility>
