@@ -158,28 +158,64 @@ namespace output {
 using namespace output;
 // @formatter:on
 
-/* ============================ */
+#include "vision.h"
 
-int main() {
-    setupIO();
-
-    int k; re(k);
-    while (k--) {
-        int a, b, c; re(a, b, c);
-        if (a == b && b == c) {
-            assert(false);
-        } else {
-            if (a == b) {
-                ps(a, a-1, c-1);
-            } else if (b == c) {
-                ps(a-1, b-1, c);
-            } else if (a == c) {
-                ps(a-1, b-1, c);
-            } else {
-                ps(a-1, b-1, c-1);
+void construct_network(int H, int W, int K) {
+    if (H >= 2 && W >= 2) { // General case code
+        
+    } else if (H >= 2 && W >= 2 && K == 1) { // Code to solve 7th case
+        // Step 1: XOR all rows
+        vi xor_rows;
+        F0R(i, H) {
+            vi list;
+            F0R(j, W) {
+                int k = i*W+j;
+                list.pb(k);
+            }
+            xor_rows.pb(add_xor(list));
+        }
+        int inSameRow = add_not(add_or(xor_rows));
+        // Step 2: XOR all cols
+        vi xor_cols;
+        F0R(i, W) {
+            vi list;
+            F0R(j, H) {
+                int k = j*W+i;
+                list.pb(k);
+            }
+            xor_cols.pb(add_xor(list));
+        }
+        int inSameCol = add_not(add_or(xor_cols));
+        // Step 3: AND adjacent rows
+        vi and_adjRows;
+        F0R(i, H-1) {
+            and_adjRows.pb(add_and({xor_rows[i], xor_rows[i+1]}));
+        }
+        int isAdjRow = add_or(and_adjRows);
+        // Step 4: AND adjacent cols
+        vi and_adjCols;
+        F0R(i, W-1) {
+            and_adjCols.pb(add_and({xor_cols[i], xor_cols[i+1]}));
+        }
+        int isAdjCol = add_or(and_adjCols);
+        add_or({add_and({isAdjRow, inSameCol}), add_and({isAdjCol, inSameRow})});
+    } else { // Brute force code
+        vector<ii> opts;
+        F0R(i, H) {
+            F0R(j, W) {
+                F0R(k, H) {
+                    F0R(l, W) {
+                        if (abs(k - i) + abs(l - j) == K) {
+                            opts.pb({i * W + j, k * W + l});
+                        }
+                    }
+                }
             }
         }
+        vi final;
+        trav(x, opts) {
+            final.pb(add_and({x.pA, x.pB}));
+        }
+        add_or(final);
     }
-
-    return 0;
 }

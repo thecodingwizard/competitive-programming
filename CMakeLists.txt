@@ -7,4 +7,4 @@ set(CMAKE_CXX_STANDARD 11)
 MATH(EXPR stack_size "512 * 1024 * 1024") # 512 Mb
 set(CMAKE_EXE_LINKER_FLAGS "-Wl,--stack,${stack_size}")
 
-add_executable(competitive-programming main.cpp)
+add_executable(competitive-programming grader.cpp vision.cpp)
