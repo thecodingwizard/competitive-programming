@@ -1,3 +1,38 @@
+/*
+ * XOR all the diagonals in both directions:
+ * - (0, 0); (0, 1), (1, 0); (0, 2), (1, 1), (2, 0); etc
+ * - (H-1, 0); (H-2, 0), (H-1, 1); (H-3, 0), (H-2, 1), (H-1, 2); etc
+ *
+ * Note that at least one of the diagonals will have two 1's, representing the two diagonals that the black
+ * squares are located on. Let's say that the distance between these two 1's is `a` and `b` respectively
+ * for the two sets of diagonals. The distance between the two black squares is max(a, b).
+ *
+ * Therefore, the distance between the two black squares is exactly K if max(a, b) = K. How to calculate max(a, b)?
+ *
+ * We can split this into two parts: first, either a or b must be at least K. second, both a and b have to be at most K.
+ *
+ * Let's do a "prefix xor" on the diagonals. If the XOR of diagonals was: 0 0 1 0 0 0 1 0 0 (k = 4 in this situation)
+ * we will XOR each number w/ the previous number to get 0 0 1 1 1 1 0 0 0.
+ *
+ * To check the first condition, that either a or b must be at least K, we will do the following for each diagonal direction:
+ * - add_or(add_and(i, i+k-1) for all valid i)
+ * if result of add_or is true for either diagonal direction, then first condition met.
+ *
+ * To check the second condition, that a and b must be at most K, we can basically check to see if either a or b is >= K+1:
+ * - add_or(add_and(i, i+k) for all valid i)
+ * if result of add_or is true, then the second condition is _not_ met.
+ *
+ * Therefore our complete condition is:
+ * add_and({
+ *     add_or({
+ *         add_or(condition_1_diagonal_1),
+ *         add_or(condition_1_diagonal_2),
+ *     }),
+ *     add_not(add_or(condition_2_diagonal_1)),
+ *     add_not(add_or(condition_2_diagonal_2))
+ * });
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -169,14 +204,14 @@ void construct_network(int H, int W, int K) {
                 diag.pb(a*W+b);
             }
             if (i == H-1) diagonal1.pb(add_xor(diag));
-            else diagonal1.pb(add_and({diagonal1.back(), add_xor(diag)}));
+            else diagonal1.pb(add_xor({diagonal1.back(), add_xor(diag)}));
         }
         FOR(j, 1, W) {
             vi diag;
             for (int a = 0, b = j; a < H && b < W; a++, b++) {
                 diag.pb(a*W+b);
             }
-            diagonal1.pb(add_and({diagonal1.back(), add_xor(diag)}));
+            diagonal1.pb(add_xor({diagonal1.back(), add_xor(diag)}));
         }
         vi diagonal2;
         F0R(j, W) {
@@ -185,14 +220,14 @@ void construct_network(int H, int W, int K) {
                 diag.pb(a*W+b);
             }
             if (j == 0) diagonal2.pb(add_xor(diag));
-            else diagonal2.pb(add_and({diagonal2.back(), add_xor(diag)}));
+            else diagonal2.pb(add_xor({diagonal2.back(), add_xor(diag)}));
         }
         FOR(i, 1, H) {
             vi diag;
-            for (int a = i, b = W - 1; a >= 0 && b >= 0; a--, b--) {
+            for (int a = i, b = W - 1; a < H && b >= 0; a++, b--) {
                 diag.pb(a*W+b);
             }
-            diagonal2.pb(add_and({diagonal2.back(), add_xor(diag)}));
+            diagonal2.pb(add_xor({diagonal2.back(), add_xor(diag)}));
         }
         // If number of 1s > K, fail
         vi diag1check;
@@ -213,8 +248,10 @@ void construct_network(int H, int W, int K) {
             diag2check2.pb(add_and({diagonal2[i], diagonal2[i + K - 1]}));
         }
         add_and({
-            add_or(diag1check2),
-            add_or(diag2check2),
+            add_or({
+                add_or(diag1check2),
+                add_or(diag2check2),
+            }),
             add_not(add_or(diag1check)),
             add_not(add_or(diag2check))
         });
