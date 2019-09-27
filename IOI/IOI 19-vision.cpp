@@ -11,7 +11,7 @@
  *
  * We can split this into two parts: first, either a or b must be at least K. second, both a and b have to be at most K.
  *
- * Let's do a "prefix xor" on the diagonals. If the XOR of diagonals was: 0 0 1 0 0 0 1 0 0 (k = 4 in this situation)
+ * Let's do a "prefix xor" on the diagonals. If the XOR of diagonals was: 0 0 1 0 0 0 1 0 0 (k = 4 in this example)
  * we will XOR each number w/ the previous number to get 0 0 1 1 1 1 0 0 0.
  *
  * To check the first condition, that either a or b must be at least K, we will do the following for each diagonal direction:
@@ -20,7 +20,7 @@
  *
  * To check the second condition, that a and b must be at most K, we can basically check to see if either a or b is >= K+1:
  * - add_or(add_and(i, i+k) for all valid i)
- * if result of add_or is true, then the second condition is _not_ met.
+ * if result of add_or is true for _either_ diagonal, then the second condition is _not_ met.
  *
  * Therefore our complete condition is:
  * add_and({
