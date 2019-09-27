@@ -3,6 +3,8 @@
 
 #include <bits/stdc++.h>
 
+#include <utility>
+
 using namespace std;
 
 template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
@@ -158,8 +160,38 @@ using namespace output;
 
 /* ============================ */
 
+char label[251];
+vi adj[251];
+
+ll memo[251][6][251];
+string bessie = "bessie";
+ll ways(int node, int pos, int evil) {
+    if (memo[node][pos][evil] != -1) return memo[node][pos][evil];
+    if (label[node] != bessie[pos]) return memo[node][pos][evil] = 0;
+    if (pos == 5) return 1;
+    ll ans = 0;
+    int evil2 = evil; if (pos == 1) evil2 = node;
+    trav(x, adj[node]) {
+        if (x == evil) continue;
+        ans += ways(x, pos + 1, evil2);
+    }
+    return memo[node][pos][evil] = ans;
+}
+
 int main() {
     setupIO();
+
+    int v, e; re(v, e);
+    F0R1(i, v) re(label[i]);
+    F0R(i, e) {
+        int a, b; re(a, b); adj[a].pb(b); adj[b].pb(a);
+    }
+    ll ans = 0;
+    SET3D(memo, -1, 251, 6, 251);
+    F0R1(i, v) {
+        ans += ways(i, 0, 0);
+    }
+    ps(ans);
 
     return 0;
 }

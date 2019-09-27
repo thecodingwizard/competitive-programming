@@ -1,7 +1,6 @@
-//#pragma GCC optimize ("O3")
-//#pragma GCC target ("sse4")
-
 #include <bits/stdc++.h>
+
+#include <utility>
 
 using namespace std;
 
@@ -160,6 +159,27 @@ using namespace output;
 
 int main() {
     setupIO();
+
+    int n; re(n); vi A; A.resz(n); re(A);
+    sort(all(A));
+    vi B;
+    F0R(i, sz(A)) {
+        if (i == sz(A)-1 || A[i] != A[i+1]) B.pb(A[i]);
+    }
+
+    ll ans = LL_INF;
+    do {
+        ll cur = 0;
+        FOR(i, 1, sz(B)) {
+            int diff = 1;
+            F0R(j, i) {
+                diff *= abs(B[i] - B[j]);
+            }
+            cur += diff;
+        }
+        if (cur < ans) ans = cur;
+    } while (next_permutation(all(B)));
+    ps(ans);
 
     return 0;
 }

@@ -162,7 +162,62 @@ using namespace output;
 
 void construct_network(int H, int W, int K) {
     if (H >= 2 && W >= 2) { // General case code
-        
+        vi diagonal1;
+        F0Rd(i, H) {
+            vi diag;
+            for (int a = i, b = 0; a < H && b < W; a++, b++) {
+                diag.pb(a*W+b);
+            }
+            if (i == H-1) diagonal1.pb(add_xor(diag));
+            else diagonal1.pb(add_and({diagonal1.back(), add_xor(diag)}));
+        }
+        FOR(j, 1, W) {
+            vi diag;
+            for (int a = 0, b = j; a < H && b < W; a++, b++) {
+                diag.pb(a*W+b);
+            }
+            diagonal1.pb(add_and({diagonal1.back(), add_xor(diag)}));
+        }
+        vi diagonal2;
+        F0R(j, W) {
+            vi diag;
+            for (int a = 0, b = j; a < H && b >= 0; a++, b--) {
+                diag.pb(a*W+b);
+            }
+            if (j == 0) diagonal2.pb(add_xor(diag));
+            else diagonal2.pb(add_and({diagonal2.back(), add_xor(diag)}));
+        }
+        FOR(i, 1, H) {
+            vi diag;
+            for (int a = i, b = W - 1; a >= 0 && b >= 0; a--, b--) {
+                diag.pb(a*W+b);
+            }
+            diagonal2.pb(add_and({diagonal2.back(), add_xor(diag)}));
+        }
+        // If number of 1s > K, fail
+        vi diag1check;
+        F0R(i, sz(diagonal1) - K) {
+            diag1check.pb(add_and({diagonal1[i], diagonal1[i + K]}));
+        }
+        vi diag2check;
+        F0R(i, sz(diagonal2) - K) {
+            diag2check.pb(add_and({diagonal2[i], diagonal2[i + K]}));
+        }
+        // If number of 1s == K, good
+        vi diag1check2;
+        F0R(i, sz(diagonal1) - (K-1)) {
+            diag1check2.pb(add_and({diagonal1[i], diagonal1[i + K - 1]}));
+        }
+        vi diag2check2;
+        F0R(i, sz(diagonal2) - (K-1)) {
+            diag2check2.pb(add_and({diagonal2[i], diagonal2[i + K - 1]}));
+        }
+        add_and({
+            add_or(diag1check2),
+            add_or(diag2check2),
+            add_not(add_or(diag1check)),
+            add_not(add_or(diag2check))
+        });
     } else if (H >= 2 && W >= 2 && K == 1) { // Code to solve 7th case
         // Step 1: XOR all rows
         vi xor_rows;
