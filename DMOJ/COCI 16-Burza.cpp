@@ -1,3 +1,18 @@
+/*
+ * Same as editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/COCI/official/2017/contest2_solutions/solutions.pdf
+ * If K*K >= N, then DA, so K < 20, allowing for 2^k solution.
+ *
+ * Run a dfs and label all nodes of depth exactly K. Note that on turn i, it's always optimal to mark a node of depth i.
+ * So the problem is can we mark K nodes of depth 1...K s.t. every single node of depth exactly K is either marked,
+ * or has an ancestor that is marked?
+ *
+ * We can use bitmask dp: DP[n][(1 << 20)]. DP[i][j] = is it possible to "mark" either directly or indirectly the first
+ * i nodes of depth K after using the marks specified in j's mask?
+ *
+ * My solution is slower than intended solution but just barely passes. Its transitions are slow; it brute force
+ * guesses which node to mark next. It's possible to speed up the transitions significantly by guessing smarter.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
