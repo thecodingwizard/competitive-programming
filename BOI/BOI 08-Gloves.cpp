@@ -1,3 +1,25 @@
+/*
+ * Same idea as editorial
+ *
+ * Define A_X (where X is a bitmask) to be the sum of the number of gloves in that bitmask for the first drawer
+ * Define B_X similarly
+ *
+ * Theorem: (A, B) is a valid answer if and only if for all possible masks X, A > A_X or B > B_(not X)
+ * (not X) is the "opposite" bitmask of X, eg. ~X
+ * Proof: See editorial :)
+ * One way to think about it informally is: If the theorem was not met, then we can draw gloves according to the
+ * bitmask X from A's drawer, then draw gloves according to bitmask ~X from B's drawer, and we would be left
+ * without a matching pair.
+ *
+ * Hence, we can brute force every bitmask X in 2^n time and generate (A_X, B_X) pairs.
+ *
+ * Imagine a 2D grid. Each (A_X, B_X) pair basically draws a rectangle from (0, 0) to (A_X, B_X) and makes
+ * it "illegal." We need to minimize the answer (A, B) s.t. (A, B) is not an "illegal" square.
+ *
+ * Note that after all the rectangles are drawn, there's a staircase-like result (see editorial). We can
+ * take advantage of this and lexicographically sort our (A_X, B_X) pairs (see editorial).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
