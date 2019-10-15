@@ -158,45 +158,65 @@ using namespace output;
 
 /* ============================ */
 
+vi adj[100000];
+bool visited[100000];
+vi traversal;
+
+int inDeg[100000];
+
+void toposort(int i) {
+    visited[i] = true;
+    for (int x : adj[i]) {
+        if (!visited[x]) toposort(x);
+    }
+    traversal.pb(i);
+}
+
 int main() {
     setupIO();
 
     int n; re(n);
-    int A[n]; reA(A, n);
-    int B[n]; reA(B, n);
-    int maxB = 0; F0R(i, n) maxB += B[i];
-
-    vii masks;
-
-    F0R(mask, (1 << n)) {
-        int a = 0, b = 0;
-        F0R(j, n) {
-            if (mask & (1 << j)) {
-                a += A[j];
-            } else {
-                b += B[j];
-            }
-        }
-        masks.pb({a, b});
-    }
-    sort(all(masks));
-
-    ll a = LL_INF, b = LL_INF;
-
-    vii filteredMasks;
-    F0R(i, sz(masks)) {
-        if (i == sz(masks) - 1 || masks[i].pA != masks[i+1].pA) {
-            while (filteredMasks.size() > 0 && filteredMasks.back().pB < masks[i].pB) filteredMasks.pop_back();
-            filteredMasks.pb(masks[i]);
-        }
-    }
-    F0R(i, sz(filteredMasks) - 1) {
-        if (a + b > filteredMasks[i].pA + 1 + filteredMasks[i+1].pB + 1) {
-            if (filteredMasks[i+1].pB+1 <= maxB) a = filteredMasks[i].pA + 1, b = filteredMasks[i+1].pB + 1;
+    F0R(i, n) {
+        int k; re(k);
+        F0R(j, k) {
+            int x; re(x);
+            adj[i].pb(--x);
         }
     }
 
-    ps(a, b);
+    SET(visited, false, 100000);
+    F0R(i, n) {
+        if (!visited[i]) toposort(i);
+    }
+    reverse(all(traversal));
+
+    SET(inDeg, 0, 100000);
+    SET(visited, false, 100000);
+    ll numEdges = 0;
+    int numNodes = 0;
+    int breakpoint = -1;
+    for (int i : traversal) {
+        numNodes++;
+        numEdges -= inDeg[i];
+        visited[i] = true;
+        for (int x : adj[i]) {
+            if (visited[x]) continue;
+            numEdges++;
+            inDeg[x]++;
+        }
+        if (numEdges == numNodes*(n-numNodes)) {
+            breakpoint = i;
+            break;
+        }
+    }
+    vi ans;
+    trav(i, traversal) {
+        ans.pb(i+1);
+        if (i == breakpoint) break;
+    }
+    sort(all(ans));
+
+    ps(sz(ans), ans);
 
     return 0;
 }
