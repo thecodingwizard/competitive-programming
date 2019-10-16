@@ -1,3 +1,31 @@
+/*
+ * First note that we can split up the problem into X- and Y- components and solve them individually.
+ *
+ * Then our problem is simpler: Given a list of 1D vectors, support the following queries:
+ * 1. Move pointer up one
+ * 2. Move pointer down one
+ * 3. Change the vector at the pointer
+ * 4. Count number of vectors that cross x = 0
+ *
+ * Let's consider a simpler problem where the pointer can't move up/down, and we can only change the first vector.
+ *
+ * If we draw out a number line and a list of vectors, observe that changing the first vector is
+ * similar to "moving" the line x = 0 and then counting the number of vectors it intersects.
+ *
+ * We can  create a list of "delta" values for every x location. When the first vector changes,
+ * we imagine "moving" the line x = 0. Every time we reach a delta value, then we update the number of
+ * vectors that the line intersects.
+ *
+ * For example, if the line is currently at x = 0 and there's a vector with head at x = 1 and tail at x = -1,
+ * then delta[1] = -1 and delta[-1] = -1. The number of intersections we have right now is 1.
+ *
+ * If we "move" the line x = 0 to x = 2 (by updating the first vector), then we will hit delta[1], so we will subtract
+ * 1 from our answer to get 0 intersections. We then do delta[1] *= -1 because the next time the "intersection line" x = 2
+ * crosses x = 1, then we have to add 1 as there is one intersection.
+ *
+ * With some offset stuff and math, we can handle queries 1) and 2).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
