@@ -1,3 +1,28 @@
+/*
+ * Define dp[i][j][k] = min cost to ship wood from town i and its subtree, assuming the
+ * closest sawmill is at town j, and we can build k new sawmills in i & i's subtree.
+ *
+ * The answer is then dp[0][0][k].
+ *
+ * The base case is simple: if i's subtree is empty, then:
+ * a) if k = 0, answer is W[i]*dist[i][j]
+ * b) if k != 0, answer is 0 (build a sawmill at node i)
+ *
+ * If i's subtree is not empty, then take the min of:
+ * a) We build a sawmill at node i, then split k-1 sawmills amongst i's subtree
+ * b) Do not build a sawmill at node i, then split k sawmills amongst i's subtree
+ *
+ * How do we split sawmills efficiently? We can use a second dp:
+ * Let's say node i has n direct children.
+ * dp2[i][j][k][l] = min cost to transport wood from i's [l...n] subtrees, assuming we have k
+ * sawmills left to build and the nearest sawmill is at j.
+ *
+ * Then dp2[i][j][k][l] can transition to dp2[i][j][k - x][l + 1] where x is the # of
+ * sawmills allocated to the l'th subtree of i.
+ *
+ * (My implementation's dp indexes are slightly different from what's written here)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
