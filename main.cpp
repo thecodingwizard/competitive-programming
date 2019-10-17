@@ -159,69 +159,79 @@ using namespace output;
 
 /* ============================ */
 
-ll dp(int u, int p, int k);
-ll dp2(int u, int idx, int p, int k);
+int dp(int u, int k, int ret);
+int dp2(int u, int k, int ret, int idx);
 
-int n, k;
-ll W[101];
-pll p[101];
-ll d[101][101];
-vector<pair<int, ll>> adj[101];
+int n, k, x;
+vii adj2[10000];
+vii adj[10000];
+int childCt[10000];
+int childCt2[10000][10000];
 
-ll memo[101][101][51];
-ll dp(int u, int p, int k) {
-    if (memo[u][p][k] != -1) return memo[u][p][k];
-    if (sz(adj[u]) == 0) return k == 0 ? W[u]*d[p][u] : 0;
-    ll best = LL_INF;
-
-    MIN(best, dp2(u, 0, p, k) + W[u]*d[u][p]);
-    MIN(best, dp2(u, 0, u, k-1));
-
-    return memo[u][p][k] = best;
+int dfs(int u, int p) {
+    childCt[u] = 1;
+    int runningChildCt = 0, idx = 0;
+    trav(x, adj2[u]) {
+        if (x.pA == p) continue;
+        adj[u].pb(x);
+        int numC = dfs(x.pA, u);
+        childCt[u] += numC;
+        childCt2[u][idx++] = numC;
+    }
+    F0R(i, idx) {
+        FOR(j, i+1, idx) {
+            childCt2[u][i] += childCt2[u][j];
+        }
+        psD("childCt2", u, i, childCt2[u][i]);
+    }
+    return childCt[u];
 }
 
-vector<ll> memo2[101][101][51];
-ll dp2(int u, int idx, int p, int k) {
-    if (k < 0) return LL_INF;
-    if (idx == sz(adj[u])) return 0;
-    if (memo2[u][p][k].size() == 0) memo2[u][p][k].assign(sz(adj[u]), -1);
-    if (memo2[u][p][k][idx] != -1) return memo2[u][p][k][idx];
+int memo[10000][10000][2];
+int dp(int u, int k, int ret) {
+    if (k == 0) return 0;
+    if (k >= childCt[u]) return INF;
+    if (memo[u][k][ret] != -1) return memo[u][k][ret];
+    return memo[u][k][ret] = dp2(u, k, ret, 0);
+}
 
-    ll best = LL_INF;
-    F0R(i, k+1) {
-        MIN(best, dp(adj[u][idx].pA, p, i) + dp2(u, idx + 1, p, k - i));
+vector<vi> memo2[10000][2];
+int dp2(int u, int k, int ret, int idx) {
+    if (k == 0) return 0;
+    if (k > childCt2[u][ret]) return INF;
+    if (idx == sz(adj[u])) return INF;
+    if (idx == sz(adj[u]) - 1) {
+        if (ret == 0) return dp(adj[u][idx].pA, k-1, 0) + adj[u][idx].pB;
+        return dp(adj[u][idx].pA, k-1, ret) + adj[u][idx].pB*2;
     }
-    return memo2[u][p][k][idx] = best;
+    if (sz(memo2[u][ret]) == 0) {
+        memo2[u][ret].assign(childCt[u]+1, vi(sz(adj[u]), -1));
+    }
+    if (memo2[u][ret][k][idx] != -1) return memo2[u][ret][k][idx];
+
+    // if ret = 0, then we can still avoid returning to parent for one child
+    int best = INF;
+    MIN(best, dp2(u, k, ret, idx+1));
+    F0R1(i, min(k, childCt[adj[u][idx].pA])) {
+        MIN(best, dp2(u, k - i, ret, idx + 1) + dp(adj[u][idx].pA, i-1, 1) + adj[u][idx].pB*2);
+        if (ret == 0) MIN(best, dp2(u, k - i, 1, idx + 1) + dp(adj[u][idx].pA, i-1, 0) + adj[u][idx].pB);
+    }
+    return memo2[u][ret][k][idx] = best;
 }
 
 int main() {
     setupIO();
 
-    re(n, k);
-    F0R1(i, n) {
-        int w, v, d; re(w, v, d);
-        W[i] = w;
-        p[i] = mp(v, d);
-        adj[v].pb(mp(i, d));
+    re(n, k, x);
+    F0R(i, n-1) {
+        int a, b, c; re(a, b, c);
+        adj2[--a].pb(mp(--b, c));
+        adj2[b].pb(mp(a, c));
     }
+    dfs(x-1, x-1);
 
-    SET2D(d, INF, 101, 101);
-    F0R(i, n+1) {
-        d[i][i] = 0;
-        trav(x, adj[i]) {
-            d[x.pA][i] = d[i][x.pA] = x.pB;
-        }
-    }
-    F0R(k, n+1) {
-        F0R(i, n+1) {
-            F0R(j, n+1) {
-                if (d[i][k] + d[k][j] < d[i][j]) d[i][j] = d[i][k] + d[k][j];
-            }
-        }
-    }
-
-    SET3D(memo, -1, 101, 101, 51);
-    ps(dp(0, 0, k));
+    SET3D(memo, -1, n, k, 2);
+    ps(dp(x-1, k-1, 0));
 
     return 0;
 }
