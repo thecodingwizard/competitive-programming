@@ -182,7 +182,7 @@ int dfs(int u, int p) {
         FOR(j, i+1, idx) {
             childCt2[u][i] += childCt2[u][j];
         }
-        psD("childCt2", u, i, childCt2[u][i]);
+        /* psD("childCt2", u, i, childCt2[u][i]); */
     }
     return childCt[u];
 }
@@ -198,7 +198,7 @@ int dp(int u, int k, int ret) {
 vector<vi> memo2[10000][2];
 int dp2(int u, int k, int ret, int idx) {
     if (k == 0) return 0;
-    if (k > childCt2[u][ret]) return INF;
+    if (k > childCt2[u][idx]) return INF;
     if (idx == sz(adj[u])) return INF;
     if (idx == sz(adj[u]) - 1) {
         if (ret == 0) return dp(adj[u][idx].pA, k-1, 0) + adj[u][idx].pB;
