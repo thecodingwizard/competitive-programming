@@ -103,7 +103,7 @@ namespace output {
     template<class T> void pr(const set<T>& x);
     template<class T1, class T2> void pr(const map<T1,T2>& x);
 
-    template<class T> void prD(const T& x) { cout << x; }
+    template<class T> void prD(const T& x) { cout << x; cout.flush(); }
     template<class Arg, class... Args> void prD(const Arg& first, const Args&... rest) {
         prD(first); prD(rest...);
     }
@@ -159,66 +159,51 @@ using namespace output;
 
 /* ============================ */
 
-int n, k, x;
-vii adj2[10000];
-vii adj[10000];
-int childCt[10000];
-vi childCt2[10000];
+int n;
+int A[10000];
+vi adj[10000];
 
-int dfs(int u, int p) {
-    childCt[u] = 1;
-    trav(x, adj2[u]) {
-        if (x.pA == p) continue;
-        adj[u].pb(x);
-        int numC = dfs(x.pA, u);
-        childCt[u] += numC;
-        childCt2[u].pb(numC);
+vector<bitset<100>> ans[10001];
+void solve(int u, int p) {
+    psD("solve(", u, p, ")");
+    trav(x, adj[u]) {
+        solve(x, u);
     }
-    F0R(i, sz(childCt2[u])) {
-        FOR(j, i+1, sz(childCt2[u])) {
-            childCt2[u][i] += childCt2[u][j];
+
+    if (sz(ans[u]) == 0) ans[u].resize(101);
+    if (sz(ans[p]) == 0) ans[p].resize(101);
+
+    psD(u, p, "got here");
+    F0Rd(i, 100) {
+        if (i == A[u]) {
+            ans[u][i] = ans[u][i+1];
+            ans[u][i][i] = 1;
         }
+        /* FOR(j, i + 1, 100) { */
+        /*     if (ans[u][i][j]) ans[u][i] |= ans[u][j+1]; */ 
+        /* } */
     }
-    return childCt[u];
-}
 
-vector<vi> memo[10000][2];
-int dp(int u, int k, int ret, int idx) {
-    if (k == 0) return 0;
-    if (k > childCt2[u][idx]) return INF;
-    if (idx == sz(adj[u]) - 1) {
-        if (ret == 0) return dp(adj[u][idx].pA, k-1, 0, 0) + adj[u][idx].pB;
-        return dp(adj[u][idx].pA, k-1, ret, 0) + adj[u][idx].pB*2;
+    F0Rd(i, 100) {
+        if (ans[u][i][A[u]-1]) ans[p][i] |= ans[u][A[u]];
     }
-    if (sz(memo[u][ret]) == 0) {
-        F0R(i, sz(adj[u])) {
-            memo[u][ret].eb(childCt2[u][i] + 1, -1);
-        }
-    }
-    if (memo[u][ret][idx][k] != -1) return memo[u][ret][idx][k];
 
-    // if ret = 0, then we can still avoid returning to parent for one child
-    int best = INF;
-    MIN(best, dp(u, k, ret, idx+1));
-    FOR(i, max(1, k - childCt2[u][idx+1]),min(k, childCt[adj[u][idx].pA]) + 1) {
-        MIN(best, dp(u, k - i, ret, idx + 1) + dp(adj[u][idx].pA, i-1, 1, 0) + adj[u][idx].pB*2);
-        if (ret == 0) MIN(best, dp(u, k - i, 1, idx + 1) + dp(adj[u][idx].pA, i-1, 0, 0) + adj[u][idx].pB);
-    }
-    return memo[u][ret][idx][k] = best;
+    ans[u].clear();
 }
 
 int main() {
     setupIO();
 
-    re(n, k, x);
+    re(n);
+    reA(A, n);
+    F0R(i, n) A[i]--;
     F0R(i, n-1) {
-        int a, b, c; re(a, b, c);
-        adj2[--a].pb(mp(--b, c));
-        adj2[b].pb(mp(a, c));
+        int a, b; re(a, b);
+        adj[--a].pb(--b);
     }
-    dfs(x-1, x-1);
 
-    ps(dp(x-1, k-1, 0, 0));
+    solve(0, 10000);
+    F0R(i, 5) ps(ans[10000][i]);
 
     return 0;
 }
