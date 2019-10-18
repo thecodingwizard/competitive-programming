@@ -1,3 +1,21 @@
+/*
+ * Same idea as editorial, IOI 05-rivers
+ *
+ * We can solve using dp: dp(i, j, k) = shortest time needed, assuming person is on node i, to visit
+ * j unique rooms in i's subtree (i does not count towards j). If k = 0, then the person can end in any room.
+ * If k = 1, then the person must return to the i'th room.
+ *
+ * The transition is dividing the k rooms to visit amongst i's children. To do this in a timely manner,
+ * we can either use a second dp or add another parameter to our dp state: index of child.
+ * dp(i, j, k, l) = time to visit j unique rooms in i's subtree *from index l onwards.* This is a
+ * similar idea to IOI 05-rivers and is also explained in the editorial.
+ *
+ * To pass the memory limit constraint, memo state should be created dynamically.
+ *
+ * To pass the final test case, multiple pruning optimizations must be made (for example, if i's subtree
+ * only has 10 rooms, then we should not consider j > 10)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
