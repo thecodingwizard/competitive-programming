@@ -1,3 +1,22 @@
+/*
+ * Idea from here: https://codeforces.com/blog/entry/17630?#comment-225408
+ * An alternative approach (similar idea): https://github.com/luciocf/OI-Problems/blob/master/Balkan/Balkan%202012/paths.cpp
+ *
+ * Source = a, Sink = b
+ *
+ * 1. Run dijkstra's to get distance from source to every node, and from the sink to every node
+ * 2. Construct a shortest path (SP) tree starting at the source. Force the tree to contain the given path.
+ * 3. Note that the least common ancestor of node i and the sink is always going to be a node in the given path.
+ *    Set lca[i] = least common ancestor of node i and sink
+ * 4. Index the given path. pathIdx[i] = index of node i (assuming i is in given path)
+ * 5. Define array ans[0...k-1], initialize to infinity
+ * 6. For each edge (u, v) not in the given path, define x = pathIdx[lca[u]] and y = pathIdx[lca[v]]
+ *    Update ans[x], ans[x+1], ... ans[y-1] = min(_current value_, sourceToNode(u) + edgeLength(u, v) + nodeToSink(v))
+ * 7. Print ans[0], ans[1], ... ans[k-2].
+ *
+ * A brute force implementation is fast enough to AC on both SPOJ and acmicpc judge.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
