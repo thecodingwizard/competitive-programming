@@ -1,3 +1,7 @@
+/*
+ * Same solution as editorial
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -261,3 +265,4 @@ int main() {
 
     return 0;
 }
+
