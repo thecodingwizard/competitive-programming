@@ -159,110 +159,72 @@ using namespace output;
 
 /* ============================ */
 
-int n, m, a, b, k;
-vii adj[2000];
-vi spAdj[2000];
+class MaxSegTree {
+private:
+    int st[500001*4];
 
-ll sourceToNode[2000], destToNode[2000];
-int spParent[2000];
-int depth[2000];
-int lca[2000];
-int pathIdx[2000];
-int ans[2000];
+public:
+    MaxSegTree(int n, int v) {
+        SET(st, v, 4*n);
+    }
 
-void dijkstra(int s, ll (&dist)[2000]) {
-    F0R(i, n) dist[i] = LL_INF;
-    dist[s] = 0;
+    int qry(int p, int i, int j, int l, int r) {
+        if (i >= l && j <= r) return st[p];
+        if (i > r || j < l) return -INF;
+        return max(qry(p << 1, i, (i+j)/2, l, r), qry((p << 1) + 1, (i+j)/2+1, j, l, r));
+    }
 
-    min_heap<pair<ll, int>> pq; pq.push({0, s});
-    while (!pq.empty()) {
-        pair<ll, int> top = pq.top(); pq.pop();
-        if (top.pA > dist[top.pB]) continue;
-
-        trav(x, adj[top.pB]) {
-            if (dist[x.pA] > dist[top.pB] + x.pB) {
-                spParent[x.pA] = top.pB;
-                dist[x.pA] = dist[top.pB] + x.pB;
-                pq.push({ dist[x.pA], x.pA });
-            }
+    int upd(int p, int i, int j, int k, int v) {
+        if (i == j && i == k) {
+            st[p] = v;
+            return st[p];
         }
+        if (i > k || j < k) return st[p];
+        return st[p] = max(upd(p << 1, i, (i+j)/2, k, v), upd((p << 1) + 1, (i+j)/2+1, j, k, v));
     }
-}
+};
 
-void dfsDepth(int u, int p, int d) {
-    depth[u] = d;
-    trav(x, spAdj[u]) {
-        if (x != p) dfsDepth(x, u, d+1);
-    }
-}
+struct fair {
+    int day, loc, val;
+};
+bool operator<(const fair &a, const fair &b) { return a.day < b.day; }
 
-void findLCA(int a, int b, int tgt) {
-    if (depth[a] > depth[b]) return findLCA(b, a, tgt);
-    while (depth[b] > depth[a]) b = spParent[b];
-    while (a != b) {
-        a = spParent[a]; b = spParent[b];
-    }
-    lca[tgt] = a;
-}
+int dp[500000]; // max $ ending on fair i
+vector<fair> fairs;
 
 int main() {
     setupIO();
 
-    re(n, m, a, b); --a; --b;
-    viii edges;
-    F0R(i, m) {
-        int a, b, w; re(a, b, w); --a; --b;
-        edges.pb({w, {a, b}});
-        edges.pb({w, {b, a}});
-        adj[a].pb({b, w}); adj[b].pb({a, w});
+    int n, u, d, s; re(n, u, d, s);
+    F0R(i, n) {
+        int t, l, m; re(t, l, m);
+        fairs.pb({t, l-1, m});
+    }
+    sort(all(fairs));
+
+    int mxD = 500001;
+    MaxSegTree upstream(mxD, -INF), downstream(mxD, -INF);
+    downstream.upd(1, 0, mxD-1, s-1, 0-(mxD-(s-1))*d);
+    upstream.upd(1, 0, mxD-1, s-1, 0-(s-1)*u);
+    F0R(i, n) {
+        int loc = fairs[i].loc;
+        int bestDownstream = downstream.qry(1, 0, mxD-1, 0, loc) + (mxD-loc)*d;
+        int bestUpstream = upstream.qry(1, 0, mxD-1, loc, mxD-1) + loc*u;
+        dp[i] = max(bestDownstream, bestUpstream) + fairs[i].val;
+        downstream.upd(1, 0, mxD-1, loc, dp[i]-(mxD-loc)*d);
+        upstream.upd(1, 0, mxD-1, loc, dp[i]-loc*u);
     }
 
-    dijkstra(b, destToNode);
-    dijkstra(a, sourceToNode);
-
-    re(k);
-    int prv = -1;
-    vi path;
-    F0R(i, k) {
-        int x; re(x); --x;
-        path.pb(x);
-        pathIdx[x] = i;
-        if (prv != -1) {
-            spParent[x] = prv;
+    int best = 0;
+    F0R(i, n) {
+        int loc = fairs[i].loc;
+        if (loc > s-1) {
+            MAX(best, dp[i] - (loc-(s-1))*u);
         } else {
-            spParent[x] = -1;
-        }
-        prv = x;
-    }
-
-    F0R(i, n) {
-        if (spParent[i] != -1) {
-            spAdj[spParent[i]].pb(i);
-            spAdj[i].pb(spParent[i]);
+            MAX(best, dp[i] - (s-1-loc)*d);
         }
     }
-
-    dfsDepth(a, a, 0);
-    F0R(i, n) {
-        findLCA(i, b, i);
-    }
-
-    SET(ans, INF, n);
-    trav(edge, edges) {
-        int u = edge.pB.pA, v = edge.pB.pB;
-        if (spParent[v] == u || spParent[u] == v) continue;
-        int x = pathIdx[lca[u]], y = pathIdx[lca[v]];
-        if (x >= y) continue;
-
-        FOR(i, x, y) {
-            MIN(ans[i], (int)(sourceToNode[u] + edge.pA + destToNode[v]));
-        }
-    }
-
-    F0R(i, k-1) {
-        if (ans[i] == INF) ps(-1);
-        else ps(ans[i]);
-    }
+    ps(best);
 
     return 0;
 }
