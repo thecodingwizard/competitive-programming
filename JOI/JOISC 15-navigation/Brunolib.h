@@ -1,0 +1,2 @@
+Answer(int X);
+
