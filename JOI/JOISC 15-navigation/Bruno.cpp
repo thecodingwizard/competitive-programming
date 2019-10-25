@@ -1,3 +1,5 @@
+/* https://ivaniscoding.wordpress.com/2018/08/25/communication-2-navigation/ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -57,24 +59,18 @@ typedef vector<int> vi;
 #include "Brunolib.h"
 
 void Bruno(int K, int S, int F, int L, int P[], int Q[]) {
-    if (F == 0) {
-        bool first = true;
-        F0R(i, L) {
-            if (Q[i] != 1) first = false;
-        }
-        if (first) {
-            Answer(S);
-            return;
-        }
-    }
-
-    int tgt = 0;
-    if (F == 2) tgt = 1;
-    if (F == 0) tgt = 2;
-
-    int ans = 0;
     F0R(i, L) {
-        if (Q[i] == tgt) ans = i;
+        if (S < P[i]) {
+            if (Q[i] == F) {
+                Answer(P[i]);
+                return;
+            }
+        } else {
+            if (Q[i] != F) {
+                Answer(P[i]);
+                return;
+            }
+        }
     }
-    Answer(P[ans]);
+    Answer(S);
 }

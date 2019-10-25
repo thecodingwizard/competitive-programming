@@ -1,3 +1,5 @@
+/* https://ivaniscoding.wordpress.com/2018/08/25/communication-2-navigation/ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -162,26 +164,26 @@ using namespace output;
 #include "Annalib.h"
 
 vi adj[100000];
-bool vis[100000];
+int num[100000];
 void Anna(int K, int N, int T, int A[], int B[]) {
     F0R(i, N-1) {
         adj[A[i]-1].pb(B[i]-1);
         adj[B[i]-1].pb(A[i]-1);
     }
-    SET(vis, false, N);
 
-    queue<ii> q; q.push({T-1, 0}); vis[T-1] = true;
+    queue<ii> q; q.push({T-1, -1}); num[T-1] = 0;
     while (!q.empty()) {
         ii u = q.front(); q.pop();
-        int num = u.pB%3;
-        int realNum;
-        if (num == 0) {
-            if ()
-        }
-        Flag(u.pA+1, );
         trav(x, adj[u.pA]) {
-            if (vis[x]) continue;
-            vis[x] = true; q.push({x, u.pB+1});
+            if (x == u.pB) continue;
+            if (u.pA < x) {
+                num[x] = !num[u.pA];
+            } else {
+                num[x] = num[u.pA];
+            }
+            q.push({x, u.pA});
         }
     }
+
+    F0R(i, N) Flag(i+1, num[i]);
 }
