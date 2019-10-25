@@ -161,6 +161,27 @@ using namespace output;
 
 #include "Annalib.h"
 
+vi adj[100000];
+bool vis[100000];
 void Anna(int K, int N, int T, int A[], int B[]) {
+    F0R(i, N-1) {
+        adj[A[i]-1].pb(B[i]-1);
+        adj[B[i]-1].pb(A[i]-1);
+    }
+    SET(vis, false, N);
 
+    queue<ii> q; q.push({T-1, 0}); vis[T-1] = true;
+    while (!q.empty()) {
+        ii u = q.front(); q.pop();
+        int num = u.pB%3;
+        int realNum;
+        if (num == 0) {
+            if ()
+        }
+        Flag(u.pA+1, );
+        trav(x, adj[u.pA]) {
+            if (vis[x]) continue;
+            vis[x] = true; q.push({x, u.pB+1});
+        }
+    }
 }

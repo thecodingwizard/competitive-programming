@@ -1,2 +1,2 @@
-Answer(int X);
+void Answer(int X);
 
