@@ -1,3 +1,7 @@
+/*
+ * Mo's Algorithm: https://www.hackerearth.com/practice/notes/mos-algorithm/
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -158,7 +162,6 @@ using namespace output;
 // @formatter:on
 
 /* ============================ */
-
 
 int n, c, BLOCK_SIZE;
 int A[300000];
