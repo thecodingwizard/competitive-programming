@@ -1,3 +1,8 @@
+/*
+ * Same as editorial, put all the candle heights in decreasing height in a segment tree.
+ * During updates, ensure that heights remain decreasing.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
