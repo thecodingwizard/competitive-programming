@@ -1,3 +1,16 @@
+/**
+ * Very similar to CSAcademy41-E
+ *
+ * Sort masts from lowest to tallest. Greedily place the sails of a mast on the height that
+ * has the fewest number of sails. To do this, maintain a decreasing lazy max segment tree.
+ *
+ * Updates are very similar to CSA41E. Just update [h-k...h] with +1. However in order
+ * to maintain the "decreasing" property, we add two queries to the seg tree: findLeft(x) and findRight(x)
+ * which finds the leftmost index of the element x and the rightmost index of the element x. Then
+ * instead of updating [h-k...h] we find the leftmost & rightmost index of the biggest number in the
+ * range [h-k...h] and update accordingly (see CSA41E editorial for more clear explanation)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
