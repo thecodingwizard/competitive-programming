@@ -1,3 +1,9 @@
+/*
+ * Same as editorial.
+ *
+ * Submask Enumeration DP: https://cp-algorithms.com/algebra/all-submasks.html
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
