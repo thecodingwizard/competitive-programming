@@ -1,3 +1,31 @@
+/*
+ * Same as editorial's O((n+m)sqrt(n)) solution. Though it's not the most efficient algorithm it passes due
+ * to a very high time limit.
+ *
+ * Idea: brute force is to use Union-Find and union every pair of lights that are identical.
+ *
+ * However, this is too slow so, so we use square root decomposition. The idea is that we break
+ * up each query into queries of fixed length O(sqrt(n)), and the leftover part of the query we handle
+ * as usual (length 1).
+ *
+ * Note that we have at most m*n/p queries of the first type and m*p queries of the second type.
+ *
+ * However, we can actually get rid of some of the queries of the first type. Consider only the queries of
+ * the first type (length sqrt n). Let's say we have a query (1, 5, sqrt(n)), a query (5, 8, sqrt(n)), and a query (1, 8, sqrt(n)).
+ * The first query means that 1 = 5, and the second query means that 5 = 8, and together the first two suggest
+ * that 1 = 8. And because all the queries are of the same length, then the third query is completely redundant
+ * and we don't have to process it.
+ *
+ * To execute this idea we maintain two Union Find data structures. One for the actual nodes, and the second
+ * for queries of the first type (of length sqrt n). When processing a query of length sqrt n, we union (a, b) in
+ * the second Union Find. If (a, b) are already in the same set, then we don't need to process the query.
+ *
+ * We process at most O(n) queries of length sqrt(n) giving us a final complexity of O((n+m)sqrt(n)) which
+ * is fast enough to pass.
+ *
+ * The editorial describes an even faster solution that extends upon the idea of square root decomposition.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
