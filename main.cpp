@@ -159,64 +159,42 @@ using namespace output;
 
 /* ============================ */
 
-class UnionFind {
-public:
-    UnionFind() {
-        F0R(i, 500000) sz[i] = 1;
-        F0R(i, 500000) p[i] = L[i] = R[i] = i;
+int n; 
+vi allNums;
+vector<vi> sols;
+
+void run(int first) {
+    multiset<int> nums;
+    trav(x, allNums) nums.insert(x);
+
+    vi sol = {first};
+    while (sz(nums)) {
+        int nextNum = *nums.begin() - first;
+        trav(x, sol) {
+            if (nums.count(x + nextNum) == 0) return;
+            nums.erase(nums.find(x + nextNum));
+        }
+        sol.pb(nextNum);
     }
-
-    int p[500000], sz[500000], L[500000], R[500000];
-
-    int find(int x) {
-        return p[x] == x ? p[x] : p[x] = find(p[x]);
-    }
-
-    bool isSameSet(int a, int b) {
-        return find(a) == find(b);
-    }
-
-    void unionSet(int a, int b) {
-        a = find(a);
-        b = find(b);
-        if (a == b) return;
-        if (sz[a] > sz[b]) return unionSet(b, a);
-        p[a] = b;
-        sz[b] += sz[a];
-        L[b] = min(L[a], L[b]);
-        R[b] = max(R[a], R[b]);
-    }
-};
-
-UnionFind UF, sqrtN;
+    sols.pb(sol);
+}
 
 int main() {
     setupIO();
 
-    int n, m; re(n, m);
-    int rootN = sqrt(n);
-    F0R(i, m) {
-        int a, b, l; re(a, b, l); --a; --b;
+    re(n);
+    F0R(i, n*(n-1)/2) {
+        int x; re(x); allNums.pb(x);
+    }
+    
+    sort(all(allNums));
 
-        int j = 0;
-        while (j + rootN < l) {
-            if (!sqrtN.isSameSet(a + j, b + j)) {
-                for (int k = j; k < j + rootN; k++) {
-                    UF.unionSet(a + k, b + k);
-                }
-                sqrtN.unionSet(a + j, b + j);
-            }
-            j += rootN;
-        }
-
-        for (; j < l; j++) {
-            UF.unionSet(a+j, b+j);
-        }
+    for (int i = 1; i <= allNums[0]/2; i++) {
+        run(i);
     }
 
-    int ans = 0;
-    for (int i = 0; i < n; i++) if (UF.find(i) == i) ans++;
-    ps(ans);
+    ps(sz(sols));
+    trav(x, sols) ps(x);
 
     return 0;
 }
