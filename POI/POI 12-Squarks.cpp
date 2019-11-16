@@ -1,3 +1,17 @@
+/*
+ * Let's say that the first 3 numbers of a valid sequence is x, y, and z.
+ *
+ * Sort all the pairwise sums of the numbers from least to greatest. The first number will be x+y, the second number x+z,
+ * and the third number y+z.
+ *
+ * Therefore, if we add the first and second pairwise sums, we get 2x + y + z. But y + z is another pairwise sum,
+ * so we brute force every single pairwise sum and subtract it from 2x + y + z. Each pairwise sum gives us
+ * a possible candidate for the first number x. We can use this first number to determine the sequence if it exists.
+ * 
+ * Further note that y+z must be among the first n pairwise sums, so we only have to check up to the first n pairwise
+ * sums.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -159,7 +173,7 @@ using namespace output;
 
 /* ============================ */
 
-int n; 
+int n;
 vi allNums;
 vector<vi> sols;
 
@@ -189,7 +203,7 @@ int main() {
     F0R(i, n*(n-1)/2) {
         int x; re(x); allNums.pb(x);
     }
-    
+
     sort(all(allNums));
 
     int num = allNums[0] + allNums[1];
