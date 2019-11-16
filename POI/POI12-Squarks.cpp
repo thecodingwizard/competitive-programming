@@ -7,7 +7,7 @@
  * Therefore, if we add the first and second pairwise sums, we get 2x + y + z. But y + z is another pairwise sum,
  * so we brute force every single pairwise sum and subtract it from 2x + y + z. Each pairwise sum gives us
  * a possible candidate for the first number x. We can use this first number to determine the sequence if it exists.
- * 
+ *
  * Further note that y+z must be among the first n pairwise sums, so we only have to check up to the first n pairwise
  * sums.
  */
