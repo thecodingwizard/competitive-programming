@@ -1,3 +1,11 @@
+/*
+ * Note that all the guards return to the same location every 12 steps. Therefore
+ * we can accurately describe our state as the location of both the robots + the number of
+ * steps we've taken mod 12. our state size is 20*20*20*20*12 which fits in memory constraint
+ *
+ * Then we just run a BFS from each state to the next state, keeping parent pointers.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
