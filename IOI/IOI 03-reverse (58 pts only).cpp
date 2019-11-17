@@ -1,3 +1,7 @@
+/*
+ * Produces the optimal result for n <= 44 only (only one S needed)`
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
