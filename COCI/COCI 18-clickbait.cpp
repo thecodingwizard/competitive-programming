@@ -1,3 +1,12 @@
+/*
+ * The challenge in this problem is implementing the reading + parsing of input.
+ *
+ * Make each container a node. Make each "pipe" to the next container a directed edge.
+ * Start from the root node and run a DFS. make sure to DFS children with a lower pipe before
+ * children with a higher pipe. After all the children of a node are filled then the node itself
+ * will be filled.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
