@@ -1,3 +1,7 @@
+/*
+ * Same solution as editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/IOI/official/2007/editorial.pdf
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
