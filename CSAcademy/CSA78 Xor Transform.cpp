@@ -1,3 +1,10 @@
+/*
+ * Same solution as editorial
+ *
+ * Contains code for:
+ * - SOS DP (Sum over Subset): https://codeforces.com/blog/entry/45223
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
