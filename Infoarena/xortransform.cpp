@@ -1,3 +1,9 @@
+/*
+ * See: CSA78 Xor Transform
+ *
+ * The problems are very very similar but the K value of the queries are slightly different
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -158,70 +164,6 @@ using namespace output;
 // @formatter:on
 
 /* ============================ */
-
-//struct SplitMix64 {
-//    unsigned long long nextInt() {
-//        unsigned long long z = (x += 0x9E3779B97F4A7C15ULL);
-//        z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
-//        z = (z ^ (z >> 27)) * 0x94D049BB133111EBULL;
-//        return z ^ (z >> 31);
-//    }
-//
-//    int random() {
-//        return 1 + (nextInt() >> 33);
-//    }
-//
-//    unsigned long long x;
-//};
-//
-//int S[10000000], period;
-//
-//void init(const vector< vector<int> >& A) {
-//    period = 1; int n = sz(A), m = sz(A[0]);
-//    while (period < (1 << n) || period < (1 << m)) period <<= 1;
-//
-//    int X[period]; SET(X, 0, period);
-//    F0R(i, n) {
-//        F0R(j, m) {
-//            X[i | j] ^= A[i][j];
-//        }
-//    }
-//
-//    F0R(i, period) S[i] = X[i];
-//    F0R(i, 32) {
-//        F0R(mask, period) {
-//            if (mask & (1 << i)) S[mask] ^= S[mask ^ (1 << i)];
-//        }
-//    }
-//}
-//
-//int query(int K) {
-//    return S[K % period];
-//}
-//
-//int main() {
-//    int N, M, Q;
-//    SplitMix64 rng;
-//
-//    cin >> N >> M >> Q >> rng.x;
-//
-//    vector< vector<int> > A(N, vector<int>(M));
-//    for (int i = 0; i < N; i++) {
-//        for (int j = 0; j < M; j++) {
-//            A[i][j] = rng.random();
-//        }
-//    }
-//
-//    init(A);
-//
-//    unsigned long long hashSol = 0;
-//
-//    for (int i = 1; i <= Q; i++) {
-//        hashSol ^= (unsigned long long)i * query(rng.random());
-//    }
-//
-//    cout << hashSol << endl;
-//}
 
 int main() {
     setupIO("xortransform");

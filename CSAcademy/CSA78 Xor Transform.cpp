@@ -229,37 +229,3 @@ int main() {
 
     cout << hashSol << endl;
 }
-
-
-
-// UNTESTED code for infoarena
-//int main() {
-//    setupIO("xortransform");
-//
-//    int n, m, q; re(n, m, q);
-//    int A[n][m]; F0R(i, n) reA(A[i], m);
-//
-//    int period = 1;
-//    while (period < (1 << n) || period < (1 << m)) period <<= 1;
-//
-//    int X[period]; SET(X, 0, period);
-//    F0R(i, n) {
-//        F0R(j, m) {
-//            X[i | j] ^= A[i][j];
-//        }
-//    }
-//
-//    int S[period]; F0R(i, period) S[i] = X[i];
-//    F0R(i, 32) {
-//        F0R(mask, period) {
-//            if (mask & (1 << i)) S[mask] ^= S[mask ^ (1 << i)];
-//        }
-//    }
-//
-//    F0R(i, q) {
-//        int k; re(k);
-//        ps(S[k % period]);
-//    }
-//
-//    return 0;
-//}
