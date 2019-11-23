@@ -1,3 +1,22 @@
+/*
+ * We can reduce the problem to the following: what is the visibility after removing tower i?
+ * Then we remove towers 0...n-1 and add the visibility up
+ *
+ * Visibility after removing tower i is basically visibility with all towers, - (towers that can see i), + (extra visibility after removing tower i)
+ *
+ * Calculating visibility with all towers can be done in O(n) time
+ * Calculating towers that can see i can also be done in O(n) time by sweeping from right to left, maintaining
+ * a monotonically decreasing queue.
+ *
+ * Calculating the extra visibility after removing tower i is more challenging.
+ * - During the right to left sweep, for each tower i, create a list of towers that it blocks in increasing order of height.
+ * - Then, sweep left to right. Maintain a monotonically decreasing queue. Before adding each tower i, remove
+ *   all the towers in the queue lower than tower i. Every tower that is removed is a candidate for being
+ *   the new farthest tower that can be seen of the towers that used to only be able to see up to tower i.
+ *
+ * Time limit is very tight, faster i/o reading helps: https://www.infoarena.ro/parsare-fisier-intrare
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
