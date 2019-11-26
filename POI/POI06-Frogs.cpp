@@ -1,3 +1,20 @@
+/*
+ * This problem really has two parts: first, finding distance from each square to the nearest scarefrog,
+ * and second, finding the maximum scarefrog distance.
+ *
+ * The second part can be done using dijkstra, where the "distance" to a node is the maximum scarefrog distance
+ * on the optimal path to that node. Complexity O(xy log xy)
+ *
+ * The first part is more challenging. The editorial describes a neat, fast O(xy) algorithm,
+ * where you calculate 1D distance along each row first, then calculate 1D distance along each column
+ * with the distances from each row. See editorial for more details.
+ *
+ * The approach I used is easier to understand (kind of) but much, much slower and requires a lot of
+ * sketchy optimizations. Basically you can BFS from each frog *in all 8 directions* one step at a time.
+ * If your BFS runs into a square that is closer to another scarefrog, then stop BFS'ing in that direction.
+ * With a lot of complicated optimizations, this passes in time.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -87,6 +104,22 @@ namespace input {
             }
         }
     }
+
+    void fastscan(int &x) {
+        bool neg=false;
+        register int c;
+        x =0;
+        c=getchar();
+        if(c=='-')
+        {
+            neg = true;
+            c=getchar();
+        }
+        for(;(c>47 && c<58);c=getchar())
+            x = (x<<1) + (x<<3) +c -48;
+        if(neg)
+            x *=-1;
+    }
 }
 using namespace input;
 
@@ -161,6 +194,114 @@ using namespace output;
 
 int main() {
     setupIO();
+
+    int n, m; fastscan(n); fastscan(m);
+    int px, py, kx, ky; fastscan(px); fastscan(py); fastscan(kx); fastscan(ky); --px; --py; --kx; --ky;
+    int frogCt; fastscan(frogCt);
+    ii frogs[frogCt];
+    F0R(i, frogCt) {
+        fastscan(frogs[i].pA); frogs[i].pA--;
+        fastscan(frogs[i].pB); frogs[i].pB--;
+    }
+
+    int distToFrog[1000][1000]; SET2D(distToFrog, INF, n, m);
+    int dx[8] = { -1, 0, 1, 0, -1, -1, 1, 1 };
+    int dy[8] = { 0, 1, 0, -1, -1, 1, -1, 1 };
+    vector<pair<int,vi>> q[2];
+    F0R(i, frogCt) {
+        ii x = frogs[i];
+
+        distToFrog[x.pA][x.pB] = 0;
+        q[0].pb({i,{((x.pA*1000)+x.pB)*10 + 9}});
+    }
+
+    bool change = true;
+    int iter = 0;
+    while (change) {
+        change = false;
+        int idx = iter % 2;
+        int nxt = (iter+1) % 2;
+        F0R(qIdx, q[idx].size()) {
+            int fi = q[idx][qIdx].pA;
+            ii x = frogs[fi];
+            vector<int> nextQueue;
+            for (int targ : q[idx][qIdx].pB) {
+                ii u = {targ / 10000, (targ/10) % 1000};
+                int from = targ % 10;
+                if (from == 9) {
+                    F0R(i, 8) {
+                        int a = u.pA + dx[i], b = u.pB + dy[i];
+                        if (a < 0 || a >= n || b < 0 || b >= m) continue;
+                        int tmp = (x.pB - b) * (x.pB - b) + (x.pA - a) * (x.pA - a);
+                        if (distToFrog[a][b] > tmp) {
+                            distToFrog[a][b] = tmp;
+                            nextQueue.pb((a * 1000 + b) * 10 + i);
+                            change = true;
+                        }
+                    }
+                } else {
+                    int a = u.pA + dx[from], b = u.pB + dy[from];
+                    if (a < 0 || a >= n || b < 0 || b >= m) {}
+                    else {
+                        int tmp = (x.pB - b) * (x.pB - b) + (x.pA - a) * (x.pA - a);
+                        if (distToFrog[a][b] > tmp) {
+                            distToFrog[a][b] = tmp;
+                            nextQueue.pb((a * 1000 + b) * 10 + from);
+                            change = true;
+                        }
+                    }
+                    if (from >= 4) {
+                        a = u.pA, b = u.pB + dy[from];
+                        int nextFrom = dy[from] == -1 ? 3 : 1;
+                        if (a < 0 || a >= n || b < 0 || b >= m) {}
+                        else {
+                            int tmp = (x.pB - b) * (x.pB - b) + (x.pA - a) * (x.pA - a);
+                            if (distToFrog[a][b] > tmp) {
+                                distToFrog[a][b] = tmp;
+                                nextQueue.pb((a * 1000 + b) * 10 + nextFrom);
+                                change = true;
+                            }
+                        }
+
+                        a = u.pA + dx[from], b = u.pB;
+                        nextFrom = dx[from] == -1 ? 0 : 2;
+                        if (a < 0 || a >= n || b < 0 || b >= m) {}
+                        else {
+                            int tmp = (x.pB - b) * (x.pB - b) + (x.pA - a) * (x.pA - a);
+                            if (distToFrog[a][b] > tmp) {
+                                distToFrog[a][b] = tmp;
+                                nextQueue.pb((a * 1000 + b) * 10 + nextFrom);
+                                change = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!nextQueue.empty()) {
+                q[nxt].eb(fi, nextQueue);
+            }
+        }
+        q[idx].clear();
+        iter++;
+    }
+
+    int realDist[1000][1000]; SET2D(realDist, INF, n, m);
+    priority_queue<pair<int, ii>> pq; pq.push({distToFrog[px][py], {px, py}});
+    realDist[px][py] = distToFrog[px][py];
+    while (!pq.empty()) {
+        pair<int, ii> u = pq.top(); pq.pop();
+        if (u.pA < realDist[u.pB.pA][u.pB.pB]) continue;
+        F0R(i, 4) {
+            int a = u.pB.pA + dx[i], b = u.pB.pB + dy[i];
+            if (a < 0 || a >= n || b < 0 || b >= m) continue;
+            int newVal = min(u.pA, min(distToFrog[u.pB.pA][u.pB.pB], distToFrog[a][b]));
+            if (realDist[a][b] == INF || newVal > realDist[a][b]) {
+                realDist[a][b] = newVal;
+                pq.push({newVal, {a, b}});
+            }
+        }
+    }
+    ps(realDist[kx][ky]);
 
     return 0;
 }
