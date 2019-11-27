@@ -1,3 +1,13 @@
+/*
+ * Note that the final network must have an even number of edges. If we treat the edges as undirected, note
+ * that each node has to have an even degree. This suggests that Euler Tour can be useful.
+ *
+ * 1. Add edges between nodes with odd degrees s.t. each node's degree is even
+ * 2. If the number of edges is odd, add one more self edge
+ * 3. Generate an euler path on the graph
+ * 4. Alternate edge directions on the euler path
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
