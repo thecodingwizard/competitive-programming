@@ -1,3 +1,21 @@
+/*
+ * Same solution as editorial:
+ * - Create a bipartite graph, left nodes are programmers and right nodes are tasks, draw edges if programmer can solve task
+ * - Greedily assign people to tasks s.t. max # of tasks are solved. Ignore the contest time limit constraint for now.
+ *   Mark the edge between programmer => task if the programmer is assigned to that task
+ * - We want to minimize the tasks each person has to solve. Note that if we find a path, starting from a programmer and
+ *   ending at another programmer, where the path edges alternates from marked (programmer is assigned to that task)
+ *   and unmarked (task can be solved by programmer but isn't currently assigned that way), and if the degree
+ *   of the first node is greater than 1 + degree of end node, then we can alternate all the edges in that
+ *   path and we will gain a better solution. (alternate meaning make marked edges unmarked and unmarked edges marked).
+ * - To find this path, we iterate through all the programmer nodes in decreasing degree order, and we DFS
+ *   to see if such a path exists. We mark all programmer nodes we visit as "visited" and we don't visit them twice,
+ *   because if we visited them once before and we couldn't find a valid path, then we won't be able to find
+ *   a valid path the second time around either due to the order in which we process the programmer nodes.
+ * - In practice we won't have to DFS through every node to find a valid path, so even though complexity looks bad,
+ *   if we make sure to exit the search as soon as we find a valid path then it will actually run in time
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
