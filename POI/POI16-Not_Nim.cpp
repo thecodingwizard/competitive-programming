@@ -1,3 +1,45 @@
+/*
+ * Same solution as editorial
+ *
+ * Player A wants to end game in fewest moves, player B wants to stall
+ * - With pen and paper we get that if player A repeatedly removes stones from one pair until it's gone,
+ *   a pair of n stones will take him floor(log2(n))*2 + 4 steps
+ * - However, after one stack of stones is gone, player B will have to "upset" the balance of one stack of stones.
+ *   This can reduce the number of moves it takes to remove that stack of stones. For example, if our
+ *   stones was (1 1) (1 1) it would take only 5 moves, not 7, because after the first pair of stones is gone
+ *   Player B will be forced to change the second set from (1 1) to (2 0) reducing the answer by 2
+ * - Our strategy is: Create a "base" answer by summing floor(log2(A_i))*2 + 4 for all A_i. Subtract one from
+ *   this base answer since player A gets the last move. Then we need to figure out how many moves we can subtract from
+ *   this base answer.
+ * - If there's a pair of 1 stone (1 1) and player B is forced to rebalance it, then we can subtract two from our answer.
+ * - Note that prior to the first rebalancing, player A can remove stones s.t. each stack's new value is just
+ *   the leading ones. ie if the original number was 111001101 in base 2, player A can remove stones from that stack
+ *   until the number is just 111 in base 2. Therefore the only important part about each stack's number is the
+ *   number of leading ones in that number.
+ * - Now consider a rebalancing. Let's take the number 7 as an example. If player B rebalances (7 7), then it will
+ *   eventually become (3 3):  (7 7) -> (8 6) -> (0 6) -> (3 3) In other words, rebalancing a stack of stones with n
+ *   leading ones will result in a new stack with (n-1) leading stacks. However, if there is only one leading one (ie
+ *   if player B is rebalancing a stack with only one stone) then we can subtract two from the answer.
+ * - Player B must rebalance once after each stack of stones is removed completely.
+ * - Note that Player B will always rebalance the stack of stones with the most number of leading ones since that
+ *   prolongs the time until it reaches (1 1)
+ * - Note that Player A will always choose to remove the stack of stone with the most number of leading ones since
+ *   that stack takes lots of rebalancings before it reaches (1 1)
+ *
+ * Therefore, our solution is:
+ * 1. Calculate the base answer
+ * 2. Create a priority queue. Each stack is represented as the number of leading ones of the number of stones in that stack.
+ *    Pop the biggest number from the priority queue since player A must remove one stack of stones before player B does
+ *    the first rebalancing.
+ * 3. While the priority queue is not empty, take the pair of stones with the most number of leading ones and process it:
+ *    3a. If that pair of stones has one leading ones, then the rebalancing will lead 2 fewer moves. answer -= 2.
+ *    3b. If the pair of stones has more than one leading ones, then the rebalancing will result in a new stack with
+ *        one fewer leading one. Insert a new element into the priority queue with value n-1. Then, pop the biggest
+ *        element from the priority queue since player A will have to remove another set of stones before the next rebalancing.
+ *
+ * Also see code comments
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -165,13 +207,15 @@ int main() {
     int n; re(n);
     ll A[n]; reA(A, n);
 
-    ll ans = -1;
+    /* Generate the base answer */
+    ll ans = -1; // Since player A gets the last move we subtract one from the base answer
     F0R(i, n) {
         ans += floor(log2(A[i])) * 2 + 4;
     }
 
     priority_queue<int> pq;
 
+    // For each input number, insert the number of leading ones into the priority queue
     F0R(i, n) {
         int numLeading = 0;
         F0Rd(j, 32) {
@@ -184,13 +228,23 @@ int main() {
         pq.push(numLeading);
     }
 
-    pq.pop();
+    pq.pop(); // Remove the first stack in order to trigger the first rebalancing
     while (!pq.empty()) {
+        // Within this loop, player B must rebalance one stack, and player A must completely remove one stack.
+        // This continues until there are no more stacks.
+
         int u = pq.top(); pq.pop();
         if (u == 1) {
+            // If the only stack player B can rebalance are stacks with one leading one, then we can subtract
+            // 2 from the answer
             ans -= 2;
         } else {
+            // Otherwise, player B will rebalance the stack with the most number of leading ones,
+            // leading to a new stack with one less leadnig one
             pq.push(u - 1);
+
+            // Then player A will have to completely remove one stack in order to trigger the next rebalancing.
+            // Obviously player A will choose to remove the stack with the most number of leading ones.
             pq.pop();
         }
     }
