@@ -1,3 +1,10 @@
+/*
+ * See: https://github.com/stefdasca/CompetitiveProgramming/blob/master/Infoarena/shgraf.cpp
+ * Basically use a lot of DP :)
+ *
+ * Note: Time limit is very tight, use iterative DP. Furthermore, make sure to define modulo as "const int mod = 30011"
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
