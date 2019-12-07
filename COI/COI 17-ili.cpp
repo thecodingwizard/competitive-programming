@@ -1,3 +1,18 @@
+/*
+ * 1. Set all starting wires and logic elements to one.
+ * 2. For every logic element that is zero, run a dfs to set all of its parents, its parents' parents, etc to zero as well
+ * 3. Now, update the value of all of the elements given these changes.
+ *
+ * All of the above can be done in O(N^2) time. Any element that is currently zero must be zero.
+ *
+ * Next, we will loop through each of the logic elements that are currently set to one, and we will try
+ * setting it to zero.
+ * 1. Set the logic element to zero, and all of its parents, its parents' parents, etc
+ * 2. Update the value of all of the other elements given these changes
+ * 3. Check to see if there are any conflicts with the initial state given by the input. If so, then the logic
+ *    element must be one. If not, then it can be either zero or one.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
