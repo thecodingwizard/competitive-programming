@@ -1,3 +1,16 @@
+/*
+ * Same solution as editorial
+ *
+ * - Don't calculate angles, the precision isn't good enough. Use long double + use cross products to sort points
+ * - Sort all points by angle from A. Sweep in increasing angle. When we hit a point, update all the queries
+ *   for the point's tribe
+ * - The above will time out if there are a lot of queries of the form (a, tribe_thats_not_a). Therefore,
+ *   if there are more than sqrt(Q) queries of the form (a, tribe_thats_not_a), then we instead process
+ *   it as (tribe_thats_not_a, a), basically a reverse query. We will need a slightly different sweep
+ *   algorithm in order to process these types of queries. In total there are two sweeps
+ * - My implementation is pretty terrible oops
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
