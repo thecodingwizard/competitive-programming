@@ -1,3 +1,12 @@
+/*
+ * Same solution as editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/COI/official/2015/final-exam2/solutions.pdf
+ *
+ * DP[i][j] = assume there is a drill at i-1. We have j drills left to use. What's the most oil we can get?
+ * Optimize with Divide and Conquer DP
+ *
+ * Contains code for Divide and Conquer DP: https://cp-algorithms.com/dynamic_programming/divide-and-conquer-dp.html
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
