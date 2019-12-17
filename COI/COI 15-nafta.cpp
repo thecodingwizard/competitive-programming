@@ -1,3 +1,12 @@
+/*
+ * Same solution as editorial: https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/COI/official/2015/final-exam2/solutions.pdf
+ *
+ * DP[i][j] = assume there is a drill at i-1. We have j drills left to use. What's the most oil we can get?
+ * Optimize with Divide and Conquer DP
+ *
+ * Contains code for Divide and Conquer DP: https://cp-algorithms.com/dynamic_programming/divide-and-conquer-dp.html
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -159,127 +168,111 @@ using namespace output;
 
 /* ============================ */
 
-class InParser {
-private:
-    FILE *fin;
-    char *buff;
-    int sp;
+#define MAXN 2100
 
-    char read_ch() {
-        ++sp;
-        if (sp == 4096) {
-            sp = 0;
-            fread(buff, 1, 4096, fin);
-        }
-        return buff[sp];
-    }
-
+struct FenwickTree {
 public:
-    InParser(const char* nume) {
-        fin = fopen(nume, "r");
-        buff = new char[4096]();
-        sp = 4095;
+    vi ft;
+    FenwickTree(int n) {
+        ft.assign(n+1, 0);
     }
-
-    InParser& operator >> (int &n) {
-        char c;
-        while (!isdigit(c = read_ch()) && c != '-');
-        int sgn = 1;
-        if (c == '-') {
-            n = 0;
-            sgn = -1;
-        } else {
-            n = c - '0';
-        }
-        while (isdigit(c = read_ch())) {
-            n = 10 * n + c - '0';
-        }
-        n *= sgn;
-        return *this;
+    void upd(int k, int v) {
+        for (; k < sz(ft); k += LSOne(k)) ft[k] += v;
     }
-
-    InParser& operator >> (long long &n) {
-        char c;
-        n = 0;
-        while (!isdigit(c = read_ch()) && c != '-');
-        long long sgn = 1;
-        if (c == '-') {
-            n = 0;
-            sgn = -1;
-        } else {
-            n = c - '0';
-        }
-        while (isdigit(c = read_ch())) {
-            n = 10 * n + c - '0';
-        }
-        n *= sgn;
-        return *this;
+    int qry(int k) {
+        int sum = 0; for (; k; k -= LSOne(k)) sum += ft[k];
+        return sum;
     }
 };
 
+int r, s;
+char grid[2000][2000];
+
+int leftmost, rightmost, ct;
+int dx[4] = {-1,0,1,0};
+int dy[4] = {0,1,0,-1};
+void dfs(int i, int j) {
+    MIN(leftmost, j);
+    MAX(rightmost, j);
+    ct += grid[i][j] - '0';
+    grid[i][j] = '.';
+    F0R(x, 4) {
+        int a = i + dx[x], b = j + dy[x];
+        if (a >= 0 && a < r && b >= 0 && b < s && grid[a][b] != '.') dfs(a, b);
+    }
+}
+
+int gain[MAXN][MAXN];
+int dp[MAXN][MAXN];
+int dpTransition[MAXN][MAXN];
+
+// works with condition that dpTransition[i][j] <= dpTransition[i+1][j]
+void solveDP(int lo, int hi, int transitionLo, int transitionHi, int j) {
+    if (lo > hi) return;
+    int mid = (lo + hi)/2;
+    // solve for dp[mid], dpTransition[mid]
+    dp[mid][j] = -INF;
+    FOR(k, max(transitionLo, mid), transitionHi+1) {
+        int opt = (k==s?0:dp[k+1][j-1]) + gain[k][mid];
+        if (dp[mid][j] < opt) {
+            dp[mid][j] = opt;
+            dpTransition[mid][j] = k;
+        }
+    }
+    solveDP(lo, mid - 1, transitionLo, dpTransition[mid][j], j);
+    solveDP(mid + 1, hi, dpTransition[mid][j], transitionHi, j);
+}
+
 int main() {
-    setupIO("deletegcd");
-    InParser fin("deletegcd.in");
+    setupIO();
 
-    int n, q; fin >> n >> q;
-    int A[n]; F0R(i, n) fin >> A[i];
-
-    int mx = 0; trav(x, A) MAX(mx, x);
-    int isPrime[mx+10]; SET(isPrime, -1, mx+10);
-    vi primes;
-    FOR(i, 2, mx+1) {
-        if (isPrime[i] == -1) {
-            isPrime[i] = sz(primes);
-            primes.pb(i);
-            for (int j = i + i; j <= mx; j += i) isPrime[j] = -10;
-        }
-    }
-
-    vi primeFactors[n];
-    F0R(i, n) {
-        int num = A[i];
-        for (int factorIdx = 0; factorIdx < sz(primes) && primes[factorIdx] <= sqrt(num); factorIdx++) {
-            int p = primes[factorIdx];
-            if (num/p*p == num) {
-                primeFactors[i].pb(factorIdx);
-                while (num/p*p == num) num /= p;
+    re(r, s);
+    F0R(i, r) reA(grid[i], s);
+    vector<pair<ii, int>> pools;
+    F0R(i, r) {
+        F0R(j, s) {
+            if (grid[i][j] != '.') {
+                leftmost = INF, rightmost = -INF, ct = 0;
+                dfs(i, j);
+                pools.pb({{leftmost+1, rightmost+1}, ct});
             }
         }
-        if (isPrime[num] >= 0) primeFactors[i].pb(isPrime[num]);
     }
+    sort(all(pools));
 
-    int l = 0, r = -1;
-    int rightMost[n];
-    int numGood[sz(primes)]; SET(numGood, 0, sz(primes))
-    int numGoodValCt[n+10]; SET(numGoodValCt, 0, n+10);
-    while (l < n) {
-        while (r < n) {
-            if (r-l >= 0 && numGoodValCt[r-l] == 0 && numGoodValCt[r-l+1] == 0) break;
-            r++;
-            if (r >= n) break;
-            trav(factor, primeFactors[r]) {
-                numGoodValCt[numGood[factor]]--;
-                numGood[factor]++;
-                numGoodValCt[numGood[factor]]++;
-            }
+    int n = s;
+
+    // Step 1: Calculate gain
+    FenwickTree FT(s+10);
+    trav(pool, pools) {
+        FT.upd(pool.pA.pA, pool.pB);
+        FT.upd(pool.pA.pB+1, -pool.pB);
+    }
+    int poolIdx = 0;
+    F0R(posCovered, s+1) {
+        while (poolIdx < sz(pools) && pools[poolIdx].pA.pA-1 < posCovered) {
+            // remove poolIdx
+            auto pool = pools[poolIdx];
+            FT.upd(pool.pA.pA, -pool.pB);
+            FT.upd(pool.pA.pB+1, pool.pB);
+            poolIdx++;
         }
-
-        trav(factor, primeFactors[l]) {
-            numGoodValCt[numGood[factor]]--;
-            numGood[factor]--;
-            numGoodValCt[numGood[factor]]++;
+        FOR(i, posCovered, s) {
+            gain[i][posCovered] = FT.qry(i+1);
         }
-
-        rightMost[l++] = r;
     }
 
-    F0R(i, q) {
-        int a, b; fin >> a >> b;
-
-        if (rightMost[a-1] >= b) cout << '1';
-        else cout << '0';
+    F0R(j, s+1) {
+        if (j == 0) {
+            F0R(i, s+1) dp[i][j] = 0;
+        } else {
+            solveDP(0, s, 0, s, j);
+        }
     }
-    cout << '\n';
-    
+
+    F0R1(i, s) {
+        ps(dp[0][i]);
+    }
+
     return 0;
 }
