@@ -1,3 +1,25 @@
+/*
+ * Same solution as editorial
+ *
+ * Brute force the two hubs h1 and h2. Calculate distance from each hub to every node: d1[x] = dist from h1 to x, likewise for d2
+ *
+ * Let's say we have assigned each node to one of the two hubs. Then our answer for this assignment is
+ * max(max_h1 + second_max_h1, max_h2 + second_max_h2, max_h1 + max_h2 + dist_h1_to_h2)
+ *
+ * Note that our assignment only depends on max_h1, second_max_h1, max_h2, and second_max_h2 (this is assuming h1 and h2 are fixed).
+ * If we brute force all possible options for max_h1 and second_max_h1, then the optimal strategy is:
+ * - For every node x, if d1[x] <= second_max_h1, assign it to the first hub. Otherwise, assign it to the second hub.
+ *
+ * This algorithm is O(n^5), but we can optimize it. We can fix max_h1. Start by assigning all nodes to h1.
+ * Sort all the nodes by their distance to h1. In decreasing order of their distance, we will process each node, setting
+ * that node as second_max_h1. After we finish updating the best answer, we move that node to h2 and continue. This is O(n^4).
+ *
+ * Now notice that, for a fixed max_h1, if moving second_max_h1 to h2 leads to a worse answer than what we had before,
+ * then we shouldn't change second_max_h1, and we can exit early. Further note that if we process max_h1 in decreasing
+ * order, then when we hit the second_max_h1 that will lead to a worse answer, second_max_h1 is the next max_h1 we should
+ * process. Therefore we have O(n^3)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
