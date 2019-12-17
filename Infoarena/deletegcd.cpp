@@ -1,3 +1,15 @@
+/*
+ * Two pointers: define maxRight[i] = j where [i...j) is the largest possible range starting at i where
+ * we can output 1. We can use two pointers to populate this array:
+ * - Keep moving the right pointer until [l, r] is no longer valid (explained below)
+ * - Keep an array numGood[i] that stores the number of numbers in our range that have i as a prime factor
+ * - When adding a number, for every prime factor  of that number, increment numGood[primeFactor]. Note that
+ *   there can't be very many prime factors, so this is reasonably fast. When removing, decrement.
+ * - Our valid condition is if there is some prime number x such that numGood[x] >= r - l. We can check this
+ *   quickly by creating a second array, numGoodValCt[v] that stores the number of i where numGood[i] = v.
+ *   If numGoodValCt[r-l] > 0 or numGoodValCt[r-l+1] > 0 then our range is valid.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
