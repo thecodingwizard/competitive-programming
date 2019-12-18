@@ -1,3 +1,17 @@
+/*
+ * Note that m doesn't matter, m x n is equal to the answer for 2 x n raised to the (m-1)th power.
+ *
+ * To solve the 2xn case, we can use dp.
+ *
+ * define dp[i][j] = assuming there is a rod from the ith cell of the first row to the jth cell of the second row,
+ * how many ways can we put rods for the remaining cells to the right of ith cell, jth cell?
+ *
+ * Our transition is dp[i][j] = (sum of all dp[x][y] where x > i and y >= j) + (sum of all dp[i][y] where y >= j) + 1
+ * (basically n^2 brute force as to where we put the next rod, or if we don't put a rod at all).
+ *
+ * We can compute this in O(n^2) with prefix sums/transitions
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
