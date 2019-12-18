@@ -1,3 +1,18 @@
+/*
+ * We can do a straightforward dp[i][j] = take j time with i and the subtree of i for O(NP^2).
+ *
+ * To speed this up, run a dfs on the tree and create an array of a traversal of the tree.
+ *
+ * Define dp[i][j] = On the ith index of the traversal, all the way to the end of the traversal, take j time.
+ *
+ * Our transition is: Either block the path from the parent of the ith node, or don't block the path.
+ *
+ * If we block the path, then dp[i][j] += dp[next_idx_not_in_subtree_of_i][j]*2^(num edges in subtree of i)
+ * If we don't block the path, then dp[i][j] += dp[i+1][j - time_spent[i]]
+ *
+ * See: https://github.com/stefdasca/CompetitiveProgramming/blob/master/Infoarena/radare.cpp
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
