@@ -1,3 +1,18 @@
+/*
+ * Rotate the plane 45 degrees by transforming the point (x, y) to (x-y, x+y)
+ * Note that the manhattan distance between two transformed points (x, y) and (a, b) is max(abs(a-x), abs(b-y))
+ *
+ * For a given point, we can binary search on the minimum distance to the next point. We maintain a 2D
+ * segment tree. When checking to see if a given distance k works, we do a 2d range sum query summing
+ * the number of points from (x-k, y-k) to (x+k, y+k). If the number is > 0 then the distance works.
+ *
+ * To make this faster, note that we don't actually need to know the specific # of points, just whether a point
+ * exists. Therefore we can use a modified 1D segment tree. The value of each segment tree node is a set
+ * of integers representing the y-coordinates of this range. When adding the point (x, y), we just insert
+ * y into the set of every node whose range covers x. Then, when querying, for every range that covers the x query range,
+ * we check to see if *st[p].lower_bound(yMin) <= yMax.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
