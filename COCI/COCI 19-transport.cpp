@@ -1,3 +1,29 @@
+/*
+ * Centroid decomposition
+ *
+ * For each centroid, we want to find the number of pairs (u, v) in the centroid's subtree such that
+ * the path from u to v goes through the centroid, and is also valid.
+ *
+ * For each centroid, define cost[i] = minimum gas you will have as you start at the centroid and travel to
+ * node i. Note that a path (u, v) is valid if and only if
+ * a) you can get from u to the centroid without running out of gas,
+ * b) cost[v] >= how much leftover gas you have after going from u to the centroid.
+ *
+ * Solution:
+ * 1. Find the centroid of the graph
+ * 2. Calculate cost[i], ie the cost (min amt of gas) to go from the centroid to every node. Do this in O(n) with a DFS.
+ *    Insert every one of these values into a Binary Indexed Tree (or set or something). Also, if any of these values
+ *    is >= 0, then we increment answer because one possible path is (centroid, node_whose_value_is_ge_0)
+ * 3. For every child of the centroid,
+ *    a) remove that child and the child's subtree from the binary indexed tree
+ *    b) Make a list of how much gas left over after going from a node in the child's subtree to the centroid.
+ *       Do this in O(n) with a DFS
+ *    c) For every number in that list, query the binary indexed tree to find the number of values where value >= -item_in_list
+ *       Add the result to the answer
+ *    d) Re-add the child and the child's subtree to the binary indexed tree
+ * 4. For every child of the centroid, repeat these steps on the smaller graph
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
