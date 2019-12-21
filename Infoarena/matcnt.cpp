@@ -1,3 +1,20 @@
+/*
+ * Define dp[i] = the solution to the problem with n = i
+ *
+ * If we have nodes from 1...n, for each row let the positions of the ones be (ai, bi). We will draw
+ * an edge from node ai to node bi. We want each node to have a degree of exactly two, and we don't
+ * want a pair of nodes to be connected by more than one edge. Therefore, we can reduce the problem
+ * to the following: How many graphs are there with n nodes where the n nodes from disjoint cycles of
+ * length at least 3? We multiply this number by n! (because the rows can be in any order) in order
+ * to obtain our final answer.
+ *
+ * Our dp recurrence is as follows: Base case dp[3] = 1.
+ * Assume we are at dp[i]. We can add a new node after any node in our current setup, so dp[i+1] += dp[i]*i.
+ * We can also add an entirely new cycle. To do this, we need to add three new nodes. In our new cycle of length 3, to avoid
+ * overcounting, we fix the (i+3)rd node to be part of the new cycles. Next, we must choose two additional nodes to complete
+ * this cycle from (i+2) possible nodes. Therefore, dp[i+3] += dp[i]*(i+2)*(i+1)/2.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
