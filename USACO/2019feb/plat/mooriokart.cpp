@@ -1,3 +1,33 @@
+/*
+ * We are basically going to visit all the farms once, and each time we do we will have to traverse through at least
+ * one edge in that farm.
+ *
+ * Let's fix the order in which we visit the farms. Our answer is just that number times (n-1)!/2, because we
+ * can visit the farms in any order, but we divide by 2 because it doesn't matter which direction we visit the farms in.
+ *
+ * Define paths[i][j] to be the list of path lengths on the i'th farm where the length equals j. If j = Y, then
+ * paths[i][j] is the list of paths where the path length is >= Y. We can calculate this in O(n^2) time.
+ *
+ * Define pathsSum[i][j] to be the sum of the values of paths[i][j], and define pathsCt[i][j] = sz(paths[i][j]).
+ * Define pathLengths[i] to contain the list of j values where pathsCt[i][j] != 0. this helps us speed up our DP transitions.
+ *
+ * We can solve this problem by DP. Define dp[i][j] = the sum of valid track lengths from the i'th farm to the
+ * last farm where the track length must be at least j. Define dp2[i][j] = the number of valid tracks from
+ * the i'th farm to the last farm where track length is at least j.
+ *
+ * Let's look at dp2[i][j] first: The base case is when i is the K'th farm (zero indexed, so it's an imaginary farm).
+ * dp2[k][j] = 0 if j != 0, and dp2[k][0] = 1.
+ * For the recurrence, we basically have to figure out which path we want to take in the i'th farm. If we are taking
+ * a path of length a, then dp2[i][j] += dp2[i+1][max(j-a - X, 0)] (the - X comes from the length of the path we're adding).
+ * We can do this quickly with the path info we calculated earlier. For every value j2 in pathLengths[i],
+ * dp2[i][j] += dp2[i+1][j - j2 - X]*pathsCt[i][j2].
+ *
+ * dp[i][j] base case is: if i >= k, then 0.
+ * Recurrence: Similar to dp2, except this time we use dp2 to help us compute the transition. The idea is the same:
+ * we try out every path in farm i.
+ * For every value j2 in pathLengths[i], dp[i][j] += dp[i+1][j - j2 - X]*pathsCt[i][j2] + dp2[i+1][j - j2 - X]*pathsSum[i][j2]
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
