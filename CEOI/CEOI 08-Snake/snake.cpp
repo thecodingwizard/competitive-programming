@@ -1,3 +1,13 @@
+/*
+ * Binary search for the start of the snake and the end of the snake.
+ *
+ * However, if the search range for the start of the snake is equal to the search range to the end of the snake
+ * (ie the first query), then we can do a "ternary search" and essentially divide the search range into
+ * three parts to shrink our range from n to n/3.
+ *
+ * See code or editorial for more details
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
