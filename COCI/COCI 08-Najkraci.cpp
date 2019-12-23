@@ -1,3 +1,20 @@
+/*
+ * From every node, run dijkstra's from it.
+ *
+ * In the solve function for a particular node:
+ * For every node we need to store a) the distance to the root node, b) how many shortest paths there are
+ * from root to this node, c) how many shortest paths are there from this node to any other node.
+ * If we know this, then for every edge that is valid (ie dist[edge.from] + edge.length = dist[edge.to]) then
+ * ans[edge] += pathsFromRootToNode[edge] * pathsFromNodeToAnotherNode[edge].
+ *
+ * We can figure out this with dijkstra's. Run dijkstra where the state is (length, numPathsFromRootToNode).
+ * When updating, if distance is < new distance, replace both length and numPaths. Otherwise, if distance == newDistance,
+ * do numPaths[toNode] += numPaths[fromNode]
+ *
+ * Then run dp(i) = # of shortest paths from node i to any other node. Transition is basically go down any edge that is valid
+ * (ie part of shortest path).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
