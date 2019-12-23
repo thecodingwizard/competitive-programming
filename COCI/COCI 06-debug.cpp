@@ -1,3 +1,13 @@
+/*
+ * Same solution as editorial. Note that if a square is a killer square, then a smaller square sharing
+ * the same center is also a killer square. Therefore, we brute force all 1x1 squares as the center, and also
+ * all 2x2 squares as the center, of a possible killer square and just keep expanding.
+ *
+ * Naively this takes O(N^4) but we can optimize by: For each cell (x, y), in each of the four directions,
+ * we store a 64 bit integer representing 64 cells in each of the four directions. Therefore we can speed
+ * up the checking process by a factor of 64.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
