@@ -1,3 +1,26 @@
+/*
+ * Also see: https://github.com/luciocf/OI-Problems/blob/master/BOI/BOI%202017/cat.cpp
+ *
+ * Arbitrarily root the tree.
+ *
+ * Define S = our current set of marked nodes. Note that an optimal solution exists if the next marked
+ * node we take is the node with the greatest depth (as deep as possible) whose distance from any node
+ * in S is >= D.
+ *
+ * Therefore we can sort nodes by depth and greedily add them to our set if its distance is >= D
+ * We need to be able to do the following two queries fast:
+ * 1. Find minimum distance from node X to any node in our set S
+ * 2. Add node X to our set S
+ *
+ * We can do this quickly with centroid decomposition (identical to CF342E - Xenia and Tree).
+ * For each centroid, we store the minimum distance from that centroid to a marked node.
+ * To find minimum distance from node X, we go up the centroid tree.
+ * MIN(curMinDist, dist(X, centroid) + minDistFromCentroidToMarkedNode[centroid])
+ *
+ * When adding the node X to set S, go up the centroid tree.
+ * MIN(minDistFromCentroidToMarkedNode[centroid], dist(X, centroid))
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
