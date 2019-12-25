@@ -1,3 +1,14 @@
+/*
+ * Sort each of the nodes in decreasing order of height.
+ *
+ * Use union find. Each set will store a number "val" representing the number of destination nodes
+ *
+ * Process the heights in decreasing order. At each height:
+ * - "Union" all nodes with height >= curHeight - D with their neighbors, if their neighbor's height is >= curHeight - D.
+ * - For all nodes with height = curHeight, increment their set's stored "val"
+ * - For all nodes with height = curHeight, the answer for that node is just its set's stored "val"
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
