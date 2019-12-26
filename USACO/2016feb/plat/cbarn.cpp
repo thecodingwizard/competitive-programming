@@ -1,3 +1,18 @@
+/*
+ * Divide and Conquer DP
+ *
+ * define dp(i, j) = you have (j+1) doors left. You are building a door at i. Min cost for cows from [i...n-1]?
+ *
+ * Brute force a possible starting door.
+ *
+ * dp(i, j) = dp(k, j-1) + cost(i, k) where k > i. Naively this is N^2 K
+ * Note that the optimal k value will increase as i increases. This suggests we can use divide and conquer DP.
+ *
+ * Therefore we can compute in NK log N, with a total time complexity of N^2 K log N due to brute force for starting door.
+ *
+ * Same solution as editorial
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
