@@ -1,3 +1,21 @@
+/*
+ * Same as editorial, similar to CodeForces Chemical Table
+ *
+ * Assume for a moment that there are no walls. Then let's create n nodes representing the n rows and m nodes
+ * representing the m columns. For each room without a trap, we draw an edge (i, j) from the i'th row node to the
+ * j'th column node.
+ *
+ * We want to select a subset of these edges such that no node has two edges. This is the MCBM problem which
+ * can be solved with augmenting paths in O(VE)
+ *
+ * To deal with the walls: we can think of each wall as creating a new row + column node. Each non-wall cell
+ * will inherit its row node from the cell on its left, and its column from the cell above it. Each wall
+ * cell will create a new row + column node. See implementation below
+ *
+ * Then we just run augmenting paths algorithm. In theory it's O(N^2 M^2) but in practice it's actually a lot
+ * faster and runs in time because a lot of nodes have no edges.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
