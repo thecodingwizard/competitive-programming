@@ -1,3 +1,13 @@
+/*
+ * Define dp[l][r] = answer assuming the range [l...r] is completely uneaten. We only consider
+ * the cows whose favorite cows are completely within the range [l...r]. Consider the very last
+ * cow in the sequence to eat in this range. It must eat at least one cake. We can brute force
+ * the location of the cake it will eat in, so dp[l][r] = max(dp[l][k-1] + weight[l][k][r] + dp[k+1][r])
+ * for all k where l <= k <= r. weight[l][k][r] represents the maximum weight of a cow whose
+ * start index lies between l and k, and end index lies between k and r. Weight[l][k][r] can be precomputed
+ * in O(n^3) time, and the dp takes O(n^3) time.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 

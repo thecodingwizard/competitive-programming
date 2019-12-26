@@ -6,6 +6,8 @@ Command to find problems solved:
 find -type f -name "*.cpp" ! -name "*main*" -not -path "./cpbook-code/*" -not -path "./alphastar/*summer*/*" -not -path "./**/*game*/*" | wc -l
 ```
 
+Note: Nothing below is kept up to date anymore!!
+
 # USACO Solutions
 
 Solutions to USACO training and USACO contest problems.
