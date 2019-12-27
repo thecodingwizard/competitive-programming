@@ -1,3 +1,13 @@
+/*
+ * The following is a very sketchy non-legit solution that somehow works:
+ *
+ * Add the two numbers and iterate from back to front.
+ * - If A[i] >= 2, then (A[i] -= 2), (A[i+1]++), (A[i-2]++) and we go back to check A[i+1]. Special case for i = 0, 1
+ * - If A[i] >= 1, and A[i+1] >= 1, then (A[i]--), (A[i+1]--), and (A[i+2] += 2). Go back to check A[i+2]
+ *
+ * Reading code will probably be clearer
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
