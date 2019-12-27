@@ -1,3 +1,18 @@
+/*
+ * Same solution as stefdasca: https://github.com/stefdasca/CompetitiveProgramming/blob/master/Infoarena/sabin.cpp
+ *
+ * For each list of strings, put the following into an unordered_map:
+ * - first character of each string concatenated
+ * - first character of each string concatenated, + second character of each string concatednated
+ * - etc etc until you get through all p characters
+ *
+ * Then for each query, we want to find the number of list of strings where every of its string's max_prefix
+ * is at least X, but not every one of its strings's max_prefix is X+1.
+ *
+ * So we concatenate the first X characters of the query, then check the count of this result in the unordered_map.
+ * Then we concatenate the first X+1 characters. The answer to the query is our first number - our second number.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
