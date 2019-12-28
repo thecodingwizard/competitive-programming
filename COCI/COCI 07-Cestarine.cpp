@@ -1,3 +1,15 @@
+/*
+ * Same solution as editorial:
+ * - For now, ignore the "same ticket" limitation. Note that the answer is just to sort starting tickets, ending tickets,
+ * and greedily match them.
+ * - Now consider the limitation. If a truck ends with the same starting/ending ticket, then we will either want to swap
+ * their ticket with the truck above or below. But multiple trucks may want to swap tickets with the same truck (ie sample
+ * #2). So therefore a truck can swap their ticket with trucks up to two indexes away, but not more becuase then it's
+ * no longer optimal.
+ * - We can define dp[i] = min cost of assigning the first i tickets. We transition to either not swap,
+ * swap with i+1, or swap (i, i+1, i+2).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
