@@ -1,3 +1,16 @@
+/*
+ * If we're at a node x, we basically have to determine the order in which to visit each of our child nodes.
+ *
+ * For each child node, we can calculate: a) how long it takes to traverse the child node and b) how long
+ * it takes for the slowest node in the subtree of our child node to install the machine. We calculate this
+ * by recursion.
+ *
+ * Consider two child nodes a and b. Temporarily assume that these are the only child nodes. Try putting
+ * a before b and calculating the time. Then try putting b before a and calculate the time again. Depending
+ * on which time is shorter, we should put a before b / b before a. We can write a comparator with this
+ * and sort the child nodes to determine the order to visit them
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
