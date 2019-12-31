@@ -1,3 +1,13 @@
+/*
+ * Followed dragonslayerintraining's code: https://codeforces.com/contest/1193/submission/58102325
+ *
+ * Same solution as editorial, but instead of using range trees, we can just use maps and merge smaller->larger.
+ *
+ * Each map will have <time, value>. DP(u, x) is just sum of all values in the map where time <= x.
+ *
+ * Merge smaller to larger.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
