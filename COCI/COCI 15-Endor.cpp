@@ -1,3 +1,20 @@
+/*
+ * When thinking of the collisions, it's easier to think of it as the left and right ants passing through each other.
+ * The right moving ant will keep the original color, but the left moving ant will change into a new color of (a+b)%k.
+ *
+ * A n^2 solution can be achieved as follows (untested): For each ant, figure out how much it adds to the answer.
+ * If the ant is right moving, it adds (L - loc) to its color. If it is left moving, then we simulate its movement
+ * by looping from right to left through all the right moving ants it will hit. We can calculate how far it travels
+ * in each color.
+ *
+ * To speed this up, we can do one single sweep from right to left. When we reach a right moving ant, we process as before.
+ * When we reach a left moving ant, instead of sweeping through right moving ants again, we store its distance based on color:
+ * we can define colorDist[i] = sum of locations of left moving ants of color i that we have encountered so far.
+ * Then, when we reach the next right moving ant, we know that all the left moving ants we reached previously will
+ * collide with this right moving ant at some point. For every color, we can mathematically calculate how far the
+ * ants of that color will move before hitting the right moving ant. Then we update colorDist to account for color changes.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
