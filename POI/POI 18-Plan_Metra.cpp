@@ -1,3 +1,18 @@
+/*
+ * Define A[i] = distance from railway, B[i] = distance from airport. Zero indexed.
+ *
+ * Two cases:
+ *
+ * 1. B[i] - A[i] is the same for all i, and it is not zero. Then we connect 0 to n-1 with length abs(B[1] - A[1]).
+ *    Every node is connected to either 0 or n-1.
+ *
+ * 2. The distance from 0 to n-1 is equal to the minimum of A[i] + B[i] for some i in [1...n-2]. Given this,
+ *    we can construct a graph by: Every node is either on the path from 0 to n-1, or connects to some node
+ *    on the path from 0 to n-1, or connects to the nodes 0 or n-1.
+ *
+ * If none of these cases apply, then it's not possible.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
