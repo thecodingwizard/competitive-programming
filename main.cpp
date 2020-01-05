@@ -159,54 +159,56 @@ using namespace output;
 
 /* ============================ */
 
-struct ant {
-    ll loc, color, dir; // dir = 0 means left, dir = 1 means right
-};
+#define MAXN 100000
+#define MAXK 100
+
+int n, k;
+vii A;
+
+int memo[MAXN][MAXK];
+int dp(int i, int k) {
+    if (i == n) {
+        if (k == 0) return 0;
+        return -INF;
+    }
+    if (memo[i][k] != -1) return memo[i][k];
+
+    int best = -INF;
+    FOR(nextI, i+1, min(i+k+2, n+1)) {
+        int extra = 0;
+        if (nextI < n) {
+            ii a = A[i], b = A[nextI];
+            if (a.pB <= b.pA) extra = b.pB - b.pA;
+            else extra = b.pB - a.pB;
+        }
+        MAX(best, extra + dp(nextI, k - (nextI - i - 1)));
+    }
+    return memo[i][k] = best;
+}
 
 int main() {
-    setupIO();
+    setupIO("lifeguards");
 
-    int n, k, l; re(n, k, l); l = l*2;
-    vector<ant> ants;
-    int lastRightAnt = -1;
+    re(n, k);
+    A.pb({-1, -1});
+    vii input; F0R(i, n) {
+        int a, b; re(a, b); input.pb({a, b});
+    }
+    sort(all(input));
+    int prevB = -1;
     F0R(i, n) {
-        int a, b; char c; re(a, b, c);
-        ants.pb({a*2, b, c == 'D' ? 1 : 0});
-        if (c == 'D' && lastRightAnt == -1) lastRightAnt = i;
-    }
-    ll prevColorDist[k]; ll nextPrevColorDist[k]; SET(prevColorDist, 0, k);
-    ll colorDist[k]; int colorCt[k]; SET(colorDist, 0, k); SET(colorCt, 0, k);
-    ll nextColorDist[k]; int nextColorCt[k];
-    ll ans[k+1]; SET(ans, 0, k);
-    F0Rd(i, n) {
-        ant x = ants[i];
-        if (x.dir == 1) {
-            ans[x.color] += l-x.loc;
-            F0R(j, k) {
-                ans[j] += (colorDist[j]-x.loc*colorCt[j])/2 - prevColorDist[j];
-                if (i == lastRightAnt) {
-                    ans[(j + x.color) % k] += x.loc*colorCt[j] + (colorDist[j]-x.loc*colorCt[j])/2;
-                }
-                nextPrevColorDist[(j + x.color) % k] = (colorDist[j]-x.loc*colorCt[j])/2;
-                nextColorDist[(j + x.color) % k] = colorDist[j];
-                nextColorCt[(j + x.color) % k] = colorCt[j];
-            }
-            F0R(j, k) {
-                colorDist[j] = nextColorDist[j];
-                colorCt[j] = nextColorCt[j];
-                prevColorDist[j] = nextPrevColorDist[j];
-            }
-        } else {
-            if (i < lastRightAnt) {
-                ans[x.color] += x.loc;
-            }
-            colorDist[x.color] += x.loc;
-            colorCt[x.color]++;
+        int a = input[i].pA, b = input[i].pB;
+        if (b <= prevB) {
+            k--; continue;
         }
+        A.pb({a, b});
+        prevB = b;
     }
+    n = sz(A);
+    MAX(k, 0);
 
-    cout << fixed << setprecision(1);
-    F0R(i, k) ps(ans[i]/2.0);
+    SET2D(memo, -1, n, k+1);
+    ps(dp(0, k));
 
     return 0;
 }
