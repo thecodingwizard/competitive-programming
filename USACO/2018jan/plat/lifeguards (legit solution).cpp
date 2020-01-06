@@ -1,3 +1,17 @@
+/*
+ * dp(i, j) = have to fire j cows in the range [i...n-1]. What's the max amt that can be covered from [i...n-1] assuming
+ * the cow i must not be fired?
+ *
+ * NK^2 by looking at the next k cows and taking the max.
+ *
+ * Note that if none of the cows overlapped, we can keep track of the best transition pretty easily to get down to O(NK).
+ *
+ * If the cows do overlap, note that we always want to take the cow that overlaps the least (is the farthest away). We
+ * can use a deque for this.
+ *
+ * My solution is pretty much the same as the editorial
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
