@@ -1,3 +1,12 @@
+/*
+ * Same as luciocf: https://gist.github.com/luciocf/3cae49c9fe640a7d78e22ca832908091
+ *
+ * Use Parallel Binary Search (https://codeforces.com/blog/entry/45578)
+ * and Finding Bridges Online (https://cp-algorithms.com/graph/bridge-searching-online.html)
+ *
+ * Note that 0 <= a, b <= n, ie. A_i/B_i/x_i/y_i can equal n (read the comment for the problem on DMOJ).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
