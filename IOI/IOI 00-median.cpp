@@ -1,3 +1,24 @@
+/*
+ * Same as editorial, Ternary Partitioning with Randomized Pivot
+ * 
+ * First, pick two random indexes a and b. Assume you know for sure that a < b. You don't actually know for sure,
+ * but if it was actually a > b you will just end up sorting the array in reverse order and you'll still get the same
+ * answer for the median.
+ * 
+ * Next, run Med3(a, b, i) for all i that's not a, b. Depending on which value is the median, you know that either:
+ * 1. i < a < b
+ * 2. a < i < b
+ * 3. a < b < i
+ * 
+ * From this, we can "partition" the array into three parts, one that's before a, one that's between a and b,
+ * and one that's after b.
+ * 
+ * We figure out which partition contains the median and recursively do the same thing on the smaller array
+ * (pick two random indexes to act as the pivot. Note that you can figure out their order by comparing to a & b).
+ * 
+ * If the indexes are chosen randomly then this algorithm will almost always pass within 7777 calls.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
