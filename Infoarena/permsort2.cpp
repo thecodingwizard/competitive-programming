@@ -1,3 +1,13 @@
+/*
+ * We want to use two operations to move the leftmost number to its right position, without
+ * changing the ordering of the other numbers.
+ *
+ * If the right position is X, then we can use "P X" and "P X-1" to move the first number to the position X
+ *
+ * The target position of a number = the number's value + the # of numbers greater than that number that
+ * come after the number. We can find this using a binary indexed tree
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
