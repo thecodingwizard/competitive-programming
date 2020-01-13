@@ -1,3 +1,15 @@
+/*
+ * Root tree on a.
+ *
+ * Binary search for the max time.
+ *
+ * Start at node b, and figure out which parent of b we can reach while still satisfying the time limit.
+ * To reach a node, we need to be able to reach it in time and also have enough time for it to send data
+ * to all of its children.
+ *
+ * Then ignore the entire subtree starting at that node and see if we can send data to subtree of a in time.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
