@@ -1,3 +1,13 @@
+/*
+ * This is basically the dynamic diameter problem.
+ *
+ * The crucial observation is: Assume our current diameter is a->b. If we add a node x to the tree,
+ * the new diameter is max(a->b, a->x, x->b). In other words the new diameter either doesn't change
+ * or must contain the node x, as well as either a or b, whichever yields a greater diameter.
+ *
+ * Therefore, to solve the problem, we add nodes for one clan and we add nodes in reverse for the second.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -188,7 +198,7 @@ int lca(int a, int b) {
             a = pa[a][i], b = pa[b][i];
         }
     }
-    
+
     return pa[a][0];
 }
 
