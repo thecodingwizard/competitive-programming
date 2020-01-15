@@ -159,91 +159,83 @@ using namespace output;
 
 /* ============================ */
 
-#define MAXN 300000
+#define MAXN 200000
+#define LOGN 20
 
-int n, a, b;
+int n, q;
 vi adj[MAXN];
-vi children[MAXN];
-int parent[MAXN];
-bool vis[MAXN];
+int dist[MAXN];
+int pa[MAXN][LOGN];
 
-void dfs(int u, int p) {
-    parent[u] = p;
+ii dfs(int u, int p, int d) {
+    ii best = {d, u};
     trav(v, adj[u]) {
-        if (v != p) {
-            dfs(v, u);
-            children[u].pb(v);
-        }
+        if (v == p) continue;
+        ii opt = dfs(v, u, d+1);
+        if (opt.pA > best.pA) best = opt;
+    }
+    return best;
+}
+
+void dfs2(int u, int p, int d) {
+    dist[u] = d;
+    trav(v, adj[u]) {
+        if (v != p) dfs2(v, u, d+1);
     }
 }
 
-int calcTimeNeeded(int u) {
-    vi times;
-    trav(v, children[u]) {
-        if (!vis[v]) {
-            times.pb(calcTimeNeeded(v));
+int lca(int a, int b) {
+    if (dist[a] > dist[b]) return lca(b, a);
+    F0Rd(i, LOGN) {
+        if (dist[pa[b][i]] >= dist[a]) b = pa[b][i];
+    }
+
+    if (a == b) return a;
+
+    F0Rd(i, LOGN) {
+        if (pa[a][i] != pa[b][i]) {
+            a = pa[a][i], b = pa[b][i];
         }
     }
-    sort(all(times));
-    reverse(all(times));
-
-    int time = 0;
     
-    F0R(i, sz(times)) {
-        MAX(time, times[i] + (i+1));
-    }
-
-    return time;
+    return pa[a][0];
 }
 
-bool can(int mxT) {
-    SET(vis, false, n);
-
-    // step 1: go up as much as possible from b
-    int bTracker = b;
-    int time = 0;
-    while (bTracker != -1 && bTracker != a) {
-        int timeNeeded = calcTimeNeeded(bTracker);
-
-        if (timeNeeded + time < mxT) {
-            vis[bTracker] = true;
-            time++;
-        } else if (timeNeeded + time == mxT) {
-            vis[bTracker] = true;
-            break;
-        } else {
-            break;
-        }
-
-        bTracker = parent[bTracker];
-    }
-
-    // step 2: go down from a
-    return calcTimeNeeded(a) <= mxT;
+int getDist(int a, int b) {
+    return dist[a] + dist[b] - 2*dist[lca(a, b)];
 }
 
 int main() {
     setupIO();
 
-    re(n, a, b); --a; --b;
+    re(n, q);
     F0R(i, n-1) {
-        int x, y; re(x, y);
-        adj[x-1].pb(y-1);
-        adj[y-1].pb(x-1);
+        int a, b; re(a, b); --a; --b;
+        adj[a].pb(b); adj[b].pb(a);
     }
-    dfs(a, -1);
 
-    int lo = 0, hi = MAXN+10, mid, ans = -1;
-    while (lo < hi) {
-        mid = (lo + hi)/2;
-        if (can(mid)) {
-            hi = mid;
-            ans = mid;
-        } else {
-            lo = mid + 1;
+    dfs2(0, 0, 0);
+    FOR(i, 1, LOGN) {
+        F0R(j, n) {
+            pa[j][i] = pa[pa[j][i-1]][i-1];
         }
     }
-    ps(ans);
+
+    int a = -1;
+    int b = -1;
+
+    F0R(i, q) {
+        int x; re(x); --x;
+        if (a == -1) a = x;
+        else if (b == -1) b = x;
+
+        if (a == -1 || b == -1) ps(0);
+        else {
+            if (getDist(x, b) > getDist(a, b)) a = x;
+            if (getDist(a, x) > getDist(a, b)) b = x;
+            ps(a, b, getDist(a, b));
+        }
+    }
 
     return 0;
 }
