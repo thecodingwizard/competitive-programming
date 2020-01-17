@@ -1,3 +1,17 @@
+/*
+ * Same solution as editorial. My implementation *barely* runs in time, and frequently submissions will return "bad_alloc"
+ * even though it's not supposed to (my solution fits within the memory limit comfortably at ~414mb).
+ * Resubmitting usually fixes it. I had a test case that was 2.995s/3.0s...
+ *
+ * I used a segment tree of length 263000. Each segment tree stores the answer (or INF if no answer exists),
+ * and its K "interesting" prefixes and suffixes. Each prefix/suffix stores a bitmask and a position value.
+ *
+ * When merging, we can use two pointers on the left suffix and the right prefix in order to calculate answer.
+ * To merge prefix, we loop through all the prefixes on the left, then loop through prefixes on the right.
+ * If adding a right prefix results in a different bitmask, we add it to the list of "interesting" prefixes.
+ * Similar for suffix.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
