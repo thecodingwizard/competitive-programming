@@ -1,3 +1,18 @@
+/*
+ * Ignore ingredients and shopping. Our new problem is: Given a graph with 25 nodes and up to 500 edges,
+ * how many ways are there to start from node 1 and end at node 1 after T steps?
+ *
+ * Define ways[a][b] = # of ways to get from a to b with time x. Let's say that x = 4 right now.
+ * In O(n^3) time, we can calculate ways[a][b] for all (a, b) for time x = 8:
+ * - For every pair (a, b, c) of nodes, ways_8[a][c] += ways_4[a][b]*ways_4[b][c].
+ *
+ * Similarly we can get answer[a][b]; if (1 << bit) is set for T, then we do the above steps for answer[a][b] with ways_(1 << bit).
+ *
+ * To handle shopping, split each node into two nodes. To handle ingredients, use principle of inclusion exclusion.
+ *
+ * Supposedly a matrix exponentiation problem...
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
