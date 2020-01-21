@@ -1,3 +1,24 @@
+/*
+ * Let A[i] be the array of house colors
+ *
+ * Define startPosLeft[i] = the first house Bitie can rob and still end his robbing path at house i. startPosLeft[i] = -1
+ * if A[i] is not the color of the final house the robbers can rob.
+ *
+ * Define startPosRight[i] similarly (for Bytie instead of Bitie).
+ *
+ * The robbers can end at i if there is a same color house in the range [0...startPosLeft[i]) and (startPosRight[i]...n-1].
+ * We can precompute this in O(n).
+ *
+ * We can calculate startPosLeft[i] in O(n); Define startPos[i] for 0 <= i < k and initialize to -1.
+ * Sweep A from left to right.
+ * If A[i] is the first color, then startPos[A[i]] = i.
+ * If A[i] is not the first color, then startPos[A[i]] = startPos[parent[A[i]], where parent is the house color
+ * that will be robbed before A[i] is robbed.
+ * If A[i] is the last color, then update startPosLeft[i] = startPos[A[i]].
+ *
+ * Similarly we can calculate startPosRight.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
