@@ -1,3 +1,19 @@
+/*
+ * Same solution as editorial
+ *
+ * Ignore direction. Sort trains based on position.
+ *
+ * Note that in the optimal solution the trains' orientations would be alternating; ie one would face left,
+ * the next right, then left, etc etc.
+ *
+ * WLOG, assume that the first train optimally is at position 0. Then greedily assign the rest of the trains.
+ * Keep track of the maximum distance a train has to move to the right, and the maximum the train has to move to the left.
+ * If the first train is actually optimally at position 0, then our answer is max(max_dist_right, max_dist_left).
+ *
+ * Now, let's say that the first train is actually at position x, not position 0. Then max_dist_right += x, and max_dist_left -= x.
+ * Hence our final answer is actually abs(max_dist_right) + abs(max_dist_left) divided by 2.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
