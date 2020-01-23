@@ -1,12 +1,12 @@
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
-
+ 
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
-
+ 
 #define FOR(i, a, b) for (int i=a; i<(b); i++)
 #define F0R(i, a) for (int i=0; i<(a); i++)
 #define F0R1(i, a) for (int i=1; i<=(a); i++)
@@ -15,7 +15,7 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define trav(a, x) for (auto& a : x)
 #define MIN(a, b) a = min(a, b)
 #define MAX(a, b) a = max(a, b)
-
+ 
 #define INF 1000000010
 #define LL_INF 4500000000000000000LL
 #define LSOne(S) (S & (-S))
@@ -33,7 +33,7 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define SET2D(arr, val, dim1, dim2) F0R(i, dim1) F0R(j, dim2) arr[i][j] = val;
 #define SET3D(arr, val, dim1, dim2, dim3) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) arr[i][j][k] = val;
 #define SET4D(arr, val, dim1, dim2, dim3, dim4) F0R(i, dim1) F0R(j, dim2) F0R(k, dim3) F0R(l, dim4) arr[i][j][k][l] = val;
-
+ 
 #define lb lower_bound
 #define ub upper_bound
 #define sz(x) (int)x.size()
@@ -43,7 +43,7 @@ template<class T> using min_heap = priority_queue<T, vector<T>, greater<T>>;
 #define resz resize
 #define SORT(vec) sort(all(vec))
 #define RSORT(vec) sort(vec.rbegin(),vec.rend())
-
+ 
 typedef long long ll;
 typedef long double ld;
 typedef unsigned long long ull;
@@ -54,7 +54,7 @@ typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<ll> vl;
-
+ 
 // @formatter:off
 // Source: Benq (https://github.com/bqi343/USACO) [Modified]
 namespace input {
@@ -63,19 +63,19 @@ namespace input {
     template<class T> void re(vector<T>& a);
     template<class T, size_t SZ> void re(array<T,SZ>& a);
     template<class T> void reA(T A[], int sz);
-
+ 
     template<class T> void re(T& x) { cin >> x; }
     void re(double& x) { string t; re(t); x = stod(t); }
     void re(ld& x) { string t; re(t); x = stold(t); }
     template<class Arg, class... Args> void re(Arg& first, Args&... rest) {
         re(first); re(rest...);
     }
-
+ 
     template<class T1, class T2> void re(pair<T1,T2>& p) { re(p.pA,p.pB); }
     template<class T> void re(vector<T>& a) { F0R(i,sz(a)) re(a[i]); }
     template<class T, size_t SZ> void re(array<T,SZ>& a) { F0R(i,SZ) re(a[i]); }
     template<class T> void reA(T A[], int sz) { F0R(i, sz) re(A[i]); }
-
+ 
     void setupIO(const string &PROB = "") {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
@@ -89,25 +89,25 @@ namespace input {
     }
 }
 using namespace input;
-
+ 
 namespace output {
     template<class T1, class T2> void prD(const pair<T1,T2>& x);
     template<class T, size_t SZ> void prD(const array<T,SZ>& x);
     template<class T> void prD(const vector<T>& x);
     template<class T> void prD(const set<T>& x);
     template<class T1, class T2> void prD(const map<T1,T2>& x);
-
+ 
     template<class T1, class T2> void pr(const pair<T1,T2>& x);
     template<class T, size_t SZ> void pr(const array<T,SZ>& x);
     template<class T> void pr(const vector<T>& x);
     template<class T> void pr(const set<T>& x);
     template<class T1, class T2> void pr(const map<T1,T2>& x);
-
+ 
     template<class T> void prD(const T& x) { cout << x; cout.flush(); }
     template<class Arg, class... Args> void prD(const Arg& first, const Args&... rest) {
         prD(first); prD(rest...);
     }
-
+ 
     template<class T1, class T2> void prD(const pair<T1,T2>& x) {
         prD("{",x.pA,", ",x.pB,"}");
     }
@@ -120,7 +120,7 @@ namespace output {
     template<class T> void prD(const vector<T>& x) { prDContain(x); }
     template<class T> void prD(const set<T>& x) { prDContain(x); }
     template<class T1, class T2> void prD(const map<T1,T2>& x) { prDContain(x); }
-
+ 
     void psD() { prD("\n"); }
     template<class Arg> void psD(const Arg& first) {
         prD(first); psD(); // no space at end of line
@@ -128,13 +128,13 @@ namespace output {
     template<class Arg, class... Args> void psD(const Arg& first, const Args&... rest) {
         prD(first," "); psD(rest...); // print w/ spaces
     }
-
-
+ 
+ 
     template<class T> void pr(const T& x) { cout << x; }
     template<class Arg, class... Args> void pr(const Arg& first, const Args&... rest) {
         pr(first); pr(rest...);
     }
-
+ 
     template<class T1, class T2> void pr(const pair<T1,T2>& x) {
         pr(x.pA, " ", x.pB);
     }
@@ -145,7 +145,7 @@ namespace output {
     template<class T> void pr(const vector<T>& x) { prContain(x); }
     template<class T> void pr(const set<T>& x) { prContain(x); }
     template<class T1, class T2> void pr(const map<T1,T2>& x) { prContain(x); }
-
+ 
     void ps() { pr("\n"); }
     template<class Arg> void ps(const Arg& first) {
         pr(first); ps(); // no space at end of line
@@ -156,37 +156,97 @@ namespace output {
 }
 using namespace output;
 // @formatter:on
-
+ 
 /* ============================ */
-
-int main() {
-    setupIO();
-
-    double m, n; re(m, n);
-    vector<double> A;
-    F0R(i, n) {
-        int x; char d; re(x, d);
-        A.pb(x);
-    }
-    sort(all(A));
-    double movementLeft = INF, movementRight = -INF;
-    F0R(i, n) {
-        if (i % 2 == 0) {
-            // bottom
-            double targetPos = 2.0*i/2*m/n;
-            MIN(movementLeft, targetPos - A[i]);
-            MAX(movementRight, targetPos - A[i]);
-        } else {
-            // top
-            double targetPos = 2*m - (i+1)/2*2*m/n;
-            double x = 2*m-A[i];
-            MIN(movementLeft, (double) targetPos - x);
-            MAX(movementRight, targetPos - x);
+ 
+#define MAXN 100000
+ 
+int n, m, s, t, u, v;
+vii adj[MAXN];
+ll distS[MAXN];
+ll distU[MAXN];
+ll distV[MAXN];
+vi parent[MAXN];
+vi dpChildren[MAXN];
+bool reachable[MAXN];
+ 
+void dijkstra(ll dist[MAXN], int source) {
+    SET(dist, LL_INF, MAXN);
+    F0R(i, n) parent[i].clear();
+    dist[source] = 0;
+ 
+    min_heap<ii> pq; pq.push({0, source});
+    while (!pq.empty()) {
+        ii u = pq.top(); pq.pop();
+        if (dist[u.pB] < u.pA) continue;
+        trav(v, adj[u.pB]) {
+            if (dist[v.pA] > dist[u.pB] + v.pB) {
+                dist[v.pA] = dist[u.pB] + v.pB;
+                parent[v.pA].clear(); parent[v.pA].pb(u.pB);
+                pq.push({dist[v.pA], v.pA});
+            } else if (dist[v.pA] == dist[u.pB] + v.pB) {
+                parent[v.pA].pb(u.pB);
+            }
         }
     }
-    double ans = (-movementLeft + movementRight)/2.0;
-    cout << fixed << setprecision(6);
+}
+ 
+ll memo[MAXN];
+ll dp(int u) {
+    if (memo[u] != -1) return memo[u];
+    ll best = distV[u];
+    trav(v, dpChildren[u]) {
+        MIN(best, dp(v));
+    }
+    return memo[u] = best;
+}
+ll memo2[MAXN];
+ll dpBack(int u) {
+    if (memo2[u] != -1) return memo2[u];
+    ll best = distV[u];
+    trav(v, parent[u]) {
+        MIN(best, dpBack(v));
+    }
+    return memo2[u] = best;
+}
+ 
+int main() {
+    setupIO();
+ 
+    re(n, m, s, t, u, v);
+    --s; --t; --u; --v;
+    F0R(i, m) {
+        int a, b, c; re(a, b, c);
+        --a; --b;
+        adj[a].pb({b, c});
+        adj[b].pb({a, c});
+    }
+ 
+    dijkstra(distU, u);
+    dijkstra(distV, v);
+    dijkstra(distS, s);
+ 
+    SET(memo, -1, MAXN);
+    SET(memo2, -1, MAXN);
+    SET(reachable, false, MAXN);
+    queue<int> q; q.push(t);
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        if (!reachable[u]) {
+            reachable[u] = true;
+            trav(v, parent[u]) {
+                dpChildren[v].pb(u);
+                q.push(v);   
+            }
+        }
+    }
+    ll ans = distU[v];
+    F0R(i, n) {
+        if (reachable[i]) {
+            MIN(ans, distU[i] + min(dp(i), dpBack(i)));
+        }
+    }
     ps(ans);
-
+ 
     return 0;
 }
