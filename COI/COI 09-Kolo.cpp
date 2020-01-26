@@ -1,3 +1,7 @@
+/*
+ * Same solution as editorial; simulate forward for a then simulate backward for the nodes adjacent to a
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -63,19 +67,19 @@ namespace input {
     template<class T> void re(vector<T>& a);
     template<class T, size_t SZ> void re(array<T,SZ>& a);
     template<class T> void reA(T A[], int sz);
- 
+
     template<class T> void re(T& x) { cin >> x; }
     void re(double& x) { string t; re(t); x = stod(t); }
     void re(ld& x) { string t; re(t); x = stold(t); }
     template<class Arg, class... Args> void re(Arg& first, Args&... rest) {
         re(first); re(rest...);
     }
- 
+
     template<class T1, class T2> void re(pair<T1,T2>& p) { re(p.pA,p.pB); }
     template<class T> void re(vector<T>& a) { F0R(i,sz(a)) re(a[i]); }
     template<class T, size_t SZ> void re(array<T,SZ>& a) { F0R(i,SZ) re(a[i]); }
     template<class T> void reA(T A[], int sz) { F0R(i, sz) re(A[i]); }
- 
+
     void setupIO(const string &PROB = "") {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
@@ -89,25 +93,25 @@ namespace input {
     }
 }
 using namespace input;
- 
+
 namespace output {
     template<class T1, class T2> void prD(const pair<T1,T2>& x);
     template<class T, size_t SZ> void prD(const array<T,SZ>& x);
     template<class T> void prD(const vector<T>& x);
     template<class T> void prD(const set<T>& x);
     template<class T1, class T2> void prD(const map<T1,T2>& x);
- 
+
     template<class T1, class T2> void pr(const pair<T1,T2>& x);
     template<class T, size_t SZ> void pr(const array<T,SZ>& x);
     template<class T> void pr(const vector<T>& x);
     template<class T> void pr(const set<T>& x);
     template<class T1, class T2> void pr(const map<T1,T2>& x);
- 
+
     template<class T> void prD(const T& x) { cout << x; cout.flush(); }
     template<class Arg, class... Args> void prD(const Arg& first, const Args&... rest) {
         prD(first); prD(rest...);
     }
- 
+
     template<class T1, class T2> void prD(const pair<T1,T2>& x) {
         prD("{",x.pA,", ",x.pB,"}");
     }
@@ -120,7 +124,7 @@ namespace output {
     template<class T> void prD(const vector<T>& x) { prDContain(x); }
     template<class T> void prD(const set<T>& x) { prDContain(x); }
     template<class T1, class T2> void prD(const map<T1,T2>& x) { prDContain(x); }
- 
+
     void psD() { prD("\n"); }
     template<class Arg> void psD(const Arg& first) {
         prD(first); psD(); // no space at end of line
@@ -128,13 +132,13 @@ namespace output {
     template<class Arg, class... Args> void psD(const Arg& first, const Args&... rest) {
         prD(first," "); psD(rest...); // print w/ spaces
     }
- 
- 
+
+
     template<class T> void pr(const T& x) { cout << x; }
     template<class Arg, class... Args> void pr(const Arg& first, const Args&... rest) {
         pr(first); pr(rest...);
     }
- 
+
     template<class T1, class T2> void pr(const pair<T1,T2>& x) {
         pr(x.pA, " ", x.pB);
     }
@@ -145,7 +149,7 @@ namespace output {
     template<class T> void pr(const vector<T>& x) { prContain(x); }
     template<class T> void pr(const set<T>& x) { prContain(x); }
     template<class T1, class T2> void pr(const map<T1,T2>& x) { prContain(x); }
- 
+
     void ps() { pr("\n"); }
     template<class Arg> void ps(const Arg& first) {
         pr(first); ps(); // no space at end of line
