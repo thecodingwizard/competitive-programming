@@ -1,3 +1,16 @@
+/*
+ * O(nq)
+ *
+ * Note that the optimal strategy is greedy:
+ * - From where I currently am, go to the next highest tree that doesn't require you to get tired. Break ties by distance
+ * - If there are no trees shorter than the one I'm currently on, then jump to the highest possible tree
+ *
+ * This can be simulated with a map, but nqlogn is too slow.
+ *
+ * For O(nq), use two monotonic deques, one that stores trees that are reachable without getting tired and another that
+ * stores the other trees
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
