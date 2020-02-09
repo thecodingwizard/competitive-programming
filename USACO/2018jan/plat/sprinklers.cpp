@@ -1,3 +1,11 @@
+/*
+ * My solution was rather difficult to implement... I'd recommend going with editorial's.
+ *
+ * Sort the sprinklers left to right and process in increasing x direction.
+ * At each x location, calculate the number of rectangles that can be formed with left edge on this x location.
+ * This can be done mathematically though it's really complicated... see implementation for details...
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
