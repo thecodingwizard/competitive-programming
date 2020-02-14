@@ -1,3 +1,21 @@
+/*
+ * Same as editorial alternate solution.
+ *
+ * Note that the bottleneck will be at the end depth. Actually, it is
+ * max(   h + sum(S[i] where h <= i < n)/k   ) over all h
+ * (or something like that, double check bounds with editorial).
+ * S[i] = # of nodes at depth i
+ * k = how many processing units we have
+ * 
+ * We can define a function f_h(k) = h*k + sum(S[i], h <= i < n).
+ * Then to answer query x we just have to compute f_h(x) across all h and
+ * find the maximum one.
+ *
+ * Note that if we graph out all the functions f_h, each function will be on the upper
+ * convex hull for a certain segment [left, right]. We can compute this range
+ * with a stack. See code / editorial / editorial code for details
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
