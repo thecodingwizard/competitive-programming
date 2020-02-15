@@ -1,3 +1,21 @@
+/*
+ * Same as editorial alternate solution.
+ *
+ * Note that the bottleneck will be at the end depth. Actually, it is
+ * max(   h + sum(S[i] where h <= i < n)/k   ) over all h
+ * (or something like that, double check bounds with editorial).
+ * S[i] = # of nodes at depth i
+ * k = how many processing units we have
+ * 
+ * We can define a function f_h(k) = h*k + sum(S[i], h <= i < n).
+ * Then to answer query x we just have to compute f_h(x) across all h and
+ * find the maximum one.
+ *
+ * Note that if we graph out all the functions f_h, each function will be on the upper
+ * convex hull for a certain segment [left, right]. We can compute this range
+ * with a stack. See code / editorial / editorial code for details
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -159,88 +177,56 @@ using namespace output;
 
 /* ============================ */
 
-<<<<<<< HEAD
-#define MAXB 7000
+struct func {
+    int slope, intercept;
+    // [left, right] is the range where this function is greatest
+    int left, right;
+};
 
-vector<ll> A, dp, dp2;
-int mx;
-
-void computeDP(vector<ll> &A) {
-    dp.assign(mx, 0);
-    dp[0] = 1;
-    F0R(i, sz(A)) {
-        if (A[i] >= 0) {
-            for (int j = mx - 1; j >= A[i]; j--) {
-                dp[j] = (dp[j] + dp[j - A[i]]) % MOD;
-            }
-        } else {
-            for (int j = 0; j < mx; j++) {
-                dp[j] = (dp[j] + dp[j - A[i]]) % MOD;
-            }
-        }
-    }
-}
-
-int countCandy(vector<ll> &x) {
-    int ct = 0;
-    F0R(i, mx) {
-        if (x[i] > 0) ct++;
-    }
-    return ct;
-}
-
-void removeCandy(int x) {
-    F0R(i, sz(dp)) dp2[i] = dp[i];
-    for (int j = A[x]; j < mx; j++) {
-        dp2[j] = (dp2[j] - dp2[j - A[x]] + MOD) % MOD;
-    }
+int ceilDiv(int a, int b) {
+    return (a+b-1)/b;
 }
 
 int main() {
     setupIO();
 
-    int n; re(n);
-    A.resz(n); re(A);
-    mx = n*MAXB + 1;
-    dp2.assign(mx, 0);
-
-    computeDP(A);
-
-    int originalCandies = countCandy(dp);
-
-    int optCandy = -1;
-    int optCandyAdd = INF;
-    F0R(i, n) {
-        removeCandy(i);
-        int newCandyCt = countCandy(dp2);
-        if (originalCandies - newCandyCt < optCandyAdd) {
-            optCandy = i;
-            optCandyAdd = originalCandies - newCandyCt;
-        }
+    int n, q; re(n, q);
+    int queries[q]; reA(queries, q);
+    int answer[n+1];
+    int s[n], depth[n]; depth[0] = 0; SET(s, 0, n); s[0] = 1;
+    int mxDepth = 1;
+    F0R1(i, n-1) {
+        int p; re(p); --p;
+        depth[i] = depth[p]+1;
+        s[depth[i]]++;
+        MAX(mxDepth, depth[i]+1);
     }
-
-    bool can[mx]; SET(can, false, mx); can[0] = true;
+    stack<func> functions;
+    int sum = n;
     F0R(i, n) {
-        if (i != optCandy) {
-            for (int j = mx - 1; j >= A[i]; j--) {
-                can[j] = can[j] || can[j - A[i]];
+        if (sum == 0) break;
+        sum -= s[i];
+        func f = {i+1, sum, 0, n-1};
+        while (!functions.empty()) {
+            int xIntersect = ceilDiv(functions.top().intercept - f.intercept, f.slope - functions.top().slope)-1;
+            if (xIntersect <= functions.top().left) {
+                functions.pop();
+            } else {
+                functions.top().right = xIntersect - 1;
+                f.left = xIntersect;
+                break;
             }
         }
+        functions.push(f);
     }
-    F0R(i, n) {
-        if (i != optCandy) {
-            for (int j = 0; j + A[i] < mx; j++) {
-                can[j] = can[j] || can[j + A[i]];
-            }
-        }
+    while (!functions.empty()) {
+        func f = functions.top(); functions.pop();
+        FOR(i, f.left, f.right+1) answer[i] = ceilDiv(f.intercept, i+1) + f.slope;
     }
-
-    F0R(i, mx) {
-        if (!can[i]) {
-            ps(A[optCandy], i);
-            break;
-        }
+    F0R(i, q) {
+        pr(queries[i]-1>=n?mxDepth:answer[queries[i]-1], " ");
     }
+    ps();
 
     return 0;
 }

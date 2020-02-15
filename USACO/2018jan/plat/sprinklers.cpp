@@ -1,3 +1,11 @@
+/*
+ * My solution was rather difficult to implement... I'd recommend going with editorial's.
+ *
+ * Sort the sprinklers left to right and process in increasing x direction.
+ * At each x location, calculate the number of rectangles that can be formed with left edge on this x location.
+ * This can be done mathematically though it's really complicated... see implementation for details...
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -159,88 +167,86 @@ using namespace output;
 
 /* ============================ */
 
-<<<<<<< HEAD
-#define MAXB 7000
-
-vector<ll> A, dp, dp2;
-int mx;
-
-void computeDP(vector<ll> &A) {
-    dp.assign(mx, 0);
-    dp[0] = 1;
-    F0R(i, sz(A)) {
-        if (A[i] >= 0) {
-            for (int j = mx - 1; j >= A[i]; j--) {
-                dp[j] = (dp[j] + dp[j - A[i]]) % MOD;
-            }
-        } else {
-            for (int j = 0; j < mx; j++) {
-                dp[j] = (dp[j] + dp[j - A[i]]) % MOD;
-            }
-        }
-    }
-}
-
-int countCandy(vector<ll> &x) {
-    int ct = 0;
-    F0R(i, mx) {
-        if (x[i] > 0) ct++;
-    }
-    return ct;
-}
-
-void removeCandy(int x) {
-    F0R(i, sz(dp)) dp2[i] = dp[i];
-    for (int j = A[x]; j < mx; j++) {
-        dp2[j] = (dp2[j] - dp2[j - A[x]] + MOD) % MOD;
-    }
-}
-
 int main() {
-    setupIO();
+    setupIO("sprinklers");
 
     int n; re(n);
-    A.resz(n); re(A);
-    mx = n*MAXB + 1;
-    dp2.assign(mx, 0);
+    int A[n];
+    vii sortedA;
+    deque<ii> sprinklers;
 
-    computeDP(A);
-
-    int originalCandies = countCandy(dp);
-
-    int optCandy = -1;
-    int optCandyAdd = INF;
     F0R(i, n) {
-        removeCandy(i);
-        int newCandyCt = countCandy(dp2);
-        if (originalCandies - newCandyCt < optCandyAdd) {
-            optCandy = i;
-            optCandyAdd = originalCandies - newCandyCt;
-        }
+        int a, b; re(a, b);
+        A[a] = b;
+        sortedA.pb({a,b});
     }
-
-    bool can[mx]; SET(can, false, mx); can[0] = true;
+    sort(all(sortedA));
     F0R(i, n) {
-        if (i != optCandy) {
-            for (int j = mx - 1; j >= A[i]; j--) {
-                can[j] = can[j] || can[j - A[i]];
+        int a = sortedA[i].pA, b = sortedA[i].pB;
+        while (!sprinklers.empty() && sprinklers.back().pB < b) sprinklers.pop_back();
+        sprinklers.push_back({a, b});
+    }
+    ll maxHeight[n];
+    int maxHeightIdx = 0;
+
+    ll ans = 0;
+    ll curLB = -1;
+    ll curSum = 0;
+    ll curAdd = 0;
+    ll right = 0;
+
+    for (int left = 0; left < n; left++) {
+//        psD("left, ans, curLB, curSum, curAdd, right", left, ans, curLB, curSum, curAdd, right);
+        // step one: process left
+        if (curLB == -1 || curLB > A[left]) {
+            if (curLB == -1) curLB = A[left];
+            else {
+                ll diff = (curLB - A[left]);
+                curAdd += curSum*diff%MOD;
+                curAdd %= MOD;
+                curAdd += diff*(diff-1)/2%MOD*(right-left)%MOD;
+                curSum += (right - left)*(curLB - A[left])%MOD;
+                curAdd %= MOD;
+                curSum %= MOD;
+                curLB = A[left];
             }
         }
-    }
-    F0R(i, n) {
-        if (i != optCandy) {
-            for (int j = 0; j + A[i] < mx; j++) {
-                can[j] = can[j] || can[j + A[i]];
-            }
-        }
-    }
+        // step two: add right sprinklers
+        while (!sprinklers.empty() && sprinklers.front().pB >= curLB) {
+            ll height = sprinklers.front().pB - curLB + 1;
+            ll base = sprinklers.front().pA - right;
+            ll heightc2 = height*(height-1)/2%MOD;
 
-    F0R(i, mx) {
-        if (!can[i]) {
-            ps(A[optCandy], i);
-            break;
+            curAdd += base * heightc2%MOD;
+            curSum += base * height%MOD;
+            curAdd %= MOD;
+            curSum %= MOD;
+
+            while (maxHeightIdx < n && A[maxHeightIdx] != sprinklers.front().pB) {
+//                psD("maxHeight[", maxHeightIdx, "] = ", sprinklers.front().pB);
+                maxHeight[maxHeightIdx++] = sprinklers.front().pB;
+            }
+//            psD("maxHeight[", maxHeightIdx, "] = ", sprinklers.front().pB);
+            maxHeight[maxHeightIdx++] = sprinklers.front().pB;
+
+            right = sprinklers.front().pA;
+            sprinklers.pop_front();
+        }
+        // step three: update variables
+        ans += curAdd;
+        ans %= MOD;
+        if (right <= left) right = left + 1;
+        else {
+            ll height = maxHeight[left+1] - curLB + 1;
+            ll heightc2 = height*(height-1)/2%MOD;
+//            psD("updating", left, right, height, curLB);
+            curAdd -= heightc2;
+            curSum -= height;
+            curAdd = (curAdd + MOD) % MOD;
+            curSum = (curSum + MOD) % MOD;
         }
     }
+    ps(ans);
 
     return 0;
 }
