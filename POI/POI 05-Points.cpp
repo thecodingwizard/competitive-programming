@@ -1,3 +1,7 @@
+/*
+ *
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
@@ -159,10 +163,114 @@ using namespace output;
 
 /* ============================ */
 
+ld radius;
+
+struct point {
+    long double x, y;
+};
+
+point calcCenterOfGravity(vector<point> &A) {
+    ld xTot = 0, yTot = 0;
+    F0R(i, sz(A)) {
+        xTot += A[i].x; yTot += A[i].y;
+    }
+    return {xTot/sz(A), yTot/sz(A)};
+}
+
+ld getDist(point &x) {
+    return hypot(x.x, x.y);
+}
+
+ld getAngle(point &x) {
+    if (abs(x.y) < EPS && abs(x.x) < EPS) return 0;
+    ld tmp = atan2(x.y, x.x);
+    if (tmp < 0) tmp = 2*PI+tmp;
+    return tmp;
+}
+
+ld getLongestRay(vector<point> &A) {
+    ld longest = 0;
+    F0R(i, sz(A)) {
+        MAX(longest, getDist(A[i]));
+    }
+    return longest;
+}
+
+void normalize(vector<point> &A) {
+    point centerOfGravity = calcCenterOfGravity(A);
+    F0R(i, sz(A)) {
+        A[i].x -= centerOfGravity.x;
+        A[i].y -= centerOfGravity.y;
+    }
+    ld longestRay = getLongestRay(A);
+    ld scaleFactor = radius/longestRay;
+    F0R(i, sz(A)) {
+        A[i].x *= scaleFactor;
+        A[i].y *= scaleFactor;
+    }
+    sort(all(A), [](point &a, point &b) {
+        ld angle1 = getAngle(a);
+        ld angle2 = getAngle(b);
+        if (abs(angle1 - angle2) < EPS) {
+            return getDist(a) < getDist(b);
+        }
+        return angle1 < angle2;
+    });
+}
+
+string genString(vector<point> &A) {
+    string str;
+    ld curAngle = getAngle(A.back());
+    F0R(i, sz(A)) {
+        if (abs(A[i].x) < EPS && abs(A[i].y) < EPS) {
+            continue;
+        }
+        ld dist = getDist(A[i]);
+        ld diffAngle = getAngle(A[i]) - curAngle + EPS;
+        if (diffAngle < 0) diffAngle += 2*PI;
+        str += to_string(dist) + "#" + to_string(diffAngle) + "#";
+        curAngle = getAngle(A[i]);
+    }
+    return str;
+}
+
+void flipY(vector<point> &A) {
+    F0R(i, sz(A)) A[i].y = -A[i].y;
+}
+
 int main() {
     setupIO();
 
+    int k; re(k);
+    vector<point> A; A.resz(k);
+    F0R(i, k) re(A[i].x, A[i].y);
+    radius = getLongestRay(A);
+    normalize(A);
+    string str = genString(A);
+    str += str;
+    int n; re(n);
+    F0R(i, n) {
+        int x; re(x);
+        vector<point> B; B.resz(x); F0R(i, x) re(B[i].x, B[i].y);
+        if (x != k) ps("NIE");
+        else {
+            normalize(B);
+            string str2 = genString(B);
 
+            if (str.find(str2) != string::npos) {
+                ps("TAK");
+            } else {
+                flipY(B);
+                normalize(B);
+                str2 = genString(B);
+                if (str.find(str2) != string::npos) {
+                    ps("TAK");
+                } else {
+                    ps("NIE");
+                }
+            }
+        }
+    }
 
     return 0;
 }
