@@ -1,5 +1,24 @@
 /*
+ * I used the same solution as the editorial with slightly different implementation.
+ * Be careful with EPS, it is quite important... I used EPS of 1e-9
+ * Special care must be given to when the center of mass is one of the points in the set
  *
+ * First, "normalize" all the sets of points by doing the following:
+ * 1. Move the center of gravity of the set of points to (0, 0).
+ *    Center of gravity is defined as ((sum of all x coordinates)/(number of coordinates), (sum of all y coordinates)/(number of coordinates))
+ * 2. Scale the patterns so they have equal radius (radius = longest distance from point to origin)
+ * 3. Sort the set of points by their angle from the positive x-axis; for ties, sort by distance
+ *
+ * Next, we can generate a string that represents the set of points.
+ * For each point in sorted order, we add the distance from origin followed by the angle between this point and the previous point to the string
+ *
+ * Finally, to compare two sets of points, we just have to see if the strings are cyclic shifts of each other.
+ * To do this, for the original set of points, we take the string and concatenate it with itself: aaabbab becomes aaabbabaaabbab
+ *
+ * Now, if a string is a substring of the duplicated string, then it is a cyclic shift. We can use C++ string .find,
+ * it runs in time despite its bad constant factor. This way we don't have to implement KMP.
+ *
+ * Use long double for everything and be careful about precision errors / EPS errors
  */
 
 //#pragma GCC optimize ("O3")
