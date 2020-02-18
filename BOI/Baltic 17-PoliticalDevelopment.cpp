@@ -1,3 +1,9 @@
+/*
+ * Sort nodes by degree. Process nodes from smallest degree to largest degree. For each node,
+ * brute force 2^k on every possible clique, then remove the node from the graph, updating connected
+ * nodes' adjacency list and degree.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
