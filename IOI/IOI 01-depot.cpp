@@ -1,3 +1,18 @@
+/*
+ * Same solution as editorial
+ *
+ * Recursive backtracking; on each step, we aim to remove one number. We will remove the numbers
+ * in reverse order that they were added; we can think of this as "undoing" the addition of a particular number.
+ *
+ * Given a number, we know where the number's previous spot was (it's just the biggest number in the previous row
+ * that isn't greater than that number). So if we pick a number, then we can traverse where the number came
+ * from until we reach a number in the first row, and then we can "undo" the addition of the number in the first row.
+ *
+ * Our recursive solution is then: Pick a number that is the last number in its row. Figure out where
+ * the number came from repeatedly until we arrive at a number in the first row. Add the number to a list.
+ * Undo the addition of that number. When there are no numbers left, then add the list to our answer.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
