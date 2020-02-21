@@ -1,3 +1,18 @@
+/*
+ * Same solution as editorial
+ *
+ * Search each bit from most significant to least significant. If it is possible to set the bit
+ * across all expressions, then we need to set the bit across all expressions.
+ *
+ * Consider a term in an expression. If the bit we're trying to set *must* be set (ie lower bound is >= that bit)
+ * then we set the bit in that term.
+ *
+ * If there is only one term that can hold that bit, then obviously set that term.
+ *
+ * If there are multiple terms that can optimally hold that bit, note that we can greedily choose any one of them
+ * to hold the bit, because we can just set one to 1000000 and the other to 0111111
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
