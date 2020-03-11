@@ -1,3 +1,18 @@
+/*
+ * https://github.com/quangloc99/CompetitiveProgramming/blob/master/olympiad/IZhO/2017/subsequence.cpp
+ *
+ * Meet in the middle DP:
+ *
+ * Define dp[i][j][k][l] = in the range [0...i], what is the length of the longest subsequence such that
+ * the last number in the subsequence is x, and:
+ * - last ten bits of x = j
+ * - (first ten bits of x) & k = l
+ *
+ * When we increase the range by one, we can loop through all possible values of j in order to find
+ * the optimal previous DP state. Then, we loop through all the possible values of k and update
+ * the DP array.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
