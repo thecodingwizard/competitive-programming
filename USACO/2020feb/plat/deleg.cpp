@@ -1,3 +1,7 @@
+/*
+ * Same solution as editorial, binary search on k
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
