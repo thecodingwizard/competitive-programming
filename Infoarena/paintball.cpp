@@ -1,3 +1,17 @@
+/*
+ * Be careful about people being able to shoot themselves...
+ *
+ * Greedy: For max, any node with indegree zero must shoot. If somebody is going to get shot, they might as
+ * well shoot their target as well. After all nodes with indegree zero have shot (and the people who
+ * they will shoot have shot, etc etc) then we will only be left with solo nodes and nodes in a cycle.
+ * Nodes in a cycle: All of them die except for one person.
+ *
+ * For min, any node with indegree zero must shoot, but the person they shoot doesn't shoot. So
+ * when somebody shoots, remove their target from the node and update indegrees. Then check to see if
+ * there are nodes with indegree zero; if there are, then they shoot as well. Keep doing this until
+ * we are left with only nodes w/ indegree zero and cycles. Nodes in a cycle: Half of them (rounded up) die.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
