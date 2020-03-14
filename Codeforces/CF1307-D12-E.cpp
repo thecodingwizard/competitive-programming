@@ -1,3 +1,10 @@
+/*
+ * Same solution as editorial
+ *
+ * Fix the cow that goes first on the left hand side, then calculate the answer + ways for this particular
+ * setup greedily in O(n)
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
