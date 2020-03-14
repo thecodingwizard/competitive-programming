@@ -159,8 +159,50 @@ using namespace output;
 
 /* ============================ */
 
-int main() {
-    setupIO();
+#include "interactive.h"
 
-    return 0;
+int n;
+vi getNumsWithBitSet(int bit, bool inclOne) {
+    vi stuff; if (inclOne) stuff.pb(1);
+    for (int i = 2; i <= n; i++) {
+        if (i & (1 << bit)) stuff.pb(i);
+    }
+    return stuff;
+}
+
+vi subtract(vi &a, vi &b) {
+    sort(all(a)); sort(all(b));
+    vi ans;
+    int l = 1, r = 0;
+    while (l < sz(a)) {
+        if (r < sz(b) && a[l] == b[r]) {
+            l++; r++;
+        } else {
+            ans.pb(a[l]);
+            l++;
+        }
+    }
+    return ans;
+}
+
+vector<int> guess(int n2) {
+    n = n2;
+    int firstNum = ask(1);
+    map<int, int> index;
+    F0R(i, 7) {
+        if ((1 << i) <= n) {
+            vi a = get_pairwise_xor(getNumsWithBitSet(i, true));
+            vi b = get_pairwise_xor(getNumsWithBitSet(i, false));
+            vi c = subtract(a, b);
+            trav(x, c) {
+                index[x^firstNum] |= (1 << i);
+            }
+        }
+    }
+    vii nums;
+    trav(x, index) nums.pb({x.pB, x.pA});
+    sort(all(nums));
+    vi ans; ans.pb(firstNum);
+    trav(x, nums) ans.pb(x.pB);
+    return ans;
 }
