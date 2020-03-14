@@ -159,100 +159,88 @@ using namespace output;
 
 /* ============================ */
 
-int n; vi A;
-int inDeg[1000000];
-bool dead[1000000];
+int n, m, A[5000], F[5000], H[5000];
+int L[5000], R[5000];
+int lCows[5000], rCows[5000];
 
-void killMax(int x) {
-    if (dead[x]) return;
-    dead[x] = true;
-    killMax(A[x]);
+ll ans = 0, ways = 0;
+
+void addAns(int num, ll w) {
+    if (num == ans) ways = (ways + w) % MOD;
+    else if (num > ans) {
+        ans = num; ways = w;
+    }
 }
 
-int findMax() {
-    SET(inDeg, 0, n);
-    SET(dead, false, n);
-    trav(x, A) inDeg[x]++;
+void solve(int firstCowFromLeft) {
+    SET(lCows, 0, 5000); SET(rCows, 0, 5000);
+    int leftMost = (firstCowFromLeft == -1 ? -1 : L[firstCowFromLeft]);
     F0R(i, n) {
-        if (inDeg[i] == 0) {
-            killMax(A[i]);
-        }
-    }
-    F0R(i, n) {
-        if (A[i] == i) {
-            dead[i] = true;
-        }
+        if (L[i] <= leftMost && (F[i] != F[firstCowFromLeft] || i == firstCowFromLeft)) lCows[F[i]]++;
+        if (i != firstCowFromLeft && R[i] > leftMost) rCows[F[i]]++;
     }
     int ans = 0;
-    F0R(i, n) if (dead[i]) ans++;
     F0R(i, n) {
-        if (!dead[i] && inDeg[i] == 1) {
-            int cycLen = 1;
-            dead[i] = true;
-            int x = i;
-            while (A[x] != i) {
-                x = A[x];
-                dead[x] = true;
-                cycLen++;
-            }
-            ans += cycLen-1;
-        }
+        if (lCows[i] > 0) ans++;
+        if (rCows[i] > 0) ans++;
     }
-    return ans;
-}
-
-void killMin(int i) {
-    if (inDeg[i] == 0) {
-        if (!dead[A[i]]) {
-            dead[A[i]] = true;
-            if (!dead[A[A[i]]]) {
-                inDeg[A[A[i]]]--;
-                killMin(A[A[i]]);
+    ll ways = 1;
+    F0R(i, n) {
+        if (L[i] <= leftMost && (i == firstCowFromLeft || F[i] != F[firstCowFromLeft])) {
+            // in the below case, this cow *must* go on the right
+            if (i != firstCowFromLeft && R[i] > leftMost && rCows[F[i]] == 1 && lCows[F[i]] > 1) {}
+            else {
+                ways = (ways * (rCows[F[i]] - (i != firstCowFromLeft && R[i] > leftMost))) % MOD;
+            }
+        }
+        if (R[i] > leftMost && i != firstCowFromLeft) {
+            if (lCows[F[i]] == 1 && rCows[F[i]] > 1 && (L[i] <= leftMost && (F[i] != F[firstCowFromLeft] || i == firstCowFromLeft))) {}
+            else {
+                ways = (ways * (lCows[F[i]] - (L[i] <= leftMost && (F[i] != F[firstCowFromLeft] || i == firstCowFromLeft)))) % MOD;
             }
         }
     }
-}
-
-int findMin() {
-    SET(inDeg, 0, n);
-    SET(dead, false, n);
-    trav(x, A) inDeg[x]++;
-
-    F0R(i, n) {
-        killMin(i);
-    }
-    F0R(i, n) assert(inDeg[i]>=0);
-
-    int ans = 0;
-
-    F0R(i, n) if (A[i] == i) dead[i] = true;
-    F0R(i, n) if (dead[i]) ans++;
-
-    F0R(i, n) {
-        if (!dead[i] && inDeg[i] == 1) {
-            int cycLen = 1;
-            dead[i] = true;
-            int x = i;
-            while (A[x] != i) {
-                x = A[x];
-                dead[x] = true;
-                cycLen++;
-            }
-            ans += (cycLen+1)/2;
-        }
-    }
-    return ans;
+    addAns(ans, ways);
 }
 
 int main() {
-    setupIO("paintball");
+    setupIO();
 
-    re(n);
-    A.resz(n); F0R(i, n) {
-        int x; re(x); A[i] = x-1;
+    re(n, m);
+    F0R(i, n) {
+        int x; re(x);
+        A[i] = x-1;
     }
 
-    ps(findMin(), findMax());
+    F0R(i, n) {
+        int ctLeft = H[i];
+        F0R(j, n) {
+            if (A[j] == F[i]) ctLeft--;
+            if (ctLeft == 0) {
+                L[i] = j;
+                break;
+            }
+        }
+        if (ctLeft > 0) L[i] = -1;
+
+        ctLeft = H[i];
+        F0Rd(j, n) {
+            if (A[j] == F[i]) ctLeft--;
+            if (ctLeft == 0) {
+                R[i] = j;
+                break;
+            }
+        }
+        if (ctLeft > 0) R[i] = -1;
+    }
+
+    solve(-1);
+    F0R(i, n) {
+        if (L[i] != -1) {
+            solve(i);
+        }
+    }
+    ps(ans, ways);
 
     return 0;
 }
