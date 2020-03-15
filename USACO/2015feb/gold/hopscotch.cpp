@@ -1,3 +1,12 @@
+/*
+ * speed up R^2 C^2 dp by maintaining a column prefix sum for every color and processing the dp array
+ * from the bottom right corner to the top left corner.
+ *
+ * Use one binary indexed tree for each color for the prefix sums, but optimize memory by
+ * only creating binary indexed trees for colors that exist, and then do coordinate compression
+ * on which columns each color has.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
