@@ -1,3 +1,17 @@
+/*
+ * Note: 1 <= n <= 1e5
+ *
+ * - If d is odd then our answer is 0
+ * - Using binary lifting, we can, for every node, find the # of nodes d/2 units away in each of its subtrees
+ * - Using centroid decomp we can, for every node, find the total number of nodes d/2 units away
+ * - Subtract sum of nodes d/2 units away in subtree from the total number of nodes ==> we get the number
+ *   of nodes d/2 units away in the parent tree
+ * - Now for every node, we make a list that contains the number of nodes d/2 units away from that node for every
+ *   adjacent node (one number per child node, and one number for the parent node)
+ * - For every triplet in that list, we multiply the numbers together and add it to our answer
+ * - We can do the above fast with prefix sums
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
