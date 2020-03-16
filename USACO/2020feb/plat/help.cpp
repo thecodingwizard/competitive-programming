@@ -1,3 +1,11 @@
+/*
+ * Same solution as editorial
+ *
+ * Time limit is a bit tight; use int instead of long long and cast to long long when necessary
+ *
+ * Make each node of the seg tree an array of 11 integers; don't make 11 seg trees
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
