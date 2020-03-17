@@ -1,3 +1,19 @@
+/*
+ * Same solution as https://github.com/MetalBall887/Competitive-Programming/blob/master/Olympiad/Baltic/Baltic%2008-Game.cpp
+ *
+ * DP[ax][ay][bx][by], at each step you must go closer to your destination
+ *
+ * To optimize, make a list of all possible locations that A can be in after t units of time
+ * Make a list for B too
+ *
+ * define DP[t][i][j] = at time = t, A is on the ith location in the list of possible locations,
+ * B is on the jth location in the list of possible locations, return true if A wins, false if B wins
+ *
+ * Solve iteratively
+ *
+ * Memory limit is really lax on CSES I think...
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
