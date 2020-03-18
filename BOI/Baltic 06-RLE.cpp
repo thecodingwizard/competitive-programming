@@ -1,3 +1,23 @@
+/*
+ * Similar idea to editorial
+ *
+ * Define dp(i, j) to be the min length of code to encode everything from [0...i] and end with encoding number j
+ * Transitions are same as described in editorial
+ *
+ * Note that dp(i, j) ==> dp(i+1, j): All dp values change by the same amount EXCEPT for when j = the number at index i
+ *
+ * We need to be able to find the minimum DP value fast
+ *
+ * Therefore instead of storing the actual DP value, we store the difference between the DP value and the "base"
+ * dp value (ie the value that all DP values change by except one)
+ *
+ * We put all the DP values into a set in order to find the minimum DP value (Not very efficient but CSES is generous
+ * and it passes in time)
+ *
+ * At each index we update dp(i, the number at index i) only; everything else changes by the same amount
+ * so we can update the "base" dp value
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
