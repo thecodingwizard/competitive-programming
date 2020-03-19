@@ -1,3 +1,9 @@
+/*
+ * Very straightforward treap https://cp-algorithms.com/data_structures/treap.html
+ *
+ * No implicit indexing. Stores count. Can insert and get index of a particular value
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
