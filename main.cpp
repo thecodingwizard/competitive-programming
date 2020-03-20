@@ -159,101 +159,138 @@ using namespace output;
 
 /* ============================ */
 
-struct item {
-    int key, pr, cnt = 1;
-    item *l, *r;
+struct node {
+    int val = 0;
+    node *l, *r;
+    node *getLeft() {
+        if (!l) l = new node();
+        return l;
+    }
+    node *getRight() {
+        if (!r) r = new node();
+        return r;
+    }
+    int query(int p, int i, int j, int L, int R) {
+        if (i > R || j < L) return 0;
+        if (L <= i && j <= R) return val;
+        return getLeft()->query(p << 1, i, (i+j)/2, L, R) + getRight()->query((p << 1) + 1, (i+j)/2+1, j, L, R);
+    }
+    void update(int p, int i, int j, int k, int v) {
+        if (i == j && i == k) {
+            val += v;
+            return;
+        }
+        if (j < k || i > k) return;
+        val += v;
+        int mid = (i+j)/2;
+        if (k <= mid) {
+            getLeft()->update(p << 1, i, mid, k, v);
+        } else {
+            getRight()->update((p<<1)+1, mid+1, j, k, v);
+        }
+    }
 };
-typedef item* pitem;
 
-int cnt(pitem t) {
-    return t ? t->cnt : 0;
-}
+node fenwickTree[300005];
 
-void upd_cnt(pitem t) {
-    if (t) t->cnt = cnt(t->l) + cnt(t->r) + 1;
-}
 
-void split(pitem t, int key, pitem &l, pitem &r) {
-    if (!t) l = r = NULL;
-    else if (key < t->key) {
-        split(t->l, key, l, t->l), r = t;
-    } else {
-        split(t->r, key, t->r, r), l = t;
+int n, q;
+vector<bool> A;
+
+int query(int a, int b) {
+    int val = 0;
+    for (; a; a -= LSOne(a)) {
+        val += fenwickTree[a].query(1, 0, n, 0, b);
     }
-    upd_cnt(t);
+    return val;
 }
 
-void insert(pitem &t, pitem it) {
-    if (!t) t = it;
-    else if (it->pr > t->pr) {
-        split(t, it->key, it->l, it->r), t = it;
-    } else {
-        insert(it->key < t->key ? t->l : t->r, it);
+void upd(int k, int l, int r, int v) {
+    for (; k <= n; k += LSOne(k)) {
+        fenwickTree[k].update(1, 0, n, l, v);
+        if (r+1<=n) fenwickTree[k].update(1, 0, n, r+1, -v);
     }
-    upd_cnt(t);
 }
 
-void merge(pitem &t, pitem l, pitem r) {
-    if (!l || !r) t = l ? l : r;
-    else if (l->pr > r->pr) merge(l->r, l->r, r), t = l;
-    else merge(r->l, l, r->l), t = r;
-    upd_cnt(t);
+void upd(int minL, int maxL, int minR, int maxR, int v) {
+    upd(minL, minR, maxR, v);
+    upd(maxL+1, minR, maxR, -v);
 }
 
-void erase(pitem &t, int key) {
-    if (!t) return;
-    if (t->key == key) merge(t, t->l, t->r);
-    else erase(key < t->key ? t->l : t->r, key);
-    upd_cnt(t);
+int ft[300001];
+void upd(int k, int v) {
+    for (; k <= n; k += LSOne(k)) ft[k] += v;
+}
+int qry(int k) {
+    if (k == 0) return 0;
+    int s = 0; for (; k; k -= LSOne(k)) s += ft[k];
+    return s;
 }
 
-int get_idx(pitem t, int x) {
-    if (!t) return -1;
-    if (t->key == x) return 1 + cnt(t->l);
-    if (t->key < x) {
-        int v = get_idx(t->r, x);
-        if (v == -1) return -1;
-        return 1 + cnt(t->l) + v;
+int findLeft(int x) {
+    int lo = 1, hi = x+1, mid, ans = x;
+    while (lo < hi) {
+        mid = (lo + hi)/2;
+        int val = qry(x)-qry(mid - 1);
+        if (val == x-mid + 1) {
+            hi = mid;
+            ans = mid;
+        } else {
+            lo = mid + 1;
+        }
     }
-    return get_idx(t->l, x);
+    return ans;
 }
 
-int get_key(pitem t, int idx) {
-    if (cnt(t) <= idx) return -1;
-    if (cnt(t->l) == idx) {
-        return t->key;
+int findRight(int x) {
+    int lo = x, hi = n+1, mid, ans = x;
+    while (lo < hi) {
+        mid = (lo + hi)/2;
+        int val = qry(mid) - qry(x - 1);
+        if (val == mid-x+1) {
+            lo = mid + 1;
+            ans = mid;
+        } else {
+            hi = mid;
+        }
     }
-    if (cnt(t->l) > idx) {
-        return get_key(t->l, idx);
-    }
-    return get_key(t->r, idx - cnt(t->l) - 1);
+    return ans;
 }
 
 int main() {
     setupIO();
-    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-    pitem root = NULL;
-    while (true) {
-        int cmd; re(cmd);
-        if (cmd == -1) break;
+    re(n, q);
+    A.resz(n+1);
+    SET(ft, 0, n+1);
+    F0R1(i, n) {
+        char c; re(c);
+        A[i] = c == '1';
+        if (A[i]) upd(i, 1);
+    }
 
-        if (cmd == 1) {
-            int n; re(n);
-            pitem it = new item();
-            it->key = n;
-            it->pr = rng();
-            insert(root, it);
-        } else if (cmd == 2) {
-            int n; re(n);
-            erase(root, n);
-        } else if (cmd == 3) {
-            int n; re(n);
-            ps(get_idx(root, n));
-        } else if (cmd == 4) {
-            int i; re(i);
-            if (i == 0) ps(-1);
-            else ps(get_key(root, i-1));
+    F0R1(i, q) {
+        string s; re(s);
+        if (s == "query") {
+            int a, b; re(a, b);
+
+            psD(query(a, b - 1) + (A[b-1] && findLeft(b - 1) <= a ? i : 0));
+        } else {
+            int a; re(a);
+
+            if (A[a]) {
+                // switching off
+                int l = findLeft(a), r = findRight(a);
+                A[a] = false;
+                upd(a, -1);
+                upd(l, a, a, r, i);
+            } else {
+                // switching on
+                A[a] = true;
+                upd(a, 1);
+                int l = findLeft(a), r = findRight(a);
+                upd(l, a, a, r, -i);
+            }
         }
     }
 
