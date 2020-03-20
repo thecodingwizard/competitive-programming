@@ -1,3 +1,11 @@
+/*
+ * https://codeforces.com/blog/entry/67129?#comment-512697
+ *
+ * Eventually the problem becomes a 2D seg tree problem... Using a fenwick tree + implicit seg tree gave me MLE
+ *
+ * using fenwick tree + treap passed on CodeForces Gym, but my code below gets TLE on oj.uz
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
