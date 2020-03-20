@@ -1,3 +1,7 @@
+/*
+ * More treaps, similar to SDITSAVL
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
