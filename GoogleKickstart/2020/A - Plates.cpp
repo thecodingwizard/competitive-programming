@@ -159,102 +159,44 @@ using namespace output;
 
 /* ============================ */
 
-string A[100000];
+vector<vi> A;
 
-string activePrefix;
-
-int n, k;
-
-int cmp(string &a, string &b, int d) {
-    d = max(d, 0);
-    for (int i = d; i < sz(b); i++) {
-        if (i > sz(a)) return -1;
-        if (a[i] != b[i]) {
-            if (a[i] < b[i]) return -1;
-            return 1;
-        }
+int n, k, p;
+int memo[50][30*50+10];
+int dp(int idx, int pLeft) {
+    if (pLeft < 0) return -INF;
+    if (idx == n) {
+        if (pLeft == 0) return 0;
+        return -INF;
     }
-    return 0;
-}
-
-int lower(string &s, int a, int b, int d) {
-    int lo = a, hi = b, mid, ans = 0;
-    while (lo < hi) {
-        mid = (lo + hi)/2;
-        int res = cmp(A[mid], s, d);
-        if (res < 0) {
-            lo = mid + 1;
-        } else if (res > 0) {
-            hi = mid;
-        } else {
-            hi = mid;
-            ans = mid;
-        }
+    if (pLeft == 0) return 0;
+    if (memo[idx][pLeft] != -1) return memo[idx][pLeft];
+    int best = dp(idx + 1, pLeft);
+    int runningSum = 0;
+    F0R(i, k) {
+        runningSum += A[idx][i];
+        MAX(best, runningSum + dp(idx + 1, pLeft - i - 1));
     }
-    return ans;
-}
-
-int higher(string &s, int a, int b, int d) {
-    int lo = a, hi = b, mid, ans = 0;
-    while (lo < hi) {
-        mid = (lo + hi)/2;
-        int res = cmp(A[mid], s, d);
-        if (res < 0) {
-            lo = mid + 1;
-        } else if (res > 0) {
-            hi = mid;
-        } else {
-            lo = mid + 1;
-            ans = mid + 1;
-        }
-    }
-    return ans;
-}
-
-int getCount(string &curPref, int low) {
-    int ct = 0;
-    while (low < n && A[low] == curPref) {
-        low++;
-        ct++;
-    }
-    return ct;
-}
-
-ii work(int a, int b, int d) {
-    int low = lower(activePrefix, a, b, d), hi = higher(activePrefix, a, b, d);
-    if (hi - low < k) return { 0, hi - low };
-
-    int nodesAvailable = getCount(activePrefix, low);
-    int ans = 0;
-
-    for (char c = 'A'; c <= 'Z'; c++) {
-        activePrefix += c;
-        ii res = work(low, hi, d + 1);
-        activePrefix.pop_back();
-        nodesAvailable += res.pB;
-        ans += res.pA;
-    }
-
-    return { ans + nodesAvailable / k * sz(activePrefix), nodesAvailable % k };
+    return memo[idx][pLeft] = best;
 }
 
 int solve() {
-    re(n, k);
+    re(n, k, p);
+    A.resz(n);
     F0R(i, n) {
-        cin >> A[i];
+        A[i].resz(k); re(A[i]);
     }
-    sort(A, A+n);
-    activePrefix = "";
-    return work(0, n, -1).pA;
+    SET2D(memo, -1, n, n*k+10);
+    return dp(0, p);
 }
 
 int main() {
     setupIO();
 
     int t; re(t);
-    F0R1(T, t) {
+    F0R(i, t) {
         int a = solve();
-        pr("Case #", T, ": ", a, "\n");
+        pr("Case #", i + 1, ": ", a, "\n");
     }
 
     return 0;

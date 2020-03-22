@@ -1,3 +1,10 @@
+/*
+ * Official solution is trie... I used basic recursion but the idea is same as trie I think
+ *
+ * Recursion state was just the current prefix I'm considering, I transition by adding another character A-Z to the
+ * current prefix. With some optimizations it gets AC
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
