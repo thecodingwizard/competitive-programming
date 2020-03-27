@@ -1,3 +1,15 @@
+/*
+ * Note that because the chip sizes are 2x3 and 3x2, then if we are trying to add chips to the ith column,
+ * we only need to know the holes in the ith column, i+1st column, and the i+2nd column
+ *
+ * This suggests we can use DP. Define dp(i, j) = # of chips you can put from the ith column to the n-1st column
+ * where j represents the locations of the holes in the ith column and the i+1st column (the i+2nd column
+ * will always be the same because you can't change the i+2nd column from the i-1 column). There are only 20 such
+ * locations in two columns, so j can just be a bitmask of size 20. Also note that not all bitmasks will be used
+ * so it will probably run in time (in fact # of values of j is under 3^10). To transition, just brute force putting
+ * chips on the ith column and transition to dp(i+1, new_j).
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
