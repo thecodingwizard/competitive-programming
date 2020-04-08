@@ -1,3 +1,9 @@
+/*
+ * Same solution as editorial
+ *
+ * You can hash a set of numbers as c_1*H^(n_1) + c_2*H(n_2) etc if the numbers (n_1, n_2, ...) appear (c_1, c_2, ...) times
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
