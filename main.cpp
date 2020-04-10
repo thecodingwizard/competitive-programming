@@ -1,6 +1,11 @@
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
+
+// See: https://stackoverflow.com/questions/22450423/how-to-use-crt-secure-no-warnings
+// Get rid of this after migrating from Windows ==> WSL
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -159,120 +164,74 @@ using namespace output;
 
 /* ============================ */
 
-int n, q;
-vi A;
-vi B;
-int numUnsorted;
-ll qryFour = 0;
+int n, k; 
+int A[80][80];
+vii connections[80][80];
 
-ll H = 7261523;
-vl powH;
-vl values;
-vl indices;
-map<ll, int> ct;
-vi pa;
-vi sz;
+vi curSelection;
+int cheapest = INF;
 
-ll getQryFourCt(int i) {
-    if (values[i] == indices[i]) return 0;
-    return (ll)ct[-(values[i] - indices[i])]*sz[i];
+void solveSelection() {
+    int curCost = 0;
+
+    F0R(i, sz(curSelection)-1) {
+        int a = curSelection[i], b = curSelection[i+1];
+
+        trav(x, connections[a][b]) {
+            bool illegal = false;
+            trav(y, curSelection) {
+                if (y == x.pB) illegal = true;
+            }
+            if (illegal) continue;
+            curCost += x.pA;
+            break;
+        }
+    }
+
+    MIN(cheapest, curCost);
 }
 
-int find(int x) {
-    if (pa[x] == x) return x;
-    return pa[x] = find(pa[x]);
-}
-
-void unionSet(int a, int b) {
-    if (a == b) return;
-    if (sz[a] > sz[b]) return unionSet(b, a);
-    if (values[a] != indices[a]) numUnsorted -= sz[a];
-    if (values[b] != indices[b]) numUnsorted -= sz[b];
-
-    qryFour -= getQryFourCt(a);
-    ct[values[a]-indices[a]]-=sz[a];
-    qryFour -= getQryFourCt(b);
-    ct[values[b]-indices[b]]-=sz[b];
-
-    pa[a] = b;
-    sz[b] += sz[a];
-    values[b] = values[a] + values[b];
-    indices[b] = indices[a] + indices[b];
-
-    if (values[b] != indices[b]) numUnsorted += sz[b];
-
-    qryFour += getQryFourCt(b);
-    ct[values[b]-indices[b]]+=sz[b];
+void solve(int selectedCt) {
+    if (selectedCt == k/2-1) {
+        curSelection.pb(0);
+        solveSelection();
+        curSelection.pop_back();
+        return;
+    }
+    F0R(i, n) {
+        curSelection.pb(i);
+        solve(selectedCt+1);
+        curSelection.pop_back();
+    }
 }
 
 int main() {
     setupIO();
 
-    re(n, q);
-    A.resz(n); re(A);
-    F0R(i, n) A[i]--;
+    re(n, k);
     F0R(i, n) {
-        B.pb(A[i]);
-    }
-    sort(all(B));
-    numUnsorted = n;
-    powH.resz(n);
-    powH[0] = H;
-    FOR(i, 1, n) {
-        powH[i] = powH[i-1]*H;
-    }
-
-    pa.resz(n); sz.resz(n);
-    values.resz(n); indices.resz(n);
-    F0R(i, n) {
-        pa[i] = i;
-        sz[i] = 1;
-        values[i] = powH[A[i]];
-        indices[i] = powH[B[i]];
-        if (values[i] == indices[i]) numUnsorted--;
-        qryFour += getQryFourCt(i);
-        ct[values[i] - indices[i]]++;
-    }
-    F0R(i, q) {
-        int cmd; re(cmd);
-        if (cmd == 1) {
-            int a, b; re(a, b); --a; --b;
-            int x = find(a), y = find(b);
-            if (x == y) {
-                swap(A[a], A[b]);
-                continue;
-            }
-
-            if (values[x] != indices[x]) numUnsorted -= sz[x];
-            if (values[y] != indices[y]) numUnsorted -= sz[y];
-            
-            qryFour -= getQryFourCt(x);
-            ct[values[x] - indices[x]]-=sz[x];
-            qryFour -= getQryFourCt(y);
-            ct[values[y] - indices[y]]-=sz[y];
-
-            values[x] = values[x] - powH[A[a]] + powH[A[b]];
-            values[y] = values[y] - powH[A[b]] + powH[A[a]];
-
-            swap(A[a], A[b]);
-
-            if (values[x] != indices[x]) numUnsorted += sz[x];
-            if (values[y] != indices[y]) numUnsorted += sz[y];
-
-            qryFour += getQryFourCt(x);
-            ct[values[x] - indices[x]]+=sz[x];
-            qryFour += getQryFourCt(y);
-            ct[values[y] - indices[y]]+=sz[y];
-        } else if (cmd == 2) {
-            int a, b; re(a, b); --a; --b;
-            int x = find(a), y = find(b);
-            unionSet(x, y);
-        } else if (cmd == 3) {
-            ps(numUnsorted == 0 ? "DA" : "NE");
-        } else {
-            ps(qryFour);
+        F0R(j, n) {
+            re(A[i][j]);
         }
     }
+
+    F0R(i, n) {
+        F0R(j, n) {
+            F0R(k, n) {
+                if (k == i || k == j) continue;
+                connections[i][j].pb({A[i][k] + A[k][j], k});
+            }
+            F0R(x, 6) {
+                connections[i][j].pb({INF, -1});
+            }
+            sort(all(connections[i][j]));
+            connections[i][j].resz(6);
+        }
+    }
+
+    curSelection.pb(0);
+    solve(0);
+    ps(cheapest);
 
     return 0;
 }
