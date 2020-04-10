@@ -1,3 +1,6 @@
+/*
+ * Same solution as editorial (first solution), brute force by picking all the even nodes (at most n^4) and then connecting them
+ */
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
