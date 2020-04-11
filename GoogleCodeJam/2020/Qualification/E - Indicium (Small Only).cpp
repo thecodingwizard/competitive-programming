@@ -159,20 +159,113 @@ using namespace output;
 
 /* ============================ */
 
+bool DEBUG = false;
+
+int n, k;
+int A[5][5];
+bool sol = false;
+
+void generate(int i, int j) {
+    if (sol) return;
+    if (i >= n) {
+        int sum = 0;
+        F0R(x, n) {
+            sum += A[x][x];
+        }
+        if (sum == k) {
+            sol = true;
+            return;
+        }
+        return;
+    }
+    if (j >= n) return generate(i+1, 0);
+    F0R1(num, n) {
+        bool bad = false;
+        F0R(x, j) {
+            if (A[i][x] == num) bad = true;
+        }
+        F0R(x, i) {
+            if (A[x][j] == num) bad = true;
+        }
+        if (!bad) {
+            A[i][j] = num;
+            generate(i, j+1);
+            if (sol) return;
+        }
+    }
+}
+
+void solve() {
+    if (!DEBUG) re(n, k);
+    if (DEBUG) {
+        psD("n =", n, ", k =", k);
+    }
+    sol = false;
+    generate(0, 0);
+    if (sol) {
+        psD("POSSIBLE");
+
+        F0R(i, n) {
+            F0R(j, n) {
+                prD(A[i][j], " ");
+            }
+            psD();
+        }
+
+        if (DEBUG) {
+            bool good = true;
+            F0R(i, n) {
+                set<int> seen;
+                F0R(j, n) {
+                    if (seen.count(A[i][j]) != 0) {
+                        good = false;
+                    }
+                    seen.insert(A[i][j]);
+                }
+            }
+            F0R(i, n) {
+                set<int> seen;
+                F0R(j, n) {
+                    if (seen.count(A[j][i]) != 0) {
+                        good = false;
+                    }
+                    seen.insert(A[j][i]);
+                }
+            }
+            int sum = 0;
+            F0R(i, n) {
+                sum += A[i][i];
+            }
+            if (sum != k) good = false;
+            if (!good) {
+                psD("ERROR bad result");
+                exit(1);
+            }
+        }
+    } else {
+        psD("IMPOSSIBLE");
+    }
+}
+
 int main() {
     setupIO();
 
+    if (DEBUG) {
+        FOR(i, 2, 6) {
+            n = i;
+            FOR(j, n, n*n+1) {
+                k = j;
+                solve();
+            }
+        }
+    } else {
+        int t;
+        re(t);
+        F0R1(i, t) {
+            pr("Case #", i, ": ");
+            solve();
+        }
+    }
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-

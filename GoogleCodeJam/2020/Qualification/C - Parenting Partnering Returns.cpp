@@ -159,20 +159,46 @@ using namespace output;
 
 /* ============================ */
 
+void solve() {
+    int n; re(n);
+    pair<ii, int> A[n];
+    F0R(i, n) {
+        re(A[i].pA);
+        A[i].pB = i;
+    }
+    char assign[n];
+    sort(A, A+n);
+    int C = 0, J = 0;
+    string a;
+
+    trav(x, A) {
+        if (C <= x.pA.pA) {
+            C = x.pA.pB;
+            assign[x.pB] = 'C';
+        } else if (J <= x.pA.pA) {
+            J = x.pA.pB;
+            assign[x.pB] = 'J';
+        } else {
+            ps("IMPOSSIBLE");
+            return;
+        }
+    }
+
+    F0R(i, n) {
+        a += assign[i];
+    }
+
+    ps(a);
+}
+
 int main() {
     setupIO();
 
+    int t; re(t);
+    F0R1(i, t) {
+        pr("Case #", i, ": ");
+        solve();
+    }
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-

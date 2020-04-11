@@ -159,20 +159,48 @@ using namespace output;
 
 /* ============================ */
 
+void solve() {
+    int n; re(n);
+    int A[n][n]; F0R(i, n) F0R(j, n) re(A[i][j]);
+    int trace = 0;
+    F0R(i, n) {
+        trace += A[i][i];
+    }
+    int numRows = 0;
+    F0R(i, n) {
+        set<int> nums;
+        bool repeats = false;
+        F0R(j, n) {
+            if (nums.count(A[j][i]) != 0) {
+                repeats = true;
+            }
+            nums.insert(A[j][i]);
+        }
+        if (repeats) numRows++;
+    }
+    int numCols = 0;
+    F0R(i, n) {
+        set<int> nums;
+        bool repeats = false;
+        F0R(j, n) {
+            if (nums.count(A[i][j]) != 0) {
+                repeats = true;
+            }
+            nums.insert(A[i][j]);
+        }
+        if (repeats) numCols++;
+    }
+    ps(trace, numCols, numRows);
+}
+
 int main() {
     setupIO();
 
+    int t; re(t);
+    F0R1(i, t) {
+        pr("Case #", i, ": ");
+        solve();
+    }
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-

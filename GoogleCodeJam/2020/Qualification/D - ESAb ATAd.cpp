@@ -159,20 +159,81 @@ using namespace output;
 
 /* ============================ */
 
+int b;
+
+void solve() {
+    int A[b];
+    int idx = 5;
+    int complementCheck = -1, reverseCheck = -1;
+    F0R(i, 5) {
+        psD(i+1);
+        re(A[i]);
+        psD(b-i);
+        re(A[b-i-1]);
+        if (A[i] == A[b-i-1]) complementCheck = i;
+        else reverseCheck = i;
+    }
+    while (idx < b/2) {
+//        assert(complementCheck != -1 && reverseCheck != -1);
+        bool rev = false, flip = false;
+        if (reverseCheck == -1) {
+            psD(1);
+            int _x; re(_x);
+        } else {
+            psD(reverseCheck+1);
+            int num; re(num);
+            rev = num != A[reverseCheck];
+        }
+        if (complementCheck == -1) {
+            psD(1);
+            int _x; re(_x);
+        } else {
+            psD(complementCheck+1);
+            int num; re(num);
+            flip = num != A[complementCheck];
+        }
+        if (flip) {
+            F0R(i, idx) {
+                A[i] = !A[i];
+                A[b - i - 1] = !A[b - i - 1];
+            }
+//            psD("FLIPPP");
+        }
+        if ((rev && !flip) || (flip && !rev)) {
+            F0R(i, idx) {
+                int tmp = A[i];
+                A[i] = A[b - i - 1];
+                A[b - i - 1] = tmp;
+            }
+//            psD("REVERSEESEE");
+        }
+
+        F0R(i, 4) {
+            if (idx == b/2) break;
+            psD(idx+1);
+            re(A[idx]);
+            psD(b-idx);
+            re(A[b-idx-1]);
+            if (A[idx] == A[b-idx-1]) complementCheck = idx;
+            else reverseCheck = idx;
+            idx++;
+        }
+    }
+    string s; F0R(i, b) s += '0'+A[i];
+    psD(s);
+    char c; re(c);
+    if (c == 'N') {
+        exit(0);
+    }
+}
+
 int main() {
     setupIO();
 
+    int t; re(t, b);
+    F0R(i, t) {
+        solve();
+    }
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-

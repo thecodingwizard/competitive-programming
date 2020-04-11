@@ -159,20 +159,37 @@ using namespace output;
 
 /* ============================ */
 
+void solve() {
+    string s; re(s);
+    string s2;
+    int curDepth = 0;
+    F0R(i, sz(s)) {
+        int num = s[i] - '0';
+        while (curDepth > num) {
+            curDepth--;
+            s2 += ")";
+        }
+        while (curDepth < num) {
+            curDepth++;
+            s2 += "(";
+        }
+        s2 += (num+'0');
+    }
+    while (curDepth > 0) {
+        curDepth--;
+        s2 += ")";
+    }
+    ps(s2);
+}
+
 int main() {
     setupIO();
 
+    int t; re(t);
+    F0R1(i, t) {
+        pr("Case #", i, ": ");
+        solve();
+    }
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
