@@ -1,3 +1,14 @@
+/*
+ * Binary search for the maximum distance.
+ *
+ * Construct a flow network, source connected to each of the students with capacity 1.
+ *
+ * Each of the bus lines is a node; they are connected to the sink with capacity c.
+ *
+ * There is a connection between a student and a bus line if there exists a stop of that bus line
+ * that can be reached by sthe student within the maximum distance.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
