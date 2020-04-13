@@ -1,3 +1,14 @@
+/*
+ * define dpW[i] = # of pairs in the subtree of i such that node i is colored white
+ * define dpB[i][j] = # of pairs within the subtree of i such that node i is 
+ * colored black, and from node i, we can reach j white nodes in the subtree of i
+ * by only passing through black nodes.
+ *
+ * Can compute in time by making sure to only consider dpB values that are possible;
+ * if node i only has x leaves in its subtree, then we don't need to consider any
+ * dpB[i][j] where j > x.
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
