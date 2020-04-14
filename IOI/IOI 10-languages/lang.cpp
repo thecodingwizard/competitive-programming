@@ -1,3 +1,20 @@
+/*
+ * Optimization problem, my code is quite messy; a lot of my optimizations probably weren't necessary.
+ * I believe it is possible to get AC just by considering every two / every three / every four characters...
+ *
+ * Some optimizations that may be helpful:
+ * - The most common character is the space. After you find the space character, you can split the
+ *   excerpt into words.
+ * - Assign words to each language; in the similarity function, give points if two excerpts share words
+ * - Hash every two adjacent characters. Compare to see if excerpts share hashes.
+ *   - Extend the above for three, four adjacent characters.
+ *
+ * Also take a look at the AC codes in oj.uz... the implementation there is a lot nicer than mine,
+ * and scores higher too.
+ *
+ * My best accuracy is 91.77
+ */
+
 //#pragma GCC optimize ("O3")
 //#pragma GCC target ("sse4")
 
