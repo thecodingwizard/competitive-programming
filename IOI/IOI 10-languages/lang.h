@@ -1,0 +1,1 @@
+void excerpt(int *E);
