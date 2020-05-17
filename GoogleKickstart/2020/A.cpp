@@ -159,8 +159,26 @@ using namespace output;
 
 /* ============================ */
 
+void solve() {
+    int n; re(n);
+    vi A; A.resz(n); re(A);
+    int peaks = 0;
+    FOR(i, 1, n-1) {
+        if (A[i] > A[i-1] && A[i] > A[i+1]) {
+            peaks++;
+        }
+    }
+    ps(peaks);
+}
+
 int main() {
     setupIO();
+
+    int t; re(t);
+    F0R1(T, t) {
+        pr("Case #", T, ": ");
+        solve();
+    }
 
     return 0;
 }

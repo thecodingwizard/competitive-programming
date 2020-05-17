@@ -159,8 +159,17 @@ using namespace output;
 
 /* ============================ */
 
+void solve() {
+}
+
 int main() {
     setupIO();
+
+    int t; re(t);
+    F0R1(T, t) {
+        pr("Case #", T, ": ");
+        solve();
+    }
 
     return 0;
 }

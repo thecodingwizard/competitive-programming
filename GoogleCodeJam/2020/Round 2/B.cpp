@@ -159,8 +159,100 @@ using namespace output;
 
 /* ============================ */
 
+void solve() {
+    int c, d; re(c, d);
+
+    vii adj[100];
+    int len[d];
+    int dist[c];
+    F0R(i, c) dist[i] = -1;
+    dist[0] = 0;
+    vii positiveValues;
+    vii negativeValues;
+
+    F0R(i, c-1) {
+        int x; re(x);
+        if (x < 0) {
+            negativeValues.pb({-x, i+1});
+        } else {
+            positiveValues.pb({x, i+1});
+        }
+    }
+
+    sort(all(positiveValues));
+    sort(all(negativeValues));
+
+    F0R(i, d) {
+        len[i] = 1000000;
+        int a, b; re(a, b);
+        adj[a-1].pb({b-1, i});
+        adj[b-1].pb({a-1, i});
+    }
+
+    int curLatency = 0;
+    int prevNum = 0;
+    int curCt = 1;
+    int curCtWaiting = 0;
+    int posValIdx = 0;
+    trav(node, negativeValues) {
+        if (prevNum != node.pA) {
+            curCt += curCtWaiting;
+            curCtWaiting = 0;
+            prevNum = node.pA;
+            curLatency++;
+        }
+        while (curCt != node.pA) {
+            ii myNode = positiveValues[posValIdx];
+            trav(v, adj[myNode.pB]) {
+                if (dist[v.pA] != -1) {
+                    len[v.pB] = (myNode.pA-dist[v.pA]);
+                    dist[myNode.pB] = myNode.pA;
+                    curLatency = myNode.pA;
+                    break;
+                }
+            }
+
+            curCt++;
+            posValIdx++;
+            curLatency++;
+        }
+        trav(v, adj[node.pB]) {
+            if (dist[v.pA] != -1) {
+                len[v.pB] = (curLatency-dist[v.pA]);
+                dist[node.pB] = curLatency;
+                curCtWaiting++;
+                break;
+            }
+        }
+    }
+    while (posValIdx < positiveValues.size()) {
+        ii myNode = positiveValues[posValIdx];
+        trav(v, adj[myNode.pB]) {
+            if (dist[v.pA] != -1) {
+                len[v.pB] = (myNode.pA-dist[v.pA]);
+                dist[myNode.pB] = myNode.pA;
+                curLatency = myNode.pA;
+                break;
+            }
+        }
+
+        curCt++;
+        posValIdx++;
+        curLatency++;
+    }
+
+    F0R(i, d) cout << " " << len[i];
+    cout << endl;
+}
+
 int main() {
     setupIO();
+
+    int t; re(t);
+    F0R(i, t) {
+        cout << "Case #" << i+1 << ":";
+        solve();
+    }
 
     return 0;
 }

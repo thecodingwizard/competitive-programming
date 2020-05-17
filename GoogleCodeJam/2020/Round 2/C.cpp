@@ -159,8 +159,86 @@ using namespace output;
 
 /* ============================ */
 
+int n; 
+ii A[100];
+
+ii getSlope(int a, int b) {
+    int x = A[b].pA - A[a].pA, y = A[b].pB - A[a].pB;
+    int g = abs(__gcd(x, y));
+    if (x<0)g=-g;
+    if(x==0&&y<0)g=-g;
+    return {x/g, y/g};
+}
+
+// really messy code that finds the y-intercept...
+pair<ll,ll> getIntercept(int x, int y) {
+    ll a = A[x].pA, b = A[x].pB, c = A[y].pA, d = A[y].pB;
+    ll numerator = b*c-a*d;
+    ll denom = c-a;
+    if(denom==0)return{c,0};
+    if(numerator==0&&denom!=0)denom/=abs(denom);
+    ll g = abs(__gcd(numerator, denom));
+    if (g == 0) {
+        if(numerator<0)return{-numerator,-denom};
+        if(numerator==0&&denom<0)return{numerator,-denom};
+        return {numerator, denom};
+    }
+    if(numerator<0)g=-g;
+    if(numerator==0&&denom<0)g=-g;
+    return {numerator/g, denom/g};
+}
+
+void solve() {
+    re(n);
+    F0R(i, n) re(A[i]);
+    if (n <= 3) {
+        ps(n);
+        return;
+    }
+
+    map<ii, map<pair<ll,ll>, int>> ct;
+    F0R(i, n) {
+        F0R(j, n) {
+            if (i == j) continue;
+            ii slope = getSlope(i, j);
+            pair<ll,ll> intercept = getIntercept(i, j);
+            assert(slope==getSlope(j,i));
+            assert(intercept==getIntercept(j,i));
+            ct[slope][intercept]++;
+        }
+    }
+
+    int best = 3;
+    trav(v, ct) {
+        int numHolesInLines = 0;
+        int numOdds = 0;
+        trav(u, v.pB) {
+            assert(u.pB%2==0);
+            int numPairs = u.pB/2;
+            int tmp = (sqrt(1+8*numPairs)-1)/2 + 1;
+            assert(tmp*(tmp-1)/2==numPairs);
+            numHolesInLines += tmp;
+            numOdds += (tmp%2);
+        }
+        int numSoloHoles = n-numHolesInLines;
+        assert(numSoloHoles>=0);
+        if (numOdds%2 == 0) {
+            MAX(best, numHolesInLines + min(2, numSoloHoles));
+        } else {
+            MAX(best, numHolesInLines + min(1, numSoloHoles));
+        }
+    }
+    ps(best);
+}
+
 int main() {
     setupIO();
+
+    int t; re(t);
+    F0R(i, t) {
+        cout << "Case #" << i+1 << ": ";
+        solve();
+    }
 
     return 0;
 }

@@ -162,6 +162,50 @@ using namespace output;
 int main() {
     setupIO();
 
+    int n; re(n);
+    string s; re(s);
+
+    int food[1000]; food['M'] = 0; food['B'] = 1; food['F'] = 2;
+
+    int val[2][4][4][4][4];
+    F0R(a, 2) F0R(b, 4) F0R(c, 4) F0R(d, 4) F0R(e, 4) val[a][b][c][d][e] = -INF;
+    val[0][3][3][3][3] = 0;
+
+    F0R(i, n) {
+        int nxt = (i+1)%2;
+        F0R(a, 4) {
+            F0R(b, 4) {
+                F0R(c, 4) {
+                    F0R(d, 4) {
+                        int f = food[s[i]];
+                        int fsum = (a != f ? 1 : 0) + (b != f ? 1 : 0);
+                        int gsum = (c != f ? 1 : 0) + (d != f ? 1 : 0);
+                        if (fsum == 2 && a == b) {
+                            fsum = 1;
+                        }
+                        if (gsum == 2 && c == d) {
+                            gsum = 1;
+                        }
+                        if (a == 3) {
+                            if (b == 3) fsum = 0;
+                            else fsum = (b == f ? 0 : 1);
+                        }
+                        if (c == 3) {
+                            if (d == 3) gsum = 0;
+                            else gsum = (d == f ? 0 : 1);
+                        }
+                        MAX(val[nxt][b][f][c][d], val[i%2][a][b][c][d] + 1 + fsum);
+                        MAX(val[nxt][a][b][d][f], val[i%2][a][b][c][d] + 1 + gsum);
+                    }
+                }
+            }
+        }
+    }
+
+    int mx = 0;
+    F0R(i, 4) F0R(j, 4) F0R(k, 4) F0R(l, 4) MAX(mx, val[n%2][i][j][k][l]);
+    ps(mx);
+
     return 0;
 }
 

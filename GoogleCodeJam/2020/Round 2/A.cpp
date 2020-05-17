@@ -159,8 +159,68 @@ using namespace output;
 
 /* ============================ */
 
+ll getCt(ll x) {
+    return (x*(x+1))/2;
+}
+
+ll getCt2(ll start, ll ct) {
+    return start*ct + getCt(ct-1)*2;
+}
+
+ll search(ll x, ll start) {
+    ll lo = 0, hi = 2e9, mid, ans = 0;
+    while (lo < hi) {
+        mid = (lo+hi)/2;
+        if (getCt2(start, mid) <= x) {
+            ans = mid;
+            lo = mid + 1;
+        } else {
+            hi = mid;
+        }
+    }
+    return ans;
+}
+
 int main() {
     setupIO();
+
+    int t; re(t);
+    F0R1(tc, t) {
+        ll L, R; re(L, R);
+
+        ll diff = abs(R-L);
+        ll lo = 0, hi = 2e9, mid, ans = 0;
+        while (lo < hi) {
+            mid = (lo+hi)/2;
+            if (getCt(mid) <= diff) {
+                ans = mid;
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+
+        if (R > L) {
+            R -= getCt(ans);
+        } else {
+            L -= getCt(ans);
+        }
+
+        ll numLeft, numRight;
+        if (R > L) {
+            numLeft = search(L, ans+2);
+            numRight = search(R, ans+1);
+            L -= getCt2(ans+2, numLeft);
+            R -= getCt2(ans+1, numRight);
+        } else {
+            numLeft = search(L, ans+1);
+            numRight = search(R, ans+2);
+            L -= getCt2(ans+1, numLeft);
+            R -= getCt2(ans+2, numRight);
+        }
+
+        cout << "Case #" << tc << ": " << (ans+numLeft+numRight) << " " << L << " " << R << endl;
+    }
 
     return 0;
 }

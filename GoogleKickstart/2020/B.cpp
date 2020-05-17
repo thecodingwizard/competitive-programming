@@ -159,8 +159,53 @@ using namespace output;
 
 /* ============================ */
 
+const ll mod = 1000000000;
+
+string s; 
+pair<ll, ll> work(int i, int j) {
+    if (i > j) return mp(0, 0);
+    if (s[i] >= '2' && s[i] <= '9') {
+        int closingParen = i+2;
+        int ct = 1;
+        while (ct > 0) {
+            if (s[closingParen] == '(') ct++;
+            else if (s[closingParen] == ')') ct--;
+            if (ct == 0) break;
+            closingParen++;
+        }
+        ll mult = s[i] - '0';
+        pair<ll, ll> inParen = work(i+2, closingParen-1);
+        pair<ll, ll> cont = work(closingParen+1, j);
+        return mp(((inParen.pA*mult)%mod+cont.pA)%mod, ((inParen.pB*mult)%mod+cont.pB)%mod);
+    }
+    pair<ll, ll> n = work(i+1, j);
+    if (s[i] == 'N') {
+        return mp((n.pA-1+mod)%mod, n.pB);
+    } else if (s[i] == 'E') {
+        return mp(n.pA, (n.pB+1)%mod);
+    } else if (s[i] == 'S') {
+        return mp((n.pA+1)%mod, n.pB);
+    } else if (s[i] == 'W') {
+        return mp(n.pA, (n.pB-1+mod)%mod);
+    } else {
+        psD("ERROR");
+    }
+}
+
+void solve() {
+    getline(cin, s);
+    pair<ll, ll> res = work(0, sz(s)-1);
+    ps((res.pB+mod)%mod + 1, (res.pA+mod)%mod + 1);
+}
+
 int main() {
     setupIO();
+
+    int t; re(t); cin.ignore();
+    F0R1(T, t) {
+        pr("Case #", T, ": ");
+        solve();
+    }
 
     return 0;
 }

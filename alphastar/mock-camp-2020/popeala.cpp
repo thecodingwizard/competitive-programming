@@ -159,8 +159,51 @@ using namespace output;
 
 /* ============================ */
 
+int points[20000]; 
+int pointsPS[20000];
+string results[20000];
+int resultsPS[50][20000];
+int dp[20001][51];
+
 int main() {
     setupIO();
+
+    int n, t, s; re(n, t, s);
+    F0R(i, t) re(points[i]);
+    F0R(i, n) re(results[i]);
+
+    pointsPS[0] = points[0];
+    F0R(i, t-1) {
+        pointsPS[i+1] = (points[i+1]+pointsPS[i]);
+    }
+
+    F0R(i, n) {
+        resultsPS[i][0] = results[i][0] == '0';
+        F0R(j, t-1) {
+            resultsPS[i][j+1] = resultsPS[i][j] + (results[i][j+1] == '0');
+        }
+    }
+
+    SET2D(dp, INF, 20001, 51);
+    dp[t][0] = 0;
+    F0Rd(i, t) {
+        FOR(k, i, t) {
+            int toAdd = 0; // toAdd = # of points if our next subtask is [i...k]
+            F0R(x, n) {
+                bool add = resultsPS[x][k] == (i>0?resultsPS[x][i-1]:0);
+                if (add) toAdd += pointsPS[k] - (i>0?pointsPS[i-1]:0);
+            }
+
+            F0R1(j, s) {
+                if (j == 1 && k != t-1) continue;
+                MIN(dp[i][j], dp[k+1][j-1] + toAdd);
+            }
+        }
+    }
+
+    F0R1(i, s) {
+        ps(dp[0][i]);
+    }
 
     return 0;
 }

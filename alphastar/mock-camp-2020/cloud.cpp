@@ -159,8 +159,50 @@ using namespace output;
 
 /* ============================ */
 
+ll dp[2000*50+1];
 int main() {
     setupIO();
+
+    int n; re(n);
+    vector<pair<int, ii>> A;
+    F0R(i, n) {
+        int a, b, c; re(a, b, c);
+        A.pb({b, {a, -c}});
+    }
+    int m; re(m);
+    F0R(i, m) {
+        int a, b, c; re(a, b, c);
+        A.pb({b, {a, c}});
+    }
+
+    sort(all(A), [](const pair<int, ii> a, const pair<int, ii> b) {
+        if (a.pA != b.pA) return a.pA < b.pA;
+        return a.pB.pB > b.pB.pB;
+    });
+    reverse(all(A));
+
+    F0R(i, 2000*50+1) dp[i] = -LL_INF;
+    dp[0] = 0;
+
+    F0R(i, sz(A)) {
+        if (A[i].pB.pB > 0) {
+            // selling stuff
+            F0R(j, 2000*50+1) {
+                if (j >= A[i].pB.pA && dp[j] != -LL_INF)
+                    MAX(dp[j - A[i].pB.pA], dp[j] + A[i].pB.pB);
+            }
+        } else {
+            // buying stuff
+            F0Rd(j, 2000*50+1) {
+                if (dp[j] != -LL_INF) 
+                    MAX(dp[j + A[i].pB.pA], dp[j] + A[i].pB.pB);
+            }
+        }
+    }
+
+    ll mx = 0;
+    F0R(i, 2000*50+1) MAX(mx, dp[i]);
+    ps(mx);
 
     return 0;
 }

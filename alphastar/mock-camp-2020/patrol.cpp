@@ -159,8 +159,58 @@ using namespace output;
 
 /* ============================ */
 
+vi adj[100000];
+int mxDepth[100000];
+
+int dfsCost(int u, int p) {
+    int c = 0;
+    trav(v, adj[u]) {
+        if (v != p) c += 2 + dfsCost(v, u);
+    }
+    return c;
+}
+
+int dfsSave(int u, int p) {
+    int best = 0;
+    vi stuff;
+    trav(v, adj[u]) {
+        if (v != p) stuff.pb(mxDepth[v]);
+    }
+    sort(all(stuff));
+    if (sz(stuff) == 1) best = stuff[0] + 1;
+    else if (sz(stuff) > 1) {
+        best = stuff[stuff.size()-1] + stuff[stuff.size()-2] + 2;
+    }
+    trav(v, adj[u]) {
+        if (v != p) MAX(best, dfsSave(v, u));
+    }
+    return best;
+}
+
+int dfsDepth(int u, int p, int d) {
+    mxDepth[u] = 0;
+    trav(v, adj[u]) {
+        if (v != p) {
+            MAX(mxDepth[u], dfsDepth(v, u, d) + 1);
+        }
+    }
+    return mxDepth[u];
+}
+
 int main() {
     setupIO();
+
+    int n, k; re(n, k);
+    F0R(i, n-1) {
+        int a, b; re(a, b);
+        adj[a-1].pb(b-1);
+        adj[b-1].pb(a-1);
+    }
+
+    if (k != 1) return 0;
+
+    dfsDepth(0, 0, 0);
+    ps(dfsCost(0, 0) - dfsSave(0, 0) + 1);
 
     return 0;
 }

@@ -162,6 +162,12 @@ using namespace output;
 int main() {
     setupIO();
 
+    int n; re(n);
+    if (n != 2) return 0;
+
+    int a, b, c, d; re(a, b, c, d);
+    ps(((a|c)-(a&c))+((b|d)-(b&d)));
+
     return 0;
 }
 
