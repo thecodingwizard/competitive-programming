@@ -1,3 +1,13 @@
+/*
+ * The solution is similar to finding a centroid of a graph, except
+ * we are finding the centroid of the graph of the students.
+ *
+ * Find a node where, if that node were the root, none of its children
+ * would have subtrees with more than k/2 students.
+ *
+ * The answer is the sum of the distances from every student to that node.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
