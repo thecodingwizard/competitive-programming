@@ -1,3 +1,12 @@
+/*
+ * Same as editorial: https://csacademy.com/contest/archive/task/borland/solution/
+ *
+ * Essentially, divide and conquer: f(left, right) = f(left, mid-1) + f(mid+1, right) + g(left, right)
+ * Where f(left, right) = answer for all subarrays within [left, right] and
+ * g(left, right) = answer for all subarrays containing the element mid
+ *
+ * f(left, right) has complexity O(n) so total complexity is O(nlogn)
+ */
 #include <bits/stdc++.h>
 
 using namespace std;
