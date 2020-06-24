@@ -1,3 +1,25 @@
+/*
+ * To solve this problem, we can actually just use a modified dijkstra's.
+ *
+ * We will run dijkstra's on cost, processing nodes in increasing order of cost.
+ * However, we will modify it slightly to allow visiting nodes more than once, even
+ * if it results in a higher cost. As cost increases, we will expect time to decrease.
+ * So, we keep track of the min time processed so far for every node. If, during
+ * dijkstra's, we encounter a state where our current time is greater than the minimum
+ * time encountered so far, we skip that state, because it is suboptimal (the time
+ * is greater than a previous time, and the cost is greater than the cost for that
+ * previous time because dijkstra's guarantees we process nodes in increasing cost).
+ *
+ * Surprisingly, this code runs in time. Another way to imagine this algorithm is
+ * that we make each node (cost, time).
+ *
+ * A similar problem is BOI 11 timeismoney. In that problem, instead of finding SSSP,
+ * you are tasked to find a MST. The editorial for that problem is very interesting.
+ * Apparently the strategy for that editorial is applicable to this problem as well,
+ * though I am unsure if it will pass in time. Regardless, this dijkstra's solution
+ * somehow manages to pass in time.
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
