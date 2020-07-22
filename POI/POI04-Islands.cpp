@@ -1,7 +1,7 @@
 /*
  * Official solution is different... They seemed to manage to do the problem w/o lazy seg tree :P
  *
- * You can do prefix sums: for each shape, starting from the bottom left corner, each vertex has value +1, -1, +1, -1, etc
+ * You can do prefix sums: for each shape, starting from the top left corner, each vertex has value +1, -1, +1, -1, etc
  *
  * By looking at a few examples, you can see that ps[a][b] = the depth at (a, b), so we just need to generate these prefix
  * sums and find the max value.
