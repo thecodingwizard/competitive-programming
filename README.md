@@ -1,4 +1,8 @@
+Check out the [USACO Guide](https://usaco-guide.vercel.app/) to get better at competitive programming!
+
+
 # Competitive Programming Solutions
+
 This repository contains solutions to various competitive programming problems.
 
 Command to find problems solved:
