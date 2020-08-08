@@ -1,3 +1,14 @@
+/*
+ * 1D case can be solved with an ordered statistics tree
+ * 2D case can be solved with a 1D fenwick tree + line sweep, rotate it 45 degrees
+ * 3D case:
+ * - For every point, I just looped through all different z values and then reduced
+ *   it to the 2D case. To solve the 2D case, I used a 2d fenwick tree.
+ *
+ * My final time complexity for 3D case was O(n*d*logd*logd)
+ * It's also possible to solve the 3D case with a 3D fenwick tree apparently
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
