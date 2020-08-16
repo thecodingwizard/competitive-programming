@@ -1,5 +1,5 @@
 /*
- * THe code below gets 9/10; it fails on one test case due to floating point error in the line interesction function:
+ * The code below gets 9/10; it fails on one test case due to floating point error in the line interesction function:
  *
  * 4 4
  * 0 -999999
