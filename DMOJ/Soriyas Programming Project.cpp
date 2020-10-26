@@ -230,6 +230,10 @@ int main() {
 
 /* END OP BENQ CODE */
 
+
+
+
+/* the following code TLE's :( */
 #include <bits/stdc++.h>
 using namespace std;
  
@@ -322,57 +326,15 @@ template<class T, int SZ> struct OffBIT2D {
 			-query(xr,yl-1)+query(xl-1,yl-1); }
 };
 
-namespace FastIO {
-	const int BSZ = 1<<15; ////// INPUT
-	char ibuf[BSZ]; int ipos, ilen;
-	char nc() { // next char
-		if (ipos == ilen) {
-			ipos = 0; ilen = fread(ibuf,1,BSZ,stdin);
-			if (!ilen) return EOF;
-		}
-		return ibuf[ipos++];
-	}
-	void rs(str& x) { // read str
-		char ch; while (isspace(ch = nc()));
-		do { x += ch; } while (!isspace(ch = nc()) && ch != EOF);
-	}
-	template<class T> void ri(T& x) { // read int or ll
-		char ch; int sgn = 1;
-		while (!isdigit(ch = nc())) if (ch == '-') sgn *= -1;
-		x = ch-'0'; while (isdigit(ch = nc())) x = x*10+(ch-'0');
-		x *= sgn;
-	}
-	template<class T, class... Ts> void ri(T& t, Ts&... ts) { 
-		ri(t); ri(ts...); } // read ints
-	////// OUTPUT (call initO() at start)
-	char obuf[BSZ], numBuf[100]; int opos;
-	void flushOut() { fwrite(obuf,1,opos,stdout); opos = 0; }
-	void wc(char c) { // write char
-		if (opos == BSZ) flushOut();
-		obuf[opos++] = c; }
-	void ws(str s) { trav(c,s) wc(c); } // write str
-	template<class T> void wi(T x, char after = '\0') { /// write int
-		if (x < 0) wc('-'), x *= -1;
-		int len = 0; for (;x>=10;x/=10) numBuf[len++] = '0'+(x%10);
-		wc('0'+x); R0F(i,len) wc(numBuf[i]);
-		if (after) wc(after);
-	}
-	void initO() { assert(atexit(flushOut) == 0); } /// auto-flush output
-}
-
-using namespace FastIO;
-
 int n;
 OffBIT2D<int, 500000> bit;
-int A[500000]; 
-int P[500000]; 
 
 int main() {
     cin.tie(nullptr); ios::sync_with_stdio(false);
 
-	ri(n);
-    for (int i = 0; i < n; i++) ri(A[i]);
-    for (int i = 0; i < n; i++) ri(P[i]);
+    cin >> n;
+    int A[n]; for (int i = 0; i < n; i++) cin >> A[i];
+    int P[n]; for (int i = 0; i < n; i++) cin >> P[i];
 
     for (int i = 0; i < n; i++) {
         bit.upd(A[P[i]-1], P[i], 0);
@@ -381,8 +343,11 @@ int main() {
 
     ll s = 0;
     for (int i = 0; i < n; i++) {
-        s += bit.query(A[P[i]-1]+1, n, 1, P[i]) + bit.query(1, A[P[i]-1]-1, P[i], n);
+        int p = P[i]-1;
+        int v = A[p];
+        p++;
+        s += bit.query(v+1, n, 1, p) + bit.query(1, v-1, p, n);
         cout << s << "\n";
-        bit.upd(A[P[i]-1], P[i], 1);
+        bit.upd(v, p, 1);
     }
 }
