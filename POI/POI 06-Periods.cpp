@@ -1,5 +1,5 @@
 /*
- * Same solution as editorial:
+ * Same solution as editorial (https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/Olympiad/POI/official/2006/editorial/okr.pdf):
  *
  * - For a given string A, if X is a prefix of A and X is also a suffix of A, then we can form a period Q where Q consists of A
  *   except we exclude the suffix X. (The length of X must be less than or equal to half the length of A.)
