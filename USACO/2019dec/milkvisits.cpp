@@ -1,3 +1,9 @@
+/*
+ * Same sol as official editorial: http://www.usaco.org/current/data/sol_milkvisits_gold_dec19.html
+ *
+ * Also see milkvisits_2.cpp for a different impl that uses euler tour + compressed BIT
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;

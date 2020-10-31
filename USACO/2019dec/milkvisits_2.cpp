@@ -1,5 +1,14 @@
 /*
  * Solved w/ euler tour + compressed BIT
+ *
+ * Basically for every color we want to be able to find the number of instances
+ * of that color from the root node to a given node i
+ *
+ * We can do this with euler tour; add 1 to the current timer index when we enter
+ * a node's subtree and then subtract 1 from the current timer index when we leave
+ * the node's subtree.
+ *
+ * See implementation
  */
 
 #include <bits/stdc++.h>
