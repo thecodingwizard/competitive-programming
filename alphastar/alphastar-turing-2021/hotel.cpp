@@ -26,7 +26,7 @@ int main() {
     int idx = 0;
     ll ans = 0;
     for (auto room : rooms) {
-        while (idx < n && people[idx].f <= room.s) {
+        while (idx < m && people[idx].f <= room.s) {
             q.push(mp(people[idx].s, people[idx].f));
             idx++;
         }
