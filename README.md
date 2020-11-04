@@ -1,5 +1,10 @@
 Check out the [USACO Guide](https://usaco-guide.vercel.app/) to get better at competitive programming!
 
+Speed up compile times: https://codeforces.com/blog/entry/53909
+
+```
+g++ -std=c++11 /usr/include/path_to/bits/stdc++.h
+```
 
 # Competitive Programming Solutions
 
