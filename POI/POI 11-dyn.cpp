@@ -1,3 +1,24 @@
+/*
+ * Binary Search + greedy:
+ *
+ * Let's say we want to check if we can explode everything in t time. We aim to minimize the number of dynamites we need to put.
+ * Root the tree arbitrarily.
+ *
+ * Note that if we're at a node where the farthest node in our subtree that needs to be exploded is exactly t steps away from this node, it is
+ * always optimal for us to place a dynamite down on this node.
+ *
+ * Also, if we place a dynamite down at this node, then it can also explode upwards to the parent.
+ *
+ * So, for each node, we need to compute three things:
+ * - need[i] = dynamites placed within i's subtree
+ * - farthestDyn[i] = farthest node that still needs to be exploded in the subtree of i
+ * - extraExplosion[i] = how much extra explosion comes from the subtree of i to the parent of i
+ *
+ * We compute need[i] = sum of need[j] where j is a child of i, plus one if farthestDyn[i] == t.
+ * We compute farthestDyn[i] = max((0 if i needs to be exploded, -inf otherwise), farthestDyn[j]+1 where j is a child of i)
+ * We compute extraExplosion[i] = t if farthestDyn[i] == t, else max(extraExplosion[j]-1) where j is a child of i. If no children, extraExplosion[i] = -inf
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
