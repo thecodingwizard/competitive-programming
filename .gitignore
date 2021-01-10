@@ -7,4 +7,5 @@ cmake-build-debug
 main
 .vscode
 prog
+
 input.txt
