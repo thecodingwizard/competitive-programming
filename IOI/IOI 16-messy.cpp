@@ -19,11 +19,9 @@
  *
  * (Solving n=2 for the right)
  * 1101
- * 1110
  *
  * (Solving n=2 for the left)
  * 0111
- * 1011
  *
  * See implementation below
  */
