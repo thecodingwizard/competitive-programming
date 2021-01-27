@@ -1,7 +1,8 @@
 /*
- * Calculate at which row it's optimal to switch from column c1 to column c2
+ * Calculate at which row it's optimal to switch from column a to column b
  *
- * You'll get a linear equation in r
+ * You'll get a linear equation in r; switch from a to b when
+ * C[a] - a(2r + 1) > C[b] - b(2r + 1)
  *
  * Find the lower hull of all the lines representing the columns; at each intersection
  * you should switch columns
