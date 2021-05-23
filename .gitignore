@@ -6,6 +6,7 @@ cmake-build-debug
 *.out
 main
 .vscode
+.cph
 prog
 
 input.txt
