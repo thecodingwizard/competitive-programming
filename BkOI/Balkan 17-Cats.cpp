@@ -1,3 +1,21 @@
+/*
+DP: dp[i][j][k][l] = minimum swaps to...
+- ensure that all the animals from [0...i) are arranged properly
+- the current section is of type j (ie. the next animal must be of type j or be a lion)
+- if k is 0, then we have only had one type of animal. If k is 1, then we have had both types of animals.
+  k needs to be 1 at the end of our DP -- otherwise one type of animal will have nowhere to go.
+- we have l lions that can be moved arbitrarily
+
+Transition: For the animal A[i]...
+- If A[i] is of type x, then if j = x, we can transition to dp[i+1][j][k][l] with no additional cost.
+  - Otherwise, we can either add one to move A[i] to a different location, or we can add one and move a lion
+    between A[i] and A[i-1]. This changes our j value as well.
+- If A[i] is a lion, we can either:
+  - Do nothing
+  - Or, decrement l and change j. We can do this for free since the lion is already in the right position
+    to change the current type of animal.
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
