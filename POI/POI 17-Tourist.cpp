@@ -25,10 +25,12 @@ int dfsLow[maxn], dfsNum[maxn], sccNum[maxn];
 int sccSize[maxn];
 int sccRoot[maxn];
 int nextInSCC[maxn];
+int prevInSCC[maxn];
 bool iToJ[maxn][maxn];
 int ctr = 0;
 int numSCC = 0;
 vector<int> S;
+vector<int> sccs[maxn];
 void tarjan(int u) {
     vis[u] = true;
     dfsLow[u] = dfsNum[u] = ctr++;
@@ -45,16 +47,15 @@ void tarjan(int u) {
 
     if (dfsLow[u] == dfsNum[u]) {
         //cerr << "New scc: " << numSCC << endl;
-        int prev = u;
         while (true) {
             int v = S.back(); S.pop_back(); vis[v] = false;
             sccNum[v] = numSCC;
             sccSize[numSCC]++;
-            nextInSCC[v] = prev;
-            prev = v;
+            sccs[numSCC].pb(v);
             //cerr << v << " ";
             if (v == u) break;
         }
+        reverse(all(sccs[numSCC]));
         //cerr << endl;
         sccRoot[numSCC] = u;
         ++numSCC;
@@ -106,6 +107,66 @@ int main() {
         }
     }
 
+    for (int i = 0; i < numSCC; i++) {
+        int prev = 0;
+        prevInSCC[sccs[i][0]] = -1;
+        for (int j = 1; j < sz(sccs[i]); j++) {
+            if (iToJ[sccs[i][prev]][sccs[i][j]]) {
+                nextInSCC[sccs[i][prev]] = sccs[i][j];
+                prevInSCC[sccs[i][j]] = sccs[i][prev];
+                prev = j;
+            } else {
+                for (int k = j-1; ~k; k--) {
+                    if (iToJ[sccs[i][k]][sccs[i][j]]) {
+                        int oldNext = nextInSCC[sccs[i][k]];
+                        nextInSCC[sccs[i][k]] = sccs[i][j];
+                        prevInSCC[sccs[i][j]] = sccs[i][k];
+                        assert(iToJ[sccs[i][j]][oldNext]);
+                        nextInSCC[sccs[i][j]] = oldNext;
+                        prevInSCC[oldNext] = sccs[i][j];
+                        break;
+                    }
+                }
+            }
+        }
+        if (prev != 0) {
+            prev = sccs[i][prev];
+            while (!iToJ[prev][sccs[i][0]]) {
+                if (prevInSCC[prev] == -1) {
+                    return 0;
+                    assert(false);
+                }
+                int k = prevInSCC[prevInSCC[prev]];
+                while (!iToJ[k][prev]) {
+                    k = prevInSCC[k];
+                    if (k == -1) {
+                        return 0;
+                        assert(false);
+                    }
+                }
+                assert(iToJ[k][prev]);
+                int oldNext = nextInSCC[k];
+                nextInSCC[k] = prev;
+                prevInSCC[prev] = k;
+                assert(oldNext != prev);
+                if (!iToJ[prev][oldNext]) {
+                    return 0; // THIS IS THE PROBLEM
+                    assert(false);
+                }
+                nextInSCC[prev] = oldNext;
+                prevInSCC[oldNext] = prev;
+                prev = prevInSCC[prev];
+                if (prev == -1) {
+                    // return 0;
+                    assert(false);
+                }
+            }
+            assert(iToJ[prev][sccs[i][0]]);
+        }
+        nextInSCC[prev] = sccs[i][0];
+        prevInSCC[sccs[i][0]] = prev;
+    }
+
     /*
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -121,7 +182,7 @@ int main() {
     
     for (int i = 0; i < numSCC; i++) {
         for (int j = i+1; j < numSCC; j++) {
-            if (iToJ[i][j]) {
+            if (iToJ[sccRoot[i]][sccRoot[j]]) {
                 sccAdj[i].pb(j);
             } else {
                 sccAdj[j].pb(i);
