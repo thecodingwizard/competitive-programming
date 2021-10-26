@@ -17,8 +17,6 @@ using ll = long long;
 #define maxn 2000
 
 int n; 
-vector<int> adj[maxn];
-vector<int> sccAdj[maxn];
 
 bool vis[maxn];
 int dfsLow[maxn], dfsNum[maxn], sccNum[maxn];
@@ -29,14 +27,16 @@ int prevInSCC[maxn];
 bool iToJ[maxn][maxn];
 int ctr = 0;
 int numSCC = 0;
-vector<int> S;
+int S[maxn+10];
+int sctr = 0;
 vector<int> sccs[maxn];
 void tarjan(int u) {
     vis[u] = true;
     dfsLow[u] = dfsNum[u] = ctr++;
-    S.pb(u);
+    S[sctr++] = u;
 
-    for (int v : adj[u]) {
+    for (int v = 0; v < n; v++) {
+        if (!iToJ[u][v]) continue;
         if (dfsNum[v] == -1) {
             tarjan(v);
         }
@@ -46,17 +46,17 @@ void tarjan(int u) {
     }
 
     if (dfsLow[u] == dfsNum[u]) {
-        //cerr << "New scc: " << numSCC << endl;
+        // cerr << "New scc: " << numSCC << endl;
         while (true) {
-            int v = S.back(); S.pop_back(); vis[v] = false;
+            int v = S[--sctr]; vis[v] = false;
             sccNum[v] = numSCC;
             sccSize[numSCC]++;
             sccs[numSCC].pb(v);
-            //cerr << v << " ";
+            // cerr << v << " ";
             if (v == u) break;
         }
         reverse(all(sccs[numSCC]));
-        //cerr << endl;
+        // cerr << endl;
         sccRoot[numSCC] = u;
         ++numSCC;
     }
@@ -64,19 +64,11 @@ void tarjan(int u) {
 
 ii opt[maxn];
 void dfsScc(int u) {
-    if (vis[u]) return;
-    for (int v : sccAdj[u]) {
+    if (vis[u]) return; vis[u] = true;
+    for (int v = 0; v < numSCC; v++) {
+        if (!iToJ[sccRoot[u]][sccRoot[v]]) continue;
         dfsScc(v);
         opt[u] = max(opt[u], mp(opt[v].f + sccSize[v], v));
-    }
-}
-
-void printSCC(int node) {
-    cout << " " << node+1;
-    int cur = nextInSCC[node];
-    while (cur != node) {
-        cout << " " << cur+1;
-        cur = nextInSCC[cur];
     }
 }
 
@@ -89,11 +81,6 @@ int main() {
             bool jToI; cin >> jToI;
             iToJ[i+1][j] = !jToI;
             iToJ[j][i+1] = jToI;
-            if (jToI) {
-                adj[j].pb(i+1);
-            } else {
-                adj[i+1].pb(j);
-            }
         }
     }
     for (int i = 0; i < n; i++) {
@@ -129,33 +116,36 @@ int main() {
                 }
             }
         }
-        if (prev != 0) {
-            prev = sccs[i][prev];
+        // SOMETHING HERE IS TIMING OUT
+        prev = sccs[i][prev];
+        if (prev != sccs[i][0]) {
             while (!iToJ[prev][sccs[i][0]]) {
+            // cerr << prev << " " << nextInSCC[prev] << endl;
                 if (prevInSCC[prev] == -1) {
-                    return 0;
+                    // return 0;
                     assert(false);
                 }
                 int k = prevInSCC[prevInSCC[prev]];
-                while (!iToJ[k][prev]) {
+                while (!iToJ[k][prev] || !iToJ[prev][nextInSCC[k]]) {
                     k = prevInSCC[k];
                     if (k == -1) {
-                        return 0;
+                        // return 0;
                         assert(false);
                     }
                 }
                 assert(iToJ[k][prev]);
+                int nextPrev = prevInSCC[prev];
                 int oldNext = nextInSCC[k];
                 nextInSCC[k] = prev;
                 prevInSCC[prev] = k;
                 assert(oldNext != prev);
                 if (!iToJ[prev][oldNext]) {
-                    return 0; // THIS IS THE PROBLEM
+                    // return 0;
                     assert(false);
                 }
                 nextInSCC[prev] = oldNext;
                 prevInSCC[oldNext] = prev;
-                prev = prevInSCC[prev];
+                prev = nextPrev;
                 if (prev == -1) {
                     // return 0;
                     assert(false);
@@ -180,36 +170,50 @@ int main() {
     }
     */
     
-    for (int i = 0; i < numSCC; i++) {
-        for (int j = i+1; j < numSCC; j++) {
-            if (iToJ[sccRoot[i]][sccRoot[j]]) {
-                sccAdj[i].pb(j);
-            } else {
-                sccAdj[j].pb(i);
-            }
-        }
-    }
+    // for (int i = 0; i < numSCC; i++) {
+    //     for (int j = i+1; j < numSCC; j++) {
+    //         if (iToJ[sccRoot[i]][sccRoot[j]]) {
+    //             sccAdj[i].pb(j);
+    //         } else {
+    //             sccAdj[j].pb(i);
+    //         }
+    //     }
+    // }
 
-    for (int i = 0; i < numSCC; i++) {
-        opt[i] = mp(0, -1);
-        vis[i] = false;
-    }
-    for (int i = 0; i < numSCC; i++) {
-        dfsScc(i);
-    }
+    // for (int i = 0; i < numSCC; i++) {
+    //     opt[i] = mp(0, -1);
+    //     vis[i] = false;
+    // }
+    // for (int i = 0; i < numSCC; i++) {
+    //     dfsScc(i);
+    // }
 
-    for (int i = 0; i < n; i++) {
-        cout << opt[sccNum[i]].f+sccSize[sccNum[i]];
-        int cur = i;
-        while (cur != -1) {
-            printSCC(cur);
-            cur = opt[sccNum[cur]].s;
-            if (cur != -1) {
-                cur = sccRoot[cur];
-            }
-        }
-        cout << "\n";
-    }
+    // string output;
+    // for (int i = 0; i < n; i++) {
+    //     output += to_string(opt[sccNum[i]].f+sccSize[sccNum[i]]);
+    //     int cur = i;
+    //     int iterations = 0;
+    //     while (cur != -1) {
+    //         output += " " + to_string(cur+1);
+    //         // cerr << " " << cur+1;
+    //         int node = nextInSCC[cur];
+    //         while (node != cur) {
+    //             iterations++;
+    //             assert(iterations <= n);
+    //             output += " " + to_string(node+1);
+    //         // cerr << " " << node+1;
+    //             node = nextInSCC[node];
+    //         }
+
+    //         cur = opt[sccNum[cur]].s;
+    //         if (cur != -1) {
+    //             cur = sccRoot[cur];
+    //         }
+    //     }
+    //     cerr << endl;
+    //     output += "\n";
+    // }
+    // cout << output;
 
     return 0;
 }
