@@ -1,3 +1,18 @@
+/*
+Not fully sure why this solution passes haha
+
+Find SCC's. Can be proved that if a node in scc A points to a node in scc B, then every
+node in scc A points to every node in scc B (since otherwise A and B would be the same SCC)
+
+Find a cycle in every SCC that visits every node once. The way I did this was a little questionable;
+I found a path that visits every node once, then repeatedly while the last node in this path
+did not connect to the first node, I moved the last node up in the path as much as possible in O(n) time.
+I don't have a proof as to why this works
+
+After you can just DFS to determine which SCC to go to next to maximize path length, and from every SCC
+just follow the cycle to visit every node in that SCC once.
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -46,17 +61,14 @@ void tarjan(int u) {
     }
 
     if (dfsLow[u] == dfsNum[u]) {
-        // cerr << "New scc: " << numSCC << endl;
         while (true) {
             int v = S[--sctr]; vis[v] = false;
             sccNum[v] = numSCC;
             sccSize[numSCC]++;
             sccs[numSCC].pb(v);
-            // cerr << v << " ";
             if (v == u) break;
         }
         reverse(all(sccs[numSCC]));
-        // cerr << endl;
         sccRoot[numSCC] = u;
         ++numSCC;
     }
@@ -116,20 +128,19 @@ int main() {
                 }
             }
         }
-        // SOMETHING HERE IS TIMING OUT
+
         prev = sccs[i][prev];
         if (prev != sccs[i][0]) {
+            int iter = 0;
             while (!iToJ[prev][sccs[i][0]]) {
-            // cerr << prev << " " << nextInSCC[prev] << endl;
+                assert(++iter <= n);
                 if (prevInSCC[prev] == -1) {
-                    // return 0;
                     assert(false);
                 }
-                int k = prevInSCC[prevInSCC[prev]];
+                int k = sccs[i][0];
                 while (!iToJ[k][prev] || !iToJ[prev][nextInSCC[k]]) {
-                    k = prevInSCC[k];
+                    k = nextInSCC[k];
                     if (k == -1) {
-                        // return 0;
                         assert(false);
                     }
                 }
@@ -140,14 +151,12 @@ int main() {
                 prevInSCC[prev] = k;
                 assert(oldNext != prev);
                 if (!iToJ[prev][oldNext]) {
-                    // return 0;
                     assert(false);
                 }
                 nextInSCC[prev] = oldNext;
                 prevInSCC[oldNext] = prev;
                 prev = nextPrev;
                 if (prev == -1) {
-                    // return 0;
                     assert(false);
                 }
             }
@@ -170,50 +179,37 @@ int main() {
     }
     */
     
-    // for (int i = 0; i < numSCC; i++) {
-    //     for (int j = i+1; j < numSCC; j++) {
-    //         if (iToJ[sccRoot[i]][sccRoot[j]]) {
-    //             sccAdj[i].pb(j);
-    //         } else {
-    //             sccAdj[j].pb(i);
-    //         }
-    //     }
-    // }
+    for (int i = 0; i < numSCC; i++) {
+        opt[i] = mp(0, -1);
+        vis[i] = false;
+    }
+    for (int i = 0; i < numSCC; i++) {
+        dfsScc(i);
+    }
 
-    // for (int i = 0; i < numSCC; i++) {
-    //     opt[i] = mp(0, -1);
-    //     vis[i] = false;
-    // }
-    // for (int i = 0; i < numSCC; i++) {
-    //     dfsScc(i);
-    // }
+    string output;
+    for (int i = 0; i < n; i++) {
+        output += to_string(opt[sccNum[i]].f+sccSize[sccNum[i]]);
+        int cur = i;
+        int iterations = 0;
+        while (cur != -1) {
+            output += " " + to_string(cur+1);
+            int node = nextInSCC[cur];
+            while (node != cur) {
+                iterations++;
+                assert(iterations <= n);
+                output += " " + to_string(node+1);
+                node = nextInSCC[node];
+            }
 
-    // string output;
-    // for (int i = 0; i < n; i++) {
-    //     output += to_string(opt[sccNum[i]].f+sccSize[sccNum[i]]);
-    //     int cur = i;
-    //     int iterations = 0;
-    //     while (cur != -1) {
-    //         output += " " + to_string(cur+1);
-    //         // cerr << " " << cur+1;
-    //         int node = nextInSCC[cur];
-    //         while (node != cur) {
-    //             iterations++;
-    //             assert(iterations <= n);
-    //             output += " " + to_string(node+1);
-    //         // cerr << " " << node+1;
-    //             node = nextInSCC[node];
-    //         }
-
-    //         cur = opt[sccNum[cur]].s;
-    //         if (cur != -1) {
-    //             cur = sccRoot[cur];
-    //         }
-    //     }
-    //     cerr << endl;
-    //     output += "\n";
-    // }
-    // cout << output;
+            cur = opt[sccNum[cur]].s;
+            if (cur != -1) {
+                cur = sccRoot[cur];
+            }
+        }
+        output += "\n";
+    }
+    cout << output;
 
     return 0;
 }
