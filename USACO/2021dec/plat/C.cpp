@@ -15,58 +15,65 @@ using ll = long long;
 #define inf 1000000010
 
 int n, x; 
-const int maxn = 510;
 const int mod = 1000000007;
-ll memo[maxn][maxn][2];
-ll ncr[maxn][maxn];
-ll fact[maxn];
-ll dp(int lo, int hi, bool wasHi) {
-    if (lo > hi) {
-        return 0;
-    }
-    if (memo[lo][hi][wasHi] != -1) return memo[lo][hi][wasHi];
-
-    ll ans = 0;
-    for (int guess = lo; guess <= hi; guess++) {
-        ll prev = ans;
-        bool isLo = guess <= x;
-        int leftover = isLo ? guess - lo : hi - guess;
-        int remainingNums = isLo ? hi - guess : guess - lo;
-        assert(leftover + remainingNums + 1 == hi - lo + 1);
-        ll multiplier = ncr[remainingNums+leftover][leftover]*fact[leftover]%mod;
-        if (isLo && wasHi) {
-            ans = (ans + fact[remainingNums+leftover]) % mod;
+ll inverse(ll x) {
+    ll res = 1;
+    ll exp = mod-2;
+    while (exp) {
+        if (exp & 1) {
+            res = res * x % mod;
         }
-        if (isLo) {
-            ans = (ans + dp(guess + 1, hi, false)*multiplier) % mod;
-        } else {
-            ans = (ans + dp(lo, guess - 1, true)*multiplier) % mod;
-        }
+        x = x*x%mod;
+        exp /= 2;
     }
-    return memo[lo][hi][wasHi] = ans;
+    return res;
 }
 
 int main() {
     cin.tie(0)->sync_with_stdio(0);
 
     cin >> n >> x;
-    if (n > maxn) return 0;
-    for (int i = 0; i <= n; i++) {
-        for (int j = 0; j <= n; j++) {
-            memo[i][j][0] = memo[i][j][1] = -1;
+    int y = n - x;
+
+    ll dp[2][x+1][y+1];
+    ll memo[y+1], memo2[x+1];
+    ll inv[n+1];
+    for (int i = 0; i <= x; i++) {
+        for (int j = 0; j <= y; j++) {
+            dp[0][i][j] = dp[1][i][j] = 0;
         }
     }
-    ncr[0][0] = 1;
-    for (int i = 1; i <= n; i++) {
-        for (int j = 0; j <= i; j++) {
-            ncr[i][j] = ((j>0?ncr[i-1][j-1]:0)+ncr[i-1][j])%mod;
+    for (int i = 0; i <= x; i++) memo2[i] = 0;
+    for (int j = 0; j <= y; j++) memo[j] = 0;
+    for (int i = 0; i <= n; i++) inv[i] = inverse(i);
+
+    for (int i = 0; i <= x; i++) {
+        for (int j = 0; j <= y; j++) {
+            /*
+            for (int k = 0; k < i; k++) {
+                dp[0][i][j] += dp[0][k][j];
+            }
+            for (int k = 0; k < j; k++) {
+                dp[0][i][j] += dp[1][i][k];
+            }
+            */
+            if (i > 0) {
+                memo[j] = (memo[j]+dp[0][i-1][j])%mod;
+            }
+            if (j > 0) {
+                memo2[i] = (memo2[i]+dp[1][i][j-1])%mod;
+            }
+            dp[0][i][j] = memo[j] + memo2[i];
+            dp[0][i][j] = dp[0][i][j]%mod*inv[i+j]%mod;
+            dp[1][i][j] = (dp[0][i][j]+(ll)i*inv[i+j])%mod;
         }
     }
-    fact[0] = 1;
-    for (int i = 1; i <= n; i++) {
-        fact[i] = fact[i-1]*i%mod;
+
+    ll ans = dp[0][x][y];
+    for (int i = 0; i < n; i++) {
+        ans = (ans*(i+1))%mod;
     }
-    cout << dp(1, n, 0) << endl;
+    cout << ans << endl;
 
     return 0;
 }
